@@ -12,7 +12,7 @@ import { Header } from '../header/header';
 })
 export class Home {
 
-  user_name = computed(() => this.user_service.current_user().name);;
+  user_name = computed(() => this.user_service.current_user().name);
 
   constructor(
     private user_service: UserService
