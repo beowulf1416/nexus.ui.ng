@@ -1,0 +1,39 @@
+<div class="component component-sign-in">
+    <mat-card class="sign-in-card" appearance="outlined">
+        <div class="form-wrapper">
+            <form id="form_sign_in" class="sign-in" method="post" action="" [formGroup]="component.signInForm" (ngSubmit)="sign_in()">
+                <mat-card-header>
+                    <mat-card-title>Sign In</mat-card-title>
+                    <mat-card-subtitle>Please enter your account details</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="field field-wrapper field-wrapper-block">
+                        <mat-form-field>
+                            <mat-label>Email</mat-label>
+                            <input type="email" placeholder="Email address" required matInput/>
+                            <mat-hint>Email address</mat-hint>
+                        </mat-form-field>
+                    </div><!-- .field -->
+                    <div class="field field-wrapper field-wrapper-block">
+                        <mat-form-field>
+                            <mat-label>Password</mat-label>
+                            <input type="password" placeholder="Password" required matInput/>
+                            <mat-hint>Password</mat-hint>
+                        </mat-form-field>
+                    </div><!-- .field -->
+                </mat-card-content>
+                <mat-card-actions>
+                    <button type="submit" class="btn-sign-in" mat-fab extended>
+                        <mat-icon>check_circle</mat-icon>
+                        Sign In
+                    </button>
+                </mat-card-actions>
+                <mat-card-footer>
+                    <ul>
+                        <li>Don't have an account yet? <a title="Sign Up" routerLink="/user/sign-up">Sign Up</a></li>
+                    </ul>
+                </mat-card-footer>
+            </form>
+        </div><!-- .form-wrapper -->
+    </mat-card>
+</div><!-- .component -->

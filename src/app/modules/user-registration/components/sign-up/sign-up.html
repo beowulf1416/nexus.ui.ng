@@ -1,0 +1,32 @@
+<div class="component component-sign-up">
+    <mat-card class="sign-up-card" appearance="outlined">
+        <div class="form-wrapper">
+            <form id="form_sign_up" class="sign-up" method="post" action="" [formGroup]="component.signUpForm" (ngSubmit)="sign_up()">
+                <mat-card-header>
+                    <mat-card-title>Sign Up</mat-card-title>
+                    <mat-card-subtitle>An email will be sent to this email address with a link to continue the user registration</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="field field-wrapper field-wrapper-block">
+                        <mat-form-field>
+                            <mat-label>Email</mat-label>
+                            <input type="email" placeholder="Email address" required matInput/>
+                            <mat-hint>Email address</mat-hint>
+                        </mat-form-field>
+                    </div><!-- .field -->
+                </mat-card-content>
+                <mat-card-actions>
+                    <button type="submit" class="btn-sign-up" mat-fab extended>
+                        <mat-icon>check_circle</mat-icon>
+                        Submit
+                    </button>
+                </mat-card-actions>
+                <mat-card-footer>
+                    <ul>
+                        <li>Already have an account? <a title="Sign In" routerLink="/auth/sign-in">Sign In</a></li>
+                    </ul>
+                </mat-card-footer>
+            </form>
+        </div><!-- .form-wrapper -->
+    </mat-card>
+</div><!-- .component -->
