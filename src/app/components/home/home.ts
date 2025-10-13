@@ -1,11 +1,9 @@
 import { Component, computed } from '@angular/core';
 import { UserService } from '../../services/user-service';
-import { Header } from '../header/header';
 
 @Component({
   selector: 'app-home',
   imports: [
-    Header
   ],
   templateUrl: './home.html',
   styleUrl: './home.css'

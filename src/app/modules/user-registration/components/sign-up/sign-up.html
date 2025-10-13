@@ -10,13 +10,22 @@
                     <div class="field field-wrapper field-wrapper-block">
                         <mat-form-field appearance="outline">
                             <mat-label>Email</mat-label>
-                            <input type="email" placeholder="Email address" required matInput/>
-                            <mat-hint>Email address</mat-hint>
+                            <input type="email" id="email" name="email" placeholder="Email address" required matInput formControlName="email"/>
                         </mat-form-field>
+                        @if (component.signUpForm.get('email')?.invalid && (component.signUpForm.get('email')?.dirty || component.signUpForm.get('email')?.touched)) {
+                        <div class="errors">
+                            @if (component.signUpForm.get('email')?.errors?.['required']) {
+                                <mat-error>Email is required</mat-error>
+                            }
+                            @if (component.signUpForm.get('email')?.errors?.['email']) {
+                                <mat-error>Invalid email address</mat-error>
+                            }
+                        </div><!-- errors -->
+                        }
                     </div><!-- .field -->
                 </mat-card-content>
                 <mat-card-actions>
-                    <button type="submit" class="btn-sign-up" mat-fab extended>
+                    <button type="submit" class="btn-sign-up" mat-fab extended [disabled]="component.signUpForm.invalid">
                         <mat-icon>check_circle</mat-icon>
                         Submit
                     </button>
