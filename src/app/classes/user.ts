@@ -1,7 +1,11 @@
+import { Tenant } from "./tenant";
+
 export class User {
 
     constructor(
-        readonly name: String
+        readonly name: String,
+        readonly tenant: Tenant,
+        readonly permissions: Array<number>
     ) {}
 
     get is_anonymous(): boolean {
@@ -14,7 +18,9 @@ export class User {
 
     static anonymous(): User {
         return new User(
-            ''
+            '',
+            Tenant.default(),
+            new Array<number>()
         );
     }
 }
