@@ -1,0 +1,25 @@
+<div class="component component-main">
+    <mat-sidenav-container>
+        <mat-sidenav #nav_start mode="side" position="start" [opened]="show_left_sidenav()">
+            <nav>
+                <ul>
+                    <li>Test_1</li>
+                    <li>Test_2</li>
+                    <li>Test_3</li>
+                </ul>
+            </nav>
+        </mat-sidenav>
+        <mat-sidenav #nav_end position="end" [opened]="show_right_sidenav()">
+            <nav>
+                <ul>
+                    <li>Test_A</li>
+                    <li>Test_B</li>
+                    <li>Test_C</li>
+                </ul>
+            </nav>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <ng-content />
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div><!-- .component -->

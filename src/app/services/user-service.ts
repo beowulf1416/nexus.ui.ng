@@ -4,7 +4,6 @@ import { User } from '../classes/user';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { ApiResponse } from '../classes/api-response';
-import { URL } from '../classes/urls';
 import { Tenant } from '../classes/tenant';
 
 @Injectable({
