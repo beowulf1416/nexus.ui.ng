@@ -12,14 +12,18 @@
         </button>
         <h4>Nexus</h4>
         <span class="spacer"></span>
-        <button type="button" title="Notifications" mat-icon-button [matBadge]="note_count()" (click)="toggle_notifications()">
+        <button type="button" title="Notifications" matIconButton [matBadge]="note_count()" (click)="toggle_notifications()">
             <mat-icon>notifications</mat-icon>
         </button>
-        <ng-template *ngIf="user().is_authenticated">
+        @if (user().is_authenticated) {
             <button type="button" title="User" [matMenuTriggerFor]="menu_user" mat-icon-button>
-                <mat-icon>account_circle</mat-icon>
+                <mat-icon>account-circle</mat-icon>
             </button>
-        </ng-template>
+        } @else {
+            <a title="Sign In" routerLink="/auth/sign-in" aria-label="Sign In" matIconButton>
+                <mat-icon>account_circle</mat-icon>
+            </a>
+        }
     </mat-toolbar>
 </div>
 {{ user().name }}
