@@ -7,11 +7,14 @@
     </mat-menu>
 
     <mat-toolbar id="tb-header" color="primary">
-        <button type="button" title="Applications" mat-icon-button>
+        <button type="button" title="Applications" mat-icon-button (click)="toggle_apps()">
             <mat-icon>apps</mat-icon>
         </button>
         <h4>Nexus</h4>
         <span class="spacer"></span>
+        <button type="button" title="Notifications" mat-icon-button matBadge="1" (click)="toggle_notifications()">
+            <mat-icon>notifications</mat-icon>
+        </button>
         <ng-template *ngIf="user().is_authenticated">
             <button type="button" title="User" [matMenuTriggerFor]="menu_user" mat-icon-button>
                 <mat-icon>account_circle</mat-icon>

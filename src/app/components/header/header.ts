@@ -8,6 +8,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { UserService } from '../../services/user-service';
 import { CommonModule } from '@angular/common';
+import { NotificationService } from '../../services/notification-service';
+import { MatBadgeModule } from '@angular/material/badge';
+import { UiService } from '../../services/ui-service';
 
 
 @Component({
@@ -18,7 +21,8 @@ import { CommonModule } from '@angular/common';
     MatButtonModule,
     MatMenuModule,
     MatDividerModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatBadgeModule
   ],
   templateUrl: './header.html',
   styleUrl: './header.css'
@@ -26,8 +30,22 @@ import { CommonModule } from '@angular/common';
 export class Header {
 
   user = computed(() => this.user_service.current_user());
+  note_count = computed(() => this.notifications_service.notifications().length)
+
 
   constructor(
-    private user_service: UserService
+    private user_service: UserService,
+    private notifications_service: NotificationService,
+    private ui_service: UiService
   ) {}
+
+  toggle_notifications() {
+    console.info("//todo toggle_notifications()");
+    this.notifications_service.toggle();
+  }
+
+  toggle_apps() {
+    console.info("//todo toggle_apps()");
+    this.ui_service.toggle_apps();
+  }
 }

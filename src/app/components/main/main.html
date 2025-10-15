@@ -1,6 +1,6 @@
 <div class="component component-main">
     <mat-sidenav-container>
-        <mat-sidenav #nav_start mode="side" position="start" [opened]="show_left_sidenav()">
+        <mat-sidenav #nav_start mode="side" position="start" [opened]="show_left_sidenav()" mode="push">
             <nav>
                 <ul>
                     <li>Test_1</li>
@@ -9,7 +9,7 @@
                 </ul>
             </nav>
         </mat-sidenav>
-        <mat-sidenav #nav_end position="end" [opened]="show_right_sidenav()">
+        <mat-sidenav #nav_end position="end" [opened]="show_right_sidenav()" mode="over">
             <nav>
                 <ul>
                     <li>Test_A</li>

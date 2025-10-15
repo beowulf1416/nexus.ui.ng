@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, Component, input } from '@angular/core';
+import { booleanAttribute, Component, input, ViewChild } from '@angular/core';
 
-import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatSidenav, MatSidenavModule} from '@angular/material/sidenav';
 
 
 @Component({
@@ -17,4 +17,11 @@ export class Main {
 
   show_left_sidenav = input(false, { transform: booleanAttribute});
   show_right_sidenav = input(false, { transform: booleanAttribute});
+
+  // @ViewChild('nav_start') nav_start!: MatSidenav;
+  // @ViewChild('nav_end') nav_end!: MatSidenav;
+
+  constructor() {
+
+  }
 }
