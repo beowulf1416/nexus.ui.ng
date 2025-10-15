@@ -30,7 +30,10 @@ import { UiService } from '../../services/ui-service';
 export class Header {
 
   user = computed(() => this.user_service.current_user());
-  note_count = computed(() => this.notifications_service.notifications().length)
+  note_count = computed(() => {
+    const count = this.notifications_service.notifications().length;
+    return count > 0 ? count : null;
+  });
 
 
   constructor(

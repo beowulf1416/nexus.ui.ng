@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
+import { NotificationService } from '../../services/notification-service';
 
 @Component({
   selector: 'app-notifications',
@@ -8,4 +9,9 @@ import { Component } from '@angular/core';
 })
 export class Notifications {
 
+  notes = computed(() => this.notification_service.notifications());
+
+  constructor(
+    private notification_service: NotificationService
+  ) {}
 }
