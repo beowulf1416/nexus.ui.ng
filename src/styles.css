@@ -9,13 +9,34 @@ body {
     margin: 0; 
     padding: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif; 
+    background:   
+        linear-gradient(217deg, rgb(10 10 10 / 0.8), transparent 70.71%),
+        linear-gradient(127deg, rgb(20 20 20 / 0.8), transparent 70.71%),
+        linear-gradient(336deg, rgb(30 30 30 / 0.8), transparent 70.71%);
+    animation: gradient 3s ease infinite;
+}
+
+.box-shadow-thin {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .shake {
     animation: shake 0.3s;
-
     animation-iteration-count: 1;
 }
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
 
 @keyframes shake {
     0% { transform: translate(1px, 1px) rotate(0deg); }
