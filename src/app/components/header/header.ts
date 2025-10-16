@@ -11,12 +11,14 @@ import { CommonModule } from '@angular/common';
 import { NotificationService } from '../../services/notification-service';
 import { MatBadgeModule } from '@angular/material/badge';
 import { UiService } from '../../services/ui-service';
+import { RouterModule } from '@angular/router';
 
 
 @Component({
   selector: 'app-header',
   imports: [
     CommonModule,
+    RouterModule,
     MatIconModule,
     MatButtonModule,
     MatMenuModule,

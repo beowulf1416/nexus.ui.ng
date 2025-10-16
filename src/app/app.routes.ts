@@ -11,6 +11,7 @@ export const routes: Routes = [
     },
     {
         path: 'dashboard',
+        title: 'Dashboard',
         loadComponent: () => import('./components/dashboard/dashboard').then(c => c.Dashboard)
     },
     {
@@ -22,7 +23,23 @@ export const routes: Routes = [
         loadChildren: () => import('./modules/admin/admin-module').then(m => m.AdminModule)
     },
     {
+        path: 'anonymous',
+        title: 'Anonymous',
+        loadComponent: () => import('./components/anonymous/anonymous').then(c => c.Anonymous)
+    },
+    {
+        path: 'unauthorized',
+        title: 'Unauthorized',
+        loadComponent: () => import('./components/unauthorized/unauthorized').then(c => c.Unauthorized)
+    },
+    {
         path: '',
+        title: 'Home',
         loadComponent: () => import('./components/home/home').then(c => c.Home)
+    },
+    {
+        path: '**',
+        title: 'Not Found',
+        loadComponent: () => import('./components/not-found/not-found').then(c => c.NotFound)
     }
 ];
