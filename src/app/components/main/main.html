@@ -1,13 +1,34 @@
 <div class="component component-main">
     <mat-sidenav-container>
         <mat-sidenav #nav_start mode="side" position="start" [opened]="show_left_sidenav()" mode="push">
-            <nav>
-                <ul>
-                    <li>Test_1</li>
-                    <li>Test_2</li>
-                    <li>Test_3</li>
-                </ul>
-            </nav>
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Admin</mat-panel-title>
+                        <mat-panel-description>Administrative Links</mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <nav>
+                        <ul>
+                            <li><a title="Dashboard" routerLink="/admin">Dashboard</a></li>
+                            <li><a title="Tenants" routerLink="/admin/tenants">Tenants</a></li>
+                            <li><a title="Users" routerLink="/admin/users">Users</a></li>
+                        </ul>
+                    </nav>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Inventory</mat-panel-title>
+                        <mat-panel-description>Inventory links</mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <nav>
+                        <ul>
+                            <li><a title="Dashboard" routerLink="/inv/dashboard">Dashboard</a></li>
+                            <li><a title="Warehouses" routerLink="/inv/warehouses">Tenants</a></li>
+                            <li><a title="Items" routerLink="/inv/items">Items</a></li>
+                        </ul>
+                    </nav>
+                </mat-expansion-panel>
+            </mat-accordion>
         </mat-sidenav>
         <mat-sidenav #nav_end position="end" [opened]="show_right_sidenav()" mode="over">
             <nav>
@@ -19,7 +40,7 @@
             </nav>
             <app-notifications></app-notifications>
         </mat-sidenav>
-        <mat-sidenav-content>
+        <mat-sidenav-content class="content">
             <ng-content />
         </mat-sidenav-content>
     </mat-sidenav-container>

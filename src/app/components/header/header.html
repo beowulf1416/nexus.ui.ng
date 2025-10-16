@@ -10,7 +10,9 @@
         <button type="button" title="Applications" mat-icon-button (click)="toggle_apps()">
             <mat-icon>apps</mat-icon>
         </button>
-        <h4>Nexus</h4>
+        <h4>
+            <a title="Home" routerLink="/" aria-label="Home">Nexus</a>
+        </h4>
         <span class="spacer"></span>
         <button type="button" title="Notifications" matIconButton [matBadge]="note_count()" (click)="toggle_notifications()">
             <mat-icon>notifications</mat-icon>

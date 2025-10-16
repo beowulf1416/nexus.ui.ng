@@ -4,13 +4,17 @@ import { booleanAttribute, Component, input, ViewChild } from '@angular/core';
 import {MatSidenav, MatSidenavModule} from '@angular/material/sidenav';
 
 import { Notifications } from '../notifications/notifications';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { RouterModule } from '@angular/router';
 
 
 @Component({
   selector: 'app-main',
   imports: [
     CommonModule,
+    RouterModule,
     MatSidenavModule,
+    MatExpansionModule,
     Notifications
   ],
   templateUrl: './main.html',
