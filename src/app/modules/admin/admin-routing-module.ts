@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { authorizedGuard } from '../../classes/guards/authorized-guard';
+import { PERMISSIONS } from '../../classes/permissions';
 
 const routes: Routes = [
   {
@@ -14,6 +15,9 @@ const routes: Routes = [
     canActivate: [
       authorizedGuard
     ],
+    data: {
+      permission: PERMISSIONS.admin_dashboard_view
+    },
     loadComponent: () => import('./components/dashboard/dashboard').then(c => c.Dashboard)
   }
 ];

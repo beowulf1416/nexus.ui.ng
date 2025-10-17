@@ -30,7 +30,8 @@ export class SignIn {
   component = {
     signInForm: new FormGroup({
       email: new FormControl('', [
-        Validators.required
+        Validators.required,
+        Validators.email
       ]),
       pw: new FormControl('', [
         Validators.required
