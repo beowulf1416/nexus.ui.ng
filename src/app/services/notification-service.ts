@@ -35,21 +35,21 @@ export class NotificationService {
 
   info(
     msg: string,
-    el: null | string
+    el: null | HTMLElement
   ) {
     console.info('//todo info()');
   }
 
   warn(
     msg: string,
-    el: null | string
+    el: null | HTMLElement
   ) {
     console.info('//todo warn');
   }
 
   error(
     msg: string,
-    el: null | string
+    el: null | HTMLElement
   ) {
     console.info('//todo error()');
   }
