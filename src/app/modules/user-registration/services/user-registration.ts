@@ -13,11 +13,13 @@ export class UserRegistration {
   ) {}
 
   sign_up(
+    id: string,
     email: string
   ) {
     return this.http.post<ApiResponse>(
       URL.sign_up,
       {
+        id: id,
         email: email
       }
     );
