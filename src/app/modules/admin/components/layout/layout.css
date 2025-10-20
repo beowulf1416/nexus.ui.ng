@@ -1,0 +1,12 @@
+.layout {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.layout .column {
+    flex: 1;
+}
+
+.layout .nav-container {
+    border-right: solid 1px black;
+}

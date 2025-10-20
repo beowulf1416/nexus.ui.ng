@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiResponse } from '../../../classes/api-response';
-import { URL } from '../components/url';
+import { URL } from '../url';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +13,13 @@ export class UserRegistration {
   ) {}
 
   sign_up(
+    id: string,
     email: string
   ) {
     return this.http.post<ApiResponse>(
       URL.sign_up,
       {
+        id: id,
         email: email
       }
     );

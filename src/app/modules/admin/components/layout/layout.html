@@ -1,9 +1,18 @@
 <div class="component component-layout">
     <div class="layout">
-        <div class="nav">
-            nav
+        <div class="nav column">
+            <div class="nav-container">
+                <button type="button" title="Collapse" matFab >
+                    <mat-icon>expand_circle_right</mat-icon>
+                </button>
+                <nav>
+                    <ul>
+                        <li>test</li>
+                    </ul>
+                </nav>
+            </div><!-- .nav-container -->
         </div><!-- .nav -->
-        <div class="content">
+        <div class="content column">
             <router-outlet />
         </div><!-- .content -->
     </div><!-- .layout -->

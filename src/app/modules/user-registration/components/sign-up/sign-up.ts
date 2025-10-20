@@ -14,6 +14,9 @@ import { ApiResponse } from '../../../../classes/api-response';
 import { CommonModule } from '@angular/common';
 import { NotificationService } from '../../../../services/notification-service';
 
+import { v4 as uuidv4 } from 'uuid';
+
+
 @Component({
   selector: 'app-sign-up',
   imports: [
@@ -48,9 +51,17 @@ export class SignUp {
   ) {}
 
   sign_up() {
+    console.info('//todo sign_up');
+
+    const id = uuidv4();
     const email = this.component.signUpForm.get('email')?.value || '';
+
+
     if (email != '') {
-      this.user_registration.sign_up(email).subscribe((r: ApiResponse) => {
+      this.user_registration.sign_up(
+        id,
+        email
+      ).subscribe((r: ApiResponse) => {
         console.debug('sign_up', r);
         if (r.success) {
 
