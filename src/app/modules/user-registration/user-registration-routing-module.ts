@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'verified',
+    path: 'verified/:token',
     title: 'Sign Up',
     loadComponent: () => import('./components/email-verified/email-verified').then(c => c.EmailVerified)
   },

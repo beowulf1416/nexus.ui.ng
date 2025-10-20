@@ -25,6 +25,9 @@
                             <input type="password" id="pw2" name="pw2" placeholder="Confirm Password" readonly required matInput formControlName="pw2"/>
                         </mat-form-field>
                     </div><!-- .field -->
+
+                    <input type="hidden" id="register_id" name="register_id" formControlName="register_id" />
+                    <input type="hidden" id="token" name="token" formControlName="token" />
                 </mat-card-content>
                 <mat-card-actions>
                     <button type="submit" class="btn-sign-up" mat-fab extended [disabled]="component.signUpForm.invalid">

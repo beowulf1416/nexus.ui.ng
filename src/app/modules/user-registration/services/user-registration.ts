@@ -37,4 +37,15 @@ export class UserRegistration {
       }
     );
   }
+
+  get_registration_details(
+    token: string
+  ) {
+    return this.http.post<ApiResponse>(
+      URL.get_registration_details,
+      {
+        token: token
+      }
+    );
+  }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -8,7 +8,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { NotificationService } from '../../../../services/notification-service';
+import { UserRegistration } from '../../services/user-registration';
+import { ApiResponse } from '../../../../classes/api-response';
 
 @Component({
   selector: 'app-email-verified',
@@ -27,6 +30,8 @@ import { RouterLink } from '@angular/router';
 })
 export class EmailVerified {
 
+  private route = inject(ActivatedRoute);
+
   component = {
     signUpForm: new FormGroup({
       email: new FormControl('', [
@@ -40,13 +45,39 @@ export class EmailVerified {
       pw2: new FormControl('', [
         Validators.required,
         Validators.minLength(8)
-      ])
+      ]),
+      register_id: new FormControl('', []),
+      token: new FormControl('', [])
     })
   };
 
-  constructor() {}
+
+  constructor(
+    private notification_service: NotificationService,
+    private user_registration: UserRegistration
+  ) {
+    const token = this.route.snapshot.paramMap.get('token') || '';
+
+    this.user_registration.get_registration_details(token).subscribe((r: ApiResponse) => {
+      console.debug(r);
+    });
+
+    this.component.signUpForm.get('token')?.setValue(token);
+  }
 
   sign_up_verified() {
     console.info('//todo sign_up_verified');
+
+    if (this.component.signUpForm.valid) {
+      const token = this.component.signUpForm.get('token')?.value || '';
+      const pw = this.component.signUpForm.get('pw1')?.value || '';
+
+      this.user_registration.sign_up_verified(
+        token,
+        pw
+      ).subscribe((r: ApiResponse) => {
+        console.debug(r);
+      });
+    }
   }
 }
