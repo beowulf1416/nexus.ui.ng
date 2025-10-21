@@ -16,11 +16,16 @@ const routes: Routes = [
         loadComponent: () => import('./components/tenants/tenants').then(c => c.Tenants)
       },
       {
+        path: 'tenant',
+        title: 'Tenant',
+        loadComponent: () => import('./components/tenant/tenant').then(c => c.Tenant)
+      },
+      {
         path: '',
         title: 'Admin Dashboard',
-        canActivate: [
-          authorizedGuard
-        ],
+        // canActivate: [
+        //   authorizedGuard
+        // ],
         data: {
           permission: PERMISSIONS.admin_dashboard_view
         },
