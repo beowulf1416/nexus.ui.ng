@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up-success',
-  imports: [],
+  imports: [
+    MatCardModule
+  ],
   templateUrl: './sign-up-success.html',
   styleUrl: './sign-up-success.css'
 })

@@ -72,11 +72,28 @@ export class EmailVerified {
       const token = this.component.signUpForm.get('token')?.value || '';
       const pw = this.component.signUpForm.get('pw1')?.value || '';
 
+      this.component.signUpForm.disable({
+        onlySelf: false
+      });
+
       this.user_registration.sign_up_verified(
         token,
         pw
-      ).subscribe((r: ApiResponse) => {
-        console.debug(r);
+      ).subscribe({
+        next: (v) => {
+          console.debug('//todo v');
+        },
+        error: (e) => {
+          console.error(e);
+          this.component.signUpForm.enable({
+            onlySelf: false
+          });
+        },
+        complete: () => {
+          this.component.signUpForm.enable({
+            onlySelf: false
+          });
+        }
       });
     }
   }

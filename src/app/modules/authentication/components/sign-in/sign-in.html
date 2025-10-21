@@ -23,7 +23,7 @@
                     </div><!-- .field -->
                 </mat-card-content>
                 <mat-card-actions>
-                    <button type="submit" class="btn-sign-in" mat-fab extended>
+                    <button type="submit" class="btn-sign-in" mat-fab extended [disabled]="component.signInForm.invalid">
                         <mat-icon>check_circle</mat-icon>
                         Sign In
                     </button>

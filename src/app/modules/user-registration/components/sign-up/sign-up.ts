@@ -65,17 +65,21 @@ export class SignUp {
       this.user_registration.sign_up(
         id,
         email
-      ).subscribe((r: ApiResponse) => {
-        console.debug('sign_up', r);
-        if (r.success) {
-
-        } else {
-          this.notification_service.error(r.message, this.error);
+      ).subscribe({
+        next: (v) => {
+          console.debug('//todo', v)
+        },
+        error: (e) => {
+          console.error(e);
+          this.component.signUpForm.disable({
+            onlySelf: false
+          });
+        },
+        complete: () => {
+          this.component.signUpForm.disable({
+            onlySelf: false
+          });
         }
-
-        this.component.signUpForm.enable({
-          onlySelf: false
-        });
       });
     } else {
       console.debug('//todo: form invalid');

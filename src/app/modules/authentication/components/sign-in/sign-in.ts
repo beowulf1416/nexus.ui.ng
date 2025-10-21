@@ -48,15 +48,36 @@ export class SignIn {
   sign_in() {
     console.info('//todo sign_in');
 
-    const email = this.component.signInForm.get('email')?.value || '';
-    const pw = this.component.signInForm.get('pw')?.value || '';
 
-    if (email != '' && pw != '') {
-      this.authentication.sign_in(email, pw).subscribe((r: ApiResponse) => {
-        console.debug('sign_in', r);
+    if (this.component.signInForm.valid) {
+      this.component.signInForm.disable({
+        onlySelf: false
       });
-    } else {
-      console.debug('form invalid');
+
+      const email = this.component.signInForm.get('email')?.value || '';
+      const pw = this.component.signInForm.get('pw')?.value || '';
+
+      if (email != '' && pw != '') {
+        this.authentication.sign_in(email, pw).subscribe({
+          next: (v) => {
+            console.debug('next', v);
+          },
+          error: (e) => {
+            console.error('error', e);
+            this.component.signInForm.enable({
+              onlySelf: false
+            });
+          },
+          complete: () => {
+            console.info('complete');
+            this.component.signInForm.enable({
+              onlySelf: false
+            });
+          }
+        });
+      } else {
+        console.debug('form invalid');
+      }
     }
   }
 }
