@@ -7,6 +7,9 @@
                     <mat-card-subtitle>An email will be sent to this email address with a link to continue the user registration</mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>
+                    @if (component.error != '') {
+                        <mat-error>{{ component.error }}</mat-error>
+                    }
                     <div class="field field-wrapper field-wrapper-block">
                         <mat-form-field appearance="outline">
                             <mat-label>Email</mat-label>

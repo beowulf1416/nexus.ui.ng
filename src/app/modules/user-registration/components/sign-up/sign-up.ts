@@ -35,6 +35,7 @@ import { v4 as uuidv4 } from 'uuid';
 export class SignUp {
 
   component = {
+    error: '',
     signUpForm: new FormGroup({
       email: new FormControl('', [
         Validators.required,
@@ -58,6 +59,9 @@ export class SignUp {
 
 
     if (email != '') {
+      this.component.signUpForm.disable({
+        onlySelf: false
+      });
       this.user_registration.sign_up(
         id,
         email
@@ -68,6 +72,10 @@ export class SignUp {
         } else {
           this.notification_service.error(r.message, this.error);
         }
+
+        this.component.signUpForm.enable({
+          onlySelf: false
+        });
       });
     } else {
       console.debug('//todo: form invalid');
