@@ -26,13 +26,15 @@ export class UserRegistration {
   }
 
   sign_up_verified(
-    sign_up_token: string,
+    register_id: string,
+    token: string,
     pw: string
   ) {
     return this.http.post<ApiResponse>(
       URL.sign_up_verified,
       {
-        sign_up_token: sign_up_token,
+        register_id: register_id,
+        token: token,
         pw: pw
       }
     );
