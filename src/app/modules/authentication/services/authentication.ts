@@ -28,9 +28,15 @@ export class Authentication {
       }
     ).pipe(
       map((value, index) => {
-        if (value.ok && value.headers.has('authorization')) {
-          let token = value.headers.get('authorization')?.replace('bearer', '')?.trim() || '';
-          console.debug('token', token);
+        console.debug(value);
+        if (value.ok) {
+          if (value.ok && value.headers.has('authorization')) {
+            let token = value.headers.get('authorization')?.replace('bearer', '')?.trim() || '';
+            console.debug('token', token);
+          }
+
+        } else {
+          console.error(value.statusText);
         }
 
         return new ApiResponse(
