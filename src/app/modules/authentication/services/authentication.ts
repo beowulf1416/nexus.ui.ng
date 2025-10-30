@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ApiResponse } from '../../../classes/api-response';
 import { URL } from '../urls';
 import { map, Observable } from 'rxjs';
+import { CONSTANTS } from '../../../classes/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +34,15 @@ export class Authentication {
           if (value.ok && value.headers.has('authorization')) {
             let token = value.headers.get('authorization')?.replace('bearer', '')?.trim() || '';
             console.debug('token', token);
-          }
 
+            sessionStorage.setItem(CONSTANTS.session_auth_key, token);
+
+            return new ApiResponse(
+              true,
+              'success',
+              null
+            );
+          }
         } else {
           console.error(value.statusText);
         }
