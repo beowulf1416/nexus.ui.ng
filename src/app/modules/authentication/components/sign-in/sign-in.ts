@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,6 +10,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Authentication } from '../../services/authentication';
 import { ApiResponse } from '../../../../classes/api-response';
+import { NotificationService } from '../../../../services/notification-service';
+import { UserService } from '../../../../services/user-service';
 
 @Component({
   selector: 'app-sign-in',
@@ -25,7 +27,7 @@ import { ApiResponse } from '../../../../classes/api-response';
   templateUrl: './sign-in.html',
   styleUrl: './sign-in.css'
 })
-export class SignIn {
+export class SignIn implements OnInit {
 
   component = {
     signInForm: new FormGroup({
@@ -36,13 +38,22 @@ export class SignIn {
       pw: new FormControl('', [
         Validators.required
       ])
-    })
+    }),
+    error: ''
   };
 
   constructor(
-    private authentication: Authentication
+    private authentication: Authentication,
+    private ns: NotificationService,
+    private us: UserService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
 
+  }
+
+  ngOnInit(): void {
+    
   }
 
   sign_in() {
@@ -59,8 +70,18 @@ export class SignIn {
 
       if (email != '' && pw != '') {
         this.authentication.sign_in(email, pw).subscribe({
-          next: (v) => {
-            console.debug('next', v);
+          next: (r: ApiResponse) => {
+            console.debug('next', r);
+
+            if (r.success) {
+              this.ns.info(r.message, null);
+              setTimeout(() => {
+                this.router.navigate(['/dashboard']);
+              }, 3000);
+            } else {
+              this.component.error = r.message;
+              this.ns.error(r.message, null);
+            }
           },
           error: (e) => {
             console.error('error', e);

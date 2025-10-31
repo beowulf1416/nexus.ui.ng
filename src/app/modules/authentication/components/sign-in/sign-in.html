@@ -1,12 +1,15 @@
 <div class="component component-sign-in">
     <mat-card class="sign-in-card box-shadow-thin" appearance="outlined">
         <div class="form-wrapper">
-            <form id="form_sign_in" class="sign-in" method="post" action="" [formGroup]="component.signInForm" (ngSubmit)="sign_in()">
+            <form id="form_sign_in" class="sign-in" method="post" action="" [formGroup]="component.signInForm" (ngSubmit)="sign_in()" [class.error]="component.error == ''">
                 <mat-card-header>
                     <mat-card-title>Sign In</mat-card-title>
                     <mat-card-subtitle>Please enter your account details</mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>
+                    @if (component.error != ''){
+                        <mat-error>{{ component.error }}</mat-error>
+                    }
                     <div class="field field-wrapper field-wrapper-block">
                         <mat-form-field appearance="outline">
                             <mat-label>Email</mat-label>

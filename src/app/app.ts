@@ -1,9 +1,10 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './components/header/header';
 import { Main } from './components/main/main';
 import { NotificationService } from './services/notification-service';
 import { UiService } from './services/ui-service';
+import { UserService } from './services/user-service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ import { UiService } from './services/ui-service';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
+export class App implements OnInit {
   protected title = 'nexus.ui';
 
   show_nav_start = computed(() => {
@@ -28,6 +29,11 @@ export class App {
 
   constructor(
     private notifications_service: NotificationService,
-    private ui_service: UiService
+    private ui_service: UiService,
+    private us: UserService
   ) {}
+
+  ngOnInit(): void {
+    this.us.reload();
+  }
 }

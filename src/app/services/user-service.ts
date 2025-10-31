@@ -5,6 +5,8 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { ApiResponse } from '../classes/api-response';
 import { Tenant } from '../classes/tenant';
+import { CONSTANTS } from '../classes/constants';
+import { NotificationService } from './notification-service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,29 @@ export class UserService {
   public readonly tenants = signal(new Array<Tenant>());
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private ns: NotificationService
   ) {}
+
+  reload() {
+    console.info("reload");
+    let token = sessionStorage.getItem(CONSTANTS.session_auth_key) || '';
+    if (token != '') {
+      this.http.post<ApiResponse>(
+        CONSTANTS.api_base_url + CONSTANTS.auth_user,
+        {}
+      ).subscribe({
+        next: (r) => {
+          console.debug(r);
+        },
+        error: (e) => {
+          console.error(e);
+          this.ns.error(e, null);
+        },
+        complete: () => {
+          console.info('complete');
+        }
+      });
+    }
+  }
 }
