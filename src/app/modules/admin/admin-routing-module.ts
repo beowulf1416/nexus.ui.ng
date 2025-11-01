@@ -16,8 +16,13 @@ const routes: Routes = [
         loadComponent: () => import('./components/tenants/tenants').then(c => c.Tenants)
       },
       {
-        path: 'tenant',
-        title: 'Tenant',
+        path: 'tenant/new',
+        title: 'New Tenant',
+        loadComponent: () => import('./components/tenant/tenant').then(c => c.Tenant)
+      },
+      {
+        path: 'tenant/view/:tenant_id',
+        title: 'View Tenant',
         loadComponent: () => import('./components/tenant/tenant').then(c => c.Tenant)
       },
       {

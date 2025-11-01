@@ -1,19 +1,21 @@
 <div class="component component-layout">
-    <div class="layout">
-        <div class="nav column">
-            <div class="nav-container">
-                <button type="button" title="Collapse" matFab >
-                    <mat-icon>expand_circle_right</mat-icon>
-                </button>
-                <nav>
-                    <ul>
-                        <li>test</li>
-                    </ul>
-                </nav>
-            </div><!-- .nav-container -->
-        </div><!-- .nav -->
-        <div class="content column">
+    <mat-sidenav-container>
+        <mat-sidenav #nav_start_admin mode="side" position="start" disableClose="true">
+            <nav>
+                <ul>
+                    <li><a title="Tenants" routerLink="/admin/tenants">Tenants</a></li>
+                    <li><a title="Users" routerLink="/admin/users/">Users</a></li>
+                </ul>
+            </nav>
+        </mat-sidenav>
+        <mat-sidenav mode="over" position="end">
+
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <button type="button" mat-icon-button (click)="toggle_left_sidenav()">
+                <mat-icon>chevron_forward</mat-icon>
+            </button>
             <router-outlet />
-        </div><!-- .content -->
-    </div><!-- .layout -->
+        </mat-sidenav-content>
+    </mat-sidenav-container>
 </div><!-- .component -->
