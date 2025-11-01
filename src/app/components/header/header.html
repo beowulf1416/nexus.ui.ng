@@ -1,9 +1,16 @@
 <div class="component component-header">
     <mat-menu #menu_user="matMenu">
+        @if (is_user_authenticated()) {
         <a title="Profile" routerLink="/me" mat-menu-item>Profile</a>
         <mat-divider></mat-divider>
-        <a ttle="Sign In" routerLink="/sign-in" mat-menu-item>Sign In</a>
-        <a title="Sign Out" routerLink="/sign-out" mat-menu-item>Sign Out</a>
+        }
+
+        @if (!is_user_authenticated()) {
+        <a ttle="Sign In" routerLink="/auth/sign-in" mat-menu-item>Sign In</a>
+        }
+        @if (is_user_authenticated()) {
+        <a title="Sign Out" routerLink="/auth/sign-out" mat-menu-item>Sign Out</a>
+        }
     </mat-menu>
 
     <mat-toolbar id="tb-header" color="primary">
@@ -29,4 +36,3 @@
         }
     </mat-toolbar>
 </div>
-{{ user().name }}

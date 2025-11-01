@@ -50,4 +50,9 @@ export class UserService {
       });
     }
   }
+
+  sign_out() {
+    sessionStorage.removeItem(CONSTANTS.session_auth_key);
+    this.current_user.set(User.anonymous());
+  }
 }
