@@ -17,13 +17,14 @@
         <button type="button" title="Notifications" matIconButton [matBadge]="note_count()" (click)="toggle_notifications()">
             <mat-icon>notifications</mat-icon>
         </button>
-        @if (user().is_authenticated) {
+        @if (is_user_authenticated()) {
             <button type="button" title="User" [matMenuTriggerFor]="menu_user" mat-icon-button>
-                <mat-icon>account-circle</mat-icon>
+                <mat-icon>account_circle</mat-icon>
             </button>
         } @else {
             <a title="Sign In" routerLink="/auth/sign-in" aria-label="Sign In" matIconButton>
                 <mat-icon>account_circle</mat-icon>
+                {{ user().name }}
             </a>
         }
     </mat-toolbar>

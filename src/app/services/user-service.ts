@@ -21,15 +21,24 @@ export class UserService {
   ) {}
 
   reload() {
-    console.info("reload");
     let token = sessionStorage.getItem(CONSTANTS.session_auth_key) || '';
     if (token != '') {
       this.http.post<ApiResponse>(
         CONSTANTS.api_base_url + CONSTANTS.auth_user,
         {}
       ).subscribe({
-        next: (r) => {
-          console.debug(r);
+        next: (r: ApiResponse) => {
+          if (r.success) {
+            let u = (r.data as {
+              user: User
+            }).user;
+            let user = new User(
+              u.name,
+              u.tenant,
+              u.permissions
+            );
+            this.current_user.set(user);
+          }
         },
         error: (e) => {
           console.error(e);

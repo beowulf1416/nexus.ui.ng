@@ -32,6 +32,7 @@ import { RouterModule } from '@angular/router';
 export class Header {
 
   user = computed(() => this.user_service.current_user());
+  is_user_authenticated = computed(() => this.user_service.current_user().is_authenticated);
   note_count = computed(() => {
     const count = this.notifications_service.notifications().length;
     return count > 0 ? count : null;

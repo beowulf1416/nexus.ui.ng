@@ -4,6 +4,7 @@ import { ApiResponse } from '../../../classes/api-response';
 import { URL } from '../urls';
 import { map, Observable } from 'rxjs';
 import { CONSTANTS } from '../../../classes/constants';
+import { UserService } from '../../../services/user-service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ import { CONSTANTS } from '../../../classes/constants';
 export class Authentication {
   
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private us: UserService
   ) {}
 
   sign_in(
@@ -37,6 +39,7 @@ export class Authentication {
             console.debug('token', token);
 
             sessionStorage.setItem(CONSTANTS.session_auth_key, token);
+            this.us.reload();
 
             return new ApiResponse(
               true,
