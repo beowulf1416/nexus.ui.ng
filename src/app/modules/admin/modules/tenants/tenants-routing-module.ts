@@ -1,0 +1,34 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { Layout } from './components/layout/layout';
+
+const routes: Routes = [
+  {
+    path: '',
+    title: 'Tenants',
+    component: Layout,
+    children: [
+      {
+        path: 'tenant',
+        title: 'Tenant',
+        loadComponent: () => import('./components/tenant/tenant').then(c => c.Tenant)
+      },
+      {
+        path: 'tenants',
+        title: 'Tenants',
+        loadComponent: () => import('./components/tenants/tenants').then(c => c.Tenants)
+      },
+      {
+        path: '',
+        title: 'Dashboard',
+        loadComponent: () => import('./components/dashboard/dashboard').then(c => c.Dashboard)
+      }
+    ]
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class TenantsRoutingModule { }

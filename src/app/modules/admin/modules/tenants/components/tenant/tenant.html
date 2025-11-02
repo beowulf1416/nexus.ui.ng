@@ -1,0 +1,39 @@
+<div class="component component-admin-tenant">
+    <mat-card class="tenant-card box-shadow-thin" appearance="outlined">
+        <div class="form-wrapper">
+            <form id="form_tenant" class="form-tenant" method="post" action="" [formGroup]="component.formTenant" (ngSubmit)="save()" [class.error]="component.error == ''">
+                <mat-card-header>
+                    <mat-card-title>New Tenant</mat-card-title>
+                    <mat-card-subtitle>New tenant details</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    @if (component.error != '') {
+                        <mat-error>{{ component.error }}</mat-error>
+                    }
+                    <div class="field field-wrapper field-wrapper-block">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Name</mat-label>
+                            <input type="text" id="name" name="name" placeholder="Name" required matInput />
+                            <mat-hint>Tenant name</mat-hint>
+                        </mat-form-field>
+                    </div><!-- .field -->
+                    <div class="field field-wrapper field-wrapper-block">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Description</mat-label>
+                            <textarea id="description" name="description" matInput></textarea>
+                            <mat-hint>Description</mat-hint>
+                        </mat-form-field>
+                    </div><!-- .field -->
+                </mat-card-content>
+                <mat-card-actions>
+                    <button type="submit" class="btn btn-submit" mat-fab extended [disabled]="component.formTenant.invalid">
+                        <mat-icon>check_circle</mat-icon>
+                        Submit
+                    </button>
+                </mat-card-actions>
+
+                <input type="hidden" id="tenant_id" name="tenant_id" />
+            </form>
+        </div><!-- .form-wrapper -->
+    </mat-card>
+</div><!-- .component -->

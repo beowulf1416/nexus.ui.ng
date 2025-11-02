@@ -7,37 +7,47 @@ import { Layout } from './components/layout/layout';
 
 const routes: Routes = [
   {
-    path: '',
-    component: Layout,
-    children: [
-      {
-        path: 'tenants',
-        title: 'Tenants',
-        loadComponent: () => import('./components/tenants/tenants').then(c => c.Tenants)
-      },
-      {
-        path: 'tenant/new',
-        title: 'New Tenant',
-        loadComponent: () => import('./components/tenant/tenant').then(c => c.Tenant)
-      },
-      {
-        path: 'tenant/view/:tenant_id',
-        title: 'View Tenant',
-        loadComponent: () => import('./components/tenant/tenant').then(c => c.Tenant)
-      },
-      {
-        path: '',
-        title: 'Admin Dashboard',
-        // canActivate: [
-        //   authorizedGuard
-        // ],
-        data: {
-          permission: PERMISSIONS.admin_dashboard_view
-        },
-        loadComponent: () => import('./components/dashboard/dashboard').then(c => c.Dashboard)
-      }
-    ]
-  }
+    path: 'tenants',
+    title: 'Tenants',
+    loadChildren: () => import('./modules/tenants/tenants-module').then(m => m.TenantsModule)
+  },
+  // {
+  //   path: '',
+  //   component: Layout,
+  //   children: [
+  //     // {
+  //     //   path: 'tenants',
+  //     //   title: 'Tenants',
+  //     //   loadComponent: () => import('./components/tenants/tenants').then(c => c.Tenants)
+  //     // },
+  //     {
+  //       path: 'tenants',
+  //       title: 'Tenants',
+  //       loadChildren: () => import('./modules/tenants/tenants-module').then(m => m.TenantsModule)
+  //     },
+  //     {
+  //       path: 'tenant/new',
+  //       title: 'New Tenant',
+  //       loadComponent: () => import('./components/tenant/tenant').then(c => c.Tenant)
+  //     },
+  //     {
+  //       path: 'tenant/view/:tenant_id',
+  //       title: 'View Tenant',
+  //       loadComponent: () => import('./components/tenant/tenant').then(c => c.Tenant)
+  //     },
+  //     {
+  //       path: '',
+  //       title: 'Admin Dashboard',
+  //       // canActivate: [
+  //       //   authorizedGuard
+  //       // ],
+  //       data: {
+  //         permission: PERMISSIONS.admin_dashboard_view
+  //       },
+  //       loadComponent: () => import('./components/dashboard/dashboard').then(c => c.Dashboard)
+  //     }
+  //   ]
+  // }
 ];
 
 @NgModule({

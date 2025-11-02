@@ -1,0 +1,22 @@
+<div class="component component-admin-tenants-layout">
+    <mat-sidenav-container>
+        <mat-sidenav #nav_tenants position="start" mode="side" disableClose="true">
+            <nav>
+                <ul>
+                    <li><a title="Dashboard" routerLink="/admin/tenants">Dashboard</a></li>
+                    <li><a title="Tenants" routerLink="/admin/tenants/tenants">Tenants</a></li>
+                    <li><a title="Users" routerLink="/admin/tenants/users/">Users</a></li>
+                </ul>
+            </nav>
+        </mat-sidenav>
+        <mat-sidenav #nav_tenants_1 position="end" mode="over">
+            <p>left</p>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <button type="button" mat-icon-button (click)="toggle_nav_tenants()">
+                <mat-icon fontSet="material-symbols-rounded">chevron_forward</mat-icon>
+            </button>
+            <router-outlet />
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div><!-- .component -->
