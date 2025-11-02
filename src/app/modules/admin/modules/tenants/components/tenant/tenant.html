@@ -13,14 +13,14 @@
                     <div class="field field-wrapper field-wrapper-block">
                         <mat-form-field appearance="outline">
                             <mat-label>Name</mat-label>
-                            <input type="text" id="name" name="name" placeholder="Name" required matInput />
+                            <input type="text" id="name" name="name" placeholder="Name" required matInput formControlName="name"/>
                             <mat-hint>Tenant name</mat-hint>
                         </mat-form-field>
                     </div><!-- .field -->
                     <div class="field field-wrapper field-wrapper-block">
                         <mat-form-field appearance="outline">
                             <mat-label>Description</mat-label>
-                            <textarea id="description" name="description" matInput></textarea>
+                            <textarea id="description" name="description" matInput formControlName="description"></textarea>
                             <mat-hint>Description</mat-hint>
                         </mat-form-field>
                     </div><!-- .field -->
@@ -32,7 +32,7 @@
                     </button>
                 </mat-card-actions>
 
-                <input type="hidden" id="tenant_id" name="tenant_id" />
+                <input type="hidden" id="tenant_id" name="tenant_id" formControlName="tenant_id"/>
             </form>
         </div><!-- .form-wrapper -->
     </mat-card>
