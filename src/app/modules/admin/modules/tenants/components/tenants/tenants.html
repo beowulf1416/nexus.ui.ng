@@ -1,21 +1,27 @@
 <div class="component component-admin-tenants">
     <div class="form-wrapper">
         <form id="search_form" class="search-form" method="post" action="">
-            <div class="filters">
+            <mat-toolbar>
+                <a id="a_tenant_new" class="btn btn-tenant-new" title="New tenant" routerLink="/admin/tenants/tenant/new" mat-icon-button>
+                    <mat-icon>add_home_work</mat-icon>
+                </a>
+                <button type="button" class="btn btn-refresh" aria-label="Refresh" matIconButton (click)="refresh()">
+                    <mat-icon>refresh</mat-icon>
+                </button>
                 <mat-form-field appearance="outline">
-                    <mat-label>Filter</mat-label>
-                    <input type="search" id="filter" name="filter" matInput />
-                    <button type="search" mat-icon-button>
+                    <input type="search" id="filter" name="filter" aria-label="Filter" matInput/>
+                    <button type="button" class="btn btn-search" aria-label="Search" mat-icon-button matSuffix (click)="search()">
                         <mat-icon>search</mat-icon>
                     </button>
                 </mat-form-field>
-            </div><!-- .filters -->
+            </mat-toolbar>
             <div class="results">
                 <table id="tbl_tenants">
                     <caption>Tenants</caption>
                     <thead>
                         <tr>
-                            <th></th>
+                            <th><input type="checkbox" id="select_all" name="select_all" class="field field-select-all" aria-label="Select all"/></th>
+                            <th>Active</th>
                             <th>Name</th>
                             <th></th>
                         </tr>
@@ -23,15 +29,17 @@
                     <tfoot>
                         <tr>
                             <td></td>
+                            <td>Active</td>
                             <td>Name</td>
                             <td></td>
                         </tr>
                     </tfoot>
                     <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        <tr *ngFor="let t of component.tenants; index as i;" [attr.data-tenant-id]="t.id">
+                            <td><input type="checkbox" [id]="t.id" name="selected" [value]="t.id" class="field field-select" /></td>
+                            <td><mat-icon>{{ t.active ? 'radio_button_checked' : 'radio_button_unchecked' }}</mat-icon></td>
+                            <td><a [title]="t.name" class="a-tenant-name" routerLink="/admin/tenants/tenant/edit/{{ t.id }}">{{ t.name }}</a></td>
+                            <td>{{ t.description }}</td>
                         </tr>
                     </tbody>
                 </table>

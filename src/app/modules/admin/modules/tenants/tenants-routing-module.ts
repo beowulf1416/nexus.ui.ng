@@ -9,7 +9,12 @@ const routes: Routes = [
     component: Layout,
     children: [
       {
-        path: 'tenant',
+        path: 'tenant/new',
+        title: 'Tenant',
+        loadComponent: () => import('./components/tenant/tenant').then(c => c.Tenant)
+      },
+      {
+        path: 'tenant/edit/:tenant_id',
         title: 'Tenant',
         loadComponent: () => import('./components/tenant/tenant').then(c => c.Tenant)
       },

@@ -11,6 +11,16 @@ const routes: Routes = [
     title: 'Tenants',
     loadChildren: () => import('./modules/tenants/tenants-module').then(m => m.TenantsModule)
   },
+  {
+    path: 'users',
+    title: 'Users',
+    loadChildren: () => import('./modules/users/users-module').then(m => m.UsersModule)
+  },
+  {
+    path: 'roles',
+    title: 'Roles',
+    loadChildren: () => import('./modules/roles/roles-module').then(m => m.RolesModule)
+  }
   // {
   //   path: '',
   //   component: Layout,

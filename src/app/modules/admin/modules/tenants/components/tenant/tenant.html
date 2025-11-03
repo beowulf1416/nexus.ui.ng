@@ -6,6 +6,13 @@
                     <mat-card-title>New Tenant</mat-card-title>
                     <mat-card-subtitle>New tenant details</mat-card-subtitle>
                 </mat-card-header>
+                <mat-card-actions>
+                    <mat-toolbar>
+                        <button type="button" class="btn btn-save" aria-label="Save" matIconButton (click)="save()">
+                            <mat-icon>save</mat-icon>
+                        </button>
+                    </mat-toolbar>
+                </mat-card-actions>
                 <mat-card-content>
                     @if (component.error != '') {
                         <mat-error>{{ component.error }}</mat-error>
@@ -25,12 +32,6 @@
                         </mat-form-field>
                     </div><!-- .field -->
                 </mat-card-content>
-                <mat-card-actions>
-                    <button type="submit" class="btn btn-submit" mat-fab extended [disabled]="component.formTenant.invalid">
-                        <mat-icon>check_circle</mat-icon>
-                        Submit
-                    </button>
-                </mat-card-actions>
 
                 <input type="hidden" id="tenant_id" name="tenant_id" formControlName="tenant_id"/>
             </form>
