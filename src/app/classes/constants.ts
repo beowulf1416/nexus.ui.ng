@@ -6,5 +6,6 @@ export const CONSTANTS = {
 
     url_admin_tenant_save: '/tenants/save',
     url_admin_tenants_search: '/tenants/fetch',
-    url_tenant_fetch_by_id: '/tenants/fetch/id'
+    url_tenant_fetch_by_id: '/tenants/fetch/id',
+    url_tenant_users_fetch: '/tenants/fetch/users'
 };

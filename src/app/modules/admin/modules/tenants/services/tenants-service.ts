@@ -56,4 +56,19 @@ export class TenantsService {
       }
     );
   }
+
+  tenant_users_fetch(
+    tenant_id: string,
+    filter: string
+  ): Observable<ApiResponse> {
+    console.info('tenant_users_fetch');
+
+    return this.http.post<ApiResponse>(
+      CONSTANTS.api_base_url + CONSTANTS.url_tenant_users_fetch,
+      {
+        tenant_id: tenant_id,
+        filter: filter
+      }
+    );
+  }
 }
