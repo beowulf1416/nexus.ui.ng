@@ -1,0 +1,21 @@
+<div class="component component-admin-tenants-layout">
+    <mat-sidenav-container>
+        <mat-sidenav #nav_users position="start" mode="side" disableClose="true">
+            <nav>
+                <ul>
+                    <li><a title="Dashboard" routerLink="/admin/users/dashboard">Dashboard</a></li>
+                    <li><a title="Users" routerLink="/admin/users/users">Users</a></li>
+                </ul>
+            </nav>
+        </mat-sidenav>
+        <mat-sidenav #nav_users_1 position="end" mode="over">
+            <p>left</p>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <button type="button" mat-icon-button (click)="toggle_nav_users()">
+                <mat-icon fontSet="material-symbols-rounded">chevron_forward</mat-icon>
+            </button>
+            <router-outlet />
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div><!-- .component -->

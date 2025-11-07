@@ -1,0 +1,66 @@
+<div class="component component-admin-users-users">
+    <div class="form-wrapper">
+        <form id="search_form" class="search-form" method="post" action="">
+            <mat-sidenav-container>
+                <mat-sidenav #nav_tenant_selector position="end" mode="over" disableClose="true">
+                    tenants-selector
+                    <button type="button" type="button" (click)="assign()">
+                        Assign
+                    </button>
+                </mat-sidenav>
+                <mat-sidenav-content>
+                    <mat-toolbar>
+                        <a id="a_user_new" class="btn btn-user-new" title="New User" routerLink="/admin/users/user/new" mat-icon-button>
+                            <mat-icon>person_add</mat-icon>
+                        </a>
+                        <button type="button" class="btn btn-assign-tenant" aria-label="Assign to Tenant" matIconButton (click)="assign_to_tenant()">
+                            <mat-icon>assignment_turned_in</mat-icon>
+                        </button>
+                        <button type="button" class="btn btn-refresh" aria-label="Refresh" matIconButton (click)="refresh()">
+                            <mat-icon>refresh</mat-icon>
+                        </button>
+                        <mat-form-field appearance="outline">
+                            <input type="search" id="filter" name="filter" aria-label="Filter" matInput/>
+                            <button type="button" class="btn btn-search" aria-label="Search" mat-icon-button matSuffix (click)="search()">
+                                <mat-icon>search</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </mat-toolbar>
+                    <div class="results">
+                        <table id="tbl_users">
+                            <caption>Users</caption>
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="select_all" name="select_all" class="field field-select-all" aria-label="Select all"/></th>
+                                    <th>Active</th>
+                                    <th>Name</th>
+                                    <td>Email</td>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <td></td>
+                                    <td>Active</td>
+                                    <td>Name</td>
+                                    <td>Email</td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                <!--
+                                <tr *ngFor="let t of component.tenants; index as i;" [attr.data-tenant-id]="t.id">
+                                    <td><input type="checkbox" [id]="t.id" name="selected" [value]="t.id" class="field field-select" /></td>
+                                    <td><mat-icon>{{ t.active ? 'radio_button_checked' : 'radio_button_unchecked' }}</mat-icon></td>
+                                    <td><a [title]="t.name" class="a-tenant-name" routerLink="/admin/tenants/tenant/edit/{{ t.id }}">{{ t.name }}</a></td>
+                                    <td>{{ t.description }}</td>
+                                </tr>
+                                -->
+                            </tbody>
+                        </table>
+                    </div><!-- .results -->
+                </mat-sidenav-content>
+            </mat-sidenav-container>
+        </form>
+    </div><!-- .form-wrapper -->
+</div><!-- .component -->
