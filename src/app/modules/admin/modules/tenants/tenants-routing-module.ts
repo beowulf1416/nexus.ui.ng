@@ -24,6 +24,11 @@ const routes: Routes = [
         loadComponent: () => import('./components/tenants/tenants').then(c => c.Tenants)
       },
       {
+        path: 'users',
+        title: 'Users',
+        loadComponent: () => import('./components/users/users').then(c => c.Users)
+      },
+      {
         path: '',
         title: 'Dashboard',
         loadComponent: () => import('./components/dashboard/dashboard').then(c => c.Dashboard)
