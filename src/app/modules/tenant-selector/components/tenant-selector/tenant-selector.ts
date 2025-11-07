@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { booleanAttribute, Component, Input } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
@@ -15,4 +15,13 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class TenantSelector {
 
+  @Input({ required: false }) multiple!: boolean;
+
+  component = {
+    error: '',
+    formMatches: new FormGroup({}),
+    formSelected: new FormGroup({})
+  };
+
+  constructor() {}
 }

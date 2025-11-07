@@ -8,6 +8,66 @@
                 </mat-card-header>
                 <mat-card-content>
                     Tenant Selection
+                    <div class="matches">
+                        <table>
+                            <caption>Matches</caption>
+                            <thead>
+                                <tr>
+                                    <td>
+                                        @if (multiple) {
+                                            <input type="checkbox" />
+                                        }
+                                    </td>
+                                    <td>Name</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <td></td>
+                                    <td>Name</td>
+                                    <td>Description</td>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div><!-- .matches -->
+                    <div class="selected">
+                        <table>
+                            <caption>Selected</caption>
+                            <thead>
+                                <tr>
+                                    <td>
+                                        @if (multiple) {
+                                            <input type="checkbox" />
+                                        }
+                                    </td>
+                                    <td>Name</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <td></td>
+                                    <td>Name</td>
+                                    <td>Description</td>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div><!-- .selected -->
                 </mat-card-content>
                 <mat-card-actions>
                     <button type="button">
