@@ -9,6 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
+import { TenantSelectorModule } from '../../../../../tenant-selector/tenant-selector-module';
+import { TenantSelector } from '../../../../../tenant-selector/components/tenant-selector/tenant-selector';
 
 @Component({
   selector: 'app-users',
@@ -22,7 +24,9 @@ import { RouterModule } from '@angular/router';
     MatToolbarModule,
     MatCheckboxModule,
     MatSidenavModule,
-    RouterModule
+    RouterModule,
+    TenantSelectorModule,
+    TenantSelector
   ],
   templateUrl: './users.html',
   styleUrl: './users.css',
