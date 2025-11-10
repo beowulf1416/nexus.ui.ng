@@ -14,6 +14,27 @@ const routes: Routes = [
         loadComponent: () => import('./components/users/users').then(c => c.Users)
       },
       {
+        path: 'user',
+        children: [
+          {
+            path: 'new',
+            title: 'New User',
+            loadComponent: () => import('./components/user/user').then(c => c.User)
+          },
+          {
+            path: ':id',
+            title: 'Edit User',
+            loadComponent: () => import('./components/user/user').then(c => c.User)
+          },
+          {
+            path: '',
+            pathMatch: 'full',
+            title: 'New User',
+            redirectTo: '/admin/users/user/new'
+          }
+        ]
+      },
+      {
         path: 'dashboard',
         redirectTo: ''
       },

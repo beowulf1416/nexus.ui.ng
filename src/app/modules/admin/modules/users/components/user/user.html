@@ -1,0 +1,37 @@
+<div class="component component-admin-user">
+    <div class="form-wrapper">
+        <form id="form_user" class="form-user" method="post" action="">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>New User</mat-card-title>
+                    <mat-card-subtitle>Invite user</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="field-wrapper">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input type="email" id="email" name="email" class="field field-email" placeholder="Email" required matInput />
+                        </mat-form-field>
+                    </div><!-- .field-wrapper -->
+                    <div class="field-wrapper">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Password</mat-label>
+                            <input type="password" id="pw" name="pw" class="field field-pw" placeholder="Password" required matInput />
+                            <button type="button" id="btn_visibility" class="btn btn-visibility" title="Show Password" matSuffix mat-icon-button (click)="toggle_show_pw()">
+                                <mat-icon>visibility_off</mat-icon>
+                            </button>
+                            <button type="button" id="btn_generate_pw" class="btn btn-pw-generate" title="Generate Password" matSuffix mat-icon-button (click)="generate_pw()">
+                                <mat-icon>bolt</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div><!-- .field-wrapper -->
+                </mat-card-content>
+                <mat-card-actions>
+                    <button type="button" id="btn_user_save" class="btn btn-user-save" title="Save" mat-fab extended (click)="save()">
+                        <mat-icon>save</mat-icon>Save
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </form>
+    </div><!-- .form-wrapper -->
+</div><!-- .component -->
