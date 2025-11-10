@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, Component, Input } from '@angular/core';
+import { booleanAttribute, Component, input, Input, output } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
+import { Tenant } from '../../classes/tenant';
+import { TeantSelectorService } from '../../services/teant-selector-service';
 
 @Component({
   selector: 'app-tenant-selector',
@@ -15,7 +17,10 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class TenantSelector {
 
-  @Input({ required: false }) multiple!: boolean;
+  // @Input({ required: false }) multiple!: boolean;
+  multiple = input(false, { transform: booleanAttribute });
+
+  tenants_selected = output<Array<Tenant>>();
 
   component = {
     error: '',
@@ -23,5 +28,7 @@ export class TenantSelector {
     formSelected: new FormGroup({})
   };
 
-  constructor() {}
+  constructor(
+    private tss: TeantSelectorService
+  ) {}
 }
