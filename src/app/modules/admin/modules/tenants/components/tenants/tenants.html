@@ -1,10 +1,17 @@
 <div class="component component-admin-tenants-tenants">
     <div class="form-wrapper">
-        <form id="search_form" class="search-form" method="post" action="">
+        <form id="search_form" class="search-form" method="post" action="" [formGroup]="component.formTenants">
             <mat-toolbar>
                 <a id="a_tenant_new" class="btn btn-tenant-new" title="New tenant" routerLink="/admin/tenants/tenant/new" mat-icon-button>
                     <mat-icon>add_home_work</mat-icon>
                 </a>
+                <button type="button" class="btn btn-set-active" title="Set Active" aria-label="Set Active" mat-icon-button (click)="set_active()">
+                    <mat-icon>domain</mat-icon>
+                </button> 
+                <button type="button" class="btn btn-set-inactive" title="Set Inactive" aria-label="Set Inactive" mat-icon-button (click)="set_inactive()">
+                    <mat-icon>domain_disabled</mat-icon>
+                </button> 
+                <mat-divider [vertical]="true"></mat-divider>
                 <button type="button" class="btn btn-refresh" aria-label="Refresh" matIconButton (click)="refresh()">
                     <mat-icon>refresh</mat-icon>
                 </button>
@@ -34,13 +41,23 @@
                             <td></td>
                         </tr>
                     </tfoot>
-                    <tbody>
-                        <tr *ngFor="let t of component.tenants; index as i;" [attr.data-tenant-id]="t.id">
+                    <tbody formArrayName="tenants">
+                        <!--
+                        <tr *ngFor="let t of component.tenants(); index as i;" [attr.data-tenant-id]="t.id">
                             <td><input type="checkbox" [id]="t.id" name="selected" [value]="t.id" class="field field-select" /></td>
                             <td><mat-icon>{{ t.active ? 'radio_button_checked' : 'radio_button_unchecked' }}</mat-icon></td>
                             <td><a [title]="t.name" class="a-tenant-name" routerLink="/admin/tenants/tenant/edit/{{ t.id }}">{{ t.name }}</a></td>
                             <td>{{ t.description }}</td>
                         </tr>
+                        -->
+                        @for(tenant of tenants.controls; track $index; let i = $index){ 
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        }
                     </tbody>
                 </table>
             </div><!-- .results -->
