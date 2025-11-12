@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, signal } from '@angular/core';
 import { Form, FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -43,13 +43,15 @@ export class Tenants {
       filters: new FormGroup({
         filter: new FormControl('', [])
       }),
-      tenants: new FormArray([])
+      tenants: new FormArray([]),
+      test: new FormControl(false, [])
     }),
     tenants: signal(new Array<Tenant>())
   };
 
   constructor(
-    private ts: TenantsService
+    private ts: TenantsService,
+    private cd: ChangeDetectorRef
   ) {}
 
   get tenants() {
@@ -62,26 +64,30 @@ export class Tenants {
   }
 
   search(): void {
+    console.info('search');
     // if (this.component.formSearch.valid) {
       let filter = this.component.formTenants.get("filters.filter")?.value || '';
 
       this.ts.tenants_search(filter).subscribe({
         next: (r: ApiResponse) => {
           if (r.success) {
-            console.debug(r.data);
-            let tenants = (r.data as {
+            // console.debug(r.data);
+            let ts = (r.data as {
               tenants: Array<Tenant>
             }).tenants;
-            // this.component.tenants.set(tenants);
 
             let tfa = this.component.formTenants.get('tenants') as FormArray;
-            tenants.forEach((t: Tenant, i: number) => {
-              tfa.push({
-                active: new FormControl('', []),
+            tfa.clear();
+            ts.forEach((t: Tenant, i: number) => {
+              tfa.push(new FormGroup({
+                selected: new FormControl(false, []),
+                id: new FormControl(t.id, []),
+                active: new FormControl(t.active, []),
                 name: new FormControl(t.name, []),
                 description: new FormControl(t.description, [])
-              });
+              }));
             });
+            this.cd.detectChanges();
 
           } else {
             this.component.error = r.message;
@@ -101,6 +107,35 @@ export class Tenants {
     console.info('set_active');
 
     // get selected tenants
+    // console.debug(this.component.formTenants.value);
+    // console.debug(this.component.formTenants.get('tenants')?.value);
+    // console.debug(
+    //   (this.component.formTenants.get('tenants') as FormArray)?.controls
+    //     .filter(c => (c as FormGroup).get('selected')?.value === true)
+    //     .map(c => c.value)
+    //     .map(c => c.id)
+    // );
+    let selected_ids = (this.component.formTenants.get('tenants') as FormArray)?.controls
+      .filter(c => (c as FormGroup).get('selected')?.value === true)
+      .map(c => c.value)
+      .map(c => c.id)
+      ;
+    // console.debug(selected_ids);
+    this.ts.tenant_set_active(selected_ids, true).subscribe({
+      next: (r: ApiResponse) => {
+        if (r.success) {
+          console.debug('//todo', r);
+        } else {
+          console.error('//todo', r);
+        }
+      },
+      error: (e) => {
+        console.error('//todo', e);
+      },
+      complete: () => {
+        console.info('//todo: complete')
+      }
+    });
   }
 
 
