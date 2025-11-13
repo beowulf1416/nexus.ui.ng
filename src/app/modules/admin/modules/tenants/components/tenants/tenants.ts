@@ -106,21 +106,11 @@ export class Tenants {
   set_active(): void {
     console.info('set_active');
 
-    // get selected tenants
-    // console.debug(this.component.formTenants.value);
-    // console.debug(this.component.formTenants.get('tenants')?.value);
-    // console.debug(
-    //   (this.component.formTenants.get('tenants') as FormArray)?.controls
-    //     .filter(c => (c as FormGroup).get('selected')?.value === true)
-    //     .map(c => c.value)
-    //     .map(c => c.id)
-    // );
     let selected_ids = (this.component.formTenants.get('tenants') as FormArray)?.controls
       .filter(c => (c as FormGroup).get('selected')?.value === true)
       .map(c => c.value)
       .map(c => c.id)
-      ;
-    // console.debug(selected_ids);
+    ;
     this.ts.tenant_set_active(selected_ids, true).subscribe({
       next: (r: ApiResponse) => {
         if (r.success) {
@@ -142,6 +132,25 @@ export class Tenants {
   set_inactive(): void {
     console.info('set_inactive');
 
-
+    let selected_ids = (this.component.formTenants.get('tenants') as FormArray)?.controls
+      .filter(c => (c as FormGroup).get('selected')?.value === true)
+      .map(c => c.value)
+      .map(c => c.id)
+    ;
+    this.ts.tenant_set_active(selected_ids, false).subscribe({
+      next: (r: ApiResponse) => {
+        if (r.success) {
+          console.debug('//todo', r);
+        } else {
+          console.error('//todo', r);
+        }
+      },
+      error: (e) => {
+        console.error('//todo', e);
+      },
+      complete: () => {
+        console.info('//todo: complete')
+      }
+    });
   }
 }
