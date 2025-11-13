@@ -13,9 +13,18 @@
                         <a id="a_user_new" class="btn btn-user-new" title="New User" routerLink="/admin/users/user/new" mat-icon-button>
                             <mat-icon>person_add</mat-icon>
                         </a>
-                        <button type="button" class="btn btn-assign-tenant" aria-label="Assign to Tenant" matIconButton (click)="assign_to_tenant()">
+                        <span class="divider">|</span>
+                        <button type="button" class="btn btn-set-active" title="Set Active" aria-label="Set Active" mat-icon-button (click)="set_active()">
+                            <mat-icon>person</mat-icon>
+                        </button> 
+                        <button type="button" class="btn btn-set-inactive" title="Set Inactive" aria-label="Set Inactive" mat-icon-button (click)="set_inactive()">
+                            <mat-icon>person_off</mat-icon>
+                        </button> 
+                        <span class="divider">|</span>
+                        <button type="button" class="btn btn-assign-tenant" title="Assign To Tenant" aria-label="Assign to Tenant" matIconButton (click)="assign_to_tenant()">
                             <mat-icon>assignment_turned_in</mat-icon>
                         </button>
+                        <span class="divider">|</span>
                         <button type="button" class="btn btn-refresh" aria-label="Refresh" matIconButton (click)="refresh()">
                             <mat-icon>refresh</mat-icon>
                         </button>

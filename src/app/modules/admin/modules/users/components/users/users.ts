@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,6 +11,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { TenantSelectorModule } from '../../../../../tenant-selector/tenant-selector-module';
 import { TenantSelector } from '../../../../../tenant-selector/components/tenant-selector/tenant-selector';
+import { User } from '../../classes/user';
+import { UsersService } from '../../services/users-service';
+import { ApiResponse } from '../../../../../../classes/api-response';
 
 
 @Component({
@@ -36,14 +39,61 @@ export class Users {
 
   @ViewChild('nav_tenant_selector') nav_tenant_selector!: MatSidenav
 
-  constructor() {}
+  component = {
+    error: '',
+    formUsers: new FormGroup({
+      filters: new FormGroup({
+        filter: new FormControl('', [])
+      }),
+      users: new FormArray([])
+    })
+  };
+
+
+  constructor(
+    private us: UsersService,
+    private cd: ChangeDetectorRef
+  ) {}
 
   refresh(): void {
     console.info('refresh');
+    this.search();
   }
 
   search(): void {
     console.info('search');
+
+    const filter = this.component.formUsers.get('filters.filter')?.value || '';
+    this.us.users_search(
+      filter
+    ).subscribe({
+      next: (r: ApiResponse) => {
+        if (r.success) {
+          let users = (r.data as {
+            users: Array<User>
+          }).users;
+
+          let ufa = this.component.formUsers.get('users') as FormArray;
+          ufa.clear();
+          users.forEach((u: User, i: number) => {
+            ufa.push(new FormGroup({
+              selected: new FormControl(false, []),
+              id: new FormControl(u.id, []),
+              email: new FormControl(u.email, [])
+            }));
+          });
+          this.cd.detectChanges();
+        } else {
+          console.error('//todo', r);
+        }
+      },
+      error: (e) => {
+        console.error('//todo', e);
+      },
+      complete: () => {
+        console.info('//todo: complete');
+      }
+    });
   }
 
   assign(): void {
@@ -54,5 +104,13 @@ export class Users {
   assign_to_tenant(): void {
     console.info('assign_to_tenant');
     this.nav_tenant_selector?.open();
+  }
+
+  set_active(): void {
+    console.info('set_active');
+  }
+
+  set_inactive(): void {
+    console.info('set_inactive');
   }
 }
