@@ -1,6 +1,6 @@
 <div class="component component-admin-tenants-tenants">
     <div class="form-wrapper">
-        <form id="search_form" class="search-form" method="post" action="" [formGroup]="component.formTenants">
+        <form id="search_form" class="form-search" method="post" action="" [formGroup]="component.formTenants">
             <mat-toolbar>
                 <a id="a_tenant_new" class="btn btn-tenant-new" title="New tenant" routerLink="/admin/tenants/tenant/new" mat-icon-button>
                     <mat-icon>add_home_work</mat-icon>
@@ -21,10 +21,9 @@
                         <mat-icon>search</mat-icon>
                     </button>
                 </mat-form-field>
-                <input type="checkbox" id="test" name="test" value="test" formControlName="test" />
             </mat-toolbar>
             <div class="results">
-                <table id="tbl_tenants">
+                <table id="tbl_tenants" class="tbl-tenants">
                     <caption>Tenants</caption>
                     <thead>
                         <tr>
@@ -46,18 +45,13 @@
                         @for(t of tenants.controls; track $index; let i = $index){ 
                         <tr [attr.data-id]="i" [formGroupName]="i">
                             <td><input type="checkbox" id="selected_{{ i }}" name="selected" title="Select" [value]="t.value.id" formControlName="selected"/></td>
-                            <td>
-                                @if(t.value.active) {
-                                    <mat-icon>check_small</mat-icon>
-                                }
-                            </td>
+                            <td><mat-icon [class.active]="t.value.active">radio_button_checked</mat-icon></td>
                             <td><a class="a_tenant_edit" title="Edit" routerLink="/admin/tenants/tenant/edit/{{ t.value.id }}">{{ t.value.name }}</a></td>
                             <td>{{ t.value.description }}</td>
                         </tr>
                         }
                     </tbody>
                 </table>
-                <pre>{{ this.component.formTenants.value | json }}</pre>
             </div><!-- .results -->
         </form>
     </div><!-- .form-wrapper -->

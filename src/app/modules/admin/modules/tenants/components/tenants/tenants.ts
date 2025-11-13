@@ -43,10 +43,8 @@ export class Tenants {
       filters: new FormGroup({
         filter: new FormControl('', [])
       }),
-      tenants: new FormArray([]),
-      test: new FormControl(false, [])
-    }),
-    tenants: signal(new Array<Tenant>())
+      tenants: new FormArray([])
+    })
   };
 
   constructor(

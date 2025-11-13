@@ -1,0 +1,7 @@
+.form-search .tbl-tenants mat-icon {
+    color: #f00;
+}
+
+.form-search .tbl-tenants mat-icon.active {
+    color: #3a6e17;
+}
