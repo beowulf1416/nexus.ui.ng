@@ -10,5 +10,7 @@ export const CONSTANTS = {
     url_tenant_fetch_by_id: '/tenants/fetch/id',
     url_tenant_users_fetch: '/tenants/fetch/users',
 
-    url_users_search: '/users/fetch'
+    url_user_save: '/users/create',
+    url_users_search: '/users/fetch',
+    url_users_set_active: '/users/set/active'
 };

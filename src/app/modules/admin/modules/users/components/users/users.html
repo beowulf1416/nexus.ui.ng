@@ -1,6 +1,6 @@
 <div class="component component-admin-users-users">
     <div class="form-wrapper">
-        <form id="search_form" class="search-form" method="post" action="">
+        <form id="search_form" class="search-form" method="post" action="" [formGroup]="component.formUsers">
             <mat-sidenav-container>
                 <mat-sidenav #nav_tenant_selector position="end" mode="over" disableClose="true">
                     <app-tenant-selector multiple="false"></app-tenant-selector>
@@ -56,15 +56,15 @@
                                     <td></td>
                                 </tr>
                             </tfoot>
-                            <tbody>
-                                <!--
-                                <tr *ngFor="let t of component.tenants; index as i;" [attr.data-tenant-id]="t.id">
-                                    <td><input type="checkbox" [id]="t.id" name="selected" [value]="t.id" class="field field-select" /></td>
-                                    <td><mat-icon>{{ t.active ? 'radio_button_checked' : 'radio_button_unchecked' }}</mat-icon></td>
-                                    <td><a [title]="t.name" class="a-tenant-name" routerLink="/admin/tenants/tenant/edit/{{ t.id }}">{{ t.name }}</a></td>
-                                    <td>{{ t.description }}</td>
+                            <tbody formArrayName="users">
+                                @for(u of users.controls; track $index; let i = $index){ 
+                                <tr [formGroupName]="i">
+                                    <td><input type="checkbox" id="selected_{{ i }}" name="selected" [value]="u.value.id" formControlName="selected" /></td>
+                                    <td></td>
+                                    <td><a class="a_email_edit" title="Edit" routerLink="admin/users/user/edit/{{ u.value.id }}">{{ u.value.email }}</a></td>
+                                    <td></td>
                                 </tr>
-                                -->
+                                }
                             </tbody>
                         </table>
                     </div><!-- .results -->

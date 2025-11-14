@@ -14,6 +14,24 @@ export class UsersService {
   ) {}
 
 
+  user_save(
+    user_id: string,
+    email: string,
+    password: string
+  ): Observable<ApiResponse> {
+    console.info('user_save');
+
+    return this.http.post<ApiResponse>(
+      CONSTANTS.api_base_url + CONSTANTS.url_user_save,
+      {
+        user_id: user_id,
+        email: email,
+        pw: password
+      }
+    );
+  }
+
+
   users_search(
     filter: string
   ): Observable<ApiResponse> {
@@ -21,6 +39,19 @@ export class UsersService {
       CONSTANTS.api_base_url + CONSTANTS.url_users_search,
       {
         filter: filter
+      }
+    );
+  }
+
+  users_set_active(
+    user_ids: Array<string>,
+    active: boolean
+  ): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(
+      CONSTANTS.api_base_url + CONSTANTS.url_users_set_active,
+      {
+        user_ids: user_ids,
+        active: active
       }
     );
   }

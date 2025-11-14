@@ -55,6 +55,11 @@ export class Users {
     private cd: ChangeDetectorRef
   ) {}
 
+
+  get users() {
+    return this.component.formUsers.get('users') as FormArray;
+  }
+
   refresh(): void {
     console.info('refresh');
     this.search();
@@ -108,9 +113,49 @@ export class Users {
 
   set_active(): void {
     console.info('set_active');
+
+    let user_ids = (this.component.formUsers.get('users') as FormArray)?.controls
+      .filter(c => (c as FormGroup).get('selected')?.value)
+      .map(c => c.value)
+      .map(c => c.Id)
+    ;
+    this.us.users_set_active(
+      user_ids,
+      true
+    ).subscribe({
+      next: (r: ApiResponse) => {
+        console.debug('//todo', r);
+      },
+      error: (e) => {
+        console.error('//todo', e);
+      },
+      complete: () => {
+        console.info('//todo complete');
+      }
+    });
   }
 
   set_inactive(): void {
     console.info('set_inactive');
+
+    let user_ids = (this.component.formUsers.get('users') as FormArray)?.controls
+      .filter(c => (c as FormGroup).get('selected')?.value)
+      .map(c => c.value)
+      .map(c => c.Id)
+    ;
+    this.us.users_set_active(
+      user_ids,
+      false
+    ).subscribe({
+      next: (r: ApiResponse) => {
+        console.debug('//todo', r);
+      },
+      error: (e) => {
+        console.error('//todo', e);
+      },
+      complete: () => {
+        console.info('//todo complete');
+      }
+    });
   }
 }
