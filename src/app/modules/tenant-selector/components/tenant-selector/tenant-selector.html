@@ -1,13 +1,20 @@
 <div class="component component-tenant-selector">
     <div class="form-wrapper">
-        <form id="form_tenant_selector" class="form-tenant-selector" method="post" action="">
+        <form id="form_tenant_selector" class="form-tenant-selector" method="post" action="" [formGroup]="component.formTenants">
             <mat-card>
                 <mat-card-header>
                     <mat-card-title>Tenant Selector</mat-card-title>
                     <mat-card-subtitle>Select a tenant</mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>
-                    Tenant Selection
+                    <div class="filter">
+                        <mat-form-field appearance="outline">
+                            <input type="search" id="filter" name="filter" placeholder="Search" matInput formControlName="filter" />
+                            <button type="button" id="btn_search" name="btn_search" title="Search" (click)="search()" mat-icon-button matSuffix>
+                                <mat-icon>search</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div><!-- .filter -->
                     <div class="matches">
                         <table>
                             <caption>Matches</caption>
@@ -70,7 +77,7 @@
                     </div><!-- .selected -->
                 </mat-card-content>
                 <mat-card-actions>
-                    <button type="button">
+                    <button type="button" (click)="select()">
                         Select
                     </button>
                 </mat-card-actions>

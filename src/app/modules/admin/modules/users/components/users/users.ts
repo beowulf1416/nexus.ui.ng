@@ -158,4 +158,10 @@ export class Users {
       }
     });
   }
+
+  handle_tenants_selected(
+    tenant_ids: Array<string>
+  ): void {
+    console.debug('handle_tenants_selected', tenant_ids);
+  }
 }
