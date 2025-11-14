@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, Component, input, Input, output } from '@angular/core';
+import { booleanAttribute, ChangeDetectorRef, Component, input, Input, output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { Tenant } from '../../classes/tenant';
@@ -41,7 +41,8 @@ export class TenantSelector {
   };
 
   constructor(
-    private tss: TeantSelectorService
+    private tss: TeantSelectorService,
+    private cd: ChangeDetectorRef
   ) {}
 
   get matches() {
@@ -58,7 +59,25 @@ export class TenantSelector {
     let filter = this.component.formTenants.get('filter')?.value || '';
     this.tss.search(filter).subscribe({
       next: (r: ApiResponse) => {
-        console.debug('//todo', r);
+        if (r.success) {
+          let tenants = (r.data as {
+            tenants: Array<Tenant>
+          }).tenants;
+
+          let tfa = this.component.formTenants.get('matches') as FormArray;
+          tfa.clear();
+          tenants.forEach((t: Tenant) => {
+            tfa.push(new FormGroup({
+              selected: new FormControl(false, []),
+              id: new FormControl(t.id, []),
+              name: new FormControl(t.name, []),
+              description: new FormControl(t.description, [])
+            }));
+          });
+          this.cd.detectChanges();
+        } else {
+          console.error('//todo', r);
+        }
       },
       error: (e) => {
         console.error('//todo', e);
@@ -71,9 +90,12 @@ export class TenantSelector {
 
   select(): void {
     console.info('select');
-    
-    let tenant_ids = new Array<string>();
-    tenant_ids.push('test');
-    this.tenants_selected.emit(tenant_ids);
+
+    let tfa = this.component.formTenants.get('selected') as FormArray;
+    let tenant_ids = tfa?.controls.filter(c => (c as FormGroup).get('selected')?.value === true )
+      .map(c => c.value)
+      .map(c => c.id)
+    ;
+    console.debug(tenant_ids);
   }
 }
