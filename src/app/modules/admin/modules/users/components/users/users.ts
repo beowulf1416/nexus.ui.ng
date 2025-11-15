@@ -163,5 +163,6 @@ export class Users {
     tenant_ids: Array<string>
   ): void {
     console.debug('handle_tenants_selected', tenant_ids);
+    this.nav_tenant_selector?.close();
   }
 }

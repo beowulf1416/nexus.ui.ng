@@ -1,10 +1,16 @@
 import { booleanAttribute, ChangeDetectorRef, Component, input, output } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { UsersService } from '../../services/users-service';
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-user-selector',
-  imports: [],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatCardModule
+  ],
   templateUrl: './user-selector.html',
   styleUrl: './user-selector.css',
 })

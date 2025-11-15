@@ -4,9 +4,6 @@
             <mat-sidenav-container>
                 <mat-sidenav #nav_tenant_selector position="end" mode="over" disableClose="true">
                     <app-tenant-selector multiple="false" (tenants_selected)="handle_tenants_selected($event)"></app-tenant-selector>
-                    <button type="button" type="button" (click)="assign()">
-                        Assign
-                    </button>
                 </mat-sidenav>
                 <mat-sidenav-content>
                     <mat-toolbar>
