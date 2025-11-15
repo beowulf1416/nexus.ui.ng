@@ -40,6 +40,11 @@
                                 @for(t of matches.controls; track $index; let i = $index){ 
                                 <tr [formGroupName]="i">
                                     <td><input type="checkbox" id="selected_{{ i }}" name="selected" title="Select" [value]="t.value.id" formControlName="selected" /></td>
+                                    <td>
+                                        <button type="button" class="btn btn-select" aria-label="Select" matMiniFab (click)="select_tenant(t.value)">
+                                            <mat-icon>arrow_drop_down</mat-icon>
+                                        </button>
+                                    </td>
                                     <td>{{ t.value.name }}</td>
                                     <td>{{ t.value.description }}</td>
                                 </tr>
@@ -71,7 +76,11 @@
                             <tbody formArrayName="selected">
                                 @for(t of selected.controls; track $index; let i = $index){ 
                                 <tr [formGroupName]="i">
-                                    <td><input type="checkbox" id="selected_{{ i }}" name="selected" title="Select" [value]="t.value.id" formControlName="selected" /></td>
+                                    <td>
+                                        <button type="button" class="btn btn-deselect" aria-label="Deselect" matMiniFab (click)="deselect_tenant(t.value, i)">
+                                            <mat-icon>arrow_drop_up</mat-icon>
+                                        </button>
+                                    </td>
                                     <td>{{ t.value.name }}</td>
                                     <td>{{ t.value.description }}</td>
                                 </tr>

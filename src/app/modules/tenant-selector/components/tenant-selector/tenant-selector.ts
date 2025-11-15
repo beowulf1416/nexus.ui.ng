@@ -88,14 +88,35 @@ export class TenantSelector {
     });
   }
 
+  select_tenant(t: Tenant): void {
+    console.info('select_tenant', t);
+
+    let sfa = this.component.formTenants.get('selected') as FormArray;
+    sfa.push(new FormGroup({
+      id: new FormControl(t.id, []),
+      name: new FormControl(t.name, []),
+      description: new FormControl(t.description, [])
+    }));
+    this.cd.detectChanges();
+  }
+
+  deselect_tenant(t: Tenant, i: number): void {
+    console.info('deselect_tenant', t);
+
+    let sfa = this.component.formTenants.get('selected') as FormArray;
+    sfa.removeAt(i);
+  }
+
   select(): void {
     console.info('select');
 
     let tfa = this.component.formTenants.get('selected') as FormArray;
-    let tenant_ids = tfa?.controls.filter(c => (c as FormGroup).get('selected')?.value === true )
+    let tenant_ids = tfa?.controls
+      // .filter(c => (c as FormGroup).get('selected')?.value === true )
       .map(c => c.value)
       .map(c => c.id)
     ;
-    console.debug(tenant_ids);
+    // console.debug(tenant_ids);
+    this.tenants_selected.emit(tenant_ids);
   }
 }
