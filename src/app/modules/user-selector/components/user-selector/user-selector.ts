@@ -26,4 +26,16 @@ export class UserSelector {
     private us: UsersService,
     private cd: ChangeDetectorRef
   ) {}
+
+  get matches() {
+    return this.component.formUsers.get('matches') as FormArray;
+  }
+
+  get selected() {
+    return this.component.formUsers.get('selected') as FormArray;
+  }
+
+  search(): void {
+    console.info('search');
+  }
 }

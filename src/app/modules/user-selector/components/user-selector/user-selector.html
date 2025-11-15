@@ -1,6 +1,6 @@
 <div class="component component-user-selector">
     <div class="form-wrapper">
-        <form id="form_user_selector" class="form-user-selector" method="post" action="">
+        <form id="form_user_selector" class="form-user-selector" method="post" action="" [formGroup]="component.formUsers">
             <mat-card>
                 <mat-card-header>
                     <mat-card-title>User Selector</mat-card-title>
@@ -26,7 +26,7 @@
                                     <td></td>
                                 </tr>
                             </tfoot>
-                            <tbody>
+                            <tbody formArrayName="matches">
                                 <tr>
                                     <td></td>
                                     <td></td>
@@ -55,7 +55,7 @@
                                     <td></td>
                                 </tr>
                             </tfoot>
-                            <tbody>
+                            <tbody formArrayName="selected">
                                 <tr>
                                     <td></td>
                                     <td></td>
