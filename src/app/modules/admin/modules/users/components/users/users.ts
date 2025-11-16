@@ -177,8 +177,10 @@ export class Users {
     let user_ids = (this.component.formUsers.get('users') as FormArray)?.controls
       .filter(c => (c as FormGroup).get('selected')?.value === true)
       .map(c => c.value)
-      .map(c => c.Id)
+      .map(c => c.id)
     ;
+
+    console.debug(user_ids);
 
     this.us.user_assign_tenant(
       user_ids,
