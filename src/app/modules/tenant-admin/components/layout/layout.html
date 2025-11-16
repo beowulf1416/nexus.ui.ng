@@ -1,1 +1,22 @@
-<p>layout works!</p>
+<div class="component component-tenant-admin-layout">
+    <mat-sidenav-container>
+        <mat-sidenav #nav_tenant_admin position="start" mode="side" disableClose="true">
+            <nav>
+                <ul>
+                    <li><a title="Dashboard" routerLink="/tenant/admin/dashboard">Dashboard</a></li>
+                    <li><a title="Users" routerLink="/tenant/admin/users">Users</a></li>
+                    <li><a title="Roles" routerLink="/tenant/admin/roles/">Roles</a></li>
+                </ul>
+            </nav>
+        </mat-sidenav>
+        <mat-sidenav #nav_users_1 position="end" mode="over">
+            <p>right</p>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <button type="button" mat-icon-button (click)="toggle_nav_tenant_admin()">
+                <mat-icon fontSet="material-symbols-rounded">chevron_forward</mat-icon>
+            </button>
+            <router-outlet />
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div><!-- .component -->

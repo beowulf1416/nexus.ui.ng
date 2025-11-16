@@ -29,6 +29,11 @@ const routes: Routes = [
         loadComponent: () => import('./components/users/users').then(c => c.Users)
       },
       {
+        path: 'roles',
+        title: 'Roles',
+        loadComponent: () => import('./components/roles/roles').then(c => c.Roles)
+      },
+      {
         path: '',
         title: 'Dashboard',
         loadComponent: () => import('./components/dashboard/dashboard').then(c => c.Dashboard)

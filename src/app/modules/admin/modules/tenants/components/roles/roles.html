@@ -1,28 +1,32 @@
-<div class="component component-admin-roles">
+<div class="component component-admin-tenants-roles">
     <div class="form-wrapper">
         <form id="roles_form" class="form-roles" method="post" action="" [formGroup]="component.formRoles">
             <mat-card>
                 <mat-card-header>
                     <mat-card-title>Roles</mat-card-title>
                 </mat-card-header>
-                <mat-card-actions>
+                <mat-card-actions formGroupName="filters">
                     <mat-toolbar>
-                        <a id="a_role_new" class="btn btn-role-new" title="New Role" routerLink="/admin/roles/role/new" mat-icon-button>
-                            <mat-icon>person_add</mat-icon>
+                        <a id="a_role_new" class="btn btn-role-new" title="New Role" routerLink="/admin/tenants/roles/new" mat-icon-button>
+                            <mat-icon>new</mat-icon>
                         </a>
-                        <span class="divider">|</span>
-                        <button type="button" class="btn btn-set-active" title="Set Active" aria-label="Set Active" mat-icon-button (click)="set_active()">
-                            <mat-icon>person</mat-icon>
-                        </button> 
-                        <button type="button" class="btn btn-set-inactive" title="Set Inactive" aria-label="Set Inactive" mat-icon-button (click)="set_inactive()">
-                            <mat-icon>person_off</mat-icon>
-                        </button> 
-                        <span class="divider">|</span>
+                        <button type="button" class="btn btn-tenant-select" title="Select Tenant" matFab extended>
+                            <mat-icon>domain</mat-icon>Default
+                        </button>
+                        <button type="button" class="btn btn-refresh" title="Refresh" mat-icon-button>
+                            <mat-icon>refresh</mat-icon>
+                        </button>
+                        <mat-form-field appearance="outline">
+                            <input type="search" id="filter_tenant" name="filter_tenant" class="filter filter-tenant" placeholder="Search" matInput formControlName="filter" />
+                            <button type="button" id="btn_search" name="btn_search" class="btn btn-search" matSuffix mat-icon-button>
+                                <mat-icon>search</mat-icon>
+                            </button>
+                        </mat-form-field>
                     </mat-toolbar>
                 </mat-card-actions>
                 <mat-card-content>
-                    <div class="wrapper-table">
-                        <table id="tbl-roles">
+                    <div class="table-wrapper">
+                        <table class="tbl-roles">
                             <caption>Roles</caption>
                             <thead>
                                 <tr>
@@ -35,9 +39,9 @@
                             <tfoot>
                                 <tr>
                                     <td></td>
-                                    <td>Active</td>
-                                    <td>Name</td>
-                                    <td>Description</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                             </tfoot>
                             <tbody>
@@ -49,11 +53,9 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div><!-- .wrapper-table -->
+                    </div><!-- .table-wrapper -->
                 </mat-card-content>
             </mat-card>
-            <app-tenant-selector multiple="false"></app-tenant-selector>
-            <input type="hidden" id="tenant_id" name="tenant_id" formControlName="tenant_id" />
         </form>
-    </div><!-- .form-wrapper -->
+    </div>
 </div><!-- .component -->

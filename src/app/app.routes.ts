@@ -15,7 +15,7 @@ export const routes: Routes = [
         loadComponent: () => import('./components/dashboard/dashboard').then(c => c.Dashboard)
     },
     {
-        path: 'tenant-admin',
+        path: 'tenant/admin',
         loadChildren: () => import('./modules/tenant-admin/tenant-admin-module').then(m => m.TenantAdminModule)
     },
     {
