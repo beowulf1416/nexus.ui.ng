@@ -48,7 +48,7 @@ export class UsersService {
     active: boolean
   ): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(
-      CONSTANTS.api_base_url + CONSTANTS.url_users_set_active,
+      CONSTANTS.api_base_url + CONSTANTS.url_users_set_active_multiple,
       {
         user_ids: user_ids,
         active: active

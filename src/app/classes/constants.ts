@@ -13,5 +13,6 @@ export const CONSTANTS = {
     url_user_save: '/users/create',
     url_users_search: '/users/fetch',
     url_users_set_active: '/users/set/active',
+    url_users_set_active_multiple: '/users/set/active/multiple',
     url_users_assign_tenants: '/users/assign/tenants'
 };

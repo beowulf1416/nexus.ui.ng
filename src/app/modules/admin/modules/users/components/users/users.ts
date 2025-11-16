@@ -83,7 +83,7 @@ export class Users {
           users.forEach((u: User, i: number) => {
             ufa.push(new FormGroup({
               selected: new FormControl(false, []),
-              id: new FormControl(u.id, []),
+              id: new FormControl(u.user_id, []),
               email: new FormControl(u.email, [])
             }));
           });
@@ -115,22 +115,27 @@ export class Users {
     console.info('set_active');
 
     let user_ids = (this.component.formUsers.get('users') as FormArray)?.controls
-      .filter(c => (c as FormGroup).get('selected')?.value)
+      .filter(c => (c as FormGroup).get('selected')?.value === true)
       .map(c => c.value)
-      .map(c => c.Id)
+      .map(c => c.id)
     ;
+
     this.us.users_set_active(
       user_ids,
       true
     ).subscribe({
       next: (r: ApiResponse) => {
-        console.debug('//todo', r);
+        if (r.success) {
+          console.info('//todo next');
+        } else {
+          console.error('//todo', r.message);
+        }
       },
       error: (e) => {
         console.error('//todo', e);
       },
       complete: () => {
-        console.info('//todo complete');
+        this.refresh();
       }
     });
   }
@@ -139,7 +144,7 @@ export class Users {
     console.info('set_inactive');
 
     let user_ids = (this.component.formUsers.get('users') as FormArray)?.controls
-      .filter(c => (c as FormGroup).get('selected')?.value)
+      .filter(c => (c as FormGroup).get('selected')?.value === true)
       .map(c => c.value)
       .map(c => c.Id)
     ;
@@ -148,13 +153,17 @@ export class Users {
       false
     ).subscribe({
       next: (r: ApiResponse) => {
-        console.debug('//todo', r);
+        if (r.success) {
+          console.info('//todo next');
+        } else {
+          console.error('//todo', r.message);
+        }
       },
       error: (e) => {
         console.error('//todo', e);
       },
       complete: () => {
-        console.info('//todo complete');
+        this.refresh();
       }
     });
   }
@@ -164,5 +173,30 @@ export class Users {
   ): void {
     console.debug('handle_tenants_selected', tenant_ids);
     this.nav_tenant_selector?.close();
+
+    let user_ids = (this.component.formUsers.get('users') as FormArray)?.controls
+      .filter(c => (c as FormGroup).get('selected')?.value === true)
+      .map(c => c.value)
+      .map(c => c.Id)
+    ;
+
+    this.us.user_assign_tenant(
+      user_ids,
+      tenant_ids
+    ).subscribe({
+      next: (r: ApiResponse) => {
+        if (r.success) {
+          console.info('//todo', r);
+        } else {
+          console.error('//todo', r.message);
+        }
+      },
+      error: (e) => {
+        console.error(e);
+      },
+      complete: () => {
+        console.info('//todo complete');
+      }
+    });
   }
 }
