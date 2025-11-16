@@ -55,4 +55,17 @@ export class UsersService {
       }
     );
   }
+
+  user_assign_tenant(
+    user_ids: Array<string>,
+    tenant_ids: Array<string>
+  ): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(
+      CONSTANTS.api_base_url + CONSTANTS.url_users_assign_tenants,
+      {
+        user_ids: user_ids,
+        tenant_ids: tenant_ids
+      }
+    );
+  }
 }

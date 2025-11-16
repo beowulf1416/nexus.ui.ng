@@ -121,7 +121,9 @@ export class Tenants {
         console.error('//todo', e);
       },
       complete: () => {
-        console.info('//todo: complete')
+        console.info('//todo: complete');
+
+        this.refresh();
       }
     });
   }
@@ -147,7 +149,9 @@ export class Tenants {
         console.error('//todo', e);
       },
       complete: () => {
-        console.info('//todo: complete')
+        console.info('//todo: complete');
+
+        this.refresh();
       }
     });
   }
