@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TenantSelector } from '../../../../../tenant-selector/components/tenant-selector/tenant-selector';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-roles',
@@ -17,6 +18,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatIconModule,
     MatButtonModule,
     MatToolbarModule,
+    MatSidenavModule,
     TenantSelector
   ],
   templateUrl: './roles.html',

@@ -1,59 +1,66 @@
 <div class="component component-admin-roles">
-    <div class="form-wrapper">
-        <form id="roles_form" class="form-roles" method="post" action="" [formGroup]="component.formRoles">
-            <mat-card>
-                <mat-card-header>
-                    <mat-card-title>Roles</mat-card-title>
-                </mat-card-header>
-                <mat-card-actions>
-                    <mat-toolbar>
-                        <a id="a_role_new" class="btn btn-role-new" title="New Role" routerLink="/admin/roles/role/new" mat-icon-button>
-                            <mat-icon>person_add</mat-icon>
-                        </a>
-                        <span class="divider">|</span>
-                        <button type="button" class="btn btn-set-active" title="Set Active" aria-label="Set Active" mat-icon-button (click)="set_active()">
-                            <mat-icon>person</mat-icon>
-                        </button> 
-                        <button type="button" class="btn btn-set-inactive" title="Set Inactive" aria-label="Set Inactive" mat-icon-button (click)="set_inactive()">
-                            <mat-icon>person_off</mat-icon>
-                        </button> 
-                        <span class="divider">|</span>
-                    </mat-toolbar>
-                </mat-card-actions>
-                <mat-card-content>
-                    <div class="wrapper-table">
-                        <table id="tbl-roles">
-                            <caption>Roles</caption>
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Active</th>
-                                    <th>Name</th>
-                                    <th>Description</th>
-                                </tr>
-                            </thead>
-                            <tfoot>
-                                <tr>
-                                    <td></td>
-                                    <td>Active</td>
-                                    <td>Name</td>
-                                    <td>Description</td>
-                                </tr>
-                            </tfoot>
-                            <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div><!-- .wrapper-table -->
-                </mat-card-content>
-            </mat-card>
+    <mat-sidenav-container>
+        <mat-sidenav #nav_start_roles mode="over" position="end" disableClose="true">
             <app-tenant-selector multiple="false"></app-tenant-selector>
-            <input type="hidden" id="tenant_id" name="tenant_id" formControlName="tenant_id" />
-        </form>
-    </div><!-- .form-wrapper -->
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <div class="form-wrapper">
+                <form id="roles_form" class="form-roles" method="post" action="" [formGroup]="component.formRoles">
+                    <mat-card>
+                        <mat-card-header>
+                            <mat-card-title>Roles</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-actions>
+                            <mat-toolbar>
+                                <a id="a_role_new" class="btn btn-role-new" title="New Role" routerLink="/admin/roles/role/new" mat-icon-button>
+                                    <mat-icon>person_add</mat-icon>
+                                </a>
+                                <span class="divider">|</span>
+                                <button type="button" class="btn btn-set-active" title="Set Active" aria-label="Set Active" mat-icon-button (click)="set_active()">
+                                    <mat-icon>person</mat-icon>
+                                </button> 
+                                <button type="button" class="btn btn-set-inactive" title="Set Inactive" aria-label="Set Inactive" mat-icon-button (click)="set_inactive()">
+                                    <mat-icon>person_off</mat-icon>
+                                </button> 
+                                <span class="divider">|</span>
+                            </mat-toolbar>
+                        </mat-card-actions>
+                        <mat-card-content>
+                            <div class="wrapper-table">
+                                <table id="tbl-roles">
+                                    <caption>Roles</caption>
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Active</th>
+                                            <th>Name</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <td></td>
+                                            <td>Active</td>
+                                            <td>Name</td>
+                                            <td>Description</td>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div><!-- .wrapper-table -->
+                        </mat-card-content>
+                    </mat-card>
+                    <app-tenant-selector multiple="false"></app-tenant-selector>
+                    <input type="hidden" id="tenant_id" name="tenant_id" formControlName="tenant_id" />
+                </form>
+            </div><!-- .form-wrapper -->
+        </mat-sidenav-content>
+    </mat-sidenav-container>
 </div><!-- .component -->
