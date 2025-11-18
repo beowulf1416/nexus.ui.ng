@@ -11,6 +11,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { TenantSelector } from '../../../../../tenant-selector/components/tenant-selector/tenant-selector';
 import { UserSelector } from '../../../../../user-selector/components/user-selector/user-selector';
+import { TenantUserSelector } from '../../../../../tenant-user-selector/components/tenant-user-selector/tenant-user-selector';
 
 @Component({
   selector: 'app-roles',
@@ -27,7 +28,8 @@ import { UserSelector } from '../../../../../user-selector/components/user-selec
     MatInputModule,
     MatSidenavModule,
     TenantSelector,
-    UserSelector
+    UserSelector,
+    TenantUserSelector
   ],
   templateUrl: './roles.html',
   styleUrl: './roles.css',
@@ -55,6 +57,11 @@ export class Roles {
   }
 
   on_tenants_selected(tenant_ids: Array<string>): void {
+    console.debug('//todo', tenant_ids);
+    this.nav_selectors.toggle();
+  }
+
+  selected(tenant_ids: Array<string>): void {
     console.debug('//todo', tenant_ids);
     this.nav_selectors.toggle();
   }

@@ -3,6 +3,7 @@
         <mat-sidenav #nav_selectors mode="over" position="end" disableClose="true">
             <app-tenant-selector #tenant_selector multiple="false" (tenants_selected)="on_tenants_selected($event)"></app-tenant-selector>
             <app-user-selector #user_selector multiple="true"></app-user-selector>
+            <app-tenant-user-selector multiple="true" (selected)="selected($event)"></app-tenant-user-selector>
         </mat-sidenav>
         <mat-sidenav-content>
             <div class="form-wrapper">

@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { TenantSelector } from '../../../../../tenant-selector/components/tenant-selector/tenant-selector';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { TenantUserSelector } from '../../../../../tenant-user-selector/components/tenant-user-selector/tenant-user-selector';
 
 @Component({
   selector: 'app-roles',
@@ -19,7 +20,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatButtonModule,
     MatToolbarModule,
     MatSidenavModule,
-    TenantSelector
+    TenantSelector,
+    TenantUserSelector
   ],
   templateUrl: './roles.html',
   styleUrl: './roles.css',

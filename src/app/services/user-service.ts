@@ -13,6 +13,7 @@ import { NotificationService } from './notification-service';
 })
 export class UserService {
   public readonly current_user = signal(User.anonymous());
+  public readonly current_tenant = signal(Tenant.default());
   public readonly tenants = signal(new Array<Tenant>());
 
   constructor(
