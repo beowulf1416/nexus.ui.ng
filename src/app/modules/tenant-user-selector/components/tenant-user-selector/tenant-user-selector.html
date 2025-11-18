@@ -1,0 +1,97 @@
+<div class="component component-tenant-user-selector">
+    <div class="form-wrapper">
+        <form id="form_tenant_user_selector" class="form-tenant-user-selector" method="post" action="" [formGroup]="component.formTenantUsers">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Tenant Users</mat-card-title>
+                    <mat-card-subtitle>Select tenant users</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="filters" formGroupName="filters">
+                        <mat-form-field appearance="outline">
+                            <input type="search" id="filter" name="filter" placeholder="Search" matInput formControlName="filter"/>
+                            <button type="button" id="btn_clear" class="btn btn-clear" title="Clear" (click)="clear_search()" mat-icon-button matSuffix>
+                                <mat-icon>clear</mat-icon>
+                            </button>
+                            <button type="button" id="btn_search" class="btn btn-search" title="Search" (click)="search()" mat-icon-button matSuffix>
+                                <mat-icon>search</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div><!-- .filters -->
+                    <div class="matches">
+                        <table id="tbl_matches">
+                            <caption>Matches</caption>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <td></td>
+                                    <td>Name</td>
+                                    <td>Email</td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                            <tbody formArrayName="matches">
+                                @for(u of matches.controls; track $index; let i = $index){
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-select" title="Select" (click)="select_user(u.value)" mat-icon-button>
+                                            <mat-icon>arrow_drop_down</mat-icon>
+                                        </button>
+                                    </td>
+                                    <td>{{ u.value.name }}</td>
+                                    <td>{{ u.value.email }}</td>
+                                    <td></td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div><!-- .matches -->
+                    <div class="selected">
+                        <table id="tbl_selected">
+                            <caption>Selected</caption>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <td></td>
+                                    <td>Name</td>
+                                    <td>Email</td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div><!-- .selected -->
+                </mat-card-content>
+                <mat-card-actions>
+                    <button type="button" id="btn_select" class="btn btn-select" title="Select" (click)="select()" matFab extended>
+                        <mat-icon>check_circle</mat-icon>Select
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+
+            <!-- <input type="hidden" id="tenant_id" name="tenant_id" value="{{ tenant().tenant_id }}" /> -->
+             <pre>{{ tenant() | json  }}</pre>
+        </form>
+    </div><!-- .form-wrapper -->
+</div><!-- .component -->
