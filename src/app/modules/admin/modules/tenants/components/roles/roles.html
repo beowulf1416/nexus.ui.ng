@@ -1,13 +1,17 @@
 <div class="component component-admin-tenants-roles">
     <mat-sidenav-container>
         <mat-sidenav #nav_selectors mode="over" position="end" disableClose="true">
+            @if(selection_mode() === SelectionModes.tenants) {
             <app-tenant-selector #tenant_selector multiple="false" (tenants_selected)="on_tenants_selected($event)"></app-tenant-selector>
-            <app-user-selector #user_selector multiple="true"></app-user-selector>
+            }
+            @if(selection_mode() === SelectionModes.users){
             <app-tenant-user-selector multiple="true" (selected)="selected($event)"></app-tenant-user-selector>
+            }
         </mat-sidenav>
         <mat-sidenav-content>
             <div class="form-wrapper">
                 <form id="roles_form" class="form-roles" method="post" action="" [formGroup]="component.formRoles">
+                    <input type="hidden" id="tenant_id" name="tenant_id" formControlName="tenant_id" />
                     <mat-card>
                         <mat-card-header>
                             <mat-card-title>Roles</mat-card-title>
@@ -18,14 +22,17 @@
                                     <mat-icon>add_moderator</mat-icon>
                                 </a>
                                 <button type="button" class="btn btn-tenant-select" title="Select Tenant" matFab extended (click)="select_tenant()">
-                                    <mat-icon>domain</mat-icon>Default
+                                    <mat-icon>domain</mat-icon>{{ component.tenant_name }}
                                 </button>
                                 <button type="button" class="btn btn-refresh" title="Refresh" mat-icon-button>
                                     <mat-icon>refresh</mat-icon>
                                 </button>
                                 <mat-form-field appearance="outline">
                                     <input type="search" id="filter_tenant" name="filter_tenant" class="filter filter-tenant" placeholder="Search" matInput formControlName="filter" />
-                                    <button type="button" id="btn_search" name="btn_search" class="btn btn-search" matSuffix mat-icon-button>
+                                    <button type="button" id="btn_reset" name="btn_reset" class="btn btn-reset" (click)="search_reset()" matSuffix mat-icon-button>
+                                        <mat-icon>close_small</mat-icon>
+                                    </button>
+                                    <button type="button" id="btn_search" name="btn_search" class="btn btn-search" (click)="search_roles()" matSuffix mat-icon-button>
                                         <mat-icon>search</mat-icon>
                                     </button>
                                 </mat-form-field>

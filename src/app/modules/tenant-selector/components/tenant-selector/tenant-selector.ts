@@ -29,7 +29,7 @@ export class TenantSelector {
   // @Input({ required: false }) multiple!: boolean;
   multiple = input(false, { transform: booleanAttribute });
 
-  tenants_selected = output<Array<string>>();
+  tenants_selected = output<Array<Tenant>>();
 
   component = {
     error: '',
@@ -111,12 +111,12 @@ export class TenantSelector {
     console.info('select');
 
     let tfa = this.component.formTenants.get('selected') as FormArray;
-    let tenant_ids = tfa?.controls
+    let tenants = tfa?.controls
       // .filter(c => (c as FormGroup).get('selected')?.value === true )
       .map(c => c.value)
-      .map(c => c.id)
+      .map(c => new Tenant(c.id, c.name, c.description))
     ;
     // console.debug(tenant_ids);
-    this.tenants_selected.emit(tenant_ids);
+    this.tenants_selected.emit(tenants);
   }
 }
