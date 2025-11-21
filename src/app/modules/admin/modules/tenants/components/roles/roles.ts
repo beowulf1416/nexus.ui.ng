@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, signal, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, signal, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -15,6 +15,9 @@ import { TenantUserSelector } from '../../../../../tenant-user-selector/componen
 import { SelectionModes } from '../../classes/selection-modes';
 
 import { Tenant } from '../../../../../tenant-selector/classes/tenant';
+import { TenantsService } from '../../services/tenants-service';
+import { ApiResponse } from '../../../../../../classes/api-response';
+import { Role } from '../../classes/role';
 // import { Tenant } from '../tenant/tenant';
 
 
@@ -64,8 +67,13 @@ export class Roles {
 
 
   constructor(
-
+    private ts: TenantsService,
+    private cd: ChangeDetectorRef
   ) {}
+
+  get roles() {
+    return this.component.formRoles.get('roles') as FormArray;
+  }
 
   select_tenant(): void {
     this.selection_mode.set(SelectionModes.tenants);
@@ -93,9 +101,47 @@ export class Roles {
   search_roles(): void {
     console.info('search_roles');
 
-    let tenant_id = this.component.formRoles.get('tenant_id')?.value;
-    let filter = this.component.formRoles.get('filters.filter')?.value;
+    let tenant_id = this.component.formRoles.get('tenant_id')?.value || '';
+    let filter = this.component.formRoles.get('filters.filter')?.value || '';
 
-    
+    this.ts.roles_fetch(
+      tenant_id,
+      filter
+    ).subscribe({
+      next: (r: ApiResponse) => {
+        if (r.success) {
+          let roles = (r.data as {
+            roles: Array<Role>
+          }).roles;
+
+          let rfa = this.component.formRoles.get('roles') as FormArray;
+          rfa.clear();
+          roles.forEach((r: Role) => {
+            rfa.push(new FormGroup({
+              id: new FormControl(r.id, []),
+              name: new FormControl(r.name, []),
+              description: new FormControl(r.description, [])
+            }))
+          });
+          this.cd.detectChanges();
+        } else {
+          console.debug(r);
+        }
+      },
+      error: (e) => {
+        console.error(e);
+      },
+      complete: () => {
+        console.info('//todo complete');
+      }
+    });
+  }
+
+  on_role_assign(): void {
+    console.info('on_role_assign()')
+  }
+
+  on_role_revoke(): void {
+    console.info('on_role_revoke()');
   }
 }

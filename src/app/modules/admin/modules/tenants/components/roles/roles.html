@@ -21,6 +21,14 @@
                                 <a id="a_role_new" class="btn btn-role-new" title="New Role" routerLink="/admin/tenants/roles/new" mat-icon-button>
                                     <mat-icon>add_moderator</mat-icon>
                                 </a>
+                                <span>|</span>
+                                <button type="button" class="btn btn-role-assign" title="Assign Users" mat-icon-button (click)="on_role_assign()">
+                                    <mat-icon>group_add</mat-icon>
+                                </button>
+                                <button type="button" class="btn btn-role-assign" title="Revoke Users" mat-icon-button (click)="on_role_revoke()">
+                                    <mat-icon>group_remove</mat-icon>
+                                </button>
+                                <span>|</span>
                                 <button type="button" class="btn btn-tenant-select" title="Select Tenant" matFab extended (click)="select_tenant()">
                                     <mat-icon>domain</mat-icon>{{ component.tenant_name }}
                                 </button>
