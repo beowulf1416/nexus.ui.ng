@@ -86,4 +86,19 @@ export class TenantsService {
       }
     );
   }
+
+  roles_fetch(
+    tenant_id: string,
+    filter: string
+  ): Observable<ApiResponse> {
+    console.info('roles_fetch');
+
+    return this.http.post<ApiResponse>(
+      CONSTANTS.api_base_url + CONSTANTS.url_roles_fetch,
+      {
+        tenant_id: tenant_id,
+        filter: filter
+      }
+    );
+  }
 }
