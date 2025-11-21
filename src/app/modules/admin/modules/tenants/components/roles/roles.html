@@ -25,15 +25,19 @@
                                 <button type="button" class="btn btn-role-assign" title="Assign Users" mat-icon-button (click)="on_role_assign()">
                                     <mat-icon>group_add</mat-icon>
                                 </button>
-                                <button type="button" class="btn btn-role-assign" title="Revoke Users" mat-icon-button (click)="on_role_revoke()">
+                                <button type="button" class="btn btn-role-revoke" title="Revoke Users" mat-icon-button (click)="on_role_revoke()">
                                     <mat-icon>group_remove</mat-icon>
+                                </button>
+                                <span>|</span>
+                                <button type="button" class="btn btn-permission-assign" title="Assign Permissions" mat-icon-button (click)="on_permission_assign()">
+                                    <mat-icon>key</mat-icon>
+                                </button>
+                                <button type="button" class="btn btn-permission-revoke" title="Revoke Permissions" mat-icon-button (click)="on_permission_revoke()">
+                                    <mat-icon>key_off</mat-icon>
                                 </button>
                                 <span>|</span>
                                 <button type="button" class="btn btn-tenant-select" title="Select Tenant" matFab extended (click)="select_tenant()">
                                     <mat-icon>domain</mat-icon>{{ component.tenant_name }}
-                                </button>
-                                <button type="button" class="btn btn-refresh" title="Refresh" mat-icon-button>
-                                    <mat-icon>refresh</mat-icon>
                                 </button>
                                 <mat-form-field appearance="outline">
                                     <input type="search" id="filter_tenant" name="filter_tenant" class="filter filter-tenant" placeholder="Search" matInput formControlName="filter" />
@@ -44,6 +48,9 @@
                                         <mat-icon>search</mat-icon>
                                     </button>
                                 </mat-form-field>
+                                <button type="button" class="btn btn-refresh" title="Refresh" mat-icon-button (click)="on_refresh()">
+                                    <mat-icon>refresh</mat-icon>
+                                </button>
                             </mat-toolbar>
                         </mat-card-actions>
                         <mat-card-content>

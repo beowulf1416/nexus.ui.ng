@@ -137,11 +137,24 @@ export class Roles {
     });
   }
 
+  on_refresh(): void {
+    console.info('on_refresh');
+    this.search_roles();
+  }
+
   on_role_assign(): void {
     console.info('on_role_assign()')
   }
 
   on_role_revoke(): void {
     console.info('on_role_revoke()');
+  }
+
+  on_permission_assign(): void {
+    console.info('on_permission_assign');
+  }
+
+  on_permission_revoke(): void {
+    console.info('on_permission_revoke');
   }
 }
