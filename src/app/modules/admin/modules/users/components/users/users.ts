@@ -14,6 +14,7 @@ import { TenantSelector } from '../../../../../tenant-selector/components/tenant
 import { User } from '../../classes/user';
 import { UsersService } from '../../services/users-service';
 import { ApiResponse } from '../../../../../../classes/api-response';
+import { Tenant } from '../../../../../tenant-selector/classes/tenant';
 
 
 @Component({
@@ -169,10 +170,12 @@ export class Users {
   }
 
   handle_tenants_selected(
-    tenant_ids: Array<string>
+    tenants: Array<Tenant>
   ): void {
-    console.debug('handle_tenants_selected', tenant_ids);
+    console.debug('handle_tenants_selected', tenants);
     this.nav_tenant_selector?.close();
+
+    let tenant_ids = tenants.map(t => t.id);
 
     let user_ids = (this.component.formUsers.get('users') as FormArray)?.controls
       .filter(c => (c as FormGroup).get('selected')?.value === true)
