@@ -94,10 +94,29 @@ export class TenantsService {
     console.info('roles_fetch');
 
     return this.http.post<ApiResponse>(
-      CONSTANTS.api_base_url + CONSTANTS.url_roles_fetch,
+      CONSTANTS.api_base_url + CONSTANTS.url_tenant_roles_fetch,
       {
         tenant_id: tenant_id,
         filter: filter
+      }
+    );
+  }
+
+  role_save(
+    tenant_id: string,
+    role_id: string,
+    name: string,
+    description: string
+  ): Observable<ApiResponse> {
+    console.info('role_save');
+
+    return this.http.post<ApiResponse>(
+      CONSTANTS.api_base_url + CONSTANTS.url_tenant_role_save,
+      {
+        tenant_id: tenant_id,
+        role_id: role_id,
+        name: name,
+        description: description
       }
     );
   }

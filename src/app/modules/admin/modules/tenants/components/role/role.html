@@ -1,0 +1,44 @@
+<div class="component component-admin-tenant-role">
+    <mat-sidenav-container>
+        <mat-sidenav #nav_selectors mode="over" position="end" disableClose="true">
+            <app-tenant-selector multiple="false" (tenants_selected)="on_tenant_selected($event)"></app-tenant-selector>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <mat-card class="role" appearance="outlined">
+                <div class="form-wrapper">
+                    <form id="form_role" class="form-role" method="post" action="" [formGroup]="component.formRole">
+                        <input type="hidden" id="tenant_id" name="tenant_id" />
+                        <mat-card-header>
+                            <mat-card-title>New Role</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-actions>
+                            <mat-toolbar>
+                                <button type="button" class="btn btn-tenant-select" title="Select Tenant" matFab extended (click)="select_tenant()">
+                                    <mat-icon>domain</mat-icon>{{ component.tenant_name }}
+                                </button>
+                                <span>|</span>
+                                <button type="button" class="btn btn-save" title="Save" mat-fab (click)="save()">
+                                    <mat-icon>save</mat-icon>
+                                </button>
+                            </mat-toolbar>
+                        </mat-card-actions>
+                        <mat-card-content>
+                            <div class="field field-wrapper">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Name</mat-label>
+                                    <input type="text" id="name" name="name" class="field field-name" placeholder="Name" required matInput formControlName="name"/>
+                                </mat-form-field>
+                            </div><!-- .field -->
+                            <div class="field field-wrapper">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Description</mat-label>
+                                    <textarea id="description" name="description" class="field field-description" placeholder="Description" matInput formControlName="description"></textarea>
+                                </mat-form-field>
+                            </div><!-- .field -->
+                        </mat-card-content>
+                    </form>
+                </div><!-- .form-wrapper -->
+            </mat-card>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div><!-- .component -->
