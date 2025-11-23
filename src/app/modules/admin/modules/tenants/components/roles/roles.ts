@@ -18,6 +18,8 @@ import { Tenant } from '../../../../../tenant-selector/classes/tenant';
 import { TenantsService } from '../../services/tenants-service';
 import { ApiResponse } from '../../../../../../classes/api-response';
 import { Role } from '../../classes/role';
+import { PermissionSelector } from '../../../../../permission-selector/components/permission-selector/permission-selector';
+import { Permission } from '../../../../../permission-selector/classes/permission';
 // import { Tenant } from '../tenant/tenant';
 
 
@@ -39,7 +41,8 @@ import { Role } from '../../classes/role';
     MatSidenavModule,
     TenantSelector,
     // UserSelector,
-    TenantUserSelector
+    TenantUserSelector,
+    PermissionSelector
   ],
   templateUrl: './roles.html',
   styleUrl: './roles.css',
@@ -73,6 +76,10 @@ export class Roles {
 
   get roles() {
     return this.component.formRoles.get('roles') as FormArray;
+  }
+
+  select_all(): void {
+    console.info("select_all");
   }
 
   select_tenant(): void {
@@ -144,6 +151,8 @@ export class Roles {
 
   on_role_assign(): void {
     console.info('on_role_assign()')
+    this.selection_mode.set(SelectionModes.users);
+    this.nav_selectors.open();
   }
 
   on_role_revoke(): void {
@@ -152,9 +161,16 @@ export class Roles {
 
   on_permission_assign(): void {
     console.info('on_permission_assign');
+
+    this.selection_mode.set(SelectionModes.permissions);
+    this.nav_selectors.open();
   }
 
   on_permission_revoke(): void {
     console.info('on_permission_revoke');
+  }
+
+  on_permissions_selected(permissions: Array<Permission>): void {
+    console.info('on_permissions_selected');
   }
 }

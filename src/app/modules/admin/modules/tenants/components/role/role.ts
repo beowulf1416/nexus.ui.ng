@@ -89,6 +89,7 @@ export class Role {
         },
         complete: () => {
           console.info('//todo complete');
+          this.router.navigate(['/admin/tenants/roles']);
         }
       });
     }
