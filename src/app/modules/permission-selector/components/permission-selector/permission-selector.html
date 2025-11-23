@@ -1,0 +1,85 @@
+<div class="component component-permission-selector">
+    <div class="form-wrapper">
+        <form id="form_permission_selector" class="form-permission-selector" method="post" action="" [formGroup]="formPermissionSelector">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Permissions</mat-card-title>
+                    <mat-card-subtitle>Select permissions</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="filters" formGroupName="filters">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Search</mat-label>
+                            <input type="search" id="filter" name="filter" class="field field-filter" matInput formControlName="filter" />
+                        </mat-form-field>
+                    </div><!-- .filters -->
+                    <div class="matches">
+                        <table id="tbl_matches">
+                            <caption>Matches</caption>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Active</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                            <tbody formArrayName="matches">
+                                @for(m of matches.controls; track $index; let i = $index){
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div><!-- .matches -->
+                    <div class="selected">
+                        <table id="tbl_selected">
+                            <caption>Selected</caption>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Active</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div><!-- .selected -->
+                </mat-card-content>
+                <mat-card-actions>
+                    <button type="button" class="btn btn-selected">
+                        Select
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </form>
+    </div><!-- .form-wrapper -->
+</div><!-- .component -->
