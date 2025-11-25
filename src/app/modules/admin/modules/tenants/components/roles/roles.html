@@ -8,7 +8,7 @@
             <app-tenant-user-selector multiple="true" (selected)="selected($event)"></app-tenant-user-selector>
             }
             @if(selection_mode() === SelectionModes.permissions) {
-            <app-permission-selector multiple="true" (selected)="on_permissions_selected($event)"></app-permission-selector>
+            <app-permission-selector multiple="true" (permissions_selected)="on_permissions_selected($event)"></app-permission-selector>
             }
         </mat-sidenav>
         <mat-sidenav-content>

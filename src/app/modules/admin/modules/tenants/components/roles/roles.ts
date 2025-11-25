@@ -170,7 +170,8 @@ export class Roles {
     console.info('on_permission_revoke');
   }
 
-  on_permissions_selected(permissions: Array<Permission>): void {
-    console.info('on_permissions_selected');
+  on_permissions_selected(e: any): void {
+    console.debug('on_permissions_selected', e);
+    this.nav_selectors.close();
   }
 }
