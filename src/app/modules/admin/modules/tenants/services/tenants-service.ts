@@ -120,4 +120,34 @@ export class TenantsService {
       }
     );
   }
+
+  role_assign_permission(
+    role_ids: Array<string>,
+    permission_ids: Array<string>
+  ): Observable<ApiResponse> {
+    console.info('role_assign_permission');
+
+    return this.http.post<ApiResponse>(
+      CONSTANTS.api_base_url + CONSTANTS.url_tenant_roles_assign,
+      {
+        role_ids: role_ids,
+        permission_ids: permission_ids
+      }
+    );
+  }
+
+  role_revoke_permissions(
+    role_ids: Array<string>,
+    permission_ids: Array<string>
+  ): Observable<ApiResponse> {
+    console.info("role_revoke_permissions");
+
+    return this.http.post<ApiResponse>(
+      CONSTANTS.api_base_url + CONSTANTS.url_tenant_roles_revoke,
+      {
+        role_ids: role_ids,
+        permission_ids: permission_ids
+      }
+    );
+  }
 }
