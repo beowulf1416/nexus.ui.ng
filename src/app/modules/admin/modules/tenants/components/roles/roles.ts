@@ -170,8 +170,18 @@ export class Roles {
     console.info('on_permission_revoke');
   }
 
-  on_permissions_selected(e: any): void {
-    console.debug('on_permissions_selected', e);
+  on_permissions_selected(permission_ids: Array<string>): void {
+    console.debug('on_permissions_selected', permission_ids);
+
+    let sfa = this.component.formRoles.get('roles') as FormArray;
+    let role_ids = sfa.controls
+      .filter(f => (f as FormGroup).get('selected')?.value === true)
+      .map(c => c.value)
+      .map(c => c.id)
+    ;
+
+    
+
     this.nav_selectors.close();
   }
 }

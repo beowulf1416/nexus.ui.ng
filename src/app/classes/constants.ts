@@ -11,6 +11,8 @@ export const CONSTANTS = {
     url_tenant_users_fetch: '/tenants/fetch/users',
     url_tenant_roles_fetch: '/tenants/roles/fetch',
     url_tenant_role_save: '/tenants/role/save',
+    url_tenant_roles_assign: '/tenants/role/assign',
+    url_tenant_roles_revoke: '/tenants/role/revoke',
 
     url_user_save: '/users/create',
     url_users_search: '/users/fetch',
