@@ -180,7 +180,24 @@ export class Roles {
       .map(c => c.id)
     ;
 
-    
+    this.ts.role_assign_permission(
+      role_ids,
+      permission_ids
+    ).subscribe({
+      next: (r: ApiResponse) => {
+        if (r.success) {
+          console.info('//todo', r);
+        } else {
+          console.error('//todo', r);
+        }
+      },
+      error: (e) => {
+        console.error('//todo', e);
+      },
+      complete: () => {
+        console.info('//todo complete');
+      }
+    });
 
     this.nav_selectors.close();
   }

@@ -128,7 +128,7 @@ export class TenantsService {
     console.info('role_assign_permission');
 
     return this.http.post<ApiResponse>(
-      CONSTANTS.api_base_url + CONSTANTS.url_tenant_roles_assign,
+      CONSTANTS.api_base_url + CONSTANTS.url_tenant_roles_assign_permissions,
       {
         role_ids: role_ids,
         permission_ids: permission_ids
@@ -143,7 +143,7 @@ export class TenantsService {
     console.info("role_revoke_permissions");
 
     return this.http.post<ApiResponse>(
-      CONSTANTS.api_base_url + CONSTANTS.url_tenant_roles_revoke,
+      CONSTANTS.api_base_url + CONSTANTS.url_tenant_roles_revoke_permissions,
       {
         role_ids: role_ids,
         permission_ids: permission_ids
