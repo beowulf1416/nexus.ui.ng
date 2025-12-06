@@ -13,6 +13,14 @@
         }
     </mat-menu>
 
+    <mat-menu #menu_tenants="matMenu">
+        @for(t of user().tenants; track $index; let i = $index){
+            <button type="button" [title]="t.name" class="btn btn-tenant-switch" mat-menu-item (click)="switch_tenant(t.tenant_id)">
+                {{ t.name }}<pre>{{ t | json }}</pre>
+            </button>
+        }
+    </mat-menu>
+
     <mat-toolbar id="tb-header" color="primary">
         <button type="button" title="Applications" mat-icon-button (click)="toggle_apps()">
             <mat-icon>apps</mat-icon>
@@ -27,6 +35,9 @@
         @if (is_user_authenticated()) {
             <button type="button" title="User" [matMenuTriggerFor]="menu_user" mat-icon-button>
                 <mat-icon>account_circle</mat-icon>
+            </button>
+            <button type="button" [title]="tenant().name" [matMenuTriggerFor]="menu_tenants" mat-icon-button>
+                <mat-icon>domain</mat-icon>
             </button>
         } @else {
             <a title="Sign In" routerLink="/auth/sign-in" aria-label="Sign In" matIconButton>

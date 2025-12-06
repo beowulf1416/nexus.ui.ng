@@ -11,7 +11,8 @@ import { CommonModule } from '@angular/common';
 import { NotificationService } from '../../services/notification-service';
 import { MatBadgeModule } from '@angular/material/badge';
 import { UiService } from '../../services/ui-service';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { ApiResponse } from '../../classes/api-response';
 
 
 @Component({
@@ -32,6 +33,7 @@ import { RouterModule } from '@angular/router';
 export class Header {
 
   user = computed(() => this.user_service.current_user());
+  tenant = computed(() => this.user_service.current_tenant());
   is_user_authenticated = computed(() => this.user_service.current_user().is_authenticated);
   note_count = computed(() => {
     const count = this.notifications_service.notifications().length;
@@ -42,7 +44,8 @@ export class Header {
   constructor(
     private user_service: UserService,
     private notifications_service: NotificationService,
-    private ui_service: UiService
+    private ui_service: UiService,
+    private router: Router
   ) {}
 
   toggle_notifications() {
@@ -53,5 +56,22 @@ export class Header {
   toggle_apps() {
     console.info("//todo toggle_apps()");
     this.ui_service.toggle_apps();
+  }
+
+  switch_tenant(tenant_id: string): void {
+    console.info("switch_tenant", tenant_id);
+
+    this.user_service.switch_tenant(tenant_id).subscribe({
+      next: (r: ApiResponse) => {
+        console.debug('//todo', r);
+      },
+      error: (e) => {
+        console.error(e);
+      },
+      complete: () => {
+        console.info('//todo complete');
+        this.router.navigateByUrl(this.router.url);
+      }
+    });
   }
 }
