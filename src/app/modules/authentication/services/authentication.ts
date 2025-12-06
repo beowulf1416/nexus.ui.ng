@@ -34,8 +34,7 @@ export class Authentication {
         console.debug(value);
         if (value.ok) {
           if (value.ok && value.headers.has('authorization')) {
-            let token = value.headers.get('authorization')?.replace(/bearer/i, '')?.trim() 
-              || '';
+            let token = value.headers.get('authorization')?.replace(/bearer/i, '')?.trim() || '';
             console.debug('token', token);
 
             sessionStorage.setItem(CONSTANTS.session_auth_key, token);

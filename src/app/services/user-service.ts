@@ -29,13 +29,37 @@ export class UserService {
         {}
       ).subscribe({
         next: (r: ApiResponse) => {
+          console.debug('reload', r);
           if (r.success) {
             let u = (r.data as {
-              user: User
+              user: {
+                name: string,
+                permissions: Array<number>,
+                tenant: {
+                  id: string,
+                  name: string,
+                  description: string,
+                },
+                tenants: Array<{
+                  id: string,
+                  name: string,
+                  description: string
+                }>
+              }
             }).user;
+
             let user = new User(
               u.name,
-              u.tenant,
+              new Tenant(
+                u.tenant.id,
+                u.tenant.name
+              ),
+              u.tenants.map((t) => {
+                return new Tenant(
+                  t.id,
+                  t.name
+                );
+              }),
               u.permissions
             );
             this.current_user.set(user);
@@ -56,4 +80,43 @@ export class UserService {
     sessionStorage.removeItem(CONSTANTS.session_auth_key);
     this.current_user.set(User.anonymous());
   }
+
+  switch_tenant(tenant_id: string): Observable<ApiResponse> {
+    console.debug('switch_tenant', tenant_id);
+
+    return this.http.post<ApiResponse>(
+      CONSTANTS.api_base_url + CONSTANTS.switch_tenant,
+      {
+        tenant_id: tenant_id
+      },
+      {
+        observe: 'response'
+      }
+    ).pipe(
+      map((value, index) => {
+        if (value.ok && value.headers.has('authorization')) {
+          let token = value.headers.get('authorization')?.replace(/bearer/i, '')?.trim() || '';
+          console.info(token);
+
+          sessionStorage.setItem(CONSTANTS.session_auth_key, token);
+          this.reload();
+
+          return new ApiResponse(
+            true,
+            'success',
+            null
+          );
+        } else {
+          console.error(value.statusText);
+
+          return new ApiResponse(
+            false,
+            value.statusText,
+            null
+          );
+        }
+      })
+    );
+  }
 }
+
