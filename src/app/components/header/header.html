@@ -16,7 +16,7 @@
     <mat-menu #menu_tenants="matMenu">
         @for(t of user().tenants; track $index; let i = $index){
             <button type="button" [title]="t.name" class="btn btn-tenant-switch" mat-menu-item (click)="switch_tenant(t.tenant_id)">
-                {{ t.name }}<pre>{{ t | json }}</pre>
+                {{ t.name }}
             </button>
         }
     </mat-menu>

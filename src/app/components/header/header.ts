@@ -60,18 +60,19 @@ export class Header {
 
   switch_tenant(tenant_id: string): void {
     console.info("switch_tenant", tenant_id);
-
-    this.user_service.switch_tenant(tenant_id).subscribe({
-      next: (r: ApiResponse) => {
-        console.debug('//todo', r);
-      },
-      error: (e) => {
-        console.error(e);
-      },
-      complete: () => {
-        console.info('//todo complete');
-        this.router.navigateByUrl(this.router.url);
-      }
-    });
+    if (this.tenant().tenant_id != tenant_id) {
+      this.user_service.switch_tenant(tenant_id).subscribe({
+        next: (r: ApiResponse) => {
+          console.debug('//todo', r);
+        },
+        error: (e) => {
+          console.error(e);
+        },
+        complete: () => {
+          console.info('//todo complete');
+          this.router.navigateByUrl(this.router.url);
+        }
+      });
+    }
   }
 }

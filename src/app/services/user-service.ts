@@ -48,12 +48,13 @@ export class UserService {
               }
             }).user;
 
+            let tenant = new Tenant(
+              u.tenant.id,
+              u.tenant.name
+            );
             let user = new User(
               u.name,
-              new Tenant(
-                u.tenant.id,
-                u.tenant.name
-              ),
+              tenant,
               u.tenants.map((t) => {
                 return new Tenant(
                   t.id,
@@ -63,6 +64,7 @@ export class UserService {
               u.permissions
             );
             this.current_user.set(user);
+            this.current_tenant.set(tenant);
           }
         },
         error: (e) => {
