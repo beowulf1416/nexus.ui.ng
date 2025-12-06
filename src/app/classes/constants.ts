@@ -3,6 +3,7 @@ export const CONSTANTS = {
     session_auth_key: 'sid',
 
     auth_user: '/session/user',
+    switch_tenant: '/session/tenant/set',
 
     url_admin_tenant_save: '/tenants/save',
     url_admin_tenants_set_active: '/tenants/set/active',

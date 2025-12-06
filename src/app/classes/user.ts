@@ -5,6 +5,7 @@ export class User {
     constructor(
         readonly name: String,
         readonly tenant: Tenant,
+        readonly tenants: Array<Tenant>,
         readonly permissions: Array<number>
     ) {}
 
@@ -20,6 +21,7 @@ export class User {
         return new User(
             '',
             Tenant.default(),
+            new Array<Tenant>(),
             new Array<number>()
         );
     }
