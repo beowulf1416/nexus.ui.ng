@@ -1,12 +1,14 @@
 import { Injectable, signal } from '@angular/core';
 
 import { User } from '../classes/user';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { ApiResponse } from '../classes/api-response';
 import { Tenant } from '../classes/tenant';
 import { CONSTANTS } from '../classes/constants';
 import { NotificationService } from './notification-service';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -65,11 +67,14 @@ export class UserService {
             );
             this.current_user.set(user);
             this.current_tenant.set(tenant);
+          } else {
+            console.debug('//todo', r);
+            this.ns.error(r.message, null);
           }
         },
-        error: (e) => {
-          console.error(e);
-          this.ns.error(e, null);
+        error: (e: HttpErrorResponse) => {
+          // console.error(e);
+          this.ns.error(e.statusText, null);
         },
         complete: () => {
           console.info('complete');
