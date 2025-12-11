@@ -1,20 +1,20 @@
 <div class="component component-admin-tenants-users">
     <div class="form-wrapper">
-        <form id="search_form" class="search-form" method="post" action="">
+        <form id="search_form" class="search-form" method="post" action="" [formGroup]="component.formUsers">
             <mat-sidenav-container>
                 <mat-sidenav #nav_tenant_selector position="end" mode="over" disableClose="true">
-                    tenants-selector
-                    <button type="button" type="button" (click)="assign()">
-                        Assign
-                    </button>
+                    <app-tenant-selector #tenant_selector multiple="false" (tenants_selected)="on_tenants_selected($event)"></app-tenant-selector>
                 </mat-sidenav>
                 <mat-sidenav-content>
                     <mat-toolbar>
                         <a id="a_user_new" class="btn btn-user-new" title="New User" routerLink="/admin/tenants/user/new" mat-icon-button>
                             <mat-icon>person_add</mat-icon>
                         </a>
-                        <button type="button" class="btn btn-assign-tenant" aria-label="Assign to Tenant" matIconButton (click)="assign_to_tenant()">
+                        <button type="button" class="btn btn-assign-tenant" title="Assign to Tenant" aria-label="Assign to Tenant" matIconButton (click)="assign_to_tenant()">
                             <mat-icon>assignment_turned_in</mat-icon>
+                        </button>
+                        <button type="button" class="btn btn-tenant-select" title="Select Tenant" matFab extended (click)="select_tenant()">
+                            <mat-icon>domain</mat-icon>{{ component.tenant_name }}
                         </button>
                         <button type="button" class="btn btn-refresh" aria-label="Refresh" matIconButton (click)="refresh()">
                             <mat-icon>refresh</mat-icon>
@@ -47,15 +47,15 @@
                                     <td></td>
                                 </tr>
                             </tfoot>
-                            <tbody>
-                                <!--
-                                <tr *ngFor="let t of component.tenants; index as i;" [attr.data-tenant-id]="t.id">
-                                    <td><input type="checkbox" [id]="t.id" name="selected" [value]="t.id" class="field field-select" /></td>
-                                    <td><mat-icon>{{ t.active ? 'radio_button_checked' : 'radio_button_unchecked' }}</mat-icon></td>
-                                    <td><a [title]="t.name" class="a-tenant-name" routerLink="/admin/tenants/tenant/edit/{{ t.id }}">{{ t.name }}</a></td>
-                                    <td>{{ t.description }}</td>
+                            <tbody formArrayName="users">
+                                @for(u of users.controls; track $index; let i = $index){
+                                <tr [formGroupName]="i">
+                                    <td><input type="checkbox" id="selected_{{ i }}" name="selected" class="selected" title="select" [value]="u.value.id" formControlName="id" /></td>
+                                    <td></td>
+                                    <td>{{ u.value.name }}</td>
+                                    <td><a class="link role-link" routerLink="/admin/tenant/users/user/{{ u.value.id }}">{{ u.value.email }}</a></td>
                                 </tr>
-                                -->
+                                }
                             </tbody>
                         </table>
                     </div><!-- .results -->
