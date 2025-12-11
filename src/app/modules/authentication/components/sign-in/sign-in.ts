@@ -12,6 +12,7 @@ import { Authentication } from '../../services/authentication';
 import { ApiResponse } from '../../../../classes/api-response';
 import { NotificationService } from '../../../../services/notification-service';
 import { UserService } from '../../../../services/user-service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-sign-in',
@@ -74,20 +75,27 @@ export class SignIn implements OnInit {
             console.debug('next', r);
 
             if (r.success) {
-              this.ns.info(r.message, null);
+              this.ns.info(r.message, this.component);
               setTimeout(() => {
                 this.router.navigate(['/dashboard']);
               }, 3000);
             } else {
+              console.error(r);
               this.component.error = r.message;
-              this.ns.error(r.message, null);
+
+              console.debug(this.component);
+
+              this.ns.error(r.message, this.component);
             }
           },
-          error: (e) => {
+          error: (e: HttpErrorResponse) => {
             console.error('error', e);
             this.component.signInForm.enable({
               onlySelf: false
             });
+
+            this.component.error = e.statusText;
+            this.ns.error(e.statusText, this.component);
           },
           complete: () => {
             console.info('complete');

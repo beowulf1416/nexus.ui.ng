@@ -13,6 +13,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { UiService } from '../../services/ui-service';
 import { Router, RouterModule } from '@angular/router';
 import { ApiResponse } from '../../classes/api-response';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -36,21 +37,22 @@ export class Header {
   tenant = computed(() => this.user_service.current_tenant());
   is_user_authenticated = computed(() => this.user_service.current_user().is_authenticated);
   note_count = computed(() => {
-    const count = this.notifications_service.notifications().length;
+    let notes = this.ns.notifications();
+    const count = notes.length;
     return count > 0 ? count : null;
   });
 
 
   constructor(
     private user_service: UserService,
-    private notifications_service: NotificationService,
+    private ns: NotificationService,
     private ui_service: UiService,
     private router: Router
   ) {}
 
   toggle_notifications() {
     console.info("//todo toggle_notifications()");
-    this.notifications_service.toggle();
+    this.ns.toggle();
   }
 
   toggle_apps() {
@@ -63,10 +65,14 @@ export class Header {
     if (this.tenant().tenant_id != tenant_id) {
       this.user_service.switch_tenant(tenant_id).subscribe({
         next: (r: ApiResponse) => {
-          console.debug('//todo', r);
+          if (r.success) {
+            this.ns.info(r.message, null);
+          } else {
+            this.ns.error(r.message, null);
+          }
         },
-        error: (e) => {
-          console.error(e);
+        error: (e: HttpErrorResponse) => {
+          this.ns.error(e.statusText, null);
         },
         complete: () => {
           console.info('//todo complete');

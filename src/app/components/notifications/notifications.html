@@ -1,3 +1,12 @@
 <div class="component component-notifications">
-    notifications
+    <ul class="list-notifications" >
+        @for(n of notes(); track $index; let i = $index){
+        <li>
+            <div class="note note-{{n.type}}" >
+            <!-- <pre>{{ n | json }}</pre> -->
+                {{ n.message }}
+            </div><!-- .note -->
+        </li>
+        }
+    </ul>
 </div><!-- .component -->
