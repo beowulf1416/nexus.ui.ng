@@ -1,1 +1,16 @@
-<p>layout works!</p>
+<div class="component component-inv-layout">
+    <mat-sidenav-container>
+        <mat-sidenav #nav_start_inv mode="side" position="start" disableClose="true">
+            <span>todo</span>
+        </mat-sidenav>
+        <mat-sidenav #nav_end_inv mode="over" position="end">
+            right
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <button type="button" mat-icon-button (click)="toggle_start_sidenav()">
+                <mat-icon>chevron_forward</mat-icon>
+            </button>
+            <router-outlet />
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div><!-- component -->
