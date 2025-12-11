@@ -39,7 +39,7 @@
                             <tbody formArrayName="matches">
                                 @for(t of matches.controls; track $index; let i = $index){ 
                                 <tr [formGroupName]="i">
-                                    <td><input type="checkbox" id="selected_{{ i }}" name="selected" title="Select" [value]="t.value.id" formControlName="selected" /></td>
+                                    <!-- <td><input type="checkbox" id="selected_{{ i }}" name="selected" title="Select" [value]="t.value.id" formControlName="selected" /></td> -->
                                     <td>
                                         <button type="button" class="btn btn-select" aria-label="Select" matMiniFab (click)="select_tenant(t.value)">
                                             <mat-icon>arrow_drop_down</mat-icon>

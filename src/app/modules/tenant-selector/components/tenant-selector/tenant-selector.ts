@@ -68,7 +68,7 @@ export class TenantSelector {
           tfa.clear();
           tenants.forEach((t: Tenant) => {
             tfa.push(new FormGroup({
-              selected: new FormControl(false, []),
+              // selected: new FormControl(false, []),
               id: new FormControl(t.id, []),
               name: new FormControl(t.name, []),
               description: new FormControl(t.description, [])
