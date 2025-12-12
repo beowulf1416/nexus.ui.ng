@@ -1,1 +1,21 @@
-<p>item works!</p>
+<div class="component component-inv-item">
+    <mat-sidenav-container>
+        <mat-sidenav #nav_end_item position="end" mode="over" disableClose="true">
+            end
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <div class="wrapper form-wrapper">
+                <form id="form_item" class="form-item" [formGroup]="component.form_item">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Item Name</mat-label>
+                        <input type="text" id="item_name" name="item_name" class="field field-item-name" matInput formControlName="item_name" />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Description</mat-label>
+                        <textarea id="description" name="description" class="field field-description" matInput formControlName="description"></textarea>
+                    </mat-form-field>
+                </form>
+            </div><!-- .wrapper -->
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div><!-- .component -->
