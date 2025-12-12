@@ -14,6 +14,16 @@ const routes: Routes = [
         loadComponent: () => import('./components/dashboard/dashboard').then(c => c.Dashboard)
       },
       {
+        path: 'warehouses/new',
+        title: 'New Warehouse',
+        loadComponent: () => import('./components/warehouse/warehouse').then(c => c.Warehouse)
+      },
+      {
+        path: 'warehouses/list',
+        title: 'Warehouses',
+        loadComponent: () => import('./components/warehouses/warehouses').then(c => c.Warehouses)
+      },
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: 'dashboard'
