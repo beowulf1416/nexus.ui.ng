@@ -1,1 +1,45 @@
-<p>warehouses works!</p>
+<div class="component component-inv-warehouses">
+    <mat-sidenav-container>
+        <mat-sidenav #nav_end_warehouses position="end" mode="over" disableClose="true">
+
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <div class="wrapper form-wrapper">
+                <form id="form_warehouses" class="form-warehouses" [formGroup]="component.form_warehouses">
+                    <div class="wrapper">
+
+                    </div><!-- wrapper -->
+                    <div class="results">
+                        <table id="tbl_warehouses">
+                            <caption>warehouses</caption>
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="chk_select_all" name="chk_select_all" title="Select All" /></th>
+                                    <th>Active</th>
+                                    <th>Name</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <td></td>
+                                    <td>Active</td>
+                                    <td>Name</td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div><!-- .wrapper -->
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div><!-- .component -->
