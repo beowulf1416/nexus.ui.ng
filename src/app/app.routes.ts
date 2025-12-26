@@ -23,6 +23,10 @@ export const routes: Routes = [
         loadChildren: () => import('./modules/admin/admin-module').then(m => m.AdminModule)
     },
     {
+        path: 'bi',
+        loadChildren: () => import('./modules/bi/bi-module').then(m => m.BiModule)
+    },
+    {
         path: 'inv',
         loadChildren: () => import('./modules/inventory/inventory-module').then(m => m.InventoryModule)
     },
