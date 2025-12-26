@@ -1,0 +1,11 @@
+<div class="component component-notifications">
+    <ul class="list-notifications" >
+        @for(n of notes(); track $index; let i = $index){
+        <li>
+            <div class="note">
+            <pre>{{ n | json }}</pre>
+            </div><!-- .note -->
+        </li>
+        }
+    </ul>
+</div><!-- .component -->
