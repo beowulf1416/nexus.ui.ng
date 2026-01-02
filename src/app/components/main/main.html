@@ -28,6 +28,18 @@
                         </ul>
                     </nav>
                 </mat-expansion-panel>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Business Intelligence</mat-panel-title>
+                        <mat-panel-description>Reporting</mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <nav>
+                        <ul>
+                            <li><a title="Dashboard" routerLink="/bi/dashboard">Dashboard</a></li>
+                            <li><a title="Data Sources" routerLink="/bi/sources">Data Sources</a></li>
+                        </ul>
+                    </nav>
+                </mat-expansion-panel>
             </mat-accordion>
         </mat-sidenav>
         <mat-sidenav #nav_end position="end" [opened]="show_right_sidenav()" mode="over">
