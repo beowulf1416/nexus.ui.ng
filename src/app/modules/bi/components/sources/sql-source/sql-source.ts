@@ -23,4 +23,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 })
 export class SqlSource {
 
+  save(): void {
+    console.info('save');
+  }
 }
