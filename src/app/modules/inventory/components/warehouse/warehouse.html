@@ -8,18 +8,57 @@
                     </button>
                 </mat-toolbar>
             </div><!-- .wrapper -->
-            <div class="field">
-                <mat-form-field appearance="outline">
-                    <mat-label>Name</mat-label>
-                    <input type="text" id="name" name="name" class="field field-name" matInput formControlName="name" />
-                </mat-form-field>
-            </div><!-- .field -->
-            <div class="field">
-                <mat-form-field appearance="outline">
-                    <mat-label>Address</mat-label>
-                    <textarea id="address" name="address" class="field field-address" matInput formControlName="address"></textarea>
-                </mat-form-field>
-            </div><!-- .field -->
+            <fieldset>
+                <legend>General Information</legend>
+                <div class="field">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Name</mat-label>
+                        <input type="text" id="name" name="name" class="field field-name" matInput formControlName="name" />
+                    </mat-form-field>
+                </div><!-- .field -->
+                <div class="field">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Description</mat-label>
+                        <textarea id="description" name="description" class="field field-description" matInput formControlName="description"></textarea>
+                    </mat-form-field>
+                </div><!-- .field -->
+            </fieldset>
+            <fieldset>
+                <legend>Address</legend>
+                <div class="field">
+                    <mat-form-field>
+                        <mat-label>Street</mat-label>
+                        <input type="text" id="street" name="street" class="field field-street" matInput formControlName="street" />
+                        <mat-hint>Block, Lot and street</mat-hint>
+                    </mat-form-field>
+                </div><!-- .field -->
+                <div class="field">
+                    <mat-form-field>
+                        <mat-label>City</mat-label>
+                        <input type="text" id="city" name="city" class="field field-city" matInput formControlName="city" />
+                    </mat-form-field>
+                </div><!-- .field -->
+                <div class="field">
+                    <mat-form-field>
+                        <mat-label>State</mat-label>
+                        <input type="text" id="state" name="state" class="field field-state" matInput formControlName="state" />
+                    </mat-form-field>
+                </div><!-- .field -->
+                <div class="field">
+                    <mat-form-field>
+                        <mat-label>ZIP code</mat-label>
+                        <input type="text" id="zip" name="zip" class="field field-zip" matInput formControlName="zip" />
+                    </mat-form-field>
+                </div><!-- .field -->
+                <div class="field">
+                    <mat-form-field>
+                        <mat-label>Country</mat-label>
+                        <select id="country" name="country" class="field field-country" matInput formControlName="country_id">
+                            
+                        </select>
+                    </mat-form-field>
+                </div><!-- .field -->
+            </fieldset>
         </form>
     </div><!-- .wrapper -->
 </div><!-- .component -->

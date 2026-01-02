@@ -25,9 +25,17 @@ export class Warehouse {
 
   component = {
     error: '',
+    countries: [],
     form_warehouse: new FormGroup({
       name: new FormControl('', []),
-      address: new FormControl('', [])
+      description: new FormControl('', []),
+      address: new FormGroup({
+        street: new FormControl('', []),
+        city: new FormControl('', []),
+        state: new FormControl('', []),
+        zip: new FormControl('', []),
+        country_id: new FormControl('', [])
+      })
     })
   };
 }
