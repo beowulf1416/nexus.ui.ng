@@ -1,1 +1,53 @@
-<p>sql-source works!</p>
+<div class="component component-bi-source-sql">
+    <div class="wrapper form-wrapper">
+        <form id="source_sql_form" class="frm_source_sql" method="post" action="">
+            <mat-toolbar>
+                <button type="button" id="btn_source_sql_save" class="btn btn-source-sql-save" mat-icon-button>
+                    <mat-icon>save</mat-icon>
+                </button>
+            </mat-toolbar>
+            <div class="field field-wrapper field-wrapper-block">
+                <mat-form-field appearance="outline">
+                    <mat-label>Name</mat-label>
+                    <input type="text" id="name" name="name" class="input-name" matInput />
+                </mat-form-field>
+            </div><!-- field -->
+            <div class="field field-wrapper field-wrapper-block">
+                <mat-form-field appearance="outline">
+                    <mat-label>Description</mat-label>
+                    <textarea id="description" name="description" class="input-description" matInput></textarea>
+                </mat-form-field>
+            </div><!-- field -->
+            <div class="field field-wrapper field-wrapper-block">
+                <mat-form-field appearance="outline">
+                    <mat-label>Host</mat-label>
+                    <input type="text" id="host" name="host" class="input-host" matInput />
+                </mat-form-field>
+            </div><!-- field -->
+            <div class="field field-wrapper field-wrapper-block">
+                <mat-form-field appearance="outline">
+                    <mat-label>Port</mat-label>
+                    <input type="text" id="port" name="port" class="input-port" matInput />
+                </mat-form-field>
+            </div><!-- field -->
+            <div class="field field-wrapper field-wrapper-block">
+                <mat-form-field appearance="outline">
+                    <mat-label>User</mat-label>
+                    <input type="text" id="user" name="user" class="input-user" matInput />
+                </mat-form-field>
+            </div><!-- field -->
+            <div class="field field-wrapper field-wrapper-block">
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input type="text" id="pw" name="pw" class="input-pw" matInput />
+                </mat-form-field>
+            </div><!-- field -->
+            <div class="field field-wrapper field-wrapper-block">
+                <mat-form-field appearance="outline">
+                    <mat-label>Connection String</mat-label>
+                    <textarea id="cn" name="cn" class="input-cn" matInput></textarea>
+                </mat-form-field>
+            </div><!-- field -->
+        </form>
+    </div><!-- .wrapper -->
+</div><!-- component -->

@@ -1,1 +1,20 @@
-<p>layout works!</p>
+<div class="component component-bi-layout">
+    <mat-sidenav-container>
+        <mat-sidenav #nav_start_inv mode="side" position="start" disableClose="true">
+            <nav>
+                <ul>
+                    <li><a title="Data Sources" routerLink="/bi/sources">Data Sources</a></li>
+                </ul>
+            </nav>
+        </mat-sidenav>
+        <mat-sidenav #nav_end_inv mode="over" position="end">
+            right
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <button type="button" mat-icon-button (click)="toggle_start_sidenav()">
+                <mat-icon>chevron_forward</mat-icon>
+            </button>
+            <router-outlet />
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div><!-- component -->

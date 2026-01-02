@@ -1,1 +1,56 @@
-<p>sources-list works!</p>
+<div class="component component-bi-sources">
+    <div class="wrapper form-wrapper">
+        <form id="sources_form" class="form-sources" method="post" action="">
+            <mat-toolbar>
+                <button type="button" [matMenuTriggerFor]="mnu_sources" matButton>New Data Source</button>
+                <mat-menu #mnu_sources matMenu>
+                    <a id="a_source_sql_new" class="btn btn-source-sql-new" mat-menu-item routerLink="/bi/sources/new/sql">SQL Data Source</a>
+                </mat-menu>
+
+                <span>|</span>
+                <button type="button" class="btn btn-set-active" title="Set Active" aria-label="Set Active" mat-icon-button (click)="set_active()">
+                    <mat-icon>check_box</mat-icon>
+                </button>
+                <button type="button" class="btn btn-set-inactive" title="Set Inactive" aria-label="Set Inactive" mat-icon-button (click)="set_inactive()">
+                    <mat-icon>check_box</mat-icon>
+                </button>
+                <span>|</span>
+                <mat-form-field appearance="outline">
+                    <input type="search" id="filter" name="filter" aria-label="Filter" class="input-search" placeholder="Search" matInput />
+                    <button type="button" class="btn btn-search" aria-label="Search" mat-icon-button matSuffix (click)="search()">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                    <button type="button" class="btn btn-reset" aria-label="Reset" mat-icon-button matSuffix (click)="reset()">
+                        <mat-icon>close_small</mat-icon>
+                    </button>
+                </mat-form-field>
+            </mat-toolbar>
+            <div class="results">
+                <table id="tbl_sources" class="tbl-sources">
+                    <caption>Sources</caption>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div><!-- .results -->
+        </form>
+    </div><!-- .wrapper -->
+</div><!-- .component -->

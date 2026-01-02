@@ -14,6 +14,11 @@ const routes: Routes = [
         loadComponent: () => import('./components/dashboard/dashboard').then(c => c.Dashboard)
       },
       {
+        path: 'sources/new/sql',
+        title: 'New SQL Data Source',
+        loadComponent: () => import('./components/sources/sql-source/sql-source').then(c => c.SqlSource)
+      },
+      {
         path: 'sources',
         title: 'Data Sources',
         loadComponent: () => import('./components/sources-list/sources-list').then(c => c.SourcesList)
