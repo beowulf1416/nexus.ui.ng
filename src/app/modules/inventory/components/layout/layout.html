@@ -1,7 +1,13 @@
 <div class="component component-inv-layout">
     <mat-sidenav-container>
         <mat-sidenav #nav_start_inv mode="side" position="start" disableClose="true">
-            <span>todo</span>
+            <nav>
+                <ul>
+                    <li><a title="Warehouses" routerLink="/inv/warehouses/list">Warehouses</a></li>
+                    <li><a title="Locations" routerLink="/inv/locations/list">Locations</a></li>
+                    <li><a title="Items" routerLink="/inv/items/list">Items</a></li>
+                </ul>
+            </nav>
         </mat-sidenav>
         <mat-sidenav #nav_end_inv mode="over" position="end">
             right

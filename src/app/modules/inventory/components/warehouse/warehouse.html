@@ -1,14 +1,25 @@
-<div class="component component-inv-item">
+<div class="component component-inv-warehouse">
     <div class="wrapper form-wrapper">
         <form id="form_warehouse" class="form-warehouse" [formGroup]="component.form_warehouse">
-            <mat-form-field appearance="outline">
-                <mat-label>Name</mat-label>
-                <input type="text" id="name" name="name" class="field field-name" matInput formControlName="name" />
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Address</mat-label>
-                <textarea id="address" name="address" class="field field-address" matInput formControlName="address"></textarea>
-            </mat-form-field>
+            <div class="wrapper">
+                <mat-toolbar>
+                    <button type="button" id="btn_warehouse_save" class="btn btn-warehouse-save" title="Save" mat-icon-button>
+                        <mat-icon>save</mat-icon>
+                    </button>
+                </mat-toolbar>
+            </div><!-- .wrapper -->
+            <div class="field">
+                <mat-form-field appearance="outline">
+                    <mat-label>Name</mat-label>
+                    <input type="text" id="name" name="name" class="field field-name" matInput formControlName="name" />
+                </mat-form-field>
+            </div><!-- .field -->
+            <div class="field">
+                <mat-form-field appearance="outline">
+                    <mat-label>Address</mat-label>
+                    <textarea id="address" name="address" class="field field-address" matInput formControlName="address"></textarea>
+                </mat-form-field>
+            </div><!-- .field -->
         </form>
     </div><!-- .wrapper -->
 </div><!-- .component -->

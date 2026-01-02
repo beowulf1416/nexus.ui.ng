@@ -1,1 +1,31 @@
-<p>locations works!</p>
+<div class="component component-inv-locations">
+    <div class="wrapper wrapper-form">
+        <form id="locations_form" class="frm-locations" method="post" action="">
+            <div class="wrapper">
+                <mat-toolbar>
+                    <a id="a_location_new" class="btn btn-location-new" title="New Location" mat-icon-button>
+                        <mat-icon>new_location</mat-icon>
+                    </a>
+                    <span>|</span>
+                    <button type="button" class="btn btn-set-active" title="Set Active" (click)="set_active()">
+                        <mat-icon>checked_box</mat-icon>
+                    </button>
+                    <button type="button" class="btn btn-set-active" title="Set Inactive" (click)="set_inactive()">
+                        <mat-icon>unchecked_box</mat-icon>
+                    </button>
+                    <span>|</span>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Search</mat-label>
+                        <input type="search" id="filter" name="filter" class="input-filter" matInput />
+                        <button type="button" id="search" name="search" class="btn btn-search" mat-icon-button matSuffix>
+                            <mat-icon>search</mat-icon>
+                        </button>
+                        <button type="button" id="reset" name="reset" class="btn btn-reset" mat-icon-button matSuffix>
+                            <mat-icon>close_small</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </mat-toolbar>
+            </div><!-- .wrapper -->
+        </form>
+    </div><!-- .wrapper -->
+</div><!-- .component -->
