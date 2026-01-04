@@ -48,7 +48,7 @@ export class NotificationService {
 
   error(
     msg: string,
-    component: any | null
+    component?: any | null
   ) {
     console.info('//todo error()');
 
