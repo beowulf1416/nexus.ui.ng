@@ -1,0 +1,67 @@
+<h2 mat-dialog-title>Currency Selection</h2>
+<mat-dialog-content>
+    <div class="wrapper wrapper-form">
+        <form id="currency_selector_form" class="form-currency-selector" method="post" action="">
+            <mat-toolbar>
+                <mat-form-field appearance="outline">
+                    <mat-label>Search</mat-label>
+                    <input type="search" id="search" name="search" class="input-search" matInput />
+                    <button type="button" id="btn_search" class="btn btn-search" title="Search" mat-icon-button matSuffix>
+                        <mat-icon>search</mat-icon>
+                    </button>
+                    <button type="button" id="btn_reset" class="btn btn-reset" title="Reset" mat-icon-button matSuffix>
+                        <mat-icon>closed_small</mat-icon>
+                    </button>
+                </mat-form-field>
+            </mat-toolbar>
+            <div class="matches">
+                <table id="tbl_matches">
+                    <caption>Matches</caption>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot></tfoot>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div><!-- .matches -->
+            <div class="selected">
+                <table id="tbl_selected">
+                    <caption>Selected</caption>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot></tfoot>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div><!-- .selected -->
+        </form>
+    </div><!-- .wrapper -->
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button type="button" title="Ok" (click)="ok()" matFab extended>
+        <mat-icon>ok</mat-icon>Ok
+    </button>
+    <button type="button" title="Cancel" (click)="cancel()" matFab extended>
+        <mat-icon>cancel</mat-icon>Cancel
+    </button>
+</mat-dialog-actions>
