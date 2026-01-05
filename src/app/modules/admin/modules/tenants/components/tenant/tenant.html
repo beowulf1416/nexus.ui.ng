@@ -31,9 +31,13 @@
                             <mat-hint>Description</mat-hint>
                         </mat-form-field>
                     </div><!-- .field -->
+                    <div class="field">
+                        <app-currency-selector multiple="false"></app-currency-selector>
+                    </div><!-- .field -->
                 </mat-card-content>
 
                 <input type="hidden" id="tenant_id" name="tenant_id" formControlName="tenant_id"/>
+                <input type="hidden" id="currency_id" name="currency_id" formControlName="currency_id"/>
             </form>
         </div><!-- .form-wrapper -->
     </mat-card>

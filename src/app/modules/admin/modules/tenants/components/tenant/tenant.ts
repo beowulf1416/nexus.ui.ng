@@ -13,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Tenant as TenantClass } from '../../classes/tenant';
 
 import { v4 as uuidv4 } from 'uuid';
+import { CurrencySelector } from '../../../../../currency-selector/components/currency-selector/currency-selector';
 
 
 
@@ -26,7 +27,8 @@ import { v4 as uuidv4 } from 'uuid';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    CurrencySelector
   ],
   templateUrl: './tenant.html',
   styleUrl: './tenant.css',
@@ -37,6 +39,7 @@ export class Tenant implements OnInit {
     error: '',
     formTenant: new FormGroup({
       tenant_id: new FormControl('', []),
+      currency_id: new FormControl('', []),
       name: new FormControl('', [
         Validators.required
       ]),
