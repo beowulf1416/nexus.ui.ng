@@ -55,7 +55,9 @@ export class CountryService {
               )
             });
 
-            let filtered: Array<Country> = this._cache.filter((v, i) => v.name.indexOf(country, 0) != -1);
+            let filter = country.toLowerCase();
+            let filtered: Array<Country> = this._cache.filter((v, i) => v.name.toLowerCase().indexOf(filter) > -1 );
+
             return filtered
           } else {
             console.error("fetch_countries", v);

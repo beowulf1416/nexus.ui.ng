@@ -1,0 +1,83 @@
+<div class="component component-country-selector-dialog">
+    <mat-card class="card-country-selector-dialog" appearance="outlined">
+        <mat-card-header>
+            <mat-icon>countries</mat-icon>
+            <mat-card-title mat-dialog-title>Country Selector</mat-card-title>
+            <mat-card-subtitle>Select a country</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-dialog-content>
+                <div class="wrapper wrapper-form">
+                    <form id="currency_selector_form" class="form-currency-selector" method="post" action="">
+                        <div class="wrapper wrapper-filter">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Search</mat-label>
+                                <input type="search" id="filter" placeholder="Search" matInput [field]="component.form_country_selector.filter"/>
+                                <button type="button" id="btn_search" title="Search" class="btn btn-search" (click)="search()" mat-icon-button matSuffix>
+                                    <mat-icon>search</mat-icon>
+                                </button>
+                                <button type="button" id="btn_reset" title="Reset" class="btn btn-reset" (click)="reset()" mat-icon-button matSuffix>
+                                    <mat-icon>closed_small</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div><!-- .wrapper-filter -->
+                        <div class="wrapper wrapper-matches">
+                            <table id="tbl_matches">
+                                <caption>matches</caption>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Name</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tfoot></tfoot>
+                                <tbody>
+                                    @for(c of component.form_country_selector.matches; track $index; let i = $index){
+                                    <tr>
+                                        <td></td>
+                                        <td><pre>{{ c | json }}</pre></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div><!-- .wrapper -->
+                        <div class="wrapper wrapper-selected">
+                            <table id="tbl_selected">
+                                <caption>selected</caption>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Name</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tfoot></tfoot>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div><!-- .wrapper -->
+                    </form>
+                </div><!-- .wrapper -->
+            </mat-dialog-content>
+            <mat-dialog-actions>
+                <button type="button" id="btn_ok" class="btn btn-ok" (click)="ok()" matFab extended>
+                    <mat-icon>ok</mat-icon>
+                </button>
+                <button type="button" id="btn_cancel" class="btn btn-cancel" (click)="cancel()" matFab extended>
+                    <mat-icon>cancel</mat-icon>
+                </button>
+            </mat-dialog-actions>
+        </mat-card-content>
+    </mat-card>
+</div><!-- .component -->

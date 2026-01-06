@@ -10,6 +10,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { Country } from '../../classes/country';
 import { ApiResponse } from '../../../../classes/api-response';
+import { MatDialog } from '@angular/material/dialog';
+import { CountrySelectorDialog } from '../country-selector-dialog/country-selector-dialog';
 
 @Component({
   selector: 'app-country-selector',
@@ -39,25 +41,21 @@ export class CountrySelector {
 
   constructor(
     private ns: NotificationService,
-    private cs: CountryService
+    private md: MatDialog
   ) {}
 
-  search(): void {
-    console.debug("search");
 
-    let filter = this.components.formCountries.get('filter')?.value || '';
+  show_dialog(): void {
+    console.debug("show_dialog");
 
-    this.cs.fetch_countries(filter).subscribe((countries) => {
-      console.debug("search", countries);
+    let dref = this.md.open(CountrySelectorDialog, {
+      position: {
+        right: "10px"
+      }
     });
-  }
 
-  reset(): void {
-    console.debug("reset");
-  }
-
-  select(): void {
-    console.debug("select");
-
+    dref.afterClosed().subscribe(result => {
+      console.debug("result", result);
+    });
   }
 }
