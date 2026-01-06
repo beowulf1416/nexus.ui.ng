@@ -56,9 +56,12 @@
                                 <input type="text" id="zip" name="zip" class="field field-zip" matInput formControlName="zip" />
                             </mat-form-field>
                         </div><!-- .field -->
-                        <button type="button" id="btn_country_selector" class="btn btn-country-selector" title="Select Country" matFab extended (click)="select_country()">
+                        <!-- <button type="button" id="btn_country_selector" class="btn btn-country-selector" title="Select Country" matFab extended (click)="select_country()">
                             <mat-icon fontSet="material-symbols-rounded">country</mat-icon>Select Country
-                        </button>
+                        </button> -->
+                        <div class="field">
+                            <app-country-selector multiple="false"></app-country-selector>
+                        </div><!-- .field -->
                     </fieldset>
                 </form>
             </div><!-- .wrapper -->
