@@ -61,7 +61,7 @@ export class CountrySelectorDialog {
     const filter = this.component.form_country_selector.filter().value();
 
     this.cs.fetch_countries(filter).subscribe(countries => {
-      this.country_selector().matches = countries;
+      this.component.form_country_selector.matches().value.set(countries);
     });
   }
 
@@ -69,5 +69,35 @@ export class CountrySelectorDialog {
     console.debug("reset");
 
     this.country_selector().filter = "";
+  }
+
+  on_select_country(c: Country): void {
+    console.debug("on_select_country", c);
+
+    let s = new Country(
+      c.country_id,
+      c.name,
+      c.alpha2,
+      c.alpha3
+    );
+
+    this.country_selector.update((v) => ({
+      ...v,
+      selected: [
+        ...v.selected,
+        s
+      ]
+    }));
+  }
+
+  on_deselect_country(c: Country): void {
+    console.debug("on_deselect_country", c);
+
+    let country_id = c.country_id;
+
+    this.country_selector.update((v) => ({
+      ...v,
+      selected: v.selected.filter((elem) => elem.country_id != country_id)
+    }));
   }
 }

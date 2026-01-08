@@ -28,18 +28,22 @@
                                     <tr>
                                         <th></th>
                                         <th>Name</th>
-                                        <th></th>
-                                        <th></th>
+                                        <th title="2-character country code">Code (2)</th>
+                                        <th title="3-character country code">Code (3)</th>
                                     </tr>
                                 </thead>
                                 <tfoot></tfoot>
                                 <tbody>
                                     @for(c of component.form_country_selector.matches; track $index; let i = $index){
                                     <tr>
-                                        <td></td>
-                                        <td><pre>{{ c | json }}</pre></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>
+                                            <button [id]="'btn_match_' + i" type="button" class="btn btn-select-country" mat-icon-button (click)="on_select_country(c().value())">
+                                                <mat-icon>bookmark_add</mat-icon>
+                                            </button>
+                                        </td>
+                                        <td>{{ c.name().value() }}</td>
+                                        <td>{{ c.alpha2().value() }}</td>
+                                        <td>{{ c.alpha3().value() }}</td>
                                     </tr>
                                     }
                                 </tbody>
@@ -52,18 +56,24 @@
                                     <tr>
                                         <th></th>
                                         <th>Name</th>
-                                        <th></th>
-                                        <th></th>
+                                        <th title="2-character country code">Code (2)</th>
+                                        <th title="3-character country code">Code (3)</th>
                                     </tr>
                                 </thead>
                                 <tfoot></tfoot>
                                 <tbody>
+                                    @for(c of component.form_country_selector.selected; track $index; let i = $index){
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>
+                                            <button type="button" [id]="'btn_selected_' + i" class="btn btn-deselect-country" mat-icon-button (click)="on_deselect_country(c().value())">
+                                                <mat-icon>bookmark_remove</mat-icon>
+                                            </button>
+                                        </td>
+                                        <td>{{ c.name().value() }}</td>
+                                        <td>{{ c.alpha2().value() }}</td>
+                                        <td>{{ c.alpha3().value() }}</td>
                                     </tr>
+                                    }
                                 </tbody>
                             </table>
                         </div><!-- .wrapper -->
@@ -71,11 +81,11 @@
                 </div><!-- .wrapper -->
             </mat-dialog-content>
             <mat-dialog-actions>
-                <button type="button" id="btn_ok" class="btn btn-ok" (click)="ok()" matFab extended>
-                    <mat-icon>ok</mat-icon>
+                <button type="button" id="btn_ok" class="btn btn-ok btn-default" (click)="ok()" matFab extended>
+                    <mat-icon color="primary">check_circle</mat-icon><span>Select</span>
                 </button>
                 <button type="button" id="btn_cancel" class="btn btn-cancel" (click)="cancel()" matFab extended>
-                    <mat-icon>cancel</mat-icon>
+                    <mat-icon color="warn">cancel</mat-icon><span>Cancel</span>
                 </button>
             </mat-dialog-actions>
         </mat-card-content>
