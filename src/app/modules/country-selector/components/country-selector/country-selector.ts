@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, input, output } from '@angular/core';
+import { booleanAttribute, ChangeDetectorRef, Component, input, output } from '@angular/core';
 import { CountryService } from '../../services/country-service';
 import { NotificationService } from '../../../../services/notification-service';
 import { CommonModule } from '@angular/common';
@@ -34,6 +34,10 @@ export class CountrySelector {
   countries_selected = output<Array<Country>>();
 
   components = {
+    country: {
+      id: -1,
+      name: 'Select Country'
+    },
     formCountries: new FormGroup({
       filter: new FormControl('', [])
     })
@@ -41,7 +45,8 @@ export class CountrySelector {
 
   constructor(
     private ns: NotificationService,
-    private md: MatDialog
+    private md: MatDialog,
+    private cd: ChangeDetectorRef
   ) {}
 
 
@@ -54,8 +59,16 @@ export class CountrySelector {
       }
     });
 
-    dref.afterClosed().subscribe(result => {
-      console.debug("result", result);
+    dref.afterClosed().subscribe((countries: Array<Country>) => {
+      console.debug("result", countries);
+
+      if (countries !== null && countries.length > 0) {
+        let selected = countries[0];
+        this.components.country.id = selected.country_id;
+        this.components.country.name = selected.name;
+
+        this.cd.detectChanges();
+      }
     });
   }
 }

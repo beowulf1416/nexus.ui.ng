@@ -46,7 +46,9 @@ export class CountrySelectorDialog {
   ok(): void {
     console.debug("ok");
 
-    this.dref.close();
+    let selected = this.component.form_country_selector.selected().value();
+
+    this.dref.close(selected);
   }
 
   cancel(): void {
