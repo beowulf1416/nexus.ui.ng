@@ -14,13 +14,9 @@ export class InvalidUUIDError extends Error {
 
 export class Uuid {
 
-    private _id: string;
-
     private constructor(
         private id: string
-    ) {
-        this._id = id;
-    }
+    ) {}
 
     parse(id: string): Uuid {
         if (uuid_validate(id)){
@@ -40,6 +36,6 @@ export class Uuid {
     }
 
     to_string(): string {
-        return this._id;
+        return this.id;
     }
 }
