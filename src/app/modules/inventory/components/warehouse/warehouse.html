@@ -5,7 +5,7 @@
         </mat-sidenav>
         <mat-sidenav-content>
             <div class="wrapper form-wrapper">
-                <form id="form_warehouse" class="form-warehouse" [formGroup]="component.form_warehouse" (submit)="save()">
+                <form id="form_warehouse" class="form-warehouse" (submit)="save()">
                     <div class="wrapper">
                         <mat-toolbar>
                             <button type="submit" id="btn_warehouse_save" class="btn btn-warehouse-save" title="Save" mat-icon-button>
@@ -15,52 +15,49 @@
                     </div><!-- .wrapper -->
                     <fieldset>
                         <legend>General Information</legend>
-                        <input type="hidden" id="warehouse_id" name="warehouse_id" formControlName="warehouse_id" />
+                        <input type="hidden" id="warehouse_id" name="warehouse_id" />
                         <div class="field">
                             <mat-form-field appearance="outline">
                                 <mat-label>Name</mat-label>
-                                <input type="text" id="name" name="name" class="field field-name" matInput formControlName="name" />
+                                <input type="text" id="name" name="name" class="field field-name" matInput />
                             </mat-form-field>
                         </div><!-- .field -->
                         <div class="field">
                             <mat-form-field appearance="outline">
                                 <mat-label>Description</mat-label>
-                                <textarea id="description" name="description" class="field field-description" matInput formControlName="description"></textarea>
+                                <textarea id="description" name="description" class="field field-description" matInput ></textarea>
                             </mat-form-field>
                         </div><!-- .field -->
                     </fieldset>
-                    <fieldset formGroupName="address">
+                    <fieldset>
                         <legend>Address</legend>
-                        <input type="hidden" id="country_id" name="country_id" formControlName="country_id" />
+                        <input type="hidden" id="country_id" name="country_id" />
                         <div class="field">
                             <mat-form-field appearance="outline">
                                 <mat-label>Street</mat-label>
-                                <input type="text" id="street" name="street" class="field field-street" matInput formControlName="street" />
+                                <input type="text" id="street" name="street" class="field field-street" matInput />
                             </mat-form-field>
                         </div><!-- .field -->
                         <div class="field">
                             <mat-form-field appearance="outline">
                                 <mat-label>City</mat-label>
-                                <input type="text" id="city" name="city" class="field field-city" matInput formControlName="city" />
+                                <input type="text" id="city" name="city" class="field field-city" matInput />
                             </mat-form-field>
                         </div><!-- .field -->
                         <div class="field">
                             <mat-form-field appearance="outline">
                                 <mat-label>State</mat-label>
-                                <input type="text" id="state" name="state" class="field field-state" matInput formControlName="state" />
+                                <input type="text" id="state" name="state" class="field field-state" matInput />
                             </mat-form-field>
                         </div><!-- .field -->
                         <div class="field">
                             <mat-form-field appearance="outline">
                                 <mat-label>ZIP</mat-label>
-                                <input type="text" id="zip" name="zip" class="field field-zip" matInput formControlName="zip" />
+                                <input type="text" id="zip" name="zip" class="field field-zip" matInput />
                             </mat-form-field>
                         </div><!-- .field -->
-                        <!-- <button type="button" id="btn_country_selector" class="btn btn-country-selector" title="Select Country" matFab extended (click)="select_country()">
-                            <mat-icon fontSet="material-symbols-rounded">country</mat-icon>Select Country
-                        </button> -->
                         <div class="field">
-                            <app-country-selector multiple="false"></app-country-selector>
+                            <app-country-selector multiple="false" (countries_selected)="on_countries_selected($event)"></app-country-selector>
                         </div><!-- .field -->
                     </fieldset>
                 </form>
