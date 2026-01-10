@@ -31,7 +31,7 @@ export class Uuid {
         }
     }
 
-    generate(): Uuid {
+    static generate(): Uuid {
         return new Uuid(uuidv4());
     }
 
