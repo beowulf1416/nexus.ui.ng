@@ -12,19 +12,20 @@ import { WarehouseService } from '../../services/warehouse-service';
 import { CountrySelector } from '../../../country-selector/components/country-selector/country-selector';
 import { Country } from '../../../country-selector/classes/country';
 import { Uuid } from '../../../../classes/uuid';
-import { form } from '@angular/forms/signals';
+import { Field, form, submit } from '@angular/forms/signals';
 
 @Component({
   selector: 'app-warehouse',
   imports: [
     CommonModule,
-    ReactiveFormsModule,
+    // ReactiveFormsModule,
     MatIconModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
     MatToolbarModule,
     MatSidenavModule,
+    Field,
     CountrySelector
   ],
   templateUrl: './warehouse.html',
@@ -32,7 +33,7 @@ import { form } from '@angular/forms/signals';
 })
 export class Warehouse {
 
-  @ViewChild("nav_end_inv") nav_end!: MatSidenav;
+  // @ViewChild("nav_end_inv") nav_end!: MatSidenav;
 
   warehouse = signal({
     warehouse_id: Uuid.generate(),
@@ -72,17 +73,42 @@ export class Warehouse {
 
   save(): void {
     console.debug("save");
+
+    console.debug(this.warehouse());
   }
 
-  select_country(): void {
-    console.debug("select_country");
-    
-    this.nav_end?.open();
+  on_save(event: Event): void {
+    event.preventDefault();
+
+    submit(this.component.form_warehouse, async() => {
+      console.debug("on_save", this.warehouse());
+    });
   }
+
+  // select_country(): void {
+  //   console.debug("select_country");
+    
+  //   this.nav_end?.open();
+  // }
 
   on_countries_selected(countries: Array<Country>): void {
     console.debug("on_countries_selected", countries);
     
-    this.nav_end?.close();
+    // this.nav_end?.close();
+    
+    if (countries.length > 0) {
+      let country = countries[0];
+      let country_id = country.country_id;
+
+      this.warehouse.update((v) => ({
+        ...v,
+        address: {
+          street: v.address.street,
+          city: v.address.city,
+          zip: v.address.zip,
+          country_id: country_id
+        }
+      }));
+    }
   }
 }

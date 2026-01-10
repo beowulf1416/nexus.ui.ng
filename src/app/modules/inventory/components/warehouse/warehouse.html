@@ -5,7 +5,7 @@
         </mat-sidenav>
         <mat-sidenav-content>
             <div class="wrapper form-wrapper">
-                <form id="form_warehouse" class="form-warehouse" (submit)="save()">
+                <form id="form_warehouse" class="form-warehouse" (submit)="on_save($event)">
                     <div class="wrapper">
                         <mat-toolbar>
                             <button type="submit" id="btn_warehouse_save" class="btn btn-warehouse-save" title="Save" mat-icon-button>
@@ -15,45 +15,45 @@
                     </div><!-- .wrapper -->
                     <fieldset>
                         <legend>General Information</legend>
-                        <input type="hidden" id="warehouse_id" name="warehouse_id" />
+                        <input type="hidden" id="warehouse_id" />
                         <div class="field">
                             <mat-form-field appearance="outline">
                                 <mat-label>Name</mat-label>
-                                <input type="text" id="name" name="name" class="field field-name" matInput />
+                                <input type="text" id="name" class="field field-name" matInput [field]="component.form_warehouse.name" />
                             </mat-form-field>
                         </div><!-- .field -->
                         <div class="field">
                             <mat-form-field appearance="outline">
                                 <mat-label>Description</mat-label>
-                                <textarea id="description" name="description" class="field field-description" matInput ></textarea>
+                                <textarea id="description" class="field field-description" matInput [field]="component.form_warehouse.description" ></textarea>
                             </mat-form-field>
                         </div><!-- .field -->
                     </fieldset>
                     <fieldset>
                         <legend>Address</legend>
-                        <input type="hidden" id="country_id" name="country_id" />
+                        <input type="hidden" id="country_id" />
                         <div class="field">
                             <mat-form-field appearance="outline">
                                 <mat-label>Street</mat-label>
-                                <input type="text" id="street" name="street" class="field field-street" matInput />
+                                <input type="text" id="street" class="field field-street" matInput [field]="component.form_warehouse.address.street" />
                             </mat-form-field>
                         </div><!-- .field -->
                         <div class="field">
                             <mat-form-field appearance="outline">
                                 <mat-label>City</mat-label>
-                                <input type="text" id="city" name="city" class="field field-city" matInput />
+                                <input type="text" id="city" class="field field-city" matInput [field]="component.form_warehouse.address.city" />
                             </mat-form-field>
                         </div><!-- .field -->
                         <div class="field">
                             <mat-form-field appearance="outline">
                                 <mat-label>State</mat-label>
-                                <input type="text" id="state" name="state" class="field field-state" matInput />
+                                <input type="text" id="state" class="field field-state" matInput />
                             </mat-form-field>
                         </div><!-- .field -->
                         <div class="field">
                             <mat-form-field appearance="outline">
                                 <mat-label>ZIP</mat-label>
-                                <input type="text" id="zip" name="zip" class="field field-zip" matInput />
+                                <input type="text" id="zip" class="field field-zip" matInput [field]="component.form_warehouse.address.zip" />
                             </mat-form-field>
                         </div><!-- .field -->
                         <div class="field">
