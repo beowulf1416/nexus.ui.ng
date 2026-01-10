@@ -1,5 +1,5 @@
 import { booleanAttribute, ChangeDetectorRef, Component, input, output } from '@angular/core';
-import { CountryService } from '../../services/country-service';
+// import { CountryService } from '../../services/country-service';
 import { NotificationService } from '../../../../services/notification-service';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -9,7 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { Country } from '../../classes/country';
-import { ApiResponse } from '../../../../classes/api-response';
+// import { ApiResponse } from '../../../../classes/api-response';
 import { MatDialog } from '@angular/material/dialog';
 import { CountrySelectorDialog } from '../country-selector-dialog/country-selector-dialog';
 
@@ -60,14 +60,14 @@ export class CountrySelector {
     });
 
     dref.afterClosed().subscribe((countries: Array<Country>) => {
-      console.debug("result", countries);
-
-      if (countries !== null && countries.length > 0) {
+      if (countries != null && countries.length > 0) {
         let selected = countries[0];
         this.components.country.id = selected.country_id;
         this.components.country.name = selected.name;
 
         this.cd.detectChanges();
+
+        this.countries_selected.emit(countries);
       }
     });
   }
