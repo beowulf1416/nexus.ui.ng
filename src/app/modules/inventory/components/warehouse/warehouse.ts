@@ -36,6 +36,7 @@ export class Warehouse {
   // @ViewChild("nav_end_inv") nav_end!: MatSidenav;
 
   warehouse = signal({
+    tenant_id: Uuid.generate(),
     warehouse_id: Uuid.generate(),
     name: "",
     description: "",
@@ -82,6 +83,17 @@ export class Warehouse {
 
     submit(this.component.form_warehouse, async() => {
       console.debug("on_save", this.warehouse());
+
+      let w = this.warehouse();
+      this.ws.warehouse_save(
+        w.tenant_id,
+        w.warehouse_id,
+        w.name,
+        w.description,
+        w.address
+      ).subscribe({
+        
+      });
     });
   }
 

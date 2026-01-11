@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { ApiResponse } from '../../../classes/api-response';
 import { CONSTANTS } from '../../../classes/constants';
 import { INV_CONSTANTS } from '../classes/constants';
+import { Warehouse } from '../classes/warehouse';
+
 
 @Injectable({
   providedIn: 'root',
@@ -17,10 +19,7 @@ export class WarehouseService {
 
   warehouse_save(
     tenant_id: Uuid,
-    warehouse_id: Uuid,
-    name: string,
-    description: string,
-    address: string
+    warehouse: Warehouse
   ): Observable<ApiResponse> {
     console.debug("warehouse_save");
 
@@ -28,10 +27,16 @@ export class WarehouseService {
       CONSTANTS.api_base_url + INV_CONSTANTS.path_warehouse_save,
       {
         tenant_id: tenant_id.to_string(),
-        warehouse_id: warehouse_id.to_string(),
-        name: name,
-        description: description,
-        address: address
+        warehouse_id: warehouse.id.to_string(),
+        name: warehouse.name,
+        description: warehouse.description,
+        address: {
+          street: warehouse.address.street,
+          city: warehouse.address.city,
+          state: warehouse.address.state,
+          zip: warehouse.address.zip,
+          country_id: warehouse.address.country_id
+        }
       }
     );
   }
