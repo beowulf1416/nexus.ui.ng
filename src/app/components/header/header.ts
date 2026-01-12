@@ -14,6 +14,7 @@ import { UiService } from '../../services/ui-service';
 import { Router, RouterModule } from '@angular/router';
 import { ApiResponse } from '../../classes/api-response';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Uuid } from '../../classes/uuid';
 
 
 @Component({
@@ -60,7 +61,7 @@ export class Header {
     this.ui_service.toggle_apps();
   }
 
-  switch_tenant(tenant_id: string): void {
+  switch_tenant(tenant_id: Uuid): void {
     console.info("switch_tenant", tenant_id);
     if (this.tenant().tenant_id != tenant_id) {
       this.user_service.switch_tenant(tenant_id).subscribe({
@@ -72,6 +73,7 @@ export class Header {
           }
         },
         error: (e: HttpErrorResponse) => {
+          // TODO fix statusText being empty on some errors
           this.ns.error(e.statusText, null);
         },
         complete: () => {

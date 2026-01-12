@@ -7,6 +7,7 @@ import { ApiResponse } from '../classes/api-response';
 import { Tenant } from '../classes/tenant';
 import { CONSTANTS } from '../classes/constants';
 import { NotificationService } from './notification-service';
+import { Uuid } from '../classes/uuid';
 
 
 
@@ -51,7 +52,7 @@ export class UserService {
             }).user;
 
             let tenant = new Tenant(
-              u.tenant.id,
+              Uuid.from_string(u.tenant.id),
               u.tenant.name
             );
             let user = new User(
@@ -59,7 +60,7 @@ export class UserService {
               tenant,
               u.tenants.map((t) => {
                 return new Tenant(
-                  t.id,
+                  Uuid.from_string(t.id),
                   t.name
                 );
               }),
@@ -88,13 +89,13 @@ export class UserService {
     this.current_user.set(User.anonymous());
   }
 
-  switch_tenant(tenant_id: string): Observable<ApiResponse> {
+  switch_tenant(tenant_id: Uuid): Observable<ApiResponse> {
     console.debug('switch_tenant', tenant_id);
 
     return this.http.post<ApiResponse>(
       CONSTANTS.api_base_url + CONSTANTS.switch_tenant,
       {
-        tenant_id: tenant_id
+        tenant_id: tenant_id.to_string()
       },
       {
         observe: 'response'
