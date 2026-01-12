@@ -7,6 +7,6 @@ export class Address {
         readonly city: string,
         readonly state: string,
         readonly zip: string,
-        readonly country_id: Uuid
+        readonly country_id: number
     ) {}
 }
