@@ -13,6 +13,10 @@ import { CountrySelector } from '../../../country-selector/components/country-se
 import { Country } from '../../../country-selector/classes/country';
 import { Uuid } from '../../../../classes/uuid';
 import { Field, form, submit } from '@angular/forms/signals';
+import { UserService } from '../../../../services/user-service';
+import { Warehouse as WarehouseObj } from '../../classes/warehouse';
+import { Address } from '../../../shared/address';
+import { ApiResponse } from '../../../../classes/api-response';
 
 @Component({
   selector: 'app-warehouse',
@@ -43,6 +47,7 @@ export class Warehouse {
     address: {
       street: "",
       city: "",
+      state: "",
       zip: "",
       country_id: -1
     }
@@ -51,25 +56,14 @@ export class Warehouse {
   component = {
     error: '',
     countries: new Array<Country>(),
-    // form_warehouse: new FormGroup({
-    //   warehouse_id: new FormControl('', []),
-    //   name: new FormControl('', []),
-    //   description: new FormControl('', []),
-    //   address: new FormGroup({
-    //     street: new FormControl('', []),
-    //     city: new FormControl('', []),
-    //     state: new FormControl('', []),
-    //     zip: new FormControl('', []),
-    //     country_id: new FormControl('', [])
-    //   })
-    // })
     form_warehouse: form(this.warehouse)
   };
 
 
   constructor(
     private ns: NotificationService,
-    private ws: WarehouseService
+    private ws: WarehouseService,
+    private us: UserService
   ) {}
 
   save(): void {
@@ -81,19 +75,37 @@ export class Warehouse {
   on_save(event: Event): void {
     event.preventDefault();
 
+    let tenant_id = this.us.current_tenant().tenant_id;
+
     submit(this.component.form_warehouse, async() => {
       console.debug("on_save", this.warehouse());
 
       let w = this.warehouse();
       this.ws.warehouse_save(
-        w.tenant_id,
-        w.warehouse_id,
-        w.name,
-        w.description,
-        w.address
+        tenant_id,
+        new WarehouseObj(
+          w.warehouse_id,
+          w.name,
+          w.description,
+          new Address(
+            w.address.street,
+            w.address.city,
+            w.address.state,
+            w.address.zip,
+            w.address.country_id
+          )
+        )
       ).subscribe({
-        
-      });
+        next: (r: ApiResponse) => {
+          console.debug("on_save next", r);
+        },
+        error: (e) => {
+          console.error("on_save error", e);
+        },
+        complete: () => {
+          console.info("on_save complete");
+        }
+      }); 
     });
   }
 
@@ -117,6 +129,7 @@ export class Warehouse {
         address: {
           street: v.address.street,
           city: v.address.city,
+          state: v.address.state,
           zip: v.address.zip,
           country_id: country_id
         }
