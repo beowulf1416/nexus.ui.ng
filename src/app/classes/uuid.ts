@@ -18,7 +18,7 @@ export class Uuid {
         private id: string
     ) {}
 
-    parse(id: string): Uuid {
+    static from_string(id: string): Uuid {
         if (uuid_validate(id)){
             return new Uuid(id);
         } else {
@@ -31,7 +31,7 @@ export class Uuid {
         return new Uuid(uuidv4());
     }
 
-    nil(): Uuid {
+    static nil(): Uuid {
         return new Uuid(NIL_UUID);
     }
 
