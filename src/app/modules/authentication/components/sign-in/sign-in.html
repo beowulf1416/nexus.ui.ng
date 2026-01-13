@@ -1,7 +1,7 @@
 <div class="component component-sign-in">
     <mat-card class="sign-in-card box-shadow-thin" appearance="outlined">
         <div class="form-wrapper">
-            <form id="form_sign_in" class="sign-in" method="post" action="" [formGroup]="component.signInForm" (ngSubmit)="sign_in()" [class.error]="component.error == ''">
+            <form id="form_sign_in" class="sign-in" method="post" action="" (submit)="on_sign_in($event)" [class.error]="component.error == ''">
                 <mat-card-header>
                     <mat-card-title>Sign In</mat-card-title>
                     <mat-card-subtitle>Please enter your account details</mat-card-subtitle>
@@ -13,20 +13,25 @@
                     <div class="field field-wrapper field-wrapper-block">
                         <mat-form-field appearance="outline">
                             <mat-label>Email</mat-label>
-                            <input type="email" id="email" name="email" placeholder="Email address" required matInput formControlName="email"/>
+                            <input type="email" id="email" placeholder="Email address" matInput [field]="component.form_signin.email" />
                             <mat-hint>Email address</mat-hint>
+                            @if (component.form_signin.email().touched() && component.form_signin.email().invalid()) {
+                                @for(error of component.form_signin.email().errors(); track error) {
+                                    <mat-error>{{ error.message }}</mat-error>
+                                }
+                            }
                         </mat-form-field>
                     </div><!-- .field -->
                     <div class="field field-wrapper field-wrapper-block">
                         <mat-form-field appearance="outline">
                             <mat-label>Password</mat-label>
-                            <input type="password" id="pw" name="pw" placeholder="Password" required matInput formControlName="pw"/>
+                            <input type="password" id="pw" placeholder="Password" matInput [field]="component.form_signin.pw" />
                             <mat-hint>Password</mat-hint>
                         </mat-form-field>
                     </div><!-- .field -->
                 </mat-card-content>
                 <mat-card-actions>
-                    <button type="submit" class="btn-sign-in" mat-fab extended [disabled]="component.signInForm.invalid">
+                    <button type="submit" class="btn-sign-in" mat-fab extended color="primary">
                         <mat-icon>check_circle</mat-icon>
                         Sign In
                     </button>

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
+// import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
@@ -13,34 +13,38 @@ import { ApiResponse } from '../../../../classes/api-response';
 import { NotificationService } from '../../../../services/notification-service';
 import { UserService } from '../../../../services/user-service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { email, Field, form, required, submit } from '@angular/forms/signals';
 
 @Component({
   selector: 'app-sign-in',
   imports: [
     RouterLink,
-    ReactiveFormsModule,
+    // ReactiveFormsModule,
     MatIconModule,
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    Field
   ],
   templateUrl: './sign-in.html',
   styleUrl: './sign-in.css'
 })
 export class SignIn implements OnInit {
 
+  model_signin = signal({
+    email: "",
+    pw: ""
+  });
+
   component = {
-    signInForm: new FormGroup({
-      email: new FormControl('', [
-        Validators.required,
-        Validators.email
-      ]),
-      pw: new FormControl('', [
-        Validators.required
-      ])
-    }),
-    error: ''
+    error: '',
+    form_signin: form(this.model_signin, (sp) => {
+      required(sp.email, { message: 'Email is required' });
+      email(sp.email, { message: 'Email is invalid' });
+
+      required(sp.pw, { message: 'Password is required' });
+    })
   };
 
   constructor(
@@ -48,7 +52,8 @@ export class SignIn implements OnInit {
     private ns: NotificationService,
     private us: UserService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cd: ChangeDetectorRef
   ) {
 
   }
@@ -57,56 +62,49 @@ export class SignIn implements OnInit {
     
   }
 
-  sign_in() {
-    console.info('//todo sign_in');
+  on_sign_in(event: Event): void {
+    console.debug("on_sign_in");
 
+    event.preventDefault();
+    submit(this.component.form_signin, async() => {
+      const model = this.model_signin();
 
-    if (this.component.signInForm.valid) {
-      this.component.signInForm.disable({
-        onlySelf: false
-      });
+      const email = model.email;
+      const pw = model.pw
 
-      const email = this.component.signInForm.get('email')?.value || '';
-      const pw = this.component.signInForm.get('pw')?.value || '';
+      this.authentication.sign_in(
+        email, 
+        pw
+      ).subscribe({
+        next: (r: ApiResponse) => {
+          console.debug('next', r);
 
-      if (email != '' && pw != '') {
-        this.authentication.sign_in(email, pw).subscribe({
-          next: (r: ApiResponse) => {
-            console.debug('next', r);
+          if (r.success) {
+            this.ns.info(r.message, this.component);
+            setTimeout(() => {
+              this.router.navigate(['/dashboard']);
+            }, 3000);
+          } else {
+            console.error(r);
+            this.component.error = r.message;
 
-            if (r.success) {
-              this.ns.info(r.message, this.component);
-              setTimeout(() => {
-                this.router.navigate(['/dashboard']);
-              }, 3000);
-            } else {
-              console.error(r);
-              this.component.error = r.message;
+            console.debug(this.component);
 
-              console.debug(this.component);
-
-              this.ns.error(r.message, this.component);
-            }
-          },
-          error: (e: HttpErrorResponse) => {
-            console.error('error', e);
-            this.component.signInForm.enable({
-              onlySelf: false
-            });
-
-            this.component.error = e.statusText;
-            this.ns.error(e.statusText, this.component);
-          },
-          complete: () => {
-            console.info('complete');
-            this.component.signInForm.enable({
-              onlySelf: false
-            });
+            this.ns.error(r.message, this.component);
           }
-        });
-      } else {
-        console.debug('form invalid');
-      }
-    }
+        },
+        error: (e: HttpErrorResponse) => {
+          console.error('error', e);
+
+          this.component.error = e.statusText;
+          this.ns.error(e.statusText, this.component);
+        },
+        complete: () => {
+          console.info('complete');
+
+          this.cd.detectChanges();
+        }
+      });
+    });
   }
 }
