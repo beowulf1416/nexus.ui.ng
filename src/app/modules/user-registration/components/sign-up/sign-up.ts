@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, signal, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { MatIconModule } from '@angular/material/icon';
@@ -15,6 +15,8 @@ import { CommonModule } from '@angular/common';
 import { NotificationService } from '../../../../services/notification-service';
 
 import { v4 as uuidv4 } from 'uuid';
+import { email, Field, form, required } from '@angular/forms/signals';
+import { Uuid } from '../../../../classes/uuid';
 
 
 @Component({
@@ -22,25 +24,34 @@ import { v4 as uuidv4 } from 'uuid';
   imports: [
     CommonModule,
     RouterLink,
-    ReactiveFormsModule,
+    // ReactiveFormsModule,
     MatIconModule,
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    Field
   ],
   templateUrl: './sign-up.html',
   styleUrl: './sign-up.css'
 })
 export class SignUp {
 
+  model_signup = signal({
+    email: ''
+  });
+
   component = {
     error: '',
-    signUpForm: new FormGroup({
-      email: new FormControl('', [
-        Validators.required,
-        Validators.email
-      ])
+    // signUpForm: new FormGroup({
+    //   email: new FormControl('', [
+    //     Validators.required,
+    //     Validators.email
+    //   ])
+    // }),
+    form_signup: form(this.model_signup, (sp) => {
+      required(sp.email, { message: 'Email is required'});
+      email(sp.email, { message: 'Email is invalid' });
     })
   };
 
@@ -51,17 +62,20 @@ export class SignUp {
     private notification_service: NotificationService
   ) {}
 
-  sign_up() {
+  sign_up(event: Event) {
     console.info('//todo sign_up');
 
-    const id = uuidv4();
-    const email = this.component.signUpForm.get('email')?.value || '';
+    event.preventDefault();
+    const signup = this.model_signup();
+    const id = Uuid.generate();
+    // const email = this.component.signUpForm.get('email')?.value || '';
+    const email = signup.email;
 
 
     if (email != '') {
-      this.component.signUpForm.disable({
-        onlySelf: false
-      });
+      // this.component.signUpForm.disable({
+      //   onlySelf: false
+      // });
       this.user_registration.sign_up(
         id,
         email
@@ -71,14 +85,14 @@ export class SignUp {
         },
         error: (e) => {
           console.error(e);
-          this.component.signUpForm.disable({
-            onlySelf: false
-          });
+          // this.component.signUpForm.disable({
+          //   onlySelf: false
+          // });
         },
         complete: () => {
-          this.component.signUpForm.disable({
-            onlySelf: false
-          });
+          // this.component.signUpForm.disable({
+          //   onlySelf: false
+          // });
         }
       });
     } else {

@@ -1,7 +1,7 @@
 <div class="component component-sign-up-verified">
     <mat-card class="sign-up-card" appearance="outlined">
         <div class="form-wrapper">
-            <form id="form_sign_up" class="sign-up" method="post" action="" [formGroup]="component.signUpForm" (ngSubmit)="sign_up_verified()">
+            <form id="form_sign_up" class="sign-up" method="post" action="" (submit)="sign_up_verified($event)">
                 <mat-card-header>
                     <mat-card-title>Sign Up</mat-card-title>
                     <mat-card-subtitle>Set your password</mat-card-subtitle>
@@ -10,27 +10,27 @@
                     <div class="field field-wrapper field-wrapper-block">
                         <mat-form-field appearance="outline">
                             <mat-label>Email</mat-label>
-                            <input type="email" id="email" name="email" placeholder="Email address" readonly required matInput formControlName="email"/>
+                            <input type="email" id="email" placeholder="Email address" matInput [field]="component.form_email_verified.email"/>
                         </mat-form-field>
                     </div><!-- .field -->
                     <div class="field field-wrapper field-wrapper-block">
                         <mat-form-field appearance="outline">
                             <mat-label>Password</mat-label>
-                            <input type="password" id="pw1" name="pw1" placeholder="Password" required matInput formControlName="pw1"/>
+                            <input type="password" id="pw1" placeholder="Password" matInput [field]="component.form_email_verified.pw1"/>
                         </mat-form-field>
                     </div><!-- .field -->
                     <div class="field field-wrapper field-wrapper-block">
                         <mat-form-field appearance="outline">
                             <mat-label>Confirm Password</mat-label>
-                            <input type="password" id="pw2" name="pw2" placeholder="Confirm Password" required matInput formControlName="pw2"/>
+                            <input type="password" id="pw2" placeholder="Confirm Password" matInput [field]="component.form_email_verified.pw2"/>
                         </mat-form-field>
                     </div><!-- .field -->
 
-                    <input type="hidden" id="register_id" name="register_id" formControlName="register_id" />
-                    <input type="hidden" id="token" name="token" formControlName="token" />
+                    <input type="hidden" id="register_id" />
+                    <input type="hidden" id="token" [field]="component.form_email_verified.token" />
                 </mat-card-content>
                 <mat-card-actions>
-                    <button type="submit" class="btn-sign-up" mat-fab extended [disabled]="component.signUpForm.invalid">
+                    <button type="submit" class="btn-sign-up" mat-fab extended>
                         <mat-icon>check_circle</mat-icon>
                         Submit
                     </button>

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiResponse } from '../../../classes/api-response';
 import { URL } from '../url';
+import { Uuid } from '../../../classes/uuid';
 
 @Injectable({
   providedIn: 'root'
@@ -13,27 +14,27 @@ export class UserRegistration {
   ) {}
 
   sign_up(
-    id: string,
+    id: Uuid,
     email: string
   ) {
     return this.http.post<ApiResponse>(
       URL.sign_up,
       {
-        id: id,
+        id: id.to_string(),
         email: email
       }
     );
   }
 
   sign_up_verified(
-    register_id: string,
+    register_id: Uuid,
     token: string,
     pw: string
   ) {
     return this.http.post<ApiResponse>(
       URL.sign_up_verified,
       {
-        register_id: register_id,
+        register_id: register_id.to_string(),
         token: token,
         pw: pw
       }
