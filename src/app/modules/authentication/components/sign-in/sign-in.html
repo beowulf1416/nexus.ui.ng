@@ -10,16 +10,21 @@
                     @if (component.error != ''){
                         <mat-error>{{ component.error }}</mat-error>
                     }
+                    @if (component.form_signin.email().touched() && component.form_signin.email().invalid()) {
+                        @for(error of component.form_signin.email().errors(); track error) {
+                            <mat-error>{{ error.message }}</mat-error>
+                        }
+                    }
+                    @if (component.form_signin.pw().touched() && component.form_signin.pw().invalid()) {
+                        @for(error of component.form_signin.pw().errors(); track error) {
+                            <mat-error>{{ error.message }}</mat-error>
+                        }
+                    }
                     <div class="field field-wrapper field-wrapper-block">
                         <mat-form-field appearance="outline">
                             <mat-label>Email</mat-label>
                             <input type="email" id="email" placeholder="Email address" matInput [field]="component.form_signin.email" />
                             <mat-hint>Email address</mat-hint>
-                            @if (component.form_signin.email().touched() && component.form_signin.email().invalid()) {
-                                @for(error of component.form_signin.email().errors(); track error) {
-                                    <mat-error>{{ error.message }}</mat-error>
-                                }
-                            }
                         </mat-form-field>
                     </div><!-- .field -->
                     <div class="field field-wrapper field-wrapper-block">
