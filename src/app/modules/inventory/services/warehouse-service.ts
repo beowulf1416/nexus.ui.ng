@@ -22,12 +22,17 @@ export class WarehouseService {
     warehouse: Warehouse
   ): Observable<ApiResponse> {
     console.debug("warehouse_save", warehouse);
+    console.debug(tenant_id instanceof Uuid);
+    console.debug(warehouse instanceof Warehouse);
+
+    const warehouse_id: Uuid = warehouse.id;
+    console.debug(warehouse_id instanceof Uuid);
 
     return this.http.post<ApiResponse>(
       CONSTANTS.api_base_url + INV_CONSTANTS.path_warehouse_save,
       {
         tenant_id: tenant_id.to_string(),
-        warehouse_id: warehouse.id,
+        warehouse_id: warehouse.id.to_string(),
         name: warehouse.name,
         description: warehouse.description,
         address: {

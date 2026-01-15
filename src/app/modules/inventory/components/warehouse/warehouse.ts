@@ -39,9 +39,9 @@ export class Warehouse {
 
   // @ViewChild("nav_end_inv") nav_end!: MatSidenav;
 
-  warehouse = signal({
-    tenant_id: Uuid.generate(),
-    warehouse_id: Uuid.generate(),
+  model_warehouse = signal({
+    // tenant_id: Uuid.nil(),
+    warehouse_id: Uuid.nil().to_string(),
     name: "",
     description: "",
     address: {
@@ -56,7 +56,7 @@ export class Warehouse {
   component = {
     error: '',
     countries: new Array<Country>(),
-    form_warehouse: form(this.warehouse)
+    form_warehouse: form(this.model_warehouse)
   };
 
 
@@ -69,7 +69,7 @@ export class Warehouse {
   save(): void {
     console.debug("save");
 
-    console.debug(this.warehouse());
+    console.debug(this.model_warehouse());
   }
 
   on_save(event: Event): void {
@@ -78,21 +78,22 @@ export class Warehouse {
     let tenant_id = this.us.current_tenant().tenant_id;
 
     submit(this.component.form_warehouse, async() => {
-      console.debug("on_save", this.warehouse());
+      console.debug("on_save", this.model_warehouse());
 
-      let w = this.warehouse();
+      let model = this.model_warehouse();
+
       this.ws.warehouse_save(
         tenant_id,
         new WarehouseObj(
-          w.warehouse_id,
-          w.name,
-          w.description,
+          Uuid.from_string(model.warehouse_id),
+          model.name,
+          model.description,
           new Address(
-            w.address.street,
-            w.address.city,
-            w.address.state,
-            w.address.zip,
-            w.address.country_id
+            model.address.street,
+            model.address.city,
+            model.address.state,
+            model.address.zip,
+            model.address.country_id
           )
         )
       ).subscribe({
@@ -124,7 +125,7 @@ export class Warehouse {
       let country = countries[0];
       let country_id = country.country_id;
 
-      this.warehouse.update((v) => ({
+      this.model_warehouse.update((v) => ({
         ...v,
         address: {
           street: v.address.street,
