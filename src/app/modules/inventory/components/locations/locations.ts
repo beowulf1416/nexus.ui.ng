@@ -12,7 +12,7 @@ import { RouterModule } from '@angular/router';
   selector: 'app-locations',
   imports: [
     CommonModule,
-    ReactiveFormsModule,
+    // ReactiveFormsModule,
     MatIconModule,
     MatButtonModule,
     MatFormFieldModule,
