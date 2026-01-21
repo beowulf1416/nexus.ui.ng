@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, input } from '@angular/core';
+import { booleanAttribute, Component, input, output } from '@angular/core';
 import { NotificationService } from '../../../../services/notification-service';
 import { CurrencyService } from '../../services/currency-service';
 import { MatDialog } from '@angular/material/dialog';
