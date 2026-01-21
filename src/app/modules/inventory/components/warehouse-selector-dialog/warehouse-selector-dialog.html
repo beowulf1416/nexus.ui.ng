@@ -1,0 +1,78 @@
+<div class="component component-inv-warehouse-selector-dialog">
+  <div class="wrapper wrapper-form">
+    <form
+      id="form_warehouse_selector_dialog"
+      class="form-warehouse-selector-dialog"
+      method="post"
+      action=""
+    >
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Warehouse Selector</mat-card-title>
+          <mat-card-subtitle>Select a warehouse</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="wrapper wrapper-filter">
+            <mat-form-field appearance="outline">
+              <mat-label>Search</mat-label>
+              <input
+                type="search"
+                id="input_filter"
+                class="input-filter"
+                title="Search"
+                placeholder="Search"
+                matInput
+              />
+              <button
+                type="button"
+                id="btn_search"
+                class="btn btn-search"
+                title="Search"
+                matSuffix
+                mat-icon-button
+              >
+                <mat-icon>search</mat-icon>
+              </button>
+              <button
+                type="button"
+                id="btn_reset"
+                class="btn btn-cancel"
+                title="Cancel"
+                matSuffix
+                mat-icon-button
+              >
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button
+            type="button"
+            id="btn_save"
+            class="btn btn-save"
+            title="Select"
+            (click)="on_save($event)"
+            matFab
+            extended
+          >
+            <mat-icon>check_circle</mat-icon><span>Select</span>
+          </button>
+          <button
+            type="button"
+            id="btn_cancel"
+            class="btn btn-cancel"
+            title="Cancel"
+            (click)="on_cancel($event)"
+            matFab
+            extended
+          >
+            <mat-icon>cancel</mat-icon><span>Cancel</span>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </div>
+  <!-- .wrapper -->
+</div>
+<!-- .component -->

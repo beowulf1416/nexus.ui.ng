@@ -1,33 +1,74 @@
 <div class="component component-inv-location">
-    <div class="wrapper wrapper-card">
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>{{ component.title || 'New Location' }}</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <div class="wrapper wrapper-form">
-                    <form id="form_location" name="form_location" class="form-location" method="post" action="" (submit)="on_submit($event)">
-                        <mat-toolbar>
-                            <button id="btn_save" class="btn btn-save btn-primary" type="submit" title="Save" mat-icon-button color="primary">
-                                <mat-icon>save</mat-icon>
-                            </button>
-                        </mat-toolbar>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Name</mat-label>
-                            <input id="input_name" type="text" class="input-name" placeholder="Name" [field]="component.form_location.name" matInput />
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Description</mat-label>
-                            <textarea id="input_description" class="input-description" placeholder="Description" [field]="component.form_location.description" matInput></textarea>
-                        </mat-form-field>
-                        <div class="wrapper">
-                            <app-warehouse-selector (on_selected)="on_warehouse_selected($event)"></app-warehouse-selector>
-                        </div><!-- .wrapper -->
-                        <input type="hidden" id="input_location_id" [field]="component.form_location.location_id" />
-                        <input type="hidden" id="input_warehouse_id" [field]="component.form_location.warehouse_id" />
-                    </form>
-                </div><!-- .wrapper -->
-            </mat-card-content>
-        </mat-card>
-    </div><!-- .wrapper -->
-</div><!-- .component -->
+  <div class="wrapper wrapper-card">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ component.title || 'New Location' }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="wrapper wrapper-form">
+          <form
+            id="form_location"
+            name="form_location"
+            class="form-location"
+            method="post"
+            action=""
+            (submit)="on_submit($event)"
+          >
+            <mat-toolbar>
+              <button
+                id="btn_save"
+                class="btn btn-save btn-primary"
+                type="submit"
+                title="Save"
+                mat-icon-button
+                color="primary"
+              >
+                <mat-icon>save</mat-icon>
+              </button>
+            </mat-toolbar>
+            <mat-form-field appearance="outline">
+              <mat-label>Name</mat-label>
+              <input
+                id="input_name"
+                type="text"
+                class="input-name"
+                placeholder="Name"
+                [field]="component.form_location.name"
+                matInput
+              />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Description</mat-label>
+              <textarea
+                id="input_description"
+                class="input-description"
+                placeholder="Description"
+                [field]="component.form_location.description"
+                matInput
+              ></textarea>
+            </mat-form-field>
+            <div class="wrapper">
+              <app-warehouse-selector
+                (selected)="on_warehouse_selected($event)"
+              ></app-warehouse-selector>
+            </div>
+            <!-- .wrapper -->
+            <input
+              type="hidden"
+              id="input_location_id"
+              [field]="component.form_location.location_id"
+            />
+            <input
+              type="hidden"
+              id="input_warehouse_id"
+              [field]="component.form_location.warehouse_id"
+            />
+          </form>
+        </div>
+        <!-- .wrapper -->
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <!-- .wrapper -->
+</div>
+<!-- .component -->
