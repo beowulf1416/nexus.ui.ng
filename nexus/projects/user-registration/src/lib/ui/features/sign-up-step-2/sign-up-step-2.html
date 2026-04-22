@@ -1,0 +1,48 @@
+<lib-header></lib-header>
+<div class="feature sign-up-step-2">
+  <div class="wrapper">
+    <form class="sign-up-step-2">
+      <mat-card appearance="outlined">
+        <mat-card-header>
+          <mat-card-title>Sign Up</mat-card-title>
+          <mat-card-subtitle>Please provide your password</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <fieldset>
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input type="email" id="email" name="email" required matInput />
+            </mat-form-field>
+          </fieldset>
+          <fieldset>
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <input type="password" id="pw1" name="pw1" placeholder="Password" required matInput />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Confirm Password</mat-label>
+              <input
+                type="password"
+                id="pw2"
+                name="pw2"
+                placeholder="Confirm Password"
+                required
+                matInput
+              />
+            </mat-form-field>
+          </fieldset>
+        </mat-card-content>
+        <mat-card-actions>
+          <button type="submit" id="btn_submit" class="btn-submit" mat-fab extended color="primary">
+            <mat-icon>checked_circle</mat-icon>Sign Up
+          </button>
+        </mat-card-actions>
+        <mat-card-footer> footer </mat-card-footer>
+      </mat-card>
+
+      <input type="hidden" id="register_id" name="register_id" />
+    </form>
+  </div>
+  <!-- .wrapper -->
+</div>
+<!-- .feature -->

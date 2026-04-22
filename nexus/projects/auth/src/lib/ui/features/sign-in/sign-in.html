@@ -1,0 +1,51 @@
+<p>sign-in works!</p>
+<div class="component sign-in">
+  <div class="wrapper form">
+    <form id="sign-in">
+      <mat-card appearance="outlined">
+        <mat-card-header>
+          <mat-card-title>Sign In</mat-card-title>
+          <mat-card-subtitle>Please enter your credentials</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <fieldset>
+            <div class="field email">
+              <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Email address"
+                  required
+                  matInput
+                />
+              </mat-form-field>
+            </div>
+            <div class="field pw">
+              <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input type="password" id="pw" name="pw" placeholder="Password" required matInput />
+              </mat-form-field>
+            </div>
+          </fieldset>
+        </mat-card-content>
+        <mat-card-actions>
+          <button type="submit" id="btnSubmit" class="btn-submit" mat-fab extended color="primary">
+            <mat-icon>check_circle</mat-icon> Sign In
+          </button>
+        </mat-card-actions>
+        <mat-card-footer>
+          <ul>
+            <li>
+              Don't have an account yet?
+              <a title="Sign Up" routerLink="/user/registration/sign-up">Sign Up</a>
+            </li>
+          </ul>
+        </mat-card-footer>
+      </mat-card>
+    </form>
+  </div>
+  <!-- .wrapper -->
+</div>
+<!-- .component -->
