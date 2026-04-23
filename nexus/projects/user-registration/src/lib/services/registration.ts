@@ -12,10 +12,11 @@ import { URLS } from '../constants';
 export class Registration {
   constructor(private http: HttpClient) {}
 
-  register_email(email: string): Observable<ApiResponse> {
+  register_email(register_id: string, email: string): Observable<ApiResponse> {
     console.debug('register_email');
 
     return this.http.post<ApiResponse>(URLS.register_email, {
+      register_id: register_id,
       email: email,
     });
   }

@@ -5,3 +5,4 @@
 // export * from './lib/common';
 
 export * from './lib/models/api-response';
+export * from './lib/models/uuid';
