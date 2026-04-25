@@ -1,0 +1,96 @@
+<lib-header></lib-header>
+<div class="feature sign-up-pw">
+  <div class="wrapper sign-up-pw">
+    <div class="wrapper form bg-anim-rotation">
+      <form class="sign-up-pw">
+        <mat-card appearance="outlined">
+          <mat-card-header>
+            <mat-card-title>Sign Up</mat-card-title>
+            <mat-card-subtitle>Please provide your password</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="errors">
+              @for(error of component.errors(); track error) {
+                <mat-error>{{ error }}</mat-error>
+              }
+              @if(component.form.pw1().touched() && component.form.pw1().invalid()) {
+                @for(error of component.form.pw1().errors(); track error) {
+                  <mat-error>{{ error.message }}</mat-error>
+                }
+              }
+              @if(component.form.pw2().touched() && component.form.pw2().invalid()) {
+                @for(error of component.form.pw2().errors(); track error) {
+                  <mat-error>{{ error.message }}</mat-error>
+                }
+              }
+            </div><!-- .errors -->
+            <fieldset>
+              <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input
+                  type="email"
+                  id="email"
+                  matInput
+                  [formField]="component.form.email"
+                />
+              </mat-form-field>
+            </fieldset>
+            <fieldset>
+              <caption>Passwords</caption>
+              <div class="field block">
+                <mat-form-field appearance="outline">
+                  <mat-label>Password</mat-label>
+                  <input
+                    type="password"
+                    id="pw1"
+                    placeholder="Password"
+                    matInput
+                    [formField]="component.form.pw1"
+                  />
+                </mat-form-field>
+              </div><!-- .field -->
+              <div class="field block">
+                <mat-form-field appearance="outline">
+                  <mat-label>Confirm Password</mat-label>
+                  <input
+                    type="password"
+                    id="pw2"
+                    placeholder="Confirm Password"
+                    matInput
+                    [formField]="component.form.pw2"
+                  />
+                </mat-form-field>
+              </div><!-- .field -->
+            </fieldset>
+          </mat-card-content>
+          <mat-card-actions>
+            <button
+              type="submit"
+              id="btn_submit"
+              class="btn-submit"
+              mat-fab
+              extended
+              color="primary"
+            >
+              <mat-icon>checked_circle</mat-icon>Sign Up
+            </button>
+          </mat-card-actions>
+          <mat-card-footer>
+            <ul>
+              <li>Already have an account? <a title="Sign In" routerLink="/user/sign-in">Sign In</a></li>
+            </ul>
+          </mat-card-footer>
+        </mat-card>
+
+        <input
+          type="hidden"
+          id="register_id"
+          [formField]="component.form.register_id"
+        />
+      </form>
+    </div>
+    <!-- .wrapper -->
+  </div>
+  <!-- .wrapper -->
+</div>
+<!-- .feature -->

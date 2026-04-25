@@ -1,9 +1,4 @@
-.wrapper.sign-up {
-  display: flex;
-  justify-content: center;
-}
-/*
-.wrapper.form {
+div.wrapper.form.bg-anim-rotation {
   padding: 10px;
   background: conic-gradient(
     from var(--angle),
@@ -25,4 +20,9 @@
   syntax: '<angle>';
   initial-value: 0deg;
   inherits: false;
-}*/
+}
+
+
+div.field.block {
+  display: block;
+}

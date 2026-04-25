@@ -8,11 +8,12 @@ import { MatInputModule } from '@angular/material/input';
 import { email, form, FormField, required } from '@angular/forms/signals';
 import { Registration } from '../../../services/registration';
 import { ApiResponse, Uuid } from 'common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'lib-sign-up',
   imports: [
+    RouterLink,
     Header,
     MatCardModule,
     MatFormFieldModule,
@@ -31,7 +32,7 @@ export class SignUp implements OnInit {
   });
 
   component = {
-    errors: new Array<string>(),
+    errors: signal(new Array<string>()),
     form: form(this.model, (f) => {
       required(f.email, { message: 'Email address is required' });
 
@@ -69,7 +70,9 @@ export class SignUp implements OnInit {
           // redirect to step 2
           this.router.navigate(['sign-up/2']);
         } else {
-          this.component.errors.push(r.message);
+          let errors = this.component.errors();
+          errors.push(r.message);
+          this.component.errors.set(errors);
         }
       });
   }

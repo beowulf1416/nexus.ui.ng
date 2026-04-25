@@ -3,5 +3,6 @@
   "dest": "../../dist/user-registration",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "assets": ["assets/styles.css"]
 }
