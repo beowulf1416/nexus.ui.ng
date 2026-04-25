@@ -18,4 +18,8 @@ export class Uuid {
       this.id = uuidv4();
     }
   }
+
+  to_string(): string {
+    return this.id.toString();
+  }
 }
