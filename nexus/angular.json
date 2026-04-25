@@ -24,7 +24,11 @@
                 "input": "projects/nexus/public"
               }
             ],
-            "styles": ["projects/nexus/src/material-theme.scss", "projects/nexus/src/styles.css"]
+            "styles": [
+              "projects/nexus/src/material-theme.scss",
+              "projects/nexus/src/styles.css",
+              "projects/user-registration/assets/styles.css"
+            ]
           },
           "configurations": {
             "production": {
