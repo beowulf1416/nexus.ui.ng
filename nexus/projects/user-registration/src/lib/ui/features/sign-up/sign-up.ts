@@ -7,7 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { email, form, FormField, required } from '@angular/forms/signals';
 import { Registration } from '../../../services/registration';
-import { Uuid } from 'common';
+import { ApiResponse, Uuid } from 'common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lib-sign-up',
@@ -30,7 +31,7 @@ export class SignUp implements OnInit {
   });
 
   component = {
-    errors: [],
+    errors: new Array<string>(),
     form: form(this.model, (f) => {
       required(f.email, { message: 'Email address is required' });
 
@@ -38,19 +39,38 @@ export class SignUp implements OnInit {
     }),
   };
 
-  constructor(private registration: Registration) {}
+  constructor(
+    private registration: Registration,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     console.info('ngOnInit');
 
     const register_id = new Uuid();
+    this.component.form.register_id().value.set(register_id.to_string());
   }
 
   on_submit(event: Event): void {
     console.info('on_submit');
 
+    event.preventDefault();
     const model = this.model();
 
-    event.preventDefault();
+    this.registration
+      .register_email(
+        this.component.form.register_id().value(),
+        this.component.form.email().value(),
+      )
+      .subscribe((r: ApiResponse) => {
+        console.debug(r);
+
+        if (r.success) {
+          // redirect to step 2
+          this.router.navigate(['sign-up/2']);
+        } else {
+          this.component.errors.push(r.message);
+        }
+      });
   }
 }

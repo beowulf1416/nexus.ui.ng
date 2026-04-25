@@ -15,8 +15,8 @@ export class Registration {
   register_email(register_id: string, email: string): Observable<ApiResponse> {
     console.debug('register_email');
 
-    return this.http.post<ApiResponse>(URLS.register_email, {
-      register_id: register_id,
+    return this.http.post<ApiResponse>(URLS.base_url + URLS.register_email, {
+      id: register_id,
       email: email,
     });
   }
