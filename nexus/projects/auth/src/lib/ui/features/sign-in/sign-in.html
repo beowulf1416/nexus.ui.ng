@@ -1,7 +1,7 @@
 <p>sign-in works!</p>
 <div class="component sign-in">
   <div class="wrapper form">
-    <form id="sign-in">
+    <form id="sign-in" class="sign-in" method="post" action="" (submit)="on_submit($event)">
       <mat-card appearance="outlined">
         <mat-card-header>
           <mat-card-title>Sign In</mat-card-title>
@@ -15,17 +15,22 @@
                 <input
                   type="email"
                   id="email"
-                  name="email"
                   placeholder="Email address"
-                  required
                   matInput
+                  [formField]="component.form.email"
                 />
               </mat-form-field>
             </div>
             <div class="field pw">
               <mat-form-field appearance="outline">
                 <mat-label>Password</mat-label>
-                <input type="password" id="pw" name="pw" placeholder="Password" required matInput />
+                <input
+                  type="password"
+                  id="pw"
+                  placeholder="Password"
+                  matInput
+                  [formField]="component.form.pw"
+                />
               </mat-form-field>
             </div>
           </fieldset>
