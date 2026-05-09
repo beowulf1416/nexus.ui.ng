@@ -4,8 +4,10 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
+      "admin-users": ["./dist/admin-users"],
       "auth": ["./dist/auth"],
       "common": ["./dist/common"],
+      "user-profile": ["./dist/user-profile"],
       "user-registration": ["./dist/user-registration"]
     },
     "strict": true,
@@ -51,6 +53,18 @@
     },
     {
       "path": "./projects/user-registration/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/user-profile/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/user-profile/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/admin-users/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/admin-users/tsconfig.spec.json"
     }
   ]
 }
