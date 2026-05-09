@@ -6,7 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { form, FormField, minLength, readonly, required, validate } from '@angular/forms/signals';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { Registration } from '../../../services/registration';
 
 @Component({
   selector: 'lib-sign-up-pw',
@@ -54,4 +55,11 @@ export class SignUpPw {
       });
     })
   };
+
+  constructor(
+    private registration: Registration,
+    private router: Router
+  ) {
+
+  }
 }

@@ -67,8 +67,8 @@ export class SignUp implements OnInit {
         console.debug(r);
 
         if (r.success) {
-          // redirect to step 2
-          this.router.navigate(['sign-up/2']);
+          // redirect to info email
+          this.router.navigate(['info-email']);
         } else {
           let errors = this.component.errors();
           errors.push(r.message);
