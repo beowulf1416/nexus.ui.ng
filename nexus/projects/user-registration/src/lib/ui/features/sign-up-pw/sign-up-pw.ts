@@ -75,6 +75,14 @@ export class SignUpPw {
     )
     .subscribe((r: ApiResponse) => {
       console.debug(r);
+      if (r.success) {
+        // redirect to success/registration page
+        this.router.navigate(['success']);
+      } else {
+        let errors = this.component.errors();
+        errors.push(r.message);
+        this.component.errors.set(errors);
+      }
     });
   }
 }

@@ -20,5 +20,10 @@ export const routes: Routes = [
     path: 'info-email',
     title: 'Verify Email',
     loadComponent: () => import('./ui/features/info-email/info-email').then((m) => m.InfoEmail)
+  },
+  {
+    path: 'success',
+    title: 'Successfully Registered',
+    loadComponent: () => import('./ui/features/success-registration/success-registration').then((m) => m.SuccessRegistration)
   }
 ];
