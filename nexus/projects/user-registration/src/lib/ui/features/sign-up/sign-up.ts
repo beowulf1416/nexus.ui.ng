@@ -60,8 +60,10 @@ export class SignUp implements OnInit {
 
     this.registration
       .register_email(
-        this.component.form.register_id().value(),
-        this.component.form.email().value(),
+        // this.component.form.register_id().value(),
+        // this.component.form.email().value(),
+        model.register_id,
+        model.email
       )
       .subscribe((r: ApiResponse) => {
         console.debug(r);

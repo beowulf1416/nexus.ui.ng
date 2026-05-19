@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { form, FormField, minLength, readonly, required, validate } from '@angular/forms/signals';
 import { Router, RouterLink } from '@angular/router';
 import { Registration } from '../../../services/registration';
+import { ApiResponse } from 'common';
 
 @Component({
   selector: 'lib-sign-up-pw',
@@ -61,5 +62,19 @@ export class SignUpPw {
     private router: Router
   ) {
 
+  }
+
+  on_submit(event: Event): void {
+    console.debug("on_submit");
+
+    event.preventDefault();
+    const model = this.model();
+    this.registration.register_password(
+      model.register_id,
+      model.pw1
+    )
+    .subscribe((r: ApiResponse) => {
+      console.debug(r);
+    });
   }
 }
