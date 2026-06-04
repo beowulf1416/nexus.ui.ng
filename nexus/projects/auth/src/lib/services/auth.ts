@@ -13,23 +13,23 @@ import * as CryptoJS from 'crypto-js';
 export class Auth {
   constructor(private http: HttpClient) {}
 
-  generate_hash(text: string): string {
-    console.debug('generate_hash');
+  // generate_hash(text: string): string {
+  //   console.debug('generate_hash');
 
-    return CryptoJS.AES.encrypt(text, text).toString();
-  }
+  //   return CryptoJS.AES.encrypt(text, text).toString();
+  // }
 
   authenticate(email: string, pw: string): Observable<ApiResponse> {
     console.debug('authenticate');
 
-    const pw_hash = this.generate_hash(pw);
+    // const pw_hash = this.generate_hash(pw);
 
     return this.http
       .post<ApiResponse>(
-        URLS.authenticate,
+        URLS.base_url + URLS.authenticate,
         {
           email: email,
-          pw: pw_hash,
+          pw: pw,
         },
         {
           observe: 'response',
@@ -37,7 +37,7 @@ export class Auth {
       )
       .pipe(
         map((v, i) => {
-          console.debug('map', v, i);
+          // console.debug('map', v, i);
           if (v.ok) {
             if (v.headers.has('authorization')) {
               let token =
