@@ -74,7 +74,7 @@ export class SignUp implements OnInit {
         } else {
           let errors = this.component.errors();
           errors.push(r.message);
-          this.component.errors.set(errors);
+          this.component.errors.set(...errors);
         }
       });
   }
