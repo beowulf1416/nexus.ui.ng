@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from 'common';
 import { map, Observable } from 'rxjs';
 import { URLS } from '../constants';
-import * as CryptoJS from 'crypto-js';
+// import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root',

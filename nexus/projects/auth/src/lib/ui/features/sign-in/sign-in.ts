@@ -7,7 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterLink } from '@angular/router';
 import { ApiResponse } from 'common';
-import { Auth } from '../../../services/auth';
+// import { Auth } from '../../../services/auth';
+import { UserService } from '../../../services/user-service';
 
 @Component({
   selector: 'lib-sign-in',
@@ -39,7 +40,8 @@ export class SignIn {
   };
 
   constructor(
-    private auth: Auth,
+    // private auth: Auth,
+    private userService: UserService,
     private router: Router,
   ) {}
 
@@ -54,7 +56,7 @@ export class SignIn {
       const email = model.email;
       const pw = model.pw;
 
-      this.auth.authenticate(email, pw).subscribe({
+      this.userService.sign_in(email, pw).subscribe({
         next: (response: ApiResponse) => {
           if (response.success){
             this.router.navigate(['dashboard']);
