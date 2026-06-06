@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { form, FormField, minLength, readonly, required, validate } from '@angular/forms/signals';
 import { Router, RouterLink } from '@angular/router';
 import { Registration } from '../../../services/registration';
-import { ApiResponse } from 'common';
+import { ApiResponse } from 'core';
 
 @Component({
   selector: 'lib-sign-up-pw',

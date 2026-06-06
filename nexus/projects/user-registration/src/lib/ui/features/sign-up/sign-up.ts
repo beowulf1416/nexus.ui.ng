@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { email, form, FormField, required } from '@angular/forms/signals';
 import { Registration } from '../../../services/registration';
-import { ApiResponse, Uuid } from 'common';
+import { ApiResponse, Uuid } from 'core';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
@@ -74,7 +74,7 @@ export class SignUp implements OnInit {
         } else {
           let errors = this.component.errors();
           errors.push(r.message);
-          this.component.errors.set(...errors);
+          this.component.errors.set(errors);
         }
       });
   }
