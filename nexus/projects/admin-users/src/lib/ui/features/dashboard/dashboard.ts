@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { CommonHeader } from 'common';
+import { Header } from 'core';
 
 @Component({
   selector: 'admin-users-dashboard',
   imports: [
-    CommonHeader,
+    Header,
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',

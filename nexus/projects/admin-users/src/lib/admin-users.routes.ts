@@ -3,6 +3,19 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./ui/features/dashboard/dashboard').then((m) => m.Dashboard),
+    title: 'Home',
+    loadComponent: () => import('./ui/features/home/home').then((m) => m.Home),
+    children: [
+      {
+        path: '',
+        title: 'Dashboard',
+        loadComponent: () => import('./ui/features/dashboard/dashboard').then((m) => m.Dashboard),
+      },
+      {
+        path: 'users',
+        title: 'Users',
+        loadComponent: () => import('./ui/features/users/users').then((m) => m.Users),
+      },
+    ],
   },
 ];
