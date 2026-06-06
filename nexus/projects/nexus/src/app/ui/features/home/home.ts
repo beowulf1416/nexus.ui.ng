@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 
-import { Header } from '../../components/header/header';
+import { CommonHeader } from 'common';
 import { SidebarLeft } from '../../components/sidebar-left/sidebar-left';
 
 @Component({
   selector: 'app-home',
-  imports: [Header, SidebarLeft],
+  imports: [
+    CommonHeader,
+    SidebarLeft,
+  ],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
