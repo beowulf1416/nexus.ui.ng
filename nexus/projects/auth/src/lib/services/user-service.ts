@@ -41,6 +41,10 @@ export class UserService {
     // this._current_user.set(user);
   }
 
+  sign_out(): Observable<ApiResponse> {
+    return this.auth.sign_out();
+  }
+
   fetch_current_user(): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(
       URLS.base_url + URLS.fetch_current_user,

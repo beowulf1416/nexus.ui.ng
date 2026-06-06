@@ -3,7 +3,7 @@ import { User } from '../models/user';
 import { HttpClient } from '@angular/common/http';
 
 import { ApiResponse } from 'common';
-import { map, Observable } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { URLS } from '../constants';
 // import * as CryptoJS from 'crypto-js';
 
@@ -58,5 +58,10 @@ export class Auth {
           }
         }),
       );
+  }
+
+  sign_out(): Observable<ApiResponse> {
+    sessionStorage.removeItem('sid');
+    return of(new ApiResponse(true, 'successfully signed out', null));
   }
 }
