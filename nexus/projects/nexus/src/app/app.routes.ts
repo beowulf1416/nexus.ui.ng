@@ -13,9 +13,13 @@ export const routes: Routes = [
     path: 'user/registration',
     loadChildren: () => import('user-registration').then((m) => m.routes),
   },
+  // {
+  //   path: 'auth',
+  //   loadChildren: () => import('auth').then((m) => m.routes),
+  // },
   {
-    path: 'auth',
-    loadChildren: () => import('auth').then((m) => m.routes),
+    path: 'session',
+    loadChildren: () => import('core').then((m) => m.routes),
   },
   {
     path: 'admin/users',

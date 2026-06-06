@@ -1,7 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { UserService } from 'auth';
-import { ApiResponse } from 'common'
+import { UserService } from 'core';
+import { ApiResponse } from 'core'
 
 @Component({
   selector: 'app-root',

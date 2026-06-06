@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { CommonHeader } from 'common';
+import { Header } from 'core';
 import { SidebarLeft } from '../../components/sidebar-left/sidebar-left';
 
 @Component({
   selector: 'app-dashboard',
   imports: [
-    CommonHeader,
+    Header,
     SidebarLeft,
   ],
   templateUrl: './dashboard.html',
