@@ -6,3 +6,5 @@
 
 export * from './lib/models/api-response';
 export * from './lib/models/uuid';
+
+export * from './lib/ui/components/header/header';
