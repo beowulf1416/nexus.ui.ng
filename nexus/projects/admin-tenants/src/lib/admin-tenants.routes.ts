@@ -12,9 +12,14 @@ export const routes: Routes = [
         loadComponent: () => import('./ui/features/dashboard/dashboard').then((m) => m.Dashboard),
       },
       {
+        path: 'tenants',
+        title: 'Tenants',
+        loadComponent: () => import('./ui/features/tenants/tenants').then((m) => m.Tenants),
+      },
+      {
         path: 'users',
         title: 'Users',
-        loadComponent: () => import('./ui/features/tenants/tenants').then((m) => m.Tenants),
+        loadComponent: () => import('./ui/features/users/users').then((m) => m.Users),
       },
     ],
   },
