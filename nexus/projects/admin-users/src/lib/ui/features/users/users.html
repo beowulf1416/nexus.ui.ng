@@ -1,26 +1,57 @@
 <div class="component component-admin-users-users">
-  <mat-toolbar>
-    <span>Users</span>
-    <button mat-button>Add User</button>
-  </mat-toolbar>
-  <div class="wrapper table">
-    <table>
-      <caption>Users</caption>
-      <thead>
-        <tr>
-          <th></th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tfoot>
-        <tr>
-          <td></td>
-        </tr>
-      </tfoot>
-      <tbody>
-      </tbody>
-    </table>
+  <div class="wrapper form">
+    <form id="users" class="users" method="post" action="">
+      <div class="wrapper actions">
+        <mat-toolbar>
+          <span>Users</span>
+          <button type="button" class="btn btn-add-user" title="New User" aria-label="New User" mat-icon-button>
+            <mat-icon>person_add</mat-icon>
+          </button>
+          <span class="divider">|</span>
+          <button type="button" class="btn btn-set-active" title="Set Active" aria-label="Set Active" mat-icon-button>
+            <mat-icon>person</mat-icon>
+          </button>
+          <button type="button" class="btn btn-set-inactive" title="Set inactive" aria-label="Set Inactive" mat-icon-button>
+            <mat-icon>person_off</mat-icon>
+          </button>
+          <span class="divider">|</span>
+          <button type="button" class="btn btn-refresh" title="Refresh" aria-label="Refresh" mat-icon-button>
+            <mat-icon>refresh</mat-icon>
+          </button>
+          <span class="divider">|</span>
+          <div class="wrapper filter">
+            <mat-form-field appearance="outline">
+              <input type="filter" id="filter" class="filter" placeholder="Search" matInput />
+              <button type="button" class="btn btn-filter" title="Search" aria-label="Search" mat-icon-button matSuffix>
+                <mat-icon>search</mat-icon>
+              </button>
+              <button type="button" class="btn btn-clear" title="Clear" aria-label="Clear" mat-icon-button matSuffix>
+                <mat-icon>close_small</mat-icon>
+              </button>
+            </mat-form-field>
+          </div><!-- .wrapper -->
+        </mat-toolbar>
+      </div><!-- .wrapper -->
+      <div class="wrapper table">
+        <table>
+          <caption>Users</caption>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <td></td>
+            </tr>
+          </tfoot>
+          <tbody>
+          </tbody>
+        </table>
+      </div><!-- .wrapper -->
+    </form>
   </div><!-- .wrapper -->
 </div><!-- .component -->
