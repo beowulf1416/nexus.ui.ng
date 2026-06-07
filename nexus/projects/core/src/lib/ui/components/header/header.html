@@ -4,7 +4,9 @@
     <a title="Profile" routerLink="/me" mat-menu-item>Profile</a>
     <a title="Sign Out" routerLink="/session/sign-out" mat-menu-item>Sign Out</a>
     }
+    @if (!is_user_authenticated()) {
     <a title="Sign In" routerLink="/session/sign-in" mat-menu-item>Sign In</a>
+    }
   </mat-menu>
 
   <mat-toolbar id="tb-header" color="primary">

@@ -22,6 +22,7 @@ import { UserService } from '../../../services/user-service';
 })
 export class Header {
 
+  user = computed(() => this.user_service.current_user());
   is_user_authenticated = computed(() => {
     return this.user_service.current_user().is_authenticated
   });

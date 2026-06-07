@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { ApiResponse } from '../models/api-response';
-import { map, Observable, catchError, of } from 'rxjs';
+import { map, Observable, catchError, of, mergeMap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
 import { Tenant } from '../models/tenant';
@@ -50,8 +50,8 @@ export class UserService {
         },
       )
       .pipe(
-        map((v, i) => {
-          // console.debug('map', v, i);
+        mergeMap((v, i) => {
+          // console.debug('map', v);
           if (v.ok) {
             if (v.headers.has('authorization')) {
               let token =
@@ -61,12 +61,13 @@ export class UserService {
                   ?.trim() || '';
               sessionStorage.setItem('sid', token);
 
-              return new ApiResponse(true, 'successfully authenticated', null);
+              // return new ApiResponse(true, 'successfully authenticated', null);
+              return this.fetch_current_user();
             } else {
-              return new ApiResponse(false, 'unable to authenticate', null);
+              return of(new ApiResponse(false, 'unable to authenticate', null));
             }
           } else {
-            return new ApiResponse(false, 'unable to authenticate', null);
+            return of(new ApiResponse(false, 'unable to authenticate', null));
           }
         }),
       );
