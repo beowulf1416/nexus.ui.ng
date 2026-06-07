@@ -23,6 +23,12 @@ export const routes: Routes = [
   },
   {
     path: 'admin/users',
+    title: 'Users',
     loadChildren: () => import('admin-users').then((m) => m.routes),
+  },
+  {
+    path: 'admin/tenants',
+    title: 'Tenants',
+    loadChildren: () => import('admin-tenants').then((m) => m.routes),
   },
 ];
