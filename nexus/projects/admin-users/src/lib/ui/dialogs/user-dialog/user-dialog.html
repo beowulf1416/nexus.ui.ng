@@ -1,0 +1,40 @@
+<div class="component dialog-user">
+  <div class="wrapper form">
+    <form id="user" class="user-form" method="post" action="">
+      <h3 mat-dialog-title>New User</h3>
+      <mat-dialog-content>
+        <div class="errors">
+
+        </div><!-- .errors -->
+        <mat-form-field class="full-width">
+          <mat-label>Email</mat-label>
+          <input type="email" class="email" placeholder="Email" matInput [formField]="component.form.email" />
+        </mat-form-field>
+        <div class="wrapper fields">
+          <mat-form-field>
+            <mat-label>First Name</mat-label>
+            <input type="text" class="first-name" placeholder="First Name" matInput [formField]="component.form.first_name" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Middle Name</mat-label>
+            <input type="text" class="middle-name" placeholder="Middle Name" matInput [formField]="component.form.middle_name" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Last Name</mat-label>
+            <input type="text" class="last-name" placeholder="Last Name" matInput [formField]="component.form.last_name" />
+          </mat-form-field>
+        </div><!-- .wrapper -->
+      </mat-dialog-content>
+      <mat-dialog-actions>
+        <button type="button" matFab extended (click)="on_cancel($event)">
+          <mat-icon>cancel</mat-icon>
+          Cancel
+        </button>
+        <button type="button" matFab extended (click)="on_save($event)">
+          <mat-icon>save</mat-icon>
+          Save
+        </button>
+      </mat-dialog-actions>
+    </form>
+  </div><!-- .wrapper -->
+</div><!-- .component -->

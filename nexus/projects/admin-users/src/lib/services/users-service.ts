@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { URLS } from '../constants';
 import { ApiResponse } from 'core';
+import { UserData } from '../classes/user-data';
+
 
 @Injectable({
   providedIn: 'root',
@@ -21,4 +23,12 @@ export class UsersService {
     );
   }
 
+  add_user(user: UserData): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(
+      `${URLS.base_url}${URLS.add_user}`,
+      {
+        email: user.email,
+      },
+    );
+  }
 }

@@ -4,7 +4,7 @@
       <div class="wrapper actions">
         <mat-toolbar>
           <span>Users</span>
-          <button type="button" class="btn btn-add-user" title="New User" aria-label="New User" mat-icon-button>
+          <button type="button" class="btn btn-add-user" title="New User" aria-label="New User" (click)="on_new_user($event)" mat-icon-button>
             <mat-icon>person_add</mat-icon>
           </button>
           <span class="divider">|</span>
