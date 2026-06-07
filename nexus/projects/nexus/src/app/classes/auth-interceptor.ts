@@ -5,10 +5,12 @@ import { CONSTANTS } from '../constants';
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const sid = sessionStorage.getItem(CONSTANTS.session_key);
 
+  console.debug("authInterceptor", sid);
+
   // add auth header if sid exists
   let req_auth = req.clone();
-  if (sid) {
-    req = req.clone({
+  if (sid != '') {
+    req_auth = req.clone({
       setHeaders: {
         Authorization: `Bearer ${sid}`,
       },
