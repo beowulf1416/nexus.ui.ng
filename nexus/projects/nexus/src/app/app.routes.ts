@@ -31,4 +31,9 @@ export const routes: Routes = [
     title: 'Tenants',
     loadChildren: () => import('admin-tenants').then((m) => m.routes),
   },
+  {
+    path: 'documents',
+    title: 'Documents',
+    loadChildren: () => import('documents').then((m) => m.routes),
+  },
 ];
