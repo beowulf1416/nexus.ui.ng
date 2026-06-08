@@ -9,6 +9,7 @@
       // "auth": ["./dist/auth"],
       // "common": ["./dist/common"],
       "core": ["./dist/core"],
+      "documents": ["./dist/documents"],
       "user-profile": ["./dist/user-profile"],
       "user-registration": ["./dist/user-registration"]
     },
@@ -67,6 +68,12 @@
     },
     {
       "path": "./projects/admin-tenants/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/documents/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/documents/tsconfig.spec.json"
     }
   ]
 }
