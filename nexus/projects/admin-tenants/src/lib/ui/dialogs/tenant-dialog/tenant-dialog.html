@@ -1,1 +1,25 @@
-<p>tenant-dialog works!</p>
+<div class="component component-tenant">
+  <div class="wrapper form">
+    <form id="tenant" class="form-tenant" method="post" action="">
+      <h3 mat-dialog-title>New Tenant</h3>
+      <mat-dialog-content>
+        <div class="errors">
+        </div><!-- .errors -->
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Name" name="name" matInput>
+        </mat-form-field>
+      </mat-dialog-content>
+      <mat-dialog-actions>
+        <button type="button" matFab extended (click)="on_cancel($event)">
+          <mat-icon>cancel</mat-icon>
+          <span>Cancel</span>
+        </button>
+        <button type="button" matFab extended (click)="on_submit($event)">
+          <mat-icon>save</mat-icon>
+          <span>Save</span>
+        </button>
+      </mat-dialog-actions>
+    </form>
+  </div><!-- .wrapper -->
+</div><!-- .component -->
