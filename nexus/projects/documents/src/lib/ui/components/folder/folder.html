@@ -4,9 +4,13 @@
     <span>{{ name() }}</span>
     <button type="button" title="Expand" mat-icon-button (click)="toggle_collapsed()">
       @if (is_collapsed()) {
-        <mat-icon>expand_circle_right</mat-icon>
+        <span class="material-symbols-outlined">
+        expand_circle_right
+        </span>
       } @else {
-        <mat-icon>expand_circle_up</mat-icon>
+        <span class="material-symbols-outlined">
+          expand_circle_up
+        </span>
       }
     </button>
   </div><!-- .wrapper -->
@@ -23,7 +27,3 @@
     </div><!-- .wrapper -->
   }
 </div><!-- .folder -->
-<pre>
-{{ subfolders() | json }}
-{{ is_collapsed() | json }}
-</pre>
