@@ -1,1 +1,30 @@
-<p>tenants works!</p>
+<div class="component tenants">
+  <div class="wrapper form">
+    <form class="form-tenants" method="post" action="">
+      <div class="wrapper actions">
+        <mat-toolbar>
+          <button type="button" class="btn tenants" title="New Tenant" aria-label="New Tenant" mat-icon-button (click)="show_tenant_dialog($event)">
+            <mat-icon>domain_add</mat-icon>
+          </button>
+          <div class="separator">|</div>
+          <div class="wrapper filter">
+            <mat-form-field appearance="outline">
+              <mat-label>Search</mat-label>
+              <input class="input filter" placeholder="Filter" matInput />
+              <button type="button" class="btn filter" title="Search" aria-label="Search" mat-icon-button matSuffix>
+                <mat-icon>search</mat-icon>
+              </button>
+              <button type="button" class="btn reset" title="Clear" aria-label="Clear" mat-icon-button matSuffix>
+                <mat-icon>close_small</mat-icon>
+              </button>
+            </mat-form-field>
+          </div><!-- .wrapper filter -->
+          <button type="button" class="btn refresh" title="Refresh" aria-label="Refresh" mat-icon-button>
+            <mat-icon>refresh</mat-icon>
+          </button>
+
+        </mat-toolbar>
+      </div><!-- .wrapper -->
+    </form>
+  </div><!-- .wrapper -->
+</div><!-- .component -->
