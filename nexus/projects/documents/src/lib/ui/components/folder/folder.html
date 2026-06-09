@@ -1,17 +1,12 @@
 <div class="component folder">
   <div class="wrapper folder">
-    <mat-icon>folder</mat-icon>
-    <span>{{ name() }}</span>
-    <button type="button" title="Expand" mat-icon-button (click)="toggle_collapsed()">
+    <button type="button" class="btn folder" (click)="toggle_collapsed()">
       @if (is_collapsed()) {
-        <span class="material-symbols-outlined">
-        expand_circle_right
-        </span>
+        <span class="material-symbols-outlined">folder</span>
       } @else {
-        <span class="material-symbols-outlined">
-          expand_circle_up
-        </span>
+      <span class="material-symbols-outlined">folder_open</span>
       }
+      <span>{{ name() }}</span>
     </button>
   </div><!-- .wrapper -->
   @if (is_loading()){

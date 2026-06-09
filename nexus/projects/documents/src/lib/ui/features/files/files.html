@@ -2,13 +2,24 @@
   <header></header>
   <div class="wrapper files">
     <div class="wrapper actions">
-      <mat-toolbar>
-        <button mat-button></button>
-      </mat-toolbar>
+      <div class="wrapper panel-left">
+        <doc-navigator></doc-navigator>
+      </div><!-- .wrapper -->
     </div><!-- .wrapper -->
-    <doc-navigator></doc-navigator>
-    <div class="wrapper content">
+    <div class="wrapper content panel-right">
       <div class="wrapper items">
+        <mat-toolbar>
+          <button type="button" class="btn view" title="View" aria-label="View" mat-icon-button>
+            <mat-icon>list</mat-icon>
+          </button>
+          <div class="separator">|</div>
+          <button type="button" class="btn upload" title="Upload" aria-label="Upload" mat-icon-button (click)="on_upload($event)">
+            <mat-icon>arrow_circle_up</mat-icon>
+          </button>
+          <button type="button" class="btn refresh" title="Refresh" aria-label="Refresh" mat-icon-button>
+            <mat-icon>refresh</mat-icon>
+          </button>
+        </mat-toolbar>
         <p>items</p>
       </div>
     </div><!-- .wrapper -->

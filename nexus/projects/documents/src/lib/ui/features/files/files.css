@@ -1,0 +1,16 @@
+.component .wrapper.files {
+  display: flex;
+}
+
+.component .wrapper.files .wrapper {
+  flex: 1;
+  border: solid 1px red;
+}
+
+.component .wrapper.files .wrapper.panel-left {
+  flex: 1 1;
+}
+
+.component .wrapper.files .wrapper.panel-right {
+  flex: 2 1;
+}
