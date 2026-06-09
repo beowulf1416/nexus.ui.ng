@@ -1,11 +1,20 @@
 <div class="component component-common-header">
   <mat-menu #menu_user="matMenu">
     @if (is_user_authenticated()) {
-    <a title="Profile" routerLink="/me" mat-menu-item>Profile</a>
-    <a title="Sign Out" routerLink="/session/sign-out" mat-menu-item>Sign Out</a>
+    <a title="Profile" routerLink="/me" mat-menu-item>
+      <span class="material-symbols-outlined">co_present</span>
+      <span>Profile</span>
+    </a>
+    <a title="Sign Out" routerLink="/session/sign-out" mat-menu-item>
+      <span class="material-symbols-outlined">logout</span>
+      <span>Sign Out</span>
+    </a>
     }
     @if (!is_user_authenticated()) {
-    <a title="Sign In" routerLink="/session/sign-in" mat-menu-item>Sign In</a>
+    <a title="Sign In" routerLink="/session/sign-in" mat-menu-item>
+      <span class="material-symbols-outlined">login</span>
+      <span>Sign In</span>
+    </a>
     }
   </mat-menu>
 
