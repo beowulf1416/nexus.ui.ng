@@ -1,7 +1,14 @@
+import { Uuid } from './uuid';
+
 export class Tenant {
-  constructor(readonly name: string) {}
+  constructor(
+    readonly id: Uuid,
+    readonly name: string) {}
 
   static default(): Tenant {
-    return new Tenant('default');
+    return new Tenant(
+      Uuid.default(),
+      'default'
+    );
   }
 }
