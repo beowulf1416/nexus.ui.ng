@@ -4,7 +4,7 @@
     <mat-dialog-content>
       <div class="wrapper field">
         <mat-label>File</mat-label>
-        <input type="file" id="file" name="file" class="input file" />
+        <input type="file" id="file" name="file" class="input file" (change)="on_change($event)" />
       </div><!-- .wrapper -->
     </mat-dialog-content>
     <mat-dialog-actions>

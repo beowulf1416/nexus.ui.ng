@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { ApiResponse, Uuid } from 'core';
 import { FolderData } from '../models/folder-data';
+import { URLS } from '../constants';
 
 
 @Injectable({
@@ -30,5 +31,18 @@ export class DocumentService {
         )
       }
     ))
+  }
+
+  upload(
+    tenant_id: Uuid,
+    file: File
+  ): Observable<ApiResponse> {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+
+    return this.http.post<ApiResponse>(
+      `${URLS.base_url}/tenant/${tenant_id}/upload`,
+      formData
+    );
   }
 }
