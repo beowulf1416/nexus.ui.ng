@@ -36,6 +36,6 @@ export class Tenants {
     })
     dr.afterClosed().subscribe((result: any) => {
       console.debug(result);
-    })
+    });
   }
 }

@@ -1,1 +1,44 @@
-<p>roles works!</p>
+<div class="component roles">
+  <div class="wrapper form">
+    <form class="form-roles" method="post" action="">
+      <div class="wrapper actions">
+        <mat-toolbar>
+          <button type="button" class="btn roles" title="New Role" aria-label="New Role" mat-icon-button (click)="show_role_dialog($event)">
+            <mat-icon>domain_add</mat-icon>
+          </button>
+          <div class="separator">|</div>
+          <button type="button" class="btn set-active" title="Enable" aria-label="Enable" mat-icon-button>
+            <mat-icon>toggle_on</mat-icon>
+          </button>
+          <button type="button" class="btn set-active" title="Disable" aria-label="Disable" mat-icon-button>
+            <mat-icon>toggle_off</mat-icon>
+          </button>
+          <div class="separator">|</div>
+            <button type="button" class="btn assign-permissions" title="Assign Permissions" aria-label="Disable" mat-icon-button>
+              <mat-icon>add_moderator</mat-icon>
+            </button>
+            <button type="button" class="btn revoke-permissions" title="Revoke Permissions" aria-label="Disable" mat-icon-button>
+              <mat-icon>remove_moderator</mat-icon>
+            </button>
+          <div class="separator">|</div>
+          <div class="wrapper filter">
+            <mat-form-field appearance="outline">
+              <mat-label>Search</mat-label>
+              <input class="input filter" placeholder="Filter" matInput />
+              <button type="button" class="btn filter" title="Search" aria-label="Search" mat-icon-button matSuffix>
+                <mat-icon>search</mat-icon>
+              </button>
+              <button type="button" class="btn reset" title="Clear" aria-label="Clear" mat-icon-button matSuffix>
+                <mat-icon>close_small</mat-icon>
+              </button>
+            </mat-form-field>
+          </div><!-- .wrapper filter -->
+          <button type="button" class="btn refresh" title="Refresh" aria-label="Refresh" mat-icon-button>
+            <mat-icon>refresh</mat-icon>
+          </button>
+
+        </mat-toolbar>
+      </div><!-- .wrapper -->
+    </form>
+  </div><!-- .wrapper -->
+</div><!-- .component -->

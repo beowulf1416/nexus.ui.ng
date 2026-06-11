@@ -1,1 +1,29 @@
-<p>role-dialog works!</p>
+<div class="component role">
+  <div class="wrapper form">
+    <form id="role" class="form-role" method="post" action="">
+      <h3 mat-dialog-title>New Role</h3>
+      <mat-dialog-content>
+        <div class="errors">
+        </div><!-- .errors -->
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input class="input name" placeholder="Name" matInput>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <textarea class="input description" placeholder="Description" matInput></textarea>
+        </mat-form-field>
+      </mat-dialog-content>
+      <mat-dialog-actions>
+        <button type="button" matFab extended (click)="on_cancel($event)">
+          <mat-icon>cancel</mat-icon>
+          <span>Cancel</span>
+        </button>
+        <button type="button" matFab extended (click)="on_submit($event)">
+          <mat-icon>save</mat-icon>
+          <span>Save</span>
+        </button>
+      </mat-dialog-actions>
+    </form>
+  </div><!-- .wrapper -->
+</div><!-- .component -->
