@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { ApiResponse } from '../models/api-response';
-import { map, Observable, catchError, of, mergeMap } from 'rxjs';
+import { map, Observable, catchError, of, mergeMap, forkJoin } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
 import { Tenant } from '../models/tenant';
@@ -11,7 +11,10 @@ import { URLS } from '../constants';
   providedIn: 'root',
 })
 export class UserService {
-  public _current_user = signal(User.anonymous());
+  private  _current_user = signal(User.anonymous());
+  private _tenants = signal(new Array<Tenant>(
+    Tenant.default()
+  ));
 
   constructor(
     private http: HttpClient
@@ -21,6 +24,10 @@ export class UserService {
 
   get current_user() {
     return this._current_user.asReadonly();
+  }
+
+  get tenants() {
+    return this._tenants.asReadonly();
   }
 
   sign_in(email: string, password: string): Observable<ApiResponse> {
@@ -80,28 +87,45 @@ export class UserService {
   }
 
   fetch_current_user(): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(
+    let o_user = this.http.post<ApiResponse>(
       URLS.base_url + URLS.fetch_current_user,
       {}
-    ).pipe(
-      map((r: ApiResponse) => {
-        if (r.success) {
-          let user_data = (r.data as {
-            user: {
-              name: string;
-              tenant: Tenant;
-              permissions: Array<string>
-            }
-          }).user;
-          let user = new User(
-            user_data.name,
-            user_data.tenant,
-            user_data.permissions
-          );
-          this._current_user.set(user);
+    );
+
+    let o_tenants = this.http.post<ApiResponse>(
+      URLS.base_url + URLS.fetch_tenants,
+      {}
+    );
+
+    return forkJoin([o_user, o_tenants]).pipe(
+      map(([r_user, r_tenants], i) => {
+        if (r_user.success) {
+          if (r_user.success) {
+            let user_data = (r_user.data as {
+              user: {
+                name: string;
+                tenant: Tenant;
+                permissions: Array<string>
+              }
+            }).user;
+            let user = new User(
+              user_data.name,
+              user_data.tenant,
+              user_data.permissions
+            );
+            this._current_user.set(user);
+          }
         }
 
-        return r;
+        console.debug('tenants', r_tenants);
+        if (r_tenants.success) {
+          let tenants_data = (r_tenants.data as {
+            tenants: Array<Tenant>
+          }).tenants;
+          this._tenants.set(tenants_data);
+        }
+
+        return new ApiResponse(true, 'success', null);
       }),
       catchError((e: any) => {
         console.error(e);

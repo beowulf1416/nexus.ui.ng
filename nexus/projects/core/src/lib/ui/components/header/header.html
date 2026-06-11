@@ -18,12 +18,27 @@
     }
   </mat-menu>
 
+  <mat-menu #menu_tenants="matMenu">
+    @for (tenant of tenants(); track tenant.id) {
+    <a title="{{ tenant.name }}" routerLink="/tenants/{{ tenant.id }}" mat-menu-item>
+      <span>{{ tenant.name }}</span>
+    </a>
+    }
+    <mat-divider></mat-divider>
+    <a title="Join Tenant" routerLink="/tenant/join" mat-menu-item>
+      <span>Join Tenant</span>
+    </a>
+  </mat-menu>
+
   <mat-toolbar id="tb-header" color="primary">
     <button type="button" title="Applications" mat-icon-button>
       <mat-icon>apps</mat-icon>
     </button>
     <span>Applications</span>
     <span class="spacer"></span>
+    <button type="button" title="Tenants" mat-icon-button [matMenuTriggerFor]="menu_tenants">
+      <mat-icon>domain</mat-icon>
+    </button>
     <button type="button" title="User" mat-icon-button [matMenuTriggerFor]="menu_user">
       <mat-icon>account_circle</mat-icon>
     </button>
