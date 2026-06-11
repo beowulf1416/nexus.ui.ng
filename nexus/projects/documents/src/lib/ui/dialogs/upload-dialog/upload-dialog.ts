@@ -27,6 +27,8 @@ import { DocumentService } from '../../../services/document-service';
 export class UploadDialog {
 
   fd = signal(new FormData());
+  // fd = signal(new File());
+  // file: File = null;
 
   constructor(
     private dr: MatDialogRef<UploadDialog>,
@@ -36,40 +38,50 @@ export class UploadDialog {
 
   on_change(event: Event) {
     event.preventDefault();
-    const file = event?.target?.files[0];
-    if (file){
-      let fd = this.fd();
-      fd.append("file", file, file.name);
-      this.fd.set(fd);
+
+    if (event?.target instanceof HTMLInputElement) {
+      const target = event?.target as HTMLInputElement;
+      if (target?.files) {
+        const file = target?.files[0];
+        if (file){
+          let fd = this.fd();
+          fd.append("file", file, file.name);
+          this.fd.set(fd);
+        }
+      }
     }
   }
 
   on_upload(event: Event) {
     event.preventDefault();
+
+    // get current selected tenant
+    const tenant_id = this.user_service.current_user()?.tenant?.id;
+    // const file = this.fd().get('file');
+    // const file = this.fd();
+    if (this.fd().has('file')) {
+      const file = this.fd().get('file') as File;
+      if (file) {
+        this.doc_service.upload(
+          tenant_id,
+          file,
+        ).subscribe({
+          next: (r: ApiResponse) => {
+            console.log(r);
+          },
+          error: (e: any) => {
+            console.error(e);
+          },
+        });
+      }
+    }
+
     this.dr.close();
   }
 
   on_cancel(event: Event) {
     console.log("on_cancel");
     event.preventDefault();
-
-    // get current selected tenant
-    const tenant_id = this.user_service.current_user()?.tenant?.id;
-    const file = this.fd().get('file');
-
-    if (file) {
-      this.doc_service.upload(
-        tenant_id,
-        file,
-      ).subscribe({
-        next: (r: ApiResponse) => {
-          console.log(r);
-        },
-        error: (e: any) => {
-          console.error(e);
-        },
-      });
-    }
 
     this.dr.close();
   }

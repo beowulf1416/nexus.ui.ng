@@ -41,7 +41,7 @@ export class DocumentService {
     formData.append('file', file, file.name);
 
     return this.http.post<ApiResponse>(
-      `${URLS.base_url}/tenant/${tenant_id}/upload`,
+      `${URLS.base_url}/file/upload`,
       formData
     );
   }
