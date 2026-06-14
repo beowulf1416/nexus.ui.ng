@@ -2,6 +2,7 @@
  * Public API Surface of core
  */
 
+export * from './lib/constants';
 export * from './lib/core.routes';
 export * from './lib/models/api-response';
 export * from './lib/models/uuid';
