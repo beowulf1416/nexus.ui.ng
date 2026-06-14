@@ -10,6 +10,8 @@
       // "common": ["./dist/common"],
       "core": ["./dist/core"],
       "documents": ["./dist/documents"],
+      "inventory": ["./dist/inventory"],
+      "projects": ["./dist/projects"],
       "user-profile": ["./dist/user-profile"],
       "user-registration": ["./dist/user-registration"]
     },
@@ -74,6 +76,18 @@
     },
     {
       "path": "./projects/documents/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/inventory/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/inventory/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/projects/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/projects/tsconfig.spec.json"
     }
   ]
 }
