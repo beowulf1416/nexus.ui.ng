@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+import { Uuid, ApiResponse } from 'core';
 import { TenantsService } from '../../../services/tenants-service';
 import { TenantDialogData } from './tenant-dialog-data';
 
@@ -54,7 +55,25 @@ export class TenantDialog {
   on_submit(event: Event) {
     event.preventDefault();
 
-    submit();
+    submit(this.component.form, async() => {
+      const model = this.model();
+
+      const tenant_id = new Uuid(model.id);
+
+      this.tenant_service.save_tenant(
+        tenant_id,
+        model.name,
+        model.domain
+      ).subscribe({
+        next: (r: ApiResponse) => {
+          console.log(r)
+          this.dr.close();
+        },
+        error: (e: any) => {
+          console.error(e);
+        }
+      });
+    });
 
     this.dr.close();
   }
