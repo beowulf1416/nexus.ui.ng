@@ -24,8 +24,8 @@
           <div class="wrapper filter">
             <mat-form-field appearance="outline">
               <mat-label>Search</mat-label>
-              <input class="input filter" placeholder="Filter" matInput />
-              <button type="button" class="btn filter" title="Search" aria-label="Search" mat-icon-button matSuffix>
+              <input class="input filter" placeholder="Filter" matInput [formField]="component.form.filter" />
+              <button type="button" class="btn filter" title="Search" aria-label="Search" mat-icon-button matSuffix (click)="on_search($event)">
                 <mat-icon>search</mat-icon>
               </button>
               <button type="button" class="btn reset" title="Clear" aria-label="Clear" mat-icon-button matSuffix>

@@ -17,20 +17,28 @@
           <div class="wrapper filter">
             <mat-form-field appearance="outline">
               <mat-label>Search</mat-label>
-              <input class="input filter" placeholder="Filter" matInput />
-              <button type="button" class="btn filter" title="Search" aria-label="Search" mat-icon-button matSuffix>
+              <input type="search" class="input filter" placeholder="Filter" matInput [formField]="component.form.filter" />
+              <button type="button" class="btn filter" title="Search" aria-label="Search" mat-icon-button matSuffix (click)="fetch_tenants($event)">
                 <mat-icon>search</mat-icon>
               </button>
-              <button type="button" class="btn reset" title="Clear" aria-label="Clear" mat-icon-button matSuffix>
+              <button type="button" class="btn reset" title="Clear" aria-label="Clear" mat-icon-button matSuffix (click)="on_reset_filter($event)">
                 <mat-icon>close_small</mat-icon>
               </button>
             </mat-form-field>
           </div><!-- .wrapper filter -->
-          <button type="button" class="btn refresh" title="Refresh" aria-label="Refresh" mat-icon-button>
+          <button type="button" class="btn refresh" title="Refresh" aria-label="Refresh" mat-icon-button (click)="on_refresh($event)">
             <mat-icon>refresh</mat-icon>
           </button>
 
         </mat-toolbar>
+        <div class="wrapper errors">
+          @if (component.errors.length > 0) {
+              @for (error of component.errors(); track error) {
+                <div>{{ error }}</div>
+              }
+          }
+          <pre>{{ component.errors() | json }}</pre>
+        </div><!-- .wrapper errors -->
       </div><!-- .wrapper -->
     </form>
   </div><!-- .wrapper -->
