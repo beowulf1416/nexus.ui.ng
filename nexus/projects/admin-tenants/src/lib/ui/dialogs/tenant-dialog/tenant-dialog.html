@@ -1,18 +1,21 @@
 <div class="component component-tenant">
   <div class="wrapper form">
     <form id="tenant" class="form-tenant" method="post" action="">
-      <h3 mat-dialog-title>New Tenant</h3>
+      <h3 mat-dialog-title>
+        {{ data && data.tenant_item ? data.tenant_item?.name : 'New Tenant' }}
+      </h3>
       <mat-dialog-content>
         <div class="errors">
         </div><!-- .errors -->
         <mat-form-field>
           <mat-label>Name</mat-label>
-          <input class="input name" placeholder="Name" matInput>
+          <input class="input name" placeholder="Name" matInput [formField]="component.form.name">
         </mat-form-field>
         <mat-form-field>
           <mat-label>Domain</mat-label>
-          <input class="input domain" placeholder="Domain" matInput>
+          <input class="input domain" placeholder="Domain" matInput [formField]="component.form.domain">
         </mat-form-field>
+        <input type="hidden" [formField]="component.form.id">
       </mat-dialog-content>
       <mat-dialog-actions>
         <button type="button" matFab extended (click)="on_cancel($event)">

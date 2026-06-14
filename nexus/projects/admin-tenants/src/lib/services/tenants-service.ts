@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, pipe, map, catchError } from 'rxjs';
 
-import { ApiResponse } from 'core';
+import { ApiResponse, Uuid } from 'core';
 import { URLS } from '../constants';
 import { TenantItem } from '../models/tenant-item';
 
@@ -36,5 +36,21 @@ export class TenantsService {
           throw error;
         }),
       );
+  }
+
+  save_tenant(
+    tenant_id: Uuid,
+    name: string,
+    description: string
+  ): Observable<ApiResponse> {
+    console.info('save_tenant');
+    return this.http.post<ApiResponse>(
+      `${URLS.base_url}${URLS.save_tenant}`,
+      {
+        tenant_id: tenant_id.to_string(),
+        name: name,
+        description: description
+      }
+    );
   }
 }

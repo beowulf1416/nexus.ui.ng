@@ -109,13 +109,15 @@ export class Tenants {
     console.info('on_select_item');
   }
 
-  on_edit_tenant(event: Event): void {
+  on_edit_tenant(event: Event, tenant: TenantItem): void {
     console.info('on_edit_tenant');
+    console.debug(tenant);
 
     let dr = this.md.open(TenantDialog, {
       position: {
         right: '10px'
-      }
+      },
+      data: { tenant_item: tenant }
     })
     dr.afterClosed().subscribe((result: any) => {
       console.debug(result);
