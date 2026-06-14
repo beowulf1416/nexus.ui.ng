@@ -1,0 +1,7 @@
+.tenant-item .state.active {
+  color: green;
+}
+
+.tenant-item .state.inactive {
+  color: red;
+}

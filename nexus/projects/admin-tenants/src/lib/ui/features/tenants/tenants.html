@@ -32,13 +32,61 @@
 
         </mat-toolbar>
         <div class="wrapper errors">
-          @if (component.errors.length > 0) {
+          @if (component.errors().length > 0) {
               @for (error of component.errors(); track error) {
                 <div>{{ error }}</div>
               }
           }
-          <pre>{{ component.errors() | json }}</pre>
         </div><!-- .wrapper errors -->
+        <div class="wrapper tenants">
+          <table class="tenants">
+            <caption>Tenants</caption>
+            <thead>
+              <tr>
+                <th>
+                  <input type="checkbox" class="input check select-all" aria-label="Select All" (click)="on_select_all($event)"/>
+                </th>
+                <th>Active</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Created</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th></th>
+                <th>Active</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Created</th>
+                <th>Actions</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              @for (tenant of component.tenants(); track tenant) {
+                <tr class="tenant-item">
+                  <td>
+                    <input type="checkbox" class="input check select" aria-label="Select Item" (click)="on_select_item($event)"/>
+                  </td>
+                  <td class="state" [class]="tenant.active ? 'active' : 'inactive'">
+                    <span class="material-symbols-outlined">
+                      check_circle
+                    </span>
+                  </td>
+                  <td>{{ tenant.name }}</td>
+                  <td>{{ tenant.description }}</td>
+                  <td>{{ tenant.created }}</td>
+                  <td>
+                    <button type="button" class="btn edit-tenant" title="Edit Tenant" mat-icon-button (click)="on_edit_tenant($event)">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div><!-- .wrapper -->
       </div><!-- .wrapper -->
     </form>
   </div><!-- .wrapper -->

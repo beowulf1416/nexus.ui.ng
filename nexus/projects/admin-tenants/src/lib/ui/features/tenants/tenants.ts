@@ -39,7 +39,8 @@ export class Tenants {
     errors: signal(new Array<string>()),
     form: form(this.model, (f) => {
       required(f.filter, { message: 'Filter is required' });
-    })
+    }),
+    tenants: signal(new Array<TenantItem>())
   };
 
   constructor(
@@ -83,21 +84,15 @@ export class Tenants {
     ).subscribe({
       next: (tenants: Array<TenantItem>) => {
         console.debug(tenants);
+        this.component.tenants.set(tenants);
       },
       error: (err: Error) => {
-        console.debug(err);
-        console.debug(typeof err);
-        console.debug(err.message);
-
         if (err instanceof HttpErrorResponse) {
           let code = err.status;
           if (code == HTTP_STATUS.FORBIDDEN) {
             console.debug('Forbidden');
-            // let errors = this.component.errors();
-            // errors.push('Forbidden');
             this.component.errors.update((errors: Array<string>) => {
-              console.debug(errors);
-              errors.push('Forbidden');
+              errors.push('You do not have permission to access this resource.');
               return errors;
             });
           }
@@ -106,4 +101,25 @@ export class Tenants {
     });
   }
 
+  on_select_all(event: Event): void {
+    console.info('on_select_all');
+  }
+
+  on_select_item(event: Event): void {
+    console.info('on_select_item');
+  }
+
+  on_edit_tenant(event: Event): void {
+    console.info('on_edit_tenant');
+
+    let dr = this.md.open(TenantDialog, {
+      position: {
+        right: '10px'
+      }
+    })
+    dr.afterClosed().subscribe((result: any) => {
+      console.debug(result);
+    });
+
+  }
 }
