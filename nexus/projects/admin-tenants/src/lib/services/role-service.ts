@@ -1,0 +1,42 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, catchError, map } from 'rxjs';
+
+import { URLS } from '../constants';
+import { ApiResponse } from 'core';
+import { RoleItem } from '../models/role-item';
+
+
+@Injectable({
+  providedIn: 'root',
+})
+export class RoleService {
+
+  constructor(
+    private http: HttpClient
+  ) { }
+
+  fetch_roles(filter: string): Observable<Array<RoleItem>> {
+    return this.http.post<ApiResponse>(
+      `${URLS.base_url}${URLS.fetch_roles}`,
+      {
+        filter: filter
+      }
+    ).pipe(
+      map((r: ApiResponse) => {
+        if (r.success) {
+          const roles: Array<RoleItem> = (r.data as {
+            roles: Array<RoleItem>
+          }).roles;
+          return roles;
+        } else {
+          throw new Error(r.message);
+        }
+      }),
+      catchError((error: any) => {
+        console.error(error);
+        throw error;
+      })
+    );
+  }
+}
