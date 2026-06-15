@@ -1,8 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
+import { form, FormField, required, submit } from '@angular/forms/signals';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+import { Uuid, ApiResponse } from 'core';
+import { RoleService } from '../../../../services/role.service';
 
 @Component({
   selector: 'lib-role-dialog',
@@ -11,13 +16,32 @@ import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/materia
     MatButtonModule,
     MatInputModule,
     MatDialogModule,
+    FormField
   ],
   templateUrl: './role-dialog.html',
   styleUrl: './role-dialog.css',
 })
 export class RoleDialog {
 
-  constructor(private dr: MatDialogRef<RoleDialog>) {}
+  model = signal({
+    id: '',
+    name: '',
+    description: ''
+  });
+
+  component = {
+    errors: signal(new Array<string>()),
+    form: form(this.model, (f) => {
+      required(f.name, { message: 'Name is required' })
+    })
+  };
+
+  readonly data = inject<TenantDialogData | null>(MAT_DIALOG_DATA);
+
+  constructor(
+    private role_service: RoleService,
+    private dr: MatDialogRef<RoleDialog>,
+  ) {}
 
   on_cancel(event: Event): void {
     console.log('on_cancel');
@@ -30,6 +54,26 @@ export class RoleDialog {
     console.log('on_submit');
 
     event.preventDefault();
+
+    submit(this.component.form, async () => {
+      const model = this.model();
+
+      const role_id = new Uuid(model.id);
+
+      this.role_service.save_role(
+        role_id,
+        model.name,
+        model.description
+      ).subscribe({
+        next: (r: ApiResponse) => {
+          console.log(r);
+        },
+        error: (err: HttpErrorResponse) => {
+          console.error(err);
+        }
+      });
+    });
+
     this.dr.close();
   }
 }

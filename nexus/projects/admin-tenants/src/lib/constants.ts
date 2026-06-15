@@ -5,4 +5,5 @@ export const URLS = {
   save_tenant: '/admin/tenants/save',
 
   fetch_roles: '/admin/tenants/roles/fetch',
+  save_role: '/admin/tenants/roles/save',
 };

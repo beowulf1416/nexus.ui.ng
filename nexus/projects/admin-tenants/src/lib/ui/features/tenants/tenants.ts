@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { form, FormField, required, submit } from '@angular/forms/signals';
+import { form, FormField, required, submit, FieldTree } from '@angular/forms/signals';
 import { Header, ApiResponse } from 'core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -32,7 +32,8 @@ import { HTTP_STATUS } from 'core';
 export class Tenants {
 
   model = signal({
-    filter: ''
+    filter: '',
+    tenants: new Array<TenantItem>()
   });
 
   component = {
@@ -40,7 +41,7 @@ export class Tenants {
     form: form(this.model, (f) => {
       required(f.filter, { message: 'Filter is required' });
     }),
-    tenants: signal(new Array<TenantItem>())
+    // tenants: signal(new Array<TenantItem>())
   };
 
   constructor(
@@ -63,10 +64,10 @@ export class Tenants {
 
   on_reset_filter(event: Event): void {
     event.preventDefault();
-    this.model.update((m: { filter: string }) => {
-      m.filter = '';
-      return m;
-    });
+    this.model.update((m) => ({
+      ...m,
+      filter: ''
+    }));
     this.fetch_tenants(event);
   }
 
@@ -84,7 +85,12 @@ export class Tenants {
     ).subscribe({
       next: (tenants: Array<TenantItem>) => {
         console.debug(tenants);
-        this.component.tenants.set(tenants);
+        // this.component.tenants.set(tenants);
+        this.model.update((m) => ({
+          ...m,
+          tenants: tenants
+        }));
+
       },
       error: (err: Error) => {
         if (err instanceof HttpErrorResponse) {
@@ -109,9 +115,10 @@ export class Tenants {
     console.info('on_select_item');
   }
 
-  on_edit_tenant(event: Event, tenant: TenantItem): void {
+  on_edit_tenant(event: Event, tenant: FieldTree<TenantItem, number>): void {
     console.info('on_edit_tenant');
     console.debug(tenant);
+    console.debug(tenant());
 
     let dr = this.md.open(TenantDialog, {
       position: {

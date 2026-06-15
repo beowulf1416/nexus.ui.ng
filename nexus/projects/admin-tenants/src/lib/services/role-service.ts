@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, map } from 'rxjs';
 
 import { URLS } from '../constants';
-import { ApiResponse } from 'core';
+import { ApiResponse, Uuid } from 'core';
 import { RoleItem } from '../models/role-item';
 
 
@@ -37,6 +37,23 @@ export class RoleService {
         console.error(error);
         throw error;
       })
+    );
+  }
+
+  save_role(
+    role_id: Uuid,
+    name: string,
+    description: string,
+  ): Observable<ApiResponse> {
+    console.info('save_role');
+
+    return this.http.post<ApiResponse>(
+      `${URLS.base_url}${URLS.save_role}`,
+      {
+        role_id: role_id,
+        name: name,
+        description: description,
+      }
     );
   }
 }
