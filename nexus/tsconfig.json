@@ -4,14 +4,21 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
+      "accounting": ["./dist/accounting"],
       "admin-tenants": ["./dist/admin-tenants"],
       "admin-users": ["./dist/admin-users"],
       // "auth": ["./dist/auth"],
       // "common": ["./dist/common"],
       "core": ["./dist/core"],
+      "crm": ["./dist/crm"],
       "documents": ["./dist/documents"],
+      "hr": ["./dist/hr"],
       "inventory": ["./dist/inventory"],
+      "manufacturing": ["./dist/manufacturing"],
+      "payables": ["./dist/payables"],
+      "pos": ["./dist/pos"],
       "projects": ["./dist/projects"],
+      "receivables": ["./dist/receivables"],
       "user-profile": ["./dist/user-profile"],
       "user-registration": ["./dist/user-registration"]
     },
@@ -88,6 +95,48 @@
     },
     {
       "path": "./projects/projects/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/manufacturing/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/manufacturing/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/hr/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/hr/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/crm/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/crm/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/pos/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/pos/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/accounting/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/accounting/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/payables/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/payables/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/receivables/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/receivables/tsconfig.spec.json"
     }
   ]
 }

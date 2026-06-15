@@ -278,6 +278,188 @@
           }
         }
       }
+    },
+    "manufacturing": {
+      "projectType": "library",
+      "root": "projects/manufacturing",
+      "sourceRoot": "projects/manufacturing/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/manufacturing/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/manufacturing/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/manufacturing/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "hr": {
+      "projectType": "library",
+      "root": "projects/hr",
+      "sourceRoot": "projects/hr/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/hr/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/hr/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/hr/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "crm": {
+      "projectType": "library",
+      "root": "projects/crm",
+      "sourceRoot": "projects/crm/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/crm/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/crm/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/crm/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "pos": {
+      "projectType": "library",
+      "root": "projects/pos",
+      "sourceRoot": "projects/pos/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/pos/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/pos/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/pos/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "accounting": {
+      "projectType": "library",
+      "root": "projects/accounting",
+      "sourceRoot": "projects/accounting/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/accounting/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/accounting/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/accounting/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "payables": {
+      "projectType": "library",
+      "root": "projects/payables",
+      "sourceRoot": "projects/payables/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/payables/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/payables/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/payables/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "receivables": {
+      "projectType": "library",
+      "root": "projects/receivables",
+      "sourceRoot": "projects/receivables/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/receivables/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/receivables/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/receivables/tsconfig.spec.json"
+          }
+        }
+      }
     }
   }
 }
