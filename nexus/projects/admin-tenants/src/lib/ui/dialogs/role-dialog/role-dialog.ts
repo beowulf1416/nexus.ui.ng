@@ -1,5 +1,6 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { form, FormField, required, submit } from '@angular/forms/signals';
+import { HttpErrorResponse } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -7,7 +8,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { Uuid, ApiResponse } from 'core';
-import { RoleService } from '../../../../services/role.service';
+import { RoleService } from '../../../services/role-service';
+import { RoleDialogData } from './role-dialog-data';
+
 
 @Component({
   selector: 'lib-role-dialog',
@@ -21,7 +24,7 @@ import { RoleService } from '../../../../services/role.service';
   templateUrl: './role-dialog.html',
   styleUrl: './role-dialog.css',
 })
-export class RoleDialog {
+export class RoleDialog implements OnInit {
 
   model = signal({
     id: '',
@@ -36,12 +39,18 @@ export class RoleDialog {
     })
   };
 
-  readonly data = inject<TenantDialogData | null>(MAT_DIALOG_DATA);
+  readonly data = inject<RoleDialogData | null>(MAT_DIALOG_DATA);
 
   constructor(
     private role_service: RoleService,
     private dr: MatDialogRef<RoleDialog>,
   ) {}
+
+  ngOnInit(): void {
+    if (this.data) {
+      console.log(this.data);
+    }
+  }
 
   on_cancel(event: Event): void {
     console.log('on_cancel');

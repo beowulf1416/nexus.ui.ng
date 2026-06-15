@@ -2,7 +2,7 @@
   <div class="wrapper form">
     <form id="tenant" class="form-tenant" method="post" action="">
       <h3 mat-dialog-title>
-        {{ data && data.tenant_item ? data.tenant_item?.name : 'New Tenant' }}
+        {{ tenant_name() }}
       </h3>
       <mat-dialog-content>
         <div class="errors">

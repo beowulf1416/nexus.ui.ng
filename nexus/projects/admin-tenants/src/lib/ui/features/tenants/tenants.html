@@ -64,7 +64,7 @@
               </tr>
             </tfoot>
             <tbody>
-              @for (tenant of component.form.tenants; let i = $index; track tenant.id()) {
+              @for (tenant of component.form.tenants; let i = $index; track i) {
                 <tr class="tenant-item">
                   <td>
                     <input type="checkbox" class="input check select" aria-label="Select Item" (click)="on_select_item($event)" [value]="tenant.id()"/>
@@ -78,7 +78,7 @@
                   <td>{{ tenant.description().value() }}</td>
                   <td>{{ tenant.created().value() }}</td>
                   <td>
-                    <button type="button" class="btn edit-tenant" title="Edit Tenant" mat-icon-button (click)="on_edit_tenant($event, tenant)">
+                    <button type="button" class="btn edit-tenant" title="Edit Tenant" mat-icon-button (click)="on_edit_tenant($event, i)">
                       <mat-icon>edit</mat-icon>
                     </button>
                   </td>

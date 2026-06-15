@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, pipe, map, catchError } from 'rxjs';
 
 import { ApiResponse, Uuid } from 'core';
@@ -31,6 +31,26 @@ export class TenantsService {
           return tenants.tenants;
         }),
         catchError((error) => {
+          console.error(error);
+          // throw new Error(error);
+          throw error;
+        }),
+      );
+  }
+
+  fetch_tenant(tenant_id: Uuid): Observable<TenantItem> {
+    return this.http.post<ApiResponse>(
+      `${URLS.base_url}${URLS.fetch_tenant}`,
+      {
+        tenant_id: tenant_id.to_string(),
+      }).pipe(
+        map((r: ApiResponse) => {
+          const tenant = (r.data as {
+            tenant: TenantItem
+          }).tenant;
+          return tenant;
+        }),
+        catchError((error: HttpErrorResponse) => {
           console.error(error);
           // throw new Error(error);
           throw error;

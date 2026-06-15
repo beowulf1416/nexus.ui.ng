@@ -1,7 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { form, FormField, required, submit, FieldTree } from '@angular/forms/signals';
-import { Header, ApiResponse } from 'core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -9,6 +8,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 
+import { Header, ApiResponse, Uuid } from 'core';
 import { TenantsService } from '../../../services/tenants-service';
 import { TenantDialog } from '../../dialogs/tenant-dialog/tenant-dialog';
 import { TenantItem } from '../../../models/tenant-item';
@@ -115,16 +115,17 @@ export class Tenants {
     console.info('on_select_item');
   }
 
-  on_edit_tenant(event: Event, tenant: FieldTree<TenantItem, number>): void {
+  on_edit_tenant(event: Event, index: number): void {
     console.info('on_edit_tenant');
-    console.debug(tenant);
-    console.debug(tenant());
+    console.debug(index);
+
+    let tenant = this.model().tenants[index];
 
     let dr = this.md.open(TenantDialog, {
       position: {
         right: '10px'
       },
-      data: { tenant_item: tenant }
+      data: { id: new Uuid(tenant.id) }
     })
     dr.afterClosed().subscribe((result: any) => {
       console.debug(result);
