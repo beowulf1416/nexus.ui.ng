@@ -8,6 +8,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { RoleService } from '../../../services/role-service';
 import { RoleDialog } from '../../../ui/dialogs/role-dialog/role-dialog';
+import { TenantSelectionDialog } from '../../../ui/dialogs/tenant-selection-dialog/tenant-selection-dialog';
+
 
 
 @Component({
@@ -67,5 +69,26 @@ export class Roles {
     this.role_service.fetch_roles(filter).subscribe((roles) => {
       console.log(roles);
     });
+  }
+
+  show_tenant_dialog(event: Event): void {
+    console.log('show_tenant_dialog');
+    event.preventDefault();
+
+    let dr = this.md.open(
+      TenantSelectionDialog,
+      {
+        position: {
+          right: '10px'
+        },
+        data: {
+
+        }
+      }
+    );
+    dr.afterClosed().subscribe((result: any) => {
+      console.debug(result);
+    });
+
   }
 }

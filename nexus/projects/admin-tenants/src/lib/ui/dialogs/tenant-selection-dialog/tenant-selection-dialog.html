@@ -21,9 +21,13 @@
       </mat-dialog-content>
         <div class="wrapper selected">
           <table class="table selected">
+            <caption>Selected Tenants</caption>
             <thead>
               <tr>
-                <th>Tenant</th>
+                <th>
+                  <input type="checkbox" title="Select all" class="input check select-all" />
+                </th>
+                <th>Name</th>
               </tr>
             </thead>
             <tfoot>
@@ -31,11 +35,18 @@
               </tr>
             </tfoot>
             <tbody>
+              @for (tr of component.form.selected; let i = $index; track i) {
+                <tr>
+                  <td><input type="checkbox" title="Select tenant" class="input check select-tenant" /></td>
+                  <td>{{ tr.tenant.name().value() }}</td>
+                </tr>
+              }
             </tbody>
           </table>
         </div><!-- .wrapper -->
         <div class="wrapper matches">
           <table class="table matches">
+            <caption>Matches</caption>
             <thead>
               <tr>
                 <th>Tenant</th>
@@ -46,10 +57,22 @@
               </tr>
             </tfoot>
             <tbody>
+              @for (tr of component.form.matches; let i = $index; track i) {
+                <tr>
+                  <td><input type="checkbox" title="Select tenant" class="input check select-tenant" /></td>
+                  <td>{{ tr.tenant.name().value() }}</td>
+                </tr>
+              }
             </tbody>
           </table>
         </div><!-- .wrapper -->
       <mat-dialog-actions>
+        <button type="button" class="btn cancel" mat-icon-button (click)="on_cancel($event)">
+          <mat-icon>cancel</mat-icon>
+        </button>
+        <button type="button" class="btn ok" mat-icon-button (click)="on_ok($event)">
+          <mat-icon>check</mat-icon>
+        </button>
       </mat-dialog-actions>
     </form>
   </div><!-- .wrapper -->
