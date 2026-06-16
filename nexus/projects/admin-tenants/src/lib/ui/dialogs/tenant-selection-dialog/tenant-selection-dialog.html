@@ -1,0 +1,56 @@
+<div class="component tenant-selection-dialog">
+  <div class="wrapper form">
+    <form class="form tenant-selection-dialog">
+      <h4 mat-dialog-title>Select Tenant</h4>
+      <mat-dialog-content>
+        <div class="errors">
+        </div><!-- .errors -->
+        <mat-toolbar>
+          <div class="wrapper filter">
+            <mat-form-field>
+              <input type="search" class="input filter" placeholder="Search..." matInput/>
+              <button type="button" class="btn search" title="Search" mat-icon-button matSuffix>
+                <mat-icon>search</mat-icon>
+              </button>
+              <button type="button" class="btn clear" title="Clear" mat-icon-button matSuffix>
+                <mat-icon>clear</mat-icon>
+              </button>
+            </mat-form-field>
+          </div><!-- .wrapper -->
+        </mat-toolbar>
+      </mat-dialog-content>
+        <div class="wrapper selected">
+          <table class="table selected">
+            <thead>
+              <tr>
+                <th>Tenant</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+              </tr>
+            </tfoot>
+            <tbody>
+            </tbody>
+          </table>
+        </div><!-- .wrapper -->
+        <div class="wrapper matches">
+          <table class="table matches">
+            <thead>
+              <tr>
+                <th>Tenant</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+              </tr>
+            </tfoot>
+            <tbody>
+            </tbody>
+          </table>
+        </div><!-- .wrapper -->
+      <mat-dialog-actions>
+      </mat-dialog-actions>
+    </form>
+  </div><!-- .wrapper -->
+</div><!-- .component -->

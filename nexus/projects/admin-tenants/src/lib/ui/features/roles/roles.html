@@ -3,6 +3,9 @@
     <form class="form-roles" method="post" action="">
       <div class="wrapper actions">
         <mat-toolbar>
+          <button type="button" class="btn select-tenant" title="Select Tenant" mat-icon-button (click)="show_tenant_dialog($event)">
+            <mat-icon>Select</mat-icon>
+          </button>
           <button type="button" class="btn roles" title="New Role" aria-label="New Role" mat-icon-button (click)="show_role_dialog($event)">
             <mat-icon>domain_add</mat-icon>
           </button>
