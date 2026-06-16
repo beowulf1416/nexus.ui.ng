@@ -7,7 +7,7 @@
             <mat-icon>domain_add</mat-icon>
           </button>
           <div class="separator">|</div>
-          <button type="button" class="btn set-active" title="Enable" aria-label="Enable" mat-icon-button>
+          <button type="button" class="btn set-active" title="Enable" aria-label="Enable" mat-icon-button (click)="on_set_active($event)">
             <mat-icon>toggle_on</mat-icon>
           </button>
           <button type="button" class="btn set-active" title="Disable" aria-label="Disable" mat-icon-button>
@@ -44,7 +44,7 @@
             <thead>
               <tr>
                 <th>
-                  <input type="checkbox" class="input check select-all" aria-label="Select All" (click)="on_select_all($event)"/>
+                  <input type="checkbox" class="input check select-all" title="Select All" (click)="on_select_all($event)"/>
                 </th>
                 <th>Active</th>
                 <th>Name</th>
@@ -64,19 +64,19 @@
               </tr>
             </tfoot>
             <tbody>
-              @for (tenant of component.form.tenants; let i = $index; track i) {
+              @for (tr of component.form.tenants; let i = $index; track i) {
                 <tr class="tenant-item">
                   <td>
-                    <input type="checkbox" class="input check select" aria-label="Select Item" (click)="on_select_item($event)" [value]="tenant.id()"/>
+                    <input type="checkbox" class="input check select" title="Select Item" (click)="on_select_item($event)" [formField]="tr.selected" />
                   </td>
-                  <td class="state" [class]="tenant.active() ? 'active' : 'inactive'">
+                  <td class="state" [class]="tr.tenant.active() ? 'active' : 'inactive'">
                     <span class="material-symbols-outlined">
                       check_circle
                     </span>
                   </td>
-                  <td>{{ tenant.name().value() }}</td>
-                  <td>{{ tenant.description().value() }}</td>
-                  <td>{{ tenant.created().value() }}</td>
+                  <td>{{ tr.tenant.name().value() }}</td>
+                  <td>{{ tr.tenant.description().value() }}</td>
+                  <td>{{ tr.tenant.created().value() }}</td>
                   <td>
                     <button type="button" class="btn edit-tenant" title="Edit Tenant" mat-icon-button (click)="on_edit_tenant($event, i)">
                       <mat-icon>edit</mat-icon>

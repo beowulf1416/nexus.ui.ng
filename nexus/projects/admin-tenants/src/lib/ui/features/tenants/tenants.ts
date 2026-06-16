@@ -15,6 +15,14 @@ import { TenantItem } from '../../../models/tenant-item';
 import { HTTP_STATUS } from 'core';
 
 
+
+class TenantItemRow {
+  constructor(
+    readonly tenant: TenantItem,
+    readonly selected: boolean = false
+  ){}
+}
+
 @Component({
   selector: 'lib-tenants',
   imports: [
@@ -33,7 +41,7 @@ export class Tenants {
 
   model = signal({
     filter: '',
-    tenants: new Array<TenantItem>()
+    tenants: new Array<TenantItemRow>()
   });
 
   component = {
@@ -85,10 +93,17 @@ export class Tenants {
     ).subscribe({
       next: (tenants: Array<TenantItem>) => {
         console.debug(tenants);
-        // this.component.tenants.set(tenants);
+
+        let tenant_rows = tenants.map((tenant) =>
+          new TenantItemRow(
+            tenant,
+            false
+          )
+        );
+
         this.model.update((m) => ({
           ...m,
-          tenants: tenants
+          tenants: tenant_rows
         }));
 
       },
@@ -109,6 +124,7 @@ export class Tenants {
 
   on_select_all(event: Event): void {
     console.info('on_select_all');
+    event.preventDefault();
   }
 
   on_select_item(event: Event): void {
@@ -119,17 +135,41 @@ export class Tenants {
     console.info('on_edit_tenant');
     console.debug(index);
 
-    let tenant = this.model().tenants[index];
+    let tr = this.model().tenants[index];
 
     let dr = this.md.open(TenantDialog, {
       position: {
         right: '10px'
       },
-      data: { id: new Uuid(tenant.id) }
+      data: { id: new Uuid(tr.tenant.id) }
     })
     dr.afterClosed().subscribe((result: any) => {
       console.debug(result);
     });
+  }
 
+  on_set_active(event: Event): void {
+    console.info('on_set_active');
+    event.preventDefault();
+
+    let model = this.model();
+    console.debug(model);
+
+    // collect selected tenants
+    const tenant_ids = model.tenants
+      .filter((tr: TenantItemRow) => tr.selected)
+      .map((tr: TenantItemRow) => new Uuid(tr.tenant.id));
+
+    this.tenant_service.set_active(
+      tenant_ids,
+      true
+    ).subscribe({
+      next: (result: ApiResponse) => {
+        console.debug(result);
+      },
+      error: (err: HttpErrorResponse) => {
+        console.error(err);
+      },
+    });
   }
 }

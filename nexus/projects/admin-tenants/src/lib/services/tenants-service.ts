@@ -73,4 +73,17 @@ export class TenantsService {
       }
     );
   }
+
+  set_active(
+    tenant_ids: Array<Uuid>,
+    active: boolean,
+  ): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(
+      `${URLS.base_url}${URLS.set_active}`,
+      {
+        tenant_ids: tenant_ids.map((id) => id.to_string()),
+        active: active,
+      }
+    );
+  }
 }
