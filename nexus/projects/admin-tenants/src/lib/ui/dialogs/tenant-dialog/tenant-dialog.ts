@@ -78,6 +78,7 @@ export class TenantDialog implements OnInit {
   }
 
   on_submit(event: Event) {
+    console.log('on_submit');
     event.preventDefault();
 
     submit(this.component.form, async() => {

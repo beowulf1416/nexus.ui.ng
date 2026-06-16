@@ -1,6 +1,6 @@
 <div class="component component-tenant">
   <div class="wrapper form">
-    <form id="tenant" class="form-tenant" method="post" action="">
+    <form id="tenant" class="form-tenant" method="post" action="" (submit)="on_submit($event)">
       <h3 mat-dialog-title>
         {{ tenant_name() }}
       </h3>
@@ -22,7 +22,7 @@
           <mat-icon>cancel</mat-icon>
           <span>Cancel</span>
         </button>
-        <button type="button" matFab extended (click)="on_submit($event)">
+        <button type="submit" matFab extended [disabled]="component.form().invalid()">
           <mat-icon>save</mat-icon>
           <span>Save</span>
         </button>
