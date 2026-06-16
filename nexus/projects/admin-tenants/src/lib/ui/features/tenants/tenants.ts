@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { form, FormField, required, submit, FieldTree } from '@angular/forms/signals';
 import { MatIconModule } from '@angular/material/icon';
@@ -42,6 +42,13 @@ export class Tenants {
   model = signal({
     filter: '',
     tenants: new Array<TenantItemRow>()
+  });
+
+  active_disabled = computed(() => {
+    return this.model().tenants.filter((t) => t.selected).length < 1;
+  });
+  reset_disabled = computed(() => {
+    return this.model().filter.length < 1;
   });
 
   component = {
@@ -148,7 +155,7 @@ export class Tenants {
     });
   }
 
-  on_set_active(event: Event): void {
+  on_set_active(event: Event, active: boolean): void {
     console.info('on_set_active');
     event.preventDefault();
 
@@ -162,7 +169,7 @@ export class Tenants {
 
     this.tenant_service.set_active(
       tenant_ids,
-      true
+      active
     ).subscribe({
       next: (result: ApiResponse) => {
         console.debug(result);

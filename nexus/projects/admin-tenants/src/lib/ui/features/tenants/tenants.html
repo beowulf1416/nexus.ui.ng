@@ -7,10 +7,10 @@
             <mat-icon>domain_add</mat-icon>
           </button>
           <div class="separator">|</div>
-          <button type="button" class="btn set-active" title="Enable" aria-label="Enable" mat-icon-button (click)="on_set_active($event)">
+          <button type="button" class="btn set-active" title="Enable" aria-label="Enable" mat-icon-button [disabled]="active_disabled()" (click)="on_set_active($event, true)">
             <mat-icon>toggle_on</mat-icon>
           </button>
-          <button type="button" class="btn set-active" title="Disable" aria-label="Disable" mat-icon-button>
+          <button type="button" class="btn set-active" title="Disable" aria-label="Disable" mat-icon-button [disabled]="active_disabled()" (click)="on_set_active($event, false)">
             <mat-icon>toggle_off</mat-icon>
           </button>
           <div class="separator">|</div>
@@ -21,7 +21,7 @@
               <button type="button" class="btn filter" title="Search" aria-label="Search" mat-icon-button matSuffix (click)="fetch_tenants($event)">
                 <mat-icon>search</mat-icon>
               </button>
-              <button type="button" class="btn reset" title="Clear" aria-label="Clear" mat-icon-button matSuffix (click)="on_reset_filter($event)">
+              <button type="button" class="btn reset" title="Clear" aria-label="Clear" mat-icon-button matSuffix [disabled]="reset_disabled()" (click)="on_reset_filter($event)">
                 <mat-icon>close_small</mat-icon>
               </button>
             </mat-form-field>
