@@ -1,1 +1,65 @@
-<p>assign-roles-dialog works!</p>
+<div class="component assign-roles-dialog">
+  <div class="wrapper form">
+    <form class="assign-roles-form" method="post" action="">
+      <h4 mat-dialog-title>Assign Roles</h4>
+      <mat-dialog-content>
+        <div class="wrapper errors">
+
+        </div><!-- .wrapper -->
+        <div class="actions">
+          <mat-toolbar>
+            <mat-form-field>
+              <input type="search" class="input filter" matInput placeholder="Filter..." />
+              <button type="button" class="btn filter" title="Search" mat-icon-button matSuffix>
+                <mat-icon>search</mat-icon>
+              </button>
+              <button type="button" class="btn clear" title="Clear" mat-icon-button matSuffix>
+                <mat-icon>clear</mat-icon>
+              </button>
+            </mat-form-field>
+          </mat-toolbar>
+        </div><!-- .actions -->
+        <div class="wrapper selected">
+          <table class="table selected">
+            <caption>Selected Roles</caption>
+            <thead>
+              <tr>
+                <th>Role</th>
+                <th>Selected</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+              </tr>
+            </tfoot>
+            <tbody>
+
+            </tbody>
+          </table>
+        </div><!-- .wrapper -->
+        <div class="wrapper matches">
+          <table class="table matches">
+            <caption>Matching Roles</caption>
+            <thead>
+              <tr>
+                <th>Role</th>
+                <th>Selected</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+              </tr>
+            </tfoot>
+            <tbody>
+
+            </tbody>
+          </table>
+        </div><!-- .wrapper -->
+      </mat-dialog-content>
+      <mat-dialog-actions>
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-button [mat-dialog-close]="true">Save</button>
+      </mat-dialog-actions>
+    </form>
+  </div><!-- .wrapper -->
+</div><!-- .component -->
