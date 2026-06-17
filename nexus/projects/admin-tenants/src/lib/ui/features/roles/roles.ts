@@ -9,7 +9,16 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RoleService } from '../../../services/role-service';
 import { RoleDialog } from '../../../ui/dialogs/role-dialog/role-dialog';
 import { TenantSelectionDialog } from '../../../ui/dialogs/tenant-selection-dialog/tenant-selection-dialog';
+import { TenantItem } from '../../../models/tenant-item';
+import { RoleItem } from '../../../models/role-item';
 
+
+class RoleItemRow {
+  constructor(
+    readonly role: RoleItem,
+    readonly selected: boolean = false,
+  ) {}
+}
 
 
 @Component({
@@ -28,6 +37,8 @@ export class Roles {
 
   model = signal({
     filter: '',
+    tenant: TenantItem.default(),
+    roles: new Array<RoleItemRow>()
   });
 
   component = {

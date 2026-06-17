@@ -8,9 +8,9 @@
         <div class="actions">
           <mat-toolbar>
             <div class="wrapper filter">
-              <mat-form-field>
-                <input type="search" class="input filter" placeholder="Search..." matInput/>
-                <button type="button" class="btn search" title="Search" mat-icon-button matSuffix>
+              <mat-form-field appearance="outline">
+                <input type="search" class="input filter" placeholder="Search..." matInput [formField]="component.form.filter" />
+                <button type="button" class="btn search" title="Search" mat-icon-button matSuffix (click)="on_search($event)">
                   <mat-icon>search</mat-icon>
                 </button>
                 <button type="button" class="btn clear" title="Clear" mat-icon-button matSuffix>
@@ -27,7 +27,9 @@
             <thead>
               <tr>
                 <th>
-                  <input type="checkbox" title="Select all" class="input check select-all" />
+                  @if (select_multiple()) {
+                    <input type="checkbox" title="Select all" class="input check select-all" />
+                  }
                 </th>
                 <th>Name</th>
               </tr>
@@ -39,8 +41,17 @@
             <tbody>
               @for (tr of component.form.selected; let i = $index; track i) {
                 <tr>
-                  <td><input type="checkbox" title="Select tenant" class="input check select-tenant" /></td>
-                  <td>{{ tr.tenant.name().value() }}</td>
+                  <td>
+                    @if (select_multiple()) {
+                      <input type="checkbox" title="Select tenant" class="input check select-tenant" />
+                    } @else {
+                      <input type="radio" title="Select tenant" class="input check select-tenant" />
+                    }
+                  </td>
+                  <td>
+                    {{ tr?.tenant?.name()?.value() }}
+                    <pre>{{ tr | json }}</pre>
+                  </td>
                 </tr>
               }
             </tbody>
@@ -61,7 +72,13 @@
             <tbody>
               @for (tr of component.form.matches; let i = $index; track i) {
                 <tr>
-                  <td><input type="checkbox" title="Select tenant" class="input check select-tenant" /></td>
+                  <td>
+                    @if (select_multiple()) {
+                      <input type="checkbox" title="Select tenant" class="input check select-tenant" />
+                    } @else {
+                      <input type="radio" title="Select tenant" class="input check select-tenant" (change)="on_select_tenant($event, i)" />
+                    }
+                  </td>
                   <td>{{ tr.tenant.name().value() }}</td>
                 </tr>
               }
@@ -69,11 +86,13 @@
           </table>
         </div><!-- .wrapper -->
       <mat-dialog-actions>
-        <button type="button" class="btn cancel" mat-icon-button (click)="on_cancel($event)">
+        <button type="button" class="btn cancel" matFab extended (click)="on_cancel($event)">
           <mat-icon>cancel</mat-icon>
+          <span>Cancel</span>
         </button>
-        <button type="button" class="btn ok" mat-icon-button (click)="on_ok($event)">
+        <button type="button" class="btn ok" matFab extended (click)="on_ok($event)">
           <mat-icon>check</mat-icon>
+          <span>Select</span>
         </button>
       </mat-dialog-actions>
     </form>

@@ -7,4 +7,14 @@ export class TenantItem {
     readonly created: Date,
   ) {
   }
+
+  static default(): TenantItem {
+    return new TenantItem(
+      '',
+      '',
+      '',
+      false,
+      new Date(),
+    );
+  }
 }
