@@ -461,31 +461,5 @@
         }
       }
     },
-    "testing": {
-      "projectType": "library",
-      "root": "projects/testing",
-      "sourceRoot": "projects/testing/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular/build:ng-packagr",
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/testing/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/testing/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular/build:unit-test",
-          "options": {
-            "tsConfig": "projects/testing/tsconfig.spec.json"
-          }
-        }
-      }
-    }
   }
 }
