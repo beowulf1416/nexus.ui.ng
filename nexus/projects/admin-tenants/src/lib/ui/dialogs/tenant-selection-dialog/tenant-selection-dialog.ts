@@ -17,10 +17,10 @@ import { CommonModule } from '@angular/common';
 class TenantItemRow {
 
   constructor(
-    // readonly tenant: TenantItem,
-    readonly tenant_id: string,
-    readonly name: string,
-    readonly active: boolean,
+    readonly tenant: TenantItem,
+    // readonly tenant_id: string,
+    // readonly name: string,
+    // readonly active: boolean,
     readonly selected: boolean,
   ) {}
 }
@@ -72,7 +72,7 @@ export class TenantSelectionDialog {
 
     this.tenant_service.fetch_tenants(filter).subscribe({
       next: (tenants: Array<TenantItem>) => {
-        const matches = tenants.map((m: TenantItem) => new TenantItemRow(m.id, m.name, m.active, false));
+        const matches = tenants.map((m: TenantItem) => new TenantItemRow(m, false));
         console.debug(matches);
         this.model.update((m) => ({
           ...m,
@@ -102,7 +102,7 @@ export class TenantSelectionDialog {
 
     // add to selected tenants
     const selected: Array<TenantItemRow> = this.model().selected;
-    selected.push(match);
+    selected.push(new TenantItemRow(match.tenant, false));
     console.debug('selected: ', selected);
 
     // remove from matched tenants
