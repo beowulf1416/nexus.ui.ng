@@ -49,7 +49,7 @@
                     }
                   </td>
                   <td>
-                    {{ tr?.tenant?.name()?.value() }}
+                    <input type="text" [formField]="tr.name" />
                     <pre>{{ tr | json }}</pre>
                   </td>
                 </tr>
@@ -79,7 +79,7 @@
                       <input type="radio" title="Select tenant" class="input check select-tenant" (change)="on_select_tenant($event, i)" />
                     }
                   </td>
-                  <td>{{ tr.tenant.name().value() }}</td>
+                  <input type="text" [formField]="tr.name" />
                 </tr>
               }
             </tbody>
