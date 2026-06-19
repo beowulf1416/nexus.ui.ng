@@ -95,9 +95,15 @@ export class TenantSelectionDialog {
     event.preventDefault();
     const filter = this.model().filter;
     const match: TenantItemRow = this.model().matches[i];
+    let selected = this.model().selected.slice();
 
     // add to selected tenants
-    const selected: Array<TenantItemRow> = this.select_multiple() && this.model().selected.length == 1 ? new Array<TenantItemRow>(match) : this.model().selected.concat(match);
+    if (this.select_multiple()) {
+      selected.push(match);
+    } else {
+      selected = new Array<TenantItemRow>(match);
+    }
+
     // remove from matched tenants
     const matches: Array<TenantItemRow> = this.model().matches.toSpliced(i, 1);
 
@@ -137,8 +143,7 @@ export class TenantSelectionDialog {
     console.log('on_ok');
     event.preventDefault();
 
-    const model = this.model();
-    const selected = model.selected;
+    const selected = this.model().selected.map(s => s.tenant);
 
     this.dr.close(selected);
   }

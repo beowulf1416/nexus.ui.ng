@@ -16,10 +16,11 @@ export class RoleService {
     private http: HttpClient
   ) { }
 
-  fetch_roles(filter: string): Observable<Array<RoleItem>> {
+  fetch_roles(tenant_id: Uuid, filter: string): Observable<Array<RoleItem>> {
     return this.http.post<ApiResponse>(
       `${URLS.base_url}${URLS.fetch_roles}`,
       {
+        tenant_id: tenant_id.to_string(),
         filter: filter
       }
     ).pipe(
