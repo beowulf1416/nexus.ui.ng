@@ -6,11 +6,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialog } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
+import { Uuid } from 'core';
 import { RoleService } from '../../../services/role-service';
 import { RoleDialog } from '../../../ui/dialogs/role-dialog/role-dialog';
 import { TenantSelectionDialog } from '../../../ui/dialogs/tenant-selection-dialog/tenant-selection-dialog';
 import { TenantItem } from '../../../models/tenant-item';
 import { RoleItem } from '../../../models/role-item';
+import { TenantSelector } from '../../../ui/components/tenant-selector/tenant-selector';
 
 
 class RoleItemRow {
@@ -28,7 +30,8 @@ class RoleItemRow {
     MatButtonModule,
     MatInputModule,
     MatToolbarModule,
-    FormField
+    FormField,
+    TenantSelector
   ],
   templateUrl: './roles.html',
   styleUrl: './roles.css',
@@ -76,9 +79,13 @@ export class Roles {
   fetch_roles(): void {
     console.log('fetch_roles');
 
+    const tenant_id = new Uuid(this.model().tenant.id);
     const filter = this.model().filter;
-    this.role_service.fetch_roles(filter).subscribe((roles) => {
-      console.log(roles);
+    this.role_service.fetch_roles(tenant_id, filter).subscribe((roles) => {
+      this.model.update((m) => ({
+        ...m,
+        roles: roles.map((r) => (new RoleItemRow(r, false))),
+      }));
     });
   }
 
@@ -100,6 +107,21 @@ export class Roles {
     dr.afterClosed().subscribe((result: any) => {
       console.debug(result);
     });
+  }
 
+  on_tenants_selected(tenants: Array<TenantItem>): void {
+    if (tenants && tenants.length > 0) {
+      this.model.update((m) => {
+        m.tenant = tenants[0];
+        return m;
+      });
+    }
+    this.fetch_roles();
+  }
+
+  on_select_all(event: Event): void {
+    console.info('on_select_all');
+
+    event.preventDefault();
   }
 }

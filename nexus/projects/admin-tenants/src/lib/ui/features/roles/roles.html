@@ -3,10 +3,8 @@
     <form class="form-roles" method="post" action="">
       <div class="wrapper actions">
         <mat-toolbar>
-          <button type="button" class="btn select-tenant" title="Select Tenant" matFab extended (click)="show_tenant_dialog($event)">
-            <mat-icon>domain</mat-icon>
-            <span>{{ component.form.tenant.name().value() == '' ? 'Select Tenant' : component.form.tenant.name().value() }}</span>
-          </button>
+          <tenant-selector [multiple]="false" (tenants_selected)="on_tenants_selected($event)"></tenant-selector>
+          <div class="separator">|</div>
           <button type="button" class="btn roles" title="New Role" aria-label="New Role" mat-icon-button (click)="show_role_dialog($event)">
             <mat-icon>domain_add</mat-icon>
           </button>
@@ -43,6 +41,40 @@
 
         </mat-toolbar>
       </div><!-- .wrapper -->
+      <div class="wrapper content">
+        <table class="table roles">
+          <thead>
+            <tr>
+              <th>
+                <input type="checkbox" title="Select All" (change)="on_select_all($event)" />
+              </th>
+              <th>Role</th>
+              <th>Name</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <td colspan="3">
+
+              </td>
+            </tr>
+          </tfoot>
+          <tbody>
+            @for (r of component.form.roles; let i = $index; track i) {
+              <tr>
+                <td>
+                  <input type="checkbox" title="Select Role" class="input select-role" [formField]="r.selected" />
+                </td>
+                <td>{{ r.role.name().value() }}</td>
+                <td>
+
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div><!-- .wrapper content -->
     </form>
   </div><!-- .wrapper -->
 </div><!-- .component -->
