@@ -6,7 +6,8 @@
     "outDir": "../../out-tsc/lib",
     "declaration": true,
     "declarationMap": true,
-    "types": []
+    "types": [],
+    "lib": ["ES2023", "DOM"]
   },
   "include": ["src/**/*.ts"],
   "exclude": ["**/*.spec.ts"]
