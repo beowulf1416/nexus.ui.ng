@@ -91,38 +91,40 @@ export class TenantSelectionDialog {
 
   on_select_tenant(event: Event, i: number): void {
     console.info('on_select_tenant');
-    console.debug('index: ', i);
 
     event.preventDefault();
-
     const filter = this.model().filter;
-
     const match: TenantItemRow = this.model().matches[i];
-    console.debug('match: ', match);
 
     // add to selected tenants
-    const selected: Array<TenantItemRow> = this.model().selected;
-    selected.push(new TenantItemRow(match.tenant, false));
-    console.debug('selected: ', selected);
-
+    const selected: Array<TenantItemRow> = this.select_multiple() && this.model().selected.length == 1 ? new Array<TenantItemRow>(match) : this.model().selected.concat(match);
     // remove from matched tenants
-    const matches: Array<TenantItemRow> = this.model().matches;
-    const removed = matches.splice(i, 1);
-    console.debug('removed: ', removed);
-    console.debug('remaining: ', matches);
+    const matches: Array<TenantItemRow> = this.model().matches.toSpliced(i, 1);
 
-    // this.model.update((m) => ({
-    //   ...m,
-    //   selected: selected,
-    //   matches: matches,
-    // }));
     this.model.set({
       filter: filter,
       selected: selected,
       matches: matches,
     });
+  }
 
-    console.debug('updated: ', this.model());
+  on_deselect_tenant(event: Event, i: number): void {
+    console.info('on_deselect_tenant');
+
+    event.preventDefault();
+    const filter = this.model().filter;
+    const match: TenantItemRow = this.model().selected[i];
+
+    // remove from selected tenants
+    const selected: Array<TenantItemRow> = this.model().selected.toSpliced(i, 1);
+    // add to matched tenants
+    const matches: Array<TenantItemRow> = this.model().matches.concat(match);
+
+    this.model.set({
+      filter: filter,
+      selected: selected,
+      matches: matches,
+    });
   }
 
   on_cancel(event: Event) {

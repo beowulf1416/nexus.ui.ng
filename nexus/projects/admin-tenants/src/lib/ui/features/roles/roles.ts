@@ -93,7 +93,7 @@ export class Roles {
           right: '10px'
         },
         data: {
-
+          multiple: false
         }
       }
     );

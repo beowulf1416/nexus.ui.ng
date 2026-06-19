@@ -42,15 +42,12 @@
               @for (tr of component.form.selected; let i = $index; track i) {
                 <tr>
                   <td>
-                    @if (select_multiple()) {
-                      <input type="checkbox" title="Select tenant" class="input check select-tenant" />
-                    } @else {
-                      <input type="radio" title="Select tenant" class="input check select-tenant" />
-                    }
+                    <button type="button" class="btn deselect-tenant" title="Deselect tenant" mat-icon-button (click)="on_deselect_tenant($event, i)">
+                      <mat-icon>arrow_downward_alt</mat-icon>
+                    </button>
                   </td>
                   <td>
-                    <input type="text" [formField]="tr.tenant.name" />
-                    <pre>{{ tr | json }}</pre>
+                    <span>{{ tr.tenant.name().value() }}</span>
                   </td>
                 </tr>
               }
@@ -73,13 +70,13 @@
               @for (tr of component.form.matches; let i = $index; track i) {
                 <tr>
                   <td>
-                    @if (select_multiple()) {
-                      <input type="checkbox" title="Select tenant" class="input check select-tenant" />
-                    } @else {
-                      <input type="radio" title="Select tenant" class="input check select-tenant" (change)="on_select_tenant($event, i)" />
-                    }
+                    <button type="button" class="btn select-tenant" title="Select tenant" mat-icon-button (click)="on_select_tenant($event, i)">
+                      <mat-icon>arrow_upward_alt</mat-icon>
+                    </button>
                   </td>
-                  <input type="text" [formField]="tr.tenant.name" />
+                  <td>
+                    <span>{{ tr.tenant.name().value() }}</span>
+                  </td>
                 </tr>
               }
             </tbody>
