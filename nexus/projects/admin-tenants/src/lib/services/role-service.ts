@@ -57,4 +57,17 @@ export class RoleService {
       }
     );
   }
+
+  roles_set_active(
+    role_ids: Array<Uuid>,
+    active: boolean,
+  ): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(
+      `${URLS.base_url}${URLS.role_set_active}`,
+      {
+        role_ids: role_ids,
+        active: active,
+      }
+    );
+  }
 }

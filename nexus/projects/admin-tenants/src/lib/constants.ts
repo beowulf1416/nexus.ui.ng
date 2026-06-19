@@ -8,4 +8,5 @@ export const URLS = {
 
   fetch_roles: '/admin/tenants/roles/fetch',
   save_role: '/admin/tenants/roles/save',
+  role_set_active: '/admin/tenants/roles/set/active',
 };

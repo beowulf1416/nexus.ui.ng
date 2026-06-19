@@ -1,4 +1,4 @@
-import { Component, signal, model } from '@angular/core';
+import { Component, signal, model, computed } from '@angular/core';
 import { form, required, FormField } from '@angular/forms/signals';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -49,6 +49,10 @@ export class Roles {
     form: form(this.model, (f) =>{
     })
   };
+
+  roles_selected = computed(() => {
+    return this.model().roles.some((r) => r.selected);
+  });
 
   constructor(
     private role_service: RoleService,
@@ -123,5 +127,18 @@ export class Roles {
     console.info('on_select_all');
 
     event.preventDefault();
+  }
+
+  on_set_active(event: Event, active: boolean): void {
+    console.info('on_set_active');
+
+    event.preventDefault();
+
+    const selected_role_ids = this.model().roles.filter((r) => r.selected).map((r) => new Uuid(r.role.id));
+
+    this.role_service.roles_set_active(
+      selected_role_ids,
+      active,
+    ).subscribe();
   }
 }
