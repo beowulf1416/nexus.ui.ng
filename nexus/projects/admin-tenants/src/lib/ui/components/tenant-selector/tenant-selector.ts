@@ -20,7 +20,7 @@ import { TenantItem } from '../../../models/tenant-item';
 export class TenantSelector {
 
   multiple = input(true);
-  selected_tenants = output<Array<TenantItem>>();
+  tenants_selected = output<Array<TenantItem>>();
 
   selected_tenant = signal(new Array<TenantItem>());
   title = computed(() => {
@@ -59,7 +59,7 @@ export class TenantSelector {
     dr.afterClosed().subscribe((result: Array<TenantItem> | null) => {
       if (result && result.length > 0) {
         this.selected_tenant.set(result);
-        this.selected_tenants.emit(result);
+        this.tenants_selected.emit(result);
       }
     });
 
