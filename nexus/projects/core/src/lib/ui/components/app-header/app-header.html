@@ -36,9 +36,11 @@
     </button>
     <span>Applications</span>
     <span class="spacer"></span>
+    @if (is_user_authenticated()) {
     <button type="button" title="Tenants" mat-icon-button [matMenuTriggerFor]="menu_tenants">
       <mat-icon>domain</mat-icon>
     </button>
+    }
     <button type="button" title="User" mat-icon-button [matMenuTriggerFor]="menu_user">
       <mat-icon>account_circle</mat-icon>
     </button>

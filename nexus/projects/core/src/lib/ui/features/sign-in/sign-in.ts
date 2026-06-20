@@ -6,8 +6,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterLink } from '@angular/router';
+
 import { ApiResponse } from '../../../models/api-response';
 import { UserService } from '../../../services/user-service';
+import { AppHeader } from '../../components/app-header/app-header';
+
 
 @Component({
   selector: 'sign-in',
@@ -18,6 +21,7 @@ import { UserService } from '../../../services/user-service';
     MatInputModule,
     MatButtonModule,
     FormField,
+    AppHeader,
   ],
   templateUrl: './sign-in.html',
   styleUrl: './sign-in.css',

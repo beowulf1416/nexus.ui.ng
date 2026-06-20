@@ -31,21 +31,6 @@ export class UserService {
   }
 
   sign_in(email: string, password: string): Observable<ApiResponse> {
-    // return this.auth.authenticate(email, password).pipe(
-    //   map((r: ApiResponse) => {
-    //     if (r.success) {
-    //       return r;
-    //     }
-
-    //     return new ApiResponse(false, r.message, null);
-    //   }),
-    //   catchError((e: any) => {
-    //     console.error(e);
-
-    //     return of(new ApiResponse(false, e.message, null));
-    //   }),
-    // );
-    // // this._current_user.set(user);
     return this.http.post<ApiResponse>(
         URLS.base_url + URLS.authenticate,
         {
@@ -68,7 +53,6 @@ export class UserService {
                   ?.trim() || '';
               sessionStorage.setItem('sid', token);
 
-              // return new ApiResponse(true, 'successfully authenticated', null);
               return this.fetch_current_user();
             } else {
               return of(new ApiResponse(false, 'unable to authenticate', null));

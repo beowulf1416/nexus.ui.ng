@@ -13,4 +13,9 @@ export const routes: Routes = [
     path: 'sign-out',
     loadComponent: () => import('./ui/features/sign-out/sign-out').then((m) => m.SignOut),
   },
+  {
+    path: 'unauthorized',
+    loadComponent: () => import('./ui/features/unauthorized/unauthorized').then((m) => m.Unauthorized),
+  },
+
 ];

@@ -14,4 +14,8 @@ export class User {
   get is_authenticated(): boolean {
     return this.name !== '';
   }
+
+  is_authorized(permission: string): boolean {
+    return this.permissions.includes(permission);
+  }
 }
