@@ -1,6 +1,6 @@
 export class RoleItem {
   constructor(
-    readonly id: string,
+    readonly role_id: string,
     readonly name: string,
     readonly description: string,
     readonly active: boolean,

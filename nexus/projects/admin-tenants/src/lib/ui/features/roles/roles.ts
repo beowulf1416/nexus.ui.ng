@@ -159,7 +159,7 @@ export class Roles {
 
     event.preventDefault();
 
-    const selected_role_ids = this.model().roles.filter((r) => r.selected).map((r) => new Uuid(r.role.id));
+    const selected_role_ids = this.model().roles.filter((r) => r.selected).map((r) => new Uuid(r.role.role_id));
 
     this.role_service.roles_set_active(
       selected_role_ids,
@@ -185,5 +185,21 @@ export class Roles {
   on_edit_role(event: Event, i: number): void {
     console.info('on_edit_role', i);
 
+    const role = this.model().roles[i];
+    console.debug(role);
+
+    event.preventDefault();
+    let dr = this.md.open(RoleDialog, {
+      position: {
+        right: '10px'
+      },
+      data: {
+        tenant_id: this.model().tenant.id,
+        role_id: role.role.role_id
+      }
+    })
+    dr.afterClosed().subscribe((result: any) => {
+      console.debug(result);
+    });
   }
 }

@@ -77,10 +77,16 @@ export class RoleDialog implements OnInit {
       });
     }
 
-    if (tenant_id && role_id) {
+    if (tenant_id != ''&& role_id != '') {
+      console.debug(role_id);
       this.role_service.fetch_role(new Uuid(role_id)).subscribe({
         next: (role: RoleItem) => {
-          console.debug(role);
+          this.component.role.set(role);
+          this.model.set({
+            id: role.role_id,
+            name: role.name,
+            description: role.description
+          });
         },
         error: (err: HttpErrorResponse) => {
           console.error(err);
