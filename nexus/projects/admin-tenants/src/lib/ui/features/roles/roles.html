@@ -41,6 +41,11 @@
 
         </mat-toolbar>
       </div><!-- .wrapper -->
+      <div class="wrapper errors">
+        @for (error of component.errors(); let i = $index; track i) {
+          <p>{{ error }}</p>
+        }
+      </div><!-- .wrapper errors -->
       <div class="wrapper content">
         <table class="table roles">
           <thead>

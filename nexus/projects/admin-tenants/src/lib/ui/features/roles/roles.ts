@@ -1,4 +1,5 @@
 import { Component, signal, model, computed } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { form, required, FormField } from '@angular/forms/signals';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -6,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialog } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-import { Uuid } from 'core';
+import { ApiResponse, Uuid, HTTP_STATUS } from 'core';
 import { RoleService } from '../../../services/role-service';
 import { RoleDialog } from '../../../ui/dialogs/role-dialog/role-dialog';
 import { TenantSelectionDialog } from '../../../ui/dialogs/tenant-selection-dialog/tenant-selection-dialog';
@@ -139,6 +140,21 @@ export class Roles {
     this.role_service.roles_set_active(
       selected_role_ids,
       active,
-    ).subscribe();
+    ).subscribe({
+      next: (r: ApiResponse) => {
+        console.log(r);
+      },
+      error: (e: Error) => {
+        console.debug(e);
+        if (e instanceof HttpErrorResponse) {
+          if (e.status === HTTP_STATUS.FORBIDDEN) {
+            const errors = this.component.errors().concat('You do not have permission to access this resource.');
+            this.component.errors.set(errors);
+          }
+        } else {
+          console.error(e);
+        }
+      }
+    });
   }
 }
