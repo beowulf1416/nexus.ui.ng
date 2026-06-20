@@ -1,5 +1,8 @@
 import { Routes } from '@angular/router';
 
+import { authenticatedGuard } from 'core';
+
+
 export const routes: Routes = [
   {
     path: '',
@@ -13,10 +16,6 @@ export const routes: Routes = [
     path: 'user/registration',
     loadChildren: () => import('user-registration').then((m) => m.routes),
   },
-  // {
-  //   path: 'auth',
-  //   loadChildren: () => import('auth').then((m) => m.routes),
-  // },
   {
     path: 'session',
     loadChildren: () => import('core').then((m) => m.routes),
@@ -29,6 +28,9 @@ export const routes: Routes = [
   {
     path: 'admin/tenants',
     title: 'Tenants',
+    canActivate: [
+      authenticatedGuard
+    ],
     loadChildren: () => import('admin-tenants').then((m) => m.routes),
   },
   {

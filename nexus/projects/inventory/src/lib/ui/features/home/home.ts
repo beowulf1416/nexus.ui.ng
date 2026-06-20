@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { Header } from 'core';
+import { AppHeader } from 'core';
 import { SidebarLeft } from '../../components/sidebar-left/sidebar-left';
 
 
@@ -9,7 +9,7 @@ import { SidebarLeft } from '../../components/sidebar-left/sidebar-left';
   selector: 'lib-home',
   imports: [
     RouterOutlet,
-    Header,
+    AppHeader,
     SidebarLeft,
   ],
   templateUrl: './home.html',

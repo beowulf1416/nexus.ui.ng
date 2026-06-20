@@ -1,5 +1,8 @@
 import { Routes } from '@angular/router';
 
+import { authenticatedGuard, authorizedGuard } from 'core';
+
+
 export const routes: Routes = [
   {
     path: '',
@@ -14,16 +17,29 @@ export const routes: Routes = [
       {
         path: 'tenants',
         title: 'Tenants',
+        data: {
+          permission: 'tenant.list'
+        },
         loadComponent: () => import('./ui/features/tenants/tenants').then((m) => m.Tenants),
       },
       {
         path: 'users',
         title: 'Users',
+        data: {
+          permission: 'tenant.users.list'
+        },
+        canActivate: [
+          authenticatedGuard,
+          authorizedGuard
+        ],
         loadComponent: () => import('./ui/features/users/users').then((m) => m.Users),
       },
       {
         path: 'roles',
         title: 'Roles',
+        data: {
+          permission: 'tenant.roles.list'
+        },
         loadComponent: () => import('./ui/features/roles/roles').then((m) => m.Roles),
       },
     ],

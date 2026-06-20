@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { Header } from 'core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 // import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 
+import { AppHeader } from 'core';
 import { Navigator } from '../../../ui/components/navigator/navigator';
 import { UploadDialog } from '../../dialogs/upload-dialog/upload-dialog';
 
@@ -13,7 +13,7 @@ import { UploadDialog } from '../../dialogs/upload-dialog/upload-dialog';
 @Component({
   selector: 'lib-files',
   imports: [
-    Header,
+    AppHeader,
     Navigator,
     MatIconModule,
     MatButtonModule,

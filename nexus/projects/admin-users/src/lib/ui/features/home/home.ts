@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { Header } from 'core';
 import { RouterOutlet } from '@angular/router';
+
 import { SidebarLeft } from '../../components/sidebar-left/sidebar-left';
+import { AppHeader } from 'core';
 
 @Component({
   selector: 'lib-home',
   imports: [
     RouterOutlet,
-    Header,
+    AppHeader,
     SidebarLeft,
   ],
   templateUrl: './home.html',

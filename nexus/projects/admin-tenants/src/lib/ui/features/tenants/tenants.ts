@@ -8,7 +8,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 
-import { Header, ApiResponse, Uuid } from 'core';
+import { ApiResponse, Uuid } from 'core';
 import { TenantsService } from '../../../services/tenants-service';
 import { TenantDialog } from '../../dialogs/tenant-dialog/tenant-dialog';
 import { TenantItem } from '../../../models/tenant-item';
@@ -27,7 +27,6 @@ class TenantItemRow {
   selector: 'lib-tenants',
   imports: [
     CommonModule,
-    Header,
     MatIconModule,
     MatButtonModule,
     MatInputModule,
