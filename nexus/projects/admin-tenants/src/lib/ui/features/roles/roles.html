@@ -5,7 +5,7 @@
         <mat-toolbar>
           <tenant-selector [multiple]="false" (tenants_selected)="on_tenants_selected($event)"></tenant-selector>
           <div class="separator">|</div>
-          <button type="button" class="btn roles" title="New Role" aria-label="New Role" mat-icon-button (click)="show_role_dialog($event)">
+          <button type="button" class="btn roles" title="New Role" aria-label="New Role" mat-icon-button [disabled]="!tenant_selected()" (click)="show_role_dialog($event)">
             <mat-icon>domain_add</mat-icon>
           </button>
           <div class="separator">|</div>
@@ -26,16 +26,17 @@
           <div class="wrapper filter">
             <mat-form-field appearance="outline">
               <mat-label>Search</mat-label>
-              <input class="input filter" placeholder="Filter" matInput [formField]="component.form.filter" />
+              <mat-icon matPrefix>filter_alt</mat-icon>
+              <input class="input filter" title="Filter" placeholder="Filter" matInput [formField]="component.form.filter" />
               <button type="button" class="btn filter" title="Search" aria-label="Search" mat-icon-button matSuffix (click)="on_search($event)">
                 <mat-icon>search</mat-icon>
               </button>
-              <button type="button" class="btn reset" title="Clear" aria-label="Clear" mat-icon-button matSuffix>
+              <button type="button" class="btn reset" title="Clear" aria-label="Clear" mat-icon-button matSuffix [disabled]="is_filter_empty()" (click)="on_clear($event)">
                 <mat-icon>close_small</mat-icon>
               </button>
             </mat-form-field>
           </div><!-- .wrapper filter -->
-          <button type="button" class="btn refresh" title="Refresh" aria-label="Refresh" mat-icon-button>
+          <button type="button" class="btn refresh" title="Refresh" aria-label="Refresh" mat-icon-button (click)="on_refresh($event)">
             <mat-icon>refresh</mat-icon>
           </button>
 
@@ -72,8 +73,14 @@
                   <input type="checkbox" title="Select Role" class="input select-role" [formField]="r.selected" />
                 </td>
                 <td>{{ r.role.name().value() }}</td>
+                <td>{{ r.role.description().value() }}</td>
                 <td>
-
+                  <button type="button" class="btn" title="Edit Role" aria-label="Edit Role" mat-icon-button (click)="on_edit_role($event, i)">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button type="button" class="btn" title="Delete Role" aria-label="Delete Role" mat-icon-button>
+                    <mat-icon>delete</mat-icon>
+                  </button>
                 </td>
               </tr>
             }

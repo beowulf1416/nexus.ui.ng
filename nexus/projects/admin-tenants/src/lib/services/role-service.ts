@@ -41,7 +41,32 @@ export class RoleService {
     );
   }
 
+  fetch_role(role_id: Uuid): Observable<RoleItem> {
+    return this.http.post<ApiResponse>(
+      `${URLS.base_url}${URLS.fetch_role}`,
+      {
+        role_id: role_id.to_string(),
+      }
+    ).pipe(
+      map((r: ApiResponse) => {
+        if (r.success) {
+          const role: RoleItem = (r.data as {
+            role: RoleItem
+          }).role;
+          return role;
+        } else {
+          throw new Error(r.message);
+        }
+      }),
+      catchError((error: any) => {
+        console.error(error);
+        throw error;
+      })
+    );
+  }
+
   save_role(
+    tenant_id: Uuid,
     role_id: Uuid,
     name: string,
     description: string,
@@ -51,7 +76,8 @@ export class RoleService {
     return this.http.post<ApiResponse>(
       `${URLS.base_url}${URLS.save_role}`,
       {
-        role_id: role_id,
+        tenant_id: tenant_id.to_string(),
+        role_id: role_id.to_string(),
         name: name,
         description: description,
       }

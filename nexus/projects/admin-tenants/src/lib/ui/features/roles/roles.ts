@@ -51,8 +51,15 @@ export class Roles {
     })
   };
 
+  tenant_selected = computed(() => {
+    return this.model().tenant.id != '';
+  });
+
   roles_selected = computed(() => {
     return this.model().roles.some((r) => r.selected);
+  });
+  is_filter_empty = computed(() => {
+    return this.model().filter == '';
   });
 
   constructor(
@@ -69,6 +76,9 @@ export class Roles {
     let dr = this.md.open(RoleDialog, {
       position: {
         right: '10px'
+      },
+      data: {
+        tenant_id: this.model().tenant.id
       }
     })
     dr.afterClosed().subscribe((result: any) => {
@@ -92,6 +102,20 @@ export class Roles {
         roles: roles.map((r) => (new RoleItemRow(r, false))),
       }));
     });
+  }
+
+  on_clear(event: Event): void {
+    event.preventDefault();
+    this.model.update((m) => ({
+      ...m,
+      filter: '',
+    }));
+    this.fetch_roles();
+  }
+
+  on_refresh(event: Event): void {
+    event.preventDefault();
+    this.fetch_roles();
   }
 
   show_tenant_dialog(event: Event): void {
@@ -156,5 +180,10 @@ export class Roles {
         }
       }
     });
+  }
+
+  on_edit_role(event: Event, i: number): void {
+    console.info('on_edit_role', i);
+
   }
 }

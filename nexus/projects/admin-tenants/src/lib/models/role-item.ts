@@ -6,4 +6,13 @@ export class RoleItem {
     readonly active: boolean,
     readonly created: Date
   ) {}
+
+  static default(): RoleItem {
+    return new RoleItem(
+      '',
+      '',
+      '',
+      false,
+      new Date());
+  }
 }

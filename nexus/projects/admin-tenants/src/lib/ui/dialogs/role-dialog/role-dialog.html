@@ -1,15 +1,20 @@
 <div class="component role">
   <div class="wrapper form">
-    <form id="role" class="form-role" method="post" action="">
-      <h3 mat-dialog-title>New Role</h3>
+    <form id="role" class="form-role" method="post" action="" (submit)="on_submit($event)">
+      <h3 mat-dialog-title>{{ title() }}</h3>
       <mat-dialog-content>
         <div class="errors">
+          @if (component.errors().length > 0) {
+            @for (error of component.errors(); track error) {
+              <div>{{ error }}</div>
+            }
+          }
         </div><!-- .errors -->
-        <mat-form-field>
+        <mat-form-field class="field">
           <mat-label>Name</mat-label>
           <input class="input name" placeholder="Name" matInput [formField]="component.form.name">
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="field">
           <mat-label>Description</mat-label>
           <textarea class="input description" placeholder="Description" matInput [formField]="component.form.description"></textarea>
         </mat-form-field>
@@ -19,7 +24,7 @@
           <mat-icon>cancel</mat-icon>
           <span>Cancel</span>
         </button>
-        <button type="button" matFab extended (click)="on_submit($event)">
+        <button type="submit" matFab extended>
           <mat-icon>save</mat-icon>
           <span>Save</span>
         </button>
