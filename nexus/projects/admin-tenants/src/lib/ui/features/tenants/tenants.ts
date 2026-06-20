@@ -118,7 +118,6 @@ export class Tenants {
         if (err instanceof HttpErrorResponse) {
           let code = err.status;
           if (code == HTTP_STATUS.FORBIDDEN) {
-            console.debug('Forbidden');
             this.component.errors.update((errors: Array<string>) => {
               errors.push('You do not have permission to access this resource.');
               return errors;
