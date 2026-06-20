@@ -1,1 +1,35 @@
-<p>assign-permissions-dialog works!</p>
+<div class="component assign-permissions-dialog">
+  <div class="wrapper form">
+    <form class="assign-permissions-dialog" method="post" action="">
+      <h3 mat-dialog-title>Assign Permissions</h3>
+      <mat-dialog-content>
+        <div class="errors">
+          @if (component.errors().length > 0) {
+            @for (error of component.errors(); track error) {
+              <div>{{ error }}</div>
+            }
+          }
+        </div><!-- .errors -->
+        <div class="actions">
+          <mat-toolbar>
+            <div class="wrapper filter">
+              <mat-form-field appearance="outline">
+                <input type="text" class="input filter" placeholder="Search" matInput [formField]="components.form.filter"/>
+              </mat-form-field>
+            </div><!-- .wrapper -->
+          </mat-toolbar>
+        </div><!-- .actions -->
+      </mat-dialog-content>
+      <mat-dialog-actions>
+        <button type="button" class="btn cancel" title="Cancel" matFab extended>
+          <mat-icon>cancel</mat-icon>
+          <span>Cancel</span>
+        </button>
+        <button type="submit" class="btn save" title="Save" matFab extended>
+          <mat-icon>save</mat-icon>
+          <span>Save</span>
+        </button>
+      </mat-dialog-actions>
+    </form>
+  </div><!-- .wrapper -->
+</div><!-- .component -->

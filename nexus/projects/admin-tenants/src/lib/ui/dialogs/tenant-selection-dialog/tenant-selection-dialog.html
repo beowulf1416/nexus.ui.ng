@@ -4,6 +4,11 @@
       <h4 mat-dialog-title>Select Tenant</h4>
       <mat-dialog-content>
         <div class="errors">
+          @if (component.errors().length > 0) {
+            @for (error of component.errors(); track error) {
+              <div>{{ error }}</div>
+            }
+          }
         </div><!-- .errors -->
         <div class="actions">
           <mat-toolbar>
