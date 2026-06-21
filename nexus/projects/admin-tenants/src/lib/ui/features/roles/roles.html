@@ -16,10 +16,10 @@
             <mat-icon>toggle_off</mat-icon>
           </button>
           <div class="separator">|</div>
-            <button type="button" class="btn assign-permissions" title="Assign Permissions" aria-label="Disable" [disabled]="!roles_selected()" mat-icon-button>
+            <button type="button" class="btn assign-permissions" title="Assign Permissions" aria-label="Disable" [disabled]="!roles_selected()" mat-icon-button (click)="on_assign_permissions($event)">
               <mat-icon>add_moderator</mat-icon>
             </button>
-            <button type="button" class="btn revoke-permissions" title="Revoke Permissions" aria-label="Disable" [disabled]="!roles_selected()"mat-icon-button>
+            <button type="button" class="btn revoke-permissions" title="Revoke Permissions" aria-label="Disable" [disabled]="!roles_selected()"mat-icon-button (click)="on_revoke_permissions($event)">
               <mat-icon>remove_moderator</mat-icon>
             </button>
           <div class="separator">|</div>

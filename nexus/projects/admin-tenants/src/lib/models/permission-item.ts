@@ -1,6 +1,6 @@
 export class PermissionItem {
   constructor(
-    public permission_id: string,
+    public id: number,
     public name: string,
     public description: string,
   ) {}

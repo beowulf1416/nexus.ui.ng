@@ -1,7 +1,7 @@
-<div class="component assign-permissions-dialog">
+<div class="component permissions-selection-dialog">
   <div class="wrapper form">
-    <form class="assign-permissions-dialog" method="post" action="">
-      <h3 mat-dialog-title>Assign Permissions</h3>
+    <form class="permissions-selection-dialog" method="post" action="">
+      <h3 mat-dialog-title>Select Permissions</h3>
       <mat-dialog-content>
         <div class="errors">
           @if (component.errors().length > 0) {
@@ -35,14 +35,13 @@
             <thead>
               <tr>
                 <th></th>
-                <th>Active</th>
                 <th>Name</th>
                 <th>Description</th>
               </tr>
             </thead>
             <tfoot>
               <tr>
-                <td colspan="4"></td>
+                <td colspan="3"></td>
               </tr>
             </tfoot>
             <tbody>
@@ -53,9 +52,8 @@
                       <mat-icon>arrow_downward_alt</mat-icon>
                     </button>
                   </td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td>{{ r.permission.name }}</td>
+                  <td>{{ r.permission.description }}</td>
                 </tr>
               }
             </tbody>
@@ -63,6 +61,7 @@
         </div><!-- .selected -->
         <div class="matches">
           <table>
+            <caption>Matches</caption>
             <thead>
               <tr>
                 <th></th>
@@ -78,8 +77,8 @@
                       <mat-icon>arrow_upward_alt</mat-icon>
                     </button>
                   </td>
-                  <td></td>
-                  <td></td>
+                  <td>{{ r.permission.name }}</td>
+                  <td>{{ r.permission.description }}</td>
                 </tr>
               }
             </tbody>

@@ -7,10 +7,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialog } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-import { ApiResponse, Uuid, HTTP_STATUS } from 'core';
+import { ApiResponse, Uuid, NotificationService, HTTP_STATUS } from 'core';
 import { RoleService } from '../../../services/role-service';
 import { RoleDialog } from '../../../ui/dialogs/role-dialog/role-dialog';
 import { TenantSelectionDialog } from '../../../ui/dialogs/tenant-selection-dialog/tenant-selection-dialog';
+import { PermissionSelectionDialog } from '../../../ui/dialogs/permission-selection-dialog/permission-selection-dialog';
+
 import { TenantItem } from '../../../models/tenant-item';
 import { RoleItem } from '../../../models/role-item';
 import { TenantSelector } from '../../../ui/components/tenant-selector/tenant-selector';
@@ -64,6 +66,7 @@ export class Roles {
 
   constructor(
     private role_service: RoleService,
+    private notification_service: NotificationService,
     private md: MatDialog
   ) {
 
@@ -202,4 +205,83 @@ export class Roles {
       console.debug(result);
     });
   }
+
+  on_assign_permissions(event: Event): void {
+    console.info('on_assign_permissions');
+
+    event.preventDefault();
+
+    const selected_role_ids = this.model().roles.filter((r) => r.selected).map((r) => new Uuid(r.role.role_id));
+
+    let dr = this.md.open(PermissionSelectionDialog, {
+      position: {
+        right: '10px'
+      },
+      data: {
+        tenant_id: this.model().tenant.id,
+        role_ids: selected_role_ids,
+        multiple: true
+      }
+    })
+    dr.afterClosed().subscribe((result: {
+      permission_ids: Array<number>,
+      role_ids: Array<Uuid>,
+    }) => {
+      console.debug(result);
+
+      const { permission_ids, role_ids } = result;
+      this.role_service.assign_permissions(
+        role_ids,
+        permission_ids,
+      ).subscribe({
+        next: () => {
+          this.notification_service.info('Permissions assigned successfully');
+        },
+        error: (err: HttpErrorResponse) => {
+          console.error(err);
+          this.notification_service.error(err.message);
+        },
+      });
+    });
+  }
+
+  on_revoke_permissions(event: Event): void {
+    console.info('on_revoke_permissions');
+
+    event.preventDefault();
+
+    const selected_role_ids = this.model().roles.filter((r) => r.selected).map((r) => new Uuid(r.role.role_id));
+
+    let dr = this.md.open(PermissionSelectionDialog, {
+      position: {
+        right: '10px'
+      },
+      data: {
+        tenant_id: this.model().tenant.id,
+        role_ids: selected_role_ids,
+        multiple: true
+      }
+    })
+    dr.afterClosed().subscribe((result: {
+      permission_ids: Array<number>,
+      role_ids: Array<Uuid>,
+    }) => {
+      console.debug(result);
+
+      const { permission_ids, role_ids } = result;
+      this.role_service.revoke_permissions(
+        role_ids,
+        permission_ids,
+      ).subscribe({
+        next: () => {
+          this.notification_service.info('Permissions revoked successfully');
+        },
+        error: (err: HttpErrorResponse) => {
+          console.error(err);
+          this.notification_service.error(err.message);
+        },
+      });
+    });
+  }
+
 }

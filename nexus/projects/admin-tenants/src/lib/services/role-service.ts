@@ -99,7 +99,20 @@ export class RoleService {
 
   assign_permissions(
     role_ids: Array<Uuid>,
-    permission_ids: Array<Uuid>,
+    permission_ids: Array<number>,
+  ): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(
+      `${URLS.base_url}${URLS.assign_permissions}`,
+      {
+        role_ids: role_ids.map((r) => r.to_string()),
+        permission_ids: permission_ids,
+      }
+    );
+  }
+
+  revoke_permissions(
+    role_ids: Array<Uuid>,
+    permission_ids: Array<number>,
   ): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(
       `${URLS.base_url}${URLS.assign_permissions}`,
@@ -109,5 +122,4 @@ export class RoleService {
       }
     );
   }
-
 }
