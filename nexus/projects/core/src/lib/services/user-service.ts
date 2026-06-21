@@ -83,22 +83,21 @@ export class UserService {
 
     return forkJoin([o_user, o_tenants]).pipe(
       map(([r_user, r_tenants], i) => {
+        console.debug('user', r_user);
         if (r_user.success) {
-          if (r_user.success) {
-            let user_data = (r_user.data as {
-              user: {
-                name: string;
-                tenant: Tenant;
-                permissions: Array<string>
-              }
-            }).user;
-            let user = new User(
-              user_data.name,
-              user_data.tenant,
-              user_data.permissions
-            );
-            this._current_user.set(user);
-          }
+          let user_data = (r_user.data as {
+            user: {
+              name: string;
+              tenant: Tenant;
+              permissions: Array<string>
+            }
+          }).user;
+          let user = new User(
+            user_data.name,
+            user_data.tenant,
+            user_data.permissions
+          );
+          this._current_user.set(user);
         }
 
         console.debug('tenants', r_tenants);
