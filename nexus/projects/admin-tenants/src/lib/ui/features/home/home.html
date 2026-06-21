@@ -1,12 +1,14 @@
 <div class="component component-home">
   <app-header></app-header>
-
-  <div class="wrapper">
-    <div class="wrapper nav">
+  <mat-sidenav-container>
+    <mat-sidenav position="start" #sidenav>
       <admin-tenants-sidebar-left></admin-tenants-sidebar-left>
-    </div><!-- .wrapper -->
-    <div class="wrapper content">
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <button type="button" class="btn nav-open" title="Open" mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
       <router-outlet></router-outlet>
-    </div><!-- .wrapper -->
-  </div><!-- .wrapper -->
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div><!-- component -->
