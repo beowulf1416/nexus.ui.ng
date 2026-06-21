@@ -1,4 +1,4 @@
-import { Component, OnInit, computed } from '@angular/core';
+import { Component, OnInit, computed, output } from '@angular/core';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -33,8 +33,10 @@ export class AppHeader implements OnInit {
   is_user_authenticated = computed(() => {
     return this.user_service.current_user().is_authenticated
   });
+  click = output<void>();
 
   tenants = computed(() => this.user_service.tenants());
+
 
   constructor(
     private user_service: UserService,
@@ -45,6 +47,11 @@ export class AppHeader implements OnInit {
 
   ngOnInit(): void {
     console.debug(this.route?.data);
+  }
+
+  on_applications(event: Event): void {
+    console.info('on_applications')
+    this.click.emit();
   }
 
   on_notifications(event: Event): void {
