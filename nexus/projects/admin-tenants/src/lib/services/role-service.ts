@@ -96,4 +96,18 @@ export class RoleService {
       }
     );
   }
+
+  assign_permissions(
+    role_ids: Array<Uuid>,
+    permission_ids: Array<Uuid>,
+  ): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(
+      `${URLS.base_url}${URLS.assign_permissions}`,
+      {
+        role_ids: role_ids,
+        permission_ids: permission_ids,
+      }
+    );
+  }
+
 }
