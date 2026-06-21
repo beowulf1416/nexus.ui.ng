@@ -69,11 +69,9 @@ export class TenantSelectionDialog {
     console.info('on_search');
 
     const filter = this.model().filter;
-
     this.tenant_service.fetch_tenants(filter).subscribe({
       next: (tenants: Array<TenantItem>) => {
         const matches = tenants.map((m: TenantItem) => new TenantItemRow(m, false));
-        console.debug(matches);
         this.model.update((m) => ({
           ...m,
           matches: matches,
