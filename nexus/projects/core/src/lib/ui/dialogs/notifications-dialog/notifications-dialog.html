@@ -1,0 +1,15 @@
+<div class="component notifications">
+  <div class="wrapper">
+    @if (notifications.length > 0) {
+      @for (n of notifications(); let i = $index; track i) {
+        <div class="notification" [class.type]="n.type">
+          {{ n.message }}
+        </div>
+      }
+    } @else {
+      <div class="notification info">
+        No notifications
+      </div>
+    }
+  </div><!-- .wrapper -->
+</div><!-- .component -->

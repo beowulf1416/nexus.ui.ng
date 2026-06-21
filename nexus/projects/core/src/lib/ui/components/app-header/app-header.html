@@ -36,6 +36,9 @@
     </button>
     <span>Applications</span>
     <span class="spacer"></span>
+    <button type="button" title="Notifications" mat-icon-button (click)="on_notifications($event)">
+      <mat-icon>inbox</mat-icon>
+    </button>
     @if (is_user_authenticated()) {
     <button type="button" title="Tenants" mat-icon-button [matMenuTriggerFor]="menu_tenants">
       <mat-icon>domain</mat-icon>

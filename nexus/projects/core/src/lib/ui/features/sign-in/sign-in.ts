@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { email, form, FormField, required, submit } from '@angular/forms/signals';
+import { HttpErrorResponse } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -69,9 +70,9 @@ export class SignIn {
             this.component.errors.set([...errors]);
           }
         },
-        error: (error) => {
+        error: (error: HttpErrorResponse) => {
           let errors = this.component.errors();
-          errors.push(error);
+          errors.push(error.message);
           this.component.errors.set([...errors]);
         },
       });
