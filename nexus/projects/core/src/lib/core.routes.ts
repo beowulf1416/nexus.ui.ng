@@ -14,6 +14,10 @@ export const routes: Routes = [
     loadComponent: () => import('./ui/features/sign-out/sign-out').then((m) => m.SignOut),
   },
   {
+    path: 'tenant/:tenant_id',
+    loadComponent: () => import('./ui/features/tenant-select/tenant-select').then((m) => m.TenantSelect),
+  },
+  {
     path: 'unauthorized',
     loadComponent: () => import('./ui/features/unauthorized/unauthorized').then((m) => m.Unauthorized),
   },

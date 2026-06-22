@@ -10,5 +10,6 @@ export const URLS = {
 
   authenticate: '/session/sign-in',
   fetch_current_user: '/session/user',
-  fetch_tenants: '/session/tenants'
+  fetch_tenants: '/session/tenants',
+  switch_tenant: '/session/tenant/set'
 };
