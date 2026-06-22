@@ -1,1 +1,92 @@
-<p>users works!</p>
+<div class="component users">
+  <div class="wrapper form">
+    <form class="form-users" method="post" action="">
+      <div class="wrapper actions">
+        <mat-toolbar>
+          <tenant-selector [multiple]="false" (tenants_selected)="on_tenants_selected($event)"></tenant-selector>
+          <div class="separator">|</div>
+          <button type="button" class="btn new-user" title="New User" aria-label="New User" mat-icon-button [disabled]="!tenant_selected()" (click)="on_new_user($event)">
+            <mat-icon>person_add</mat-icon>
+          </button>
+          <div class="separator">|</div>
+          <button type="button" class="btn set-active" title="Enable" aria-label="Enable" [disabled]="!users_selected()" mat-icon-button (click)="on_set_active($event, true)">
+            <mat-icon>toggle_on</mat-icon>
+          </button>
+          <button type="button" class="btn set-active" title="Disable" aria-label="Disable" [disabled]="!users_selected()" mat-icon-button (click)="on_set_active($event, false)">
+            <mat-icon>toggle_off</mat-icon>
+          </button>
+          <div class="separator">|</div>
+            <button type="button" class="btn assign-roles" title="Assign Roles" aria-label="Assign Roles" [disabled]="!users_selected()" mat-icon-button (click)="on_assign_roles($event)">
+              <mat-icon>add_moderator</mat-icon>
+            </button>
+            <button type="button" class="btn revoke-roles" title="Revoke Roles" aria-label="Revoke Roles" [disabled]="!users_selected()"mat-icon-button (click)="on_revoke_roles($event)">
+              <mat-icon>remove_moderator</mat-icon>
+            </button>
+          <div class="separator">|</div>
+          <div class="wrapper filter">
+            <mat-form-field appearance="outline">
+              <mat-label>Search</mat-label>
+              <mat-icon matPrefix>filter_alt</mat-icon>
+              <input class="input filter" title="Filter" placeholder="Filter" matInput [formField]="component.form.filter" />
+              <button type="button" class="btn filter" title="Search" aria-label="Search" mat-icon-button matSuffix (click)="on_search($event)">
+                <mat-icon>search</mat-icon>
+              </button>
+              <button type="button" class="btn reset" title="Clear" aria-label="Clear" mat-icon-button matSuffix [disabled]="is_filter_empty()" (click)="on_clear($event)">
+                <mat-icon>close_small</mat-icon>
+              </button>
+            </mat-form-field>
+          </div><!-- .wrapper filter -->
+          <button type="button" class="btn refresh" title="Refresh" aria-label="Refresh" mat-icon-button (click)="on_refresh($event)">
+            <mat-icon>refresh</mat-icon>
+          </button>
+
+        </mat-toolbar>
+      </div><!-- .wrapper -->
+      <div class="wrapper errors">
+        @for (error of component.errors(); let i = $index; track i) {
+          <p>{{ error }}</p>
+        }
+      </div><!-- .wrapper errors -->
+      <div class="wrapper content">
+        <table class="table users">
+          <thead>
+            <tr>
+              <th>
+                <input type="checkbox" title="Select All" (change)="on_select_all($event)" />
+              </th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <td colspan="3">
+
+              </td>
+            </tr>
+          </tfoot>
+          <tbody>
+            @for (r of component.form.users; let i = $index; track i) {
+              <tr>
+                <td>
+                  <input type="checkbox" title="Select Role" class="input select-role" [formField]="r.selected" />
+                </td>
+                <td>{{ r.user.prefix().value() }} {{ r.user.first_name().value() }} {{ r.user.middle_name().value() }} {{ r.user.last_name().value() }} {{ r.user.suffix().value() }}</td>
+                <td>{{ r.user.email().value() }}</td>
+                <td>
+                  <button type="button" class="btn" title="Edit User" aria-label="Edit User" mat-icon-button (click)="on_edit_user($event, i)">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button type="button" class="btn" title="Delete User" aria-label="Delete User" mat-icon-button>
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div><!-- .wrapper content -->
+    </form>
+  </div><!-- .wrapper -->
+</div><!-- .component -->

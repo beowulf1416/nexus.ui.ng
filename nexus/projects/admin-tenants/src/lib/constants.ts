@@ -12,5 +12,7 @@ export const URLS = {
   role_set_active: '/admin/tenants/roles/set/active',
   assign_permissions: '/admin/tenants/roles/assign/permissions',
 
-  fetch_permissions: '/permissions/fetch'
+  fetch_permissions: '/permissions/fetch',
+
+  fetch_users: '/admin/users/fetch'
 };
