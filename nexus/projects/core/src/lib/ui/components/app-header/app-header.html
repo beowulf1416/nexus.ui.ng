@@ -20,7 +20,7 @@
 
   <mat-menu #menu_tenants="matMenu">
     @for (tenant of tenants(); track tenant.id) {
-    <a title="{{ tenant.name }}" routerLink="/session/tenant/{{ tenant.id }}" mat-menu-item>
+    <a title="{{ tenant.name }}" routerLink="/session/tenant/{{ tenant.id }}" [queryParams]="{ destination: destination() }" mat-menu-item>
       <span>{{ tenant.name }}</span>
     </a>
     }

@@ -1,4 +1,4 @@
-import { Component, OnInit, computed, output } from '@angular/core';
+import { Component, OnInit, signal, computed, output, inject } from '@angular/core';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,6 +29,8 @@ import { NotificationsDialog } from '../../dialogs/notifications-dialog/notifica
 })
 export class AppHeader implements OnInit {
 
+  private route = inject(ActivatedRoute);
+
   user = computed(() => this.user_service.current_user());
   is_user_authenticated = computed(() => {
     return this.user_service.current_user().is_authenticated
@@ -36,14 +38,20 @@ export class AppHeader implements OnInit {
   click = output<void>();
 
   tenants = computed(() => this.user_service.tenants());
-
+  destination = signal('');
 
   constructor(
     private user_service: UserService,
     private notification_service: NotificationService,
-    private route: ActivatedRoute,
+    // private route: ActivatedRoute,
     private md: MatDialog
-  ) {}
+  ) {
+    const dest = this.route.snapshot.pathFromRoot;
+    console.debug(dest);
+    // if (dest != ''){
+    //   this.destination.set(dest);
+    // }
+  }
 
   ngOnInit(): void {
     console.debug(this.route?.data);

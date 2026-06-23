@@ -21,7 +21,9 @@ export class TenantSelect implements OnInit {
 
   constructor() {
     const tenant_id = this.route.snapshot.paramMap.get('tenant_id');
-    const dest = this.route.snapshot.queryParams.get('dest');
+    const dest = this.route.snapshot.queryParams['dest'];
+
+    console.debug(this.route.snapshot.queryParams);
 
     if (tenant_id) {
       this.user_service.switch_tenant(
