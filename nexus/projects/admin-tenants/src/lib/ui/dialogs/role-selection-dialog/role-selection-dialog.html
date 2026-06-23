@@ -1,0 +1,100 @@
+<div class="component role-selection-dialog">
+  <div class="wrapper form">
+    <form class="role-selection">
+      <h4 mat-dialog-title>Select Role</h4>
+      <mat-dialog-content>
+        <div class="errors">
+          @if (component.errors().length > 0) {
+            @for (error of component.errors(); track error) {
+              <div>{{ error }}</div>
+            }
+          }
+        </div><!-- .errors -->
+        <div class="actions">
+          <mat-toolbar>
+            <div class="wrapper filter">
+              <mat-form-field appearance="outline">
+                <mat-icon>filter_alt</mat-icon>
+                <input type="search" class="input filter" placeholder="Search..." matInput [formField]="component.form.filter" />
+                <button type="button" class="btn search" title="Search" mat-icon-button matSuffix (click)="on_filter($event)">
+                  <mat-icon>search</mat-icon>
+                </button>
+                <button type="button" class="btn clear" title="Clear" mat-icon-button matSuffix>
+                  <mat-icon>clear</mat-icon>
+                </button>
+              </mat-form-field>
+            </div><!-- .wrapper -->
+          </mat-toolbar>
+        </div><!-- .actions -->
+      </mat-dialog-content>
+        <div class="wrapper selected">
+          <table class="table selected">
+            <caption>Selected Roles</caption>
+            <thead>
+              <tr>
+                <th>
+                </th>
+                <th>Name</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+              </tr>
+            </tfoot>
+            <tbody>
+              @for (r of component.form.selected; let i = $index; track i) {
+                <tr>
+                  <td>
+                    <button type="button" class="btn deselect-roles" title="Deselect Roles" mat-icon-button (click)="on_deselect_roles($event, i)">
+                      <mat-icon>arrow_downward_alt</mat-icon>
+                    </button>
+                  </td>
+                  <td>
+                    <span>{{ r.role.name().value() }}</span>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div><!-- .wrapper -->
+        <div class="wrapper matches">
+          <table class="table matches">
+            <caption>Matches</caption>
+            <thead>
+              <tr>
+                <th>Tenant</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+              </tr>
+            </tfoot>
+            <tbody>
+              @for (r of component.form.matches; let i = $index; track i) {
+                <tr>
+                  <td>
+                    <button type="button" class="btn select-roles" title="Select Roles" mat-icon-button (click)="on_select_roles($event, i)">
+                      <mat-icon>arrow_upward_alt</mat-icon>
+                    </button>
+                  </td>
+                  <td>
+                    <span>{{ r.role.name().value() }}</span>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div><!-- .wrapper -->
+      <mat-dialog-actions>
+        <button type="button" class="btn cancel" matFab extended (click)="on_cancel($event)">
+          <mat-icon>cancel</mat-icon>
+          <span>Cancel</span>
+        </button>
+        <button type="button" class="btn ok" matFab extended (click)="on_ok($event)">
+          <mat-icon>check</mat-icon>
+          <span>Select</span>
+        </button>
+      </mat-dialog-actions>
+    </form>
+  </div><!-- .wrapper -->
+</div><!-- .component -->
