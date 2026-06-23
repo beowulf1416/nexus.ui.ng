@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-import { NotificationService } from 'core';
+import { Uuid, NotificationService } from 'core';
 import { UsersService } from '../../../services/users-service';
 import { TenantItem } from '../../../models/tenant-item';
 import { TenantSelector } from '../../../ui/components/tenant-selector/tenant-selector';
@@ -70,7 +70,24 @@ export class Users {
   fetch_users(): void {
     console.info('fetch_users');
 
-    const filter = this.model().filter;
+    const { filter, tenant, } = this.model();
+
+
+    this.users_service.fetch_users(
+      new Uuid(tenant.id),
+      filter
+    ).subscribe({
+      next: (users: Array<UserItem>) => {
+        this.model.update((m) => ({
+          ...m,
+          users: users.map((u) => new UserItemRow(u, false))
+        }));
+      },
+      error: (e: HttpErrorResponse) => {
+        console.error(e);
+        this.notification_service.error(e.message);
+      }
+    });
   }
 
   on_tenants_selected(tenants: TenantItem[]): void {

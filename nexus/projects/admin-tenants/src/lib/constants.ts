@@ -14,5 +14,5 @@ export const URLS = {
 
   fetch_permissions: '/permissions/fetch',
 
-  fetch_users: '/admin/users/fetch'
+  fetch_users: '/admin/tenants/fetch/users'
 };

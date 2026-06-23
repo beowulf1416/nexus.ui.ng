@@ -98,7 +98,7 @@ export class Tenants {
       this.model().filter
     ).subscribe({
       next: (tenants: Array<TenantItem>) => {
-        console.debug(tenants);
+        // console.debug(tenants);
 
         let tenant_rows = tenants.map((tenant) =>
           new TenantItemRow(

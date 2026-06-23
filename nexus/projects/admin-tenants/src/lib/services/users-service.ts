@@ -2,7 +2,7 @@ import { Service, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map, catchError } from 'rxjs';
 
-import { NotificationService, ApiResponse } from 'core';
+import { NotificationService, ApiResponse, Uuid } from 'core';
 import { URLS } from '../constants';
 import { UserItem } from '../models/user-item';
 
@@ -18,11 +18,15 @@ export class UsersService {
   }
 
 
-  fetch_users(filter: string): Observable<Array<UserItem>> {
+  fetch_users(
+    tenant_id: Uuid,
+    filter: string
+  ): Observable<Array<UserItem>> {
     return this.http.post<ApiResponse>(
       `${URLS.base_url}${URLS.fetch_users}`,
       {
-        filter
+        tenant_id: tenant_id.to_string(),
+        filter: filter
       }
     ).pipe(
       map((r: ApiResponse) => {
