@@ -5,12 +5,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDialog } from '@angular/material/dialog';
 
 import { Uuid, NotificationService } from 'core';
 import { UsersService } from '../../../services/users-service';
 import { TenantItem } from '../../../models/tenant-item';
 import { TenantSelector } from '../../../ui/components/tenant-selector/tenant-selector';
 import { UserItem } from '../../../models/user-item';
+import { RoleSelectionDialog } from '../../dialogs/role-selection-dialog/role-selection-dialog';
 
 
 class UserItemRow {
@@ -37,6 +39,7 @@ class UserItemRow {
 export class Users {
 
   users_service = inject(UsersService);
+  md = inject(MatDialog);
 
   model = signal({
     filter: '',
@@ -116,6 +119,17 @@ export class Users {
     console.info('on_assign_roles');
 
     event.preventDefault();
+    let dr = this.md.open(
+      RoleSelectionDialog,
+      {
+        position: {
+          right: '10px'
+        }
+      }
+    );
+    dr.afterClosed().subscribe((r: any) => {
+      console.debug(r);
+    });
   }
 
   on_revoke_roles(event: Event): void {
