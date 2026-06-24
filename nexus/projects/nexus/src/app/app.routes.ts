@@ -52,5 +52,10 @@ export const routes: Routes = [
     path: 'payables',
     title: 'Payables',
     loadChildren: () => import('payables').then((m) => m.routes)
+  },
+  {
+    path: 'accounting',
+    title: 'Accounting',
+    loadChildren: () => import('accounting').then((m) => m.routes)
   }
 ];
