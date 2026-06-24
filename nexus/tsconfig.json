@@ -7,6 +7,7 @@
       "accounting": ["./dist/accounting"],
       "admin-tenants": ["./dist/admin-tenants"],
       "admin-users": ["./dist/admin-users"],
+      "cms": ["./dist/cms"],
       // "auth": ["./dist/auth"],
       // "common": ["./dist/common"],
       "core": ["./dist/core"],
@@ -144,6 +145,12 @@
     },
     {
       "path": "./projects/testing/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/cms/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/cms/tsconfig.spec.json"
     }
   ]
 }
