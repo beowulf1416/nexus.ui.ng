@@ -1,2 +1,14 @@
-<app-header></app-header>
-<app-sidebar-left></app-sidebar-left>
+<div class="component home">
+  <app-header></app-header>
+  <mat-sidenav-container>
+    <mat-sidenav position="start" #sidenav>
+      <app-sidebar-left></app-sidebar-left>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <button type="button" class="btn nav-open" title="Open" mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div><!-- .component -->
