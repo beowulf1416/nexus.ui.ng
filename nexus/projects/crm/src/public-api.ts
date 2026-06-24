@@ -2,4 +2,4 @@
  * Public API Surface of crm
  */
 
-export * from './lib/crm';
+export * from './lib/crm.routes';
