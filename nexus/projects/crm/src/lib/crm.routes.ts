@@ -12,9 +12,14 @@ export const routes: Routes = [
         loadComponent: () => import('./ui/features/dashboard/dashboard').then((m) => m.Dashboard),
       },
       {
-        path: 'partners',
-        title: 'Partners',
-        loadComponent: () => import('./ui/features/partners/partners').then((m) => m.Partners),
+        path: 'people',
+        title: 'People',
+        loadComponent: () => import('./ui/features/people/people').then((m) => m.People),
+      },
+      {
+        path: 'businesses',
+        title: 'Businesses',
+        loadComponent: () => import('./ui/features/businesses/businesses').then((m) => m.Businesses),
       },
     ],
   },
