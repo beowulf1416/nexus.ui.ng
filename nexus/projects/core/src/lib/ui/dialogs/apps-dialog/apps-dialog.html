@@ -1,0 +1,22 @@
+<div class="component apps-dialog">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Applications</mat-card-title>
+      <mat-card-subtitle>Choose from a list of applications</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <nav>
+        <div class="wrapper app-item">
+          <a title="Customer Relations" [routerLink]="['/crm']">
+            <img src="assets/icons/crm.svg" alt="Customer Relations">
+          </a>
+        </div><!-- .wrapper -->
+        <div class="wrapper app-item">
+          <a title="Inventory" [routerLink]="['/inventory']">
+            <img src="assets/icons/inv.svg" alt="Inventory">
+          </a>
+        </div><!-- .wrapper -->
+      </nav>
+    </mat-card-content>
+  </mat-card>
+</div><!-- .component -->

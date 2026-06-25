@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UserService } from '../../../services/user-service';
 import { NotificationService } from '../../../services/notification-service';
 import { NotificationsDialog } from '../../dialogs/notifications-dialog/notifications-dialog';
+import { AppsDialog } from '../../dialogs/apps-dialog/apps-dialog';
 
 
 @Component({
@@ -35,7 +36,7 @@ export class AppHeader implements OnInit {
   is_user_authenticated = computed(() => {
     return this.user_service.current_user().is_authenticated
   });
-  click = output<void>();
+  // click = output<void>();
 
   tenants = computed(() => this.user_service.tenants());
   destination = signal('');
@@ -59,7 +60,14 @@ export class AppHeader implements OnInit {
 
   on_applications(event: Event): void {
     console.info('on_applications')
-    this.click.emit();
+    // this.click.emit();
+    event.preventDefault();
+    let dr = this.md.open(AppsDialog, {
+    });
+    dr.afterClosed().subscribe((result: any) => {
+      console.debug(result);
+    });
+
   }
 
   on_notifications(event: Event): void {
@@ -70,7 +78,7 @@ export class AppHeader implements OnInit {
         top: '50px',
         right: '10px'
       }
-    })
+    });
     dr.afterClosed().subscribe((result: any) => {
       console.debug(result);
     });
