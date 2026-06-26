@@ -1,4 +1,4 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, computed, inject } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { form, FormField, required, submit, FieldTree } from '@angular/forms/signals';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 
 import { ApiResponse, Uuid } from 'core';
 import { HTTP_STATUS } from 'core';
+import { PersonDialog } from '../../dialogs/person-dialog/person-dialog';
 
 import { Person } from '../../../models/person';
 
@@ -55,6 +56,8 @@ export class People {
     return this.model().filter.length < 1;
   });
 
+  md = inject(MatDialog);
+
   constructor() {
 
   }
@@ -85,6 +88,16 @@ export class People {
   new_person_dialog(event: Event): void {
     console.info('new_person_dialog');
     event.preventDefault();
+
+    let dr = this.md.open(PersonDialog, {});
+    dr.afterClosed().subscribe({
+      next: (result: any) => {
+        console.debug(result);
+      },
+      error: (e: any) => {
+        console.error(e);
+      },
+    });
 
   }
 

@@ -1,1 +1,93 @@
-<p>partners works!</p>
+<div class="component partners">
+  <div class="wrapper form">
+    <form class="form-partners" method="post" action="">
+      <div class="wrapper actions">
+        <mat-toolbar>
+          <button type="button" class="btn person" title="New Person" aria-label="New Person" mat-icon-button (click)="new_person_dialog($event)">
+            <mat-icon>person_add</mat-icon>
+          </button>
+          <button type="button" class="btn business" title="New Business" aria-label="New Business" mat-icon-button (click)="new_business_dialog($event)">
+            <mat-icon>business</mat-icon>
+          </button>
+          <div class="separator">|</div>
+          <button type="button" class="btn set-active" title="Enable" aria-label="Enable" mat-icon-button [disabled]="active_disabled()" (click)="on_set_active($event, true)">
+            <mat-icon>toggle_on</mat-icon>
+          </button>
+          <button type="button" class="btn set-active" title="Disable" aria-label="Disable" mat-icon-button [disabled]="active_disabled()" (click)="on_set_active($event, false)">
+            <mat-icon>toggle_off</mat-icon>
+          </button>
+          <div class="separator">|</div>
+          <div class="wrapper filter">
+            <mat-form-field appearance="outline">
+              <mat-label>Search</mat-label>
+              <input type="search" class="input filter" placeholder="Filter" matInput [formField]="component.form.filter" />
+              <button type="button" class="btn filter" title="Search" aria-label="Search" mat-icon-button matSuffix (click)="on_filter($event)">
+                <mat-icon>search</mat-icon>
+              </button>
+              <button type="button" class="btn reset" title="Clear" aria-label="Clear" mat-icon-button matSuffix [disabled]="reset_disabled()" (click)="on_reset_filter($event)">
+                <mat-icon>close_small</mat-icon>
+              </button>
+            </mat-form-field>
+          </div><!-- .wrapper filter -->
+          <button type="button" class="btn refresh" title="Refresh" aria-label="Refresh" mat-icon-button (click)="on_refresh($event)">
+            <mat-icon>refresh</mat-icon>
+          </button>
+
+        </mat-toolbar>
+        <div class="wrapper errors">
+          @if (component.errors().length > 0) {
+              @for (error of component.errors(); track error) {
+                <div>{{ error }}</div>
+              }
+          }
+        </div><!-- .wrapper errors -->
+        <div class="wrapper tenants">
+          <table class="tenants">
+            <caption>Tenants</caption>
+            <thead>
+              <tr>
+                <th>
+                  <input type="checkbox" class="input check select-all" title="Select All" (click)="on_select_all($event)"/>
+                </th>
+                <th>Active</th>
+                <th>Name</th>
+                <th>Created</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th></th>
+                <th>Active</th>
+                <th>Name</th>
+                <th>Created</th>
+                <th>Actions</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              @for (tr of component.form.people; let i = $index; track i) {
+                <tr class="tenant-item">
+                  <td>
+                    <input type="checkbox" class="input check select" title="Select Item" (click)="on_select_item($event)" [formField]="tr.selected" />
+                  </td>
+                  <td class="state" [class]="tr.partner.active() ? 'active' : 'inactive'">
+                    <span class="material-symbols-outlined">
+                      check_circle
+                    </span>
+                  </td>
+                  <td>{{ tr.partner.name().value() }}</td>
+                  <td>{{ tr.partner.created().value() }}</td>
+                  <td>
+                    <button type="button" class="btn edit-tenant" title="Edit Tenant" mat-icon-button (click)="on_edit_person($event, i)">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div><!-- .wrapper -->
+      </div><!-- .wrapper -->
+    </form>
+  </div><!-- .wrapper -->
+</div><!-- .component -->
