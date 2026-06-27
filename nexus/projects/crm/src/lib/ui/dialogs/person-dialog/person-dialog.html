@@ -1,1 +1,56 @@
-<p>person-dialog works!</p>
+<div class="component person-dialog">
+  <div class="wrapper form">
+    <form id="person" class="form-person" method="post" action="" (submit)="on_submit($event)">
+      <h3 mat-dialog-title>{{ title() }}</h3>
+      <mat-dialog-content>
+        <div class="errors">
+          @if (component.errors().length > 0) {
+            @for (error of component.errors(); track error) {
+              <div>{{ error }}</div>
+            }
+          }
+        </div><!-- .errors -->
+        <fieldset class="names">
+          <mat-form-field class="field block">
+            <mat-label>Prefix</mat-label>
+            <input class="input prefix" placeholder="Prefix" matInput [formField]="component.form.prefix">
+          </mat-form-field>
+          <mat-form-field class="field block">
+            <mat-label>First Name</mat-label>
+            <input class="input first_name" placeholder="First Name" matInput [formField]="component.form.first_name">
+          </mat-form-field>
+          <mat-form-field class="field block">
+            <mat-label>Middle Name</mat-label>
+            <input class="input middle_name" placeholder="Middle Name" matInput [formField]="component.form.middle_name">
+          </mat-form-field>
+          <mat-form-field class="field block">
+            <mat-label>Last Name</mat-label>
+            <input class="input last_name" placeholder="Last Name" matInput [formField]="component.form.last_name">
+          </mat-form-field>
+          <mat-form-field class="field block">
+            <mat-label>suffix</mat-label>
+            <input class="input suffix" placeholder="suffix" matInput [formField]="component.form.suffix">
+          </mat-form-field>
+        </fieldset><!-- .names -->
+        <fieldset>
+          <mat-form-field class="field block">
+            <mat-label>Gender</mat-label>
+            <input class="input gender" placeholder="Gender" matInput [formField]="component.form.gender">
+          </mat-form-field>
+        </fieldset>
+      </mat-dialog-content>
+      <mat-dialog-actions>
+        <button type="button" matFab extended (click)="on_cancel($event)">
+          <mat-icon>cancel</mat-icon>
+          <span>Cancel</span>
+        </button>
+        <button type="submit" matFab extended [disabled]="component.form().invalid()">
+          <mat-icon>save</mat-icon>
+          <span>Save</span>
+        </button>
+      </mat-dialog-actions>
+      <input type="hidden" [formField]="component.form.tenant_id">
+      <input type="hidden" [formField]="component.form.person_id">
+    </form>
+  </div><!-- .wrapper -->
+</div><!-- .component -->
