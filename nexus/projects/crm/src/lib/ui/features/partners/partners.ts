@@ -59,87 +59,96 @@ export class Partners {
 
   md = inject(MatDialog);
 
-    constructor() {
+  constructor() {
 
-    }
+  }
 
-    fetch_people(): void {
-      console.info('fetch_people');
+  fetch_people(): void {
+    console.info('fetch_people');
 
-    }
+  }
 
-    on_filter(event: Event): void {
-      console.info('on_filter');
-      event.preventDefault();
+  on_filter(event: Event): void {
+    console.info('on_filter');
+    event.preventDefault();
 
-    }
+  }
 
-    on_reset_filter(event: Event): void {
-      console.info('on_reset_filter');
-      event.preventDefault();
+  on_reset_filter(event: Event): void {
+    console.info('on_reset_filter');
+    event.preventDefault();
 
-    }
+  }
 
-    on_refresh(event: Event): void {
-      console.info('on_refresh');
-      event.preventDefault();
+  on_refresh(event: Event): void {
+    console.info('on_refresh');
+    event.preventDefault();
 
-    }
+  }
 
-    new_person_dialog(event: Event): void {
-      console.info('new_person_dialog');
-      event.preventDefault();
+  new_person_dialog(event: Event): void {
+    console.info('new_person_dialog');
+    event.preventDefault();
 
-      let dr = this.md.open(PersonDialog, {});
-      dr.afterClosed().subscribe({
-        next: (result: any) => {
-          console.debug(result);
-        },
-        error: (e: any) => {
-          console.error(e);
-        },
-      });
+    let dr = this.md.open(PersonDialog, {
+      position: {
+        top: '20px',
+        right: '10px'
+      },
+    });
+    dr.afterClosed().subscribe({
+      next: (result: any) => {
+        console.debug(result);
+      },
+      error: (e: any) => {
+        console.error(e);
+      },
+    });
 
-    }
+  }
 
-    new_business_dialog(event: Event): void {
-      console.info('new_business_dialog');
-      event.preventDefault();
+  new_business_dialog(event: Event): void {
+    console.info('new_business_dialog');
+    event.preventDefault();
 
-      let dr = this.md.open(BusinessDialog, {});
-      dr.afterClosed().subscribe({
-        next: (result: any) => {
-          console.debug(result);
-        },
-        error: (e: any) => {
-          console.error(e);
-        },
-      });
+    let dr = this.md.open(BusinessDialog, {
+      position: {
+        top: '20px',
+        right: '10px'
+      },
+    });
+    dr.afterClosed().subscribe({
+      next: (result: any) => {
+        console.debug(result);
+      },
+      error: (e: any) => {
+        console.error(e);
+      },
+    });
 
-    }
+  }
 
-    on_edit_person(event: Event, i: number): void {
-      console.info('on_edit_person');
-      event.preventDefault();
+  on_edit_person(event: Event, i: number): void {
+    console.info('on_edit_person');
+    event.preventDefault();
 
-    }
+  }
 
-    on_set_active(event: Event, active: boolean): void {
-      console.info('on_set_active');
-      event.preventDefault();
+  on_set_active(event: Event, active: boolean): void {
+    console.info('on_set_active');
+    event.preventDefault();
 
-    }
+  }
 
-    on_select_all(event: Event): void {
-      console.info('on_select_all');
-      event.preventDefault();
+  on_select_all(event: Event): void {
+    console.info('on_select_all');
+    event.preventDefault();
 
-    }
+  }
 
-    on_select_item(event: Event): void {
-      console.info('on_select_item');
-      event.preventDefault();
+  on_select_item(event: Event): void {
+    console.info('on_select_item');
+    event.preventDefault();
 
-    }
-
+  }
 }
