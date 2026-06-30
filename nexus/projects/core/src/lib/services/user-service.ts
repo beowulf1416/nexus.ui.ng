@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Service, Injectable, signal, inject } from '@angular/core';
 import { ApiResponse } from '../models/api-response';
 import { map, Observable, catchError, of, mergeMap, forkJoin, switchMap } from 'rxjs';
 import { HttpClient, HttpResponse } from '@angular/common/http';
@@ -9,17 +9,20 @@ import { Uuid } from '../models/uuid';
 import { URLS } from '../constants';
 
 
-@Injectable({
-  providedIn: 'root',
-})
+// @Injectable({
+//   providedIn: 'root',
+// })
+@Service()
 export class UserService {
   private  _current_user = signal(User.anonymous());
   private _tenants = signal(new Array<Tenant>(
     Tenant.default()
   ));
 
+  http = inject(HttpClient);
+
   constructor(
-    private http: HttpClient
+    // private http: HttpClient
   ) {
 
   }
