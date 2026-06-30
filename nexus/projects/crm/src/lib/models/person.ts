@@ -2,7 +2,7 @@ import { Uuid } from "core";
 
 export class Person {
   constructor(
-    readonly tenant_id: Uuid,
+    // readonly tenant_id: Uuid,
     readonly person_id: Uuid,
 
     readonly first_name: string,

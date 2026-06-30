@@ -1,3 +1,5 @@
+import { Uuid } from 'core';
+
 export class Business {
 
   constructor(

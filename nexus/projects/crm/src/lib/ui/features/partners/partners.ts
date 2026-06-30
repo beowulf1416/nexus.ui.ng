@@ -8,12 +8,15 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 
-import { ApiResponse, Uuid } from 'core';
+import { ApiResponse, Uuid, NotificationService, UserService } from 'core';
 import { HTTP_STATUS } from 'core';
 import { PersonDialog } from '../../dialogs/person-dialog/person-dialog';
 import { BusinessDialog } from '../../dialogs/business-dialog/business-dialog';
+import { PartnerService } from '../../../services/partner-service';
 
 import { Partner } from '../../../models/partner';
+import { Person } from '../../../models/person';
+
 
 
 class PartnerRow {
@@ -22,6 +25,20 @@ class PartnerRow {
     readonly selected: boolean = false
   ){}
 }
+
+
+class PersonDialogDataResult {
+  constructor(
+    readonly tenant_id: string,
+    readonly person_id: string,
+    readonly first_name: string,
+    readonly middle_name: string,
+    readonly last_name: string,
+    readonly prefix: string,
+    readonly suffix: string,
+  ){}
+}
+
 
 
 @Component({
@@ -58,6 +75,11 @@ export class Partners {
   });
 
   md = inject(MatDialog);
+  user_service = inject(UserService);
+  partner_service = inject(PartnerService);
+  notification_service = inject(NotificationService);
+
+  current_tenant = computed(() => this.user_service.current_user().tenant);
 
   constructor() {
 
@@ -90,15 +112,44 @@ export class Partners {
     console.info('new_person_dialog');
     event.preventDefault();
 
+    const tenant_id = this.current_tenant().id;
+    // console.debug(tenant_id);
+
     let dr = this.md.open(PersonDialog, {
       position: {
         top: '20px',
         right: '10px'
       },
+      data: {
+        tenant_id: tenant_id,
+        person_id: null
+      }
     });
     dr.afterClosed().subscribe({
-      next: (result: any) => {
+      next: (result: PersonDialogDataResult) => {
         console.debug(result);
+
+        this.partner_service.person_save(
+          new Uuid(result.tenant_id),
+          new Person(
+            new Uuid(result.person_id),
+            result.first_name,
+            result.middle_name,
+            result.last_name,
+            result.prefix,
+            result.suffix,
+            new Date(),
+            true
+          )
+        ).subscribe({
+          next: (r: ApiResponse) => {
+            console.debug(r);
+          },
+          error: (e: HttpErrorResponse) => {
+            console.error(e);
+            this.notification_service.error(e.message);
+          },
+        });
       },
       error: (e: any) => {
         console.error(e);

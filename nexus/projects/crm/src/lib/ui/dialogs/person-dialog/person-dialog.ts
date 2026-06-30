@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { Uuid } from 'core';
+import { Tenant } from 'core';
 
 
 
@@ -50,28 +51,27 @@ export class PersonDialog implements OnInit {
   });
 
   readonly data = inject<{
-    tenant_id: Uuid
-    person_id: Uuid | null
+    tenant_id: string
+    person_id: string | null
   } | null>(MAT_DIALOG_DATA);
 
   dr = inject(MatDialogRef<PersonDialog>);
+
 
   constructor() {}
 
   ngOnInit(): void {
     console.info('ngOnInit');
+    console.debug(this.data);
 
-    if (this.data?.tenant_id) {
-      const tenant_id = this.data.tenant_id;
-      this.model.update((m) => ({
-        ...m,
-        tenant_id: tenant_id.to_string()
-      }));
-    }
+    const tenant_id = this.data?.tenant_id || Tenant.default().id.to_string();
+    const person_id = this.data?.person_id || new Uuid().to_string();
 
-    if (this.data?.person_id) {
-      console.info('//todo ngOnInit');
-    }
+    this.model.update((m) => ({
+      ...m,
+      tenant_id: tenant_id,
+      person_id: person_id
+    }));
   }
 
   on_cancel(event: Event): void {
