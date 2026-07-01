@@ -43,13 +43,14 @@ export class PartnerService {
   }
 
   business_save(
+    tenant_id: Uuid,
     business: Business
   ): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(
       `${URLS.base_url}${URLS.business_save}`,
       {
-        tenant_id: business.tenant_id,
-        business_id: business.business_id,
+        tenant_id: tenant_id.to_string(),
+        business_id: business.business_id.to_string(),
         name: business.name,
         description: business.description,
       }

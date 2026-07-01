@@ -39,6 +39,15 @@ class PersonDialogDataResult {
   ){}
 }
 
+class BusinessDialogDataResult {
+  constructor(
+    readonly tenant_id: string,
+    readonly business_id: string,
+    readonly name: string,
+    readonly description: string,
+  ){}
+}
+
 
 
 @Component({
@@ -127,32 +136,32 @@ export class Partners {
     });
     dr.afterClosed().subscribe({
       next: (result: PersonDialogDataResult) => {
+        // this.partner_service.person_save(
+        //   new Uuid(result.tenant_id),
+        //   new Person(
+        //     new Uuid(result.person_id),
+        //     result.first_name,
+        //     result.middle_name,
+        //     result.last_name,
+        //     result.prefix,
+        //     result.suffix,
+        //     new Date(),
+        //     true
+        //   )
+        // ).subscribe({
+        //   next: (r: ApiResponse) => {
+        //     console.debug(r);
+        //   },
+        //   error: (e: HttpErrorResponse) => {
+        //     console.error(e);
+        //     this.notification_service.error(e.message);
+        //   },
+        // });
         console.debug(result);
-
-        this.partner_service.person_save(
-          new Uuid(result.tenant_id),
-          new Person(
-            new Uuid(result.person_id),
-            result.first_name,
-            result.middle_name,
-            result.last_name,
-            result.prefix,
-            result.suffix,
-            new Date(),
-            true
-          )
-        ).subscribe({
-          next: (r: ApiResponse) => {
-            console.debug(r);
-          },
-          error: (e: HttpErrorResponse) => {
-            console.error(e);
-            this.notification_service.error(e.message);
-          },
-        });
       },
       error: (e: any) => {
         console.error(e);
+        this.notification_service.error(e);
       },
     });
 
@@ -162,18 +171,25 @@ export class Partners {
     console.info('new_business_dialog');
     event.preventDefault();
 
+    const tenant_id = this.current_tenant().id;
+
     let dr = this.md.open(BusinessDialog, {
       position: {
         top: '20px',
         right: '10px'
       },
+      data: {
+        tenant_id: tenant_id,
+        business_id: null
+      }
     });
     dr.afterClosed().subscribe({
-      next: (result: any) => {
+      next: (result: BusinessDialogDataResult) => {
         console.debug(result);
       },
       error: (e: any) => {
         console.error(e);
+        this.notification_service.error(e);
       },
     });
 
