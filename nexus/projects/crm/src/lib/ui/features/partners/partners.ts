@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
+import { map, of, catchError } from 'rxjs';
 
 import { ApiResponse, Uuid, NotificationService, UserService } from 'core';
 import { HTTP_STATUS } from 'core';
@@ -94,27 +95,48 @@ export class Partners {
 
   }
 
-  fetch_people(): void {
+  fetch_partners(): void {
     console.info('fetch_people');
+    console.debug(this.current_tenant().id);
 
+    const model = this.model();
+    this.partner_service.fetch_partners(
+      this.current_tenant().id,
+      model.filter
+    ).subscribe({
+      next: (r: Array<Partner>) => {
+        console.debug(r);
+      },
+      error: (e: HttpErrorResponse) => {
+        this.notification_service.error(e.message);
+      },
+    });
   }
 
   on_filter(event: Event): void {
     console.info('on_filter');
     event.preventDefault();
 
+    this.fetch_partners();
   }
 
   on_reset_filter(event: Event): void {
     console.info('on_reset_filter');
     event.preventDefault();
 
+    this.model.update((m) => ({
+      ...m,
+      filter: ''
+    }));
+
+    this.fetch_partners();
   }
 
   on_refresh(event: Event): void {
     console.info('on_refresh');
     event.preventDefault();
 
+    this.fetch_partners();
   }
 
   new_person_dialog(event: Event): void {

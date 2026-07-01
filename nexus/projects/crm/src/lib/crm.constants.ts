@@ -3,4 +3,6 @@ export const URLS = {
 
   person_save: '/crm/person/save',
   business_save: '/crm/business/save',
+
+  partners_fetch: '/crm/partners/fetch'
 };

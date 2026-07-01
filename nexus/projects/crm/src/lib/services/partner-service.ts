@@ -1,6 +1,6 @@
 import { Service, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of, map, catchError } from 'rxjs';
 
 
 import { ApiResponse, Uuid } from 'core';
@@ -8,6 +8,7 @@ import { URLS } from '../crm.constants';
 
 import { Person } from '../models/person';
 import { Business } from '../models/business';
+import { Partner } from '../models/partner';
 
 
 
@@ -54,6 +55,34 @@ export class PartnerService {
         name: business.name,
         description: business.description,
       }
+    );
+  }
+
+  fetch_partners(
+    tenant_id: Uuid,
+    filter: string
+  ): Observable<Array<Partner>> {
+    return this.http.post<ApiResponse>(
+      `${URLS.base_url}${URLS.partners_fetch}`,
+      {
+        tenant_id: tenant_id,
+        filter: filter,
+      }
+    ).pipe(
+      map((r: ApiResponse) => {
+        if (r.success && r.data) {
+          const partners = (r.data as {
+            partners: Array<Partner>
+          }).partners;
+          return partners;
+        }
+        return new Array<Partner>();
+      }),
+      catchError((e: any) => {
+        console.error(e);
+        // return of(new Array<Partner>());
+        throw e;
+      })
     );
   }
 }
