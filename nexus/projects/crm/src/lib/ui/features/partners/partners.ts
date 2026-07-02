@@ -11,12 +11,13 @@ import { map, of, catchError } from 'rxjs';
 
 import { ApiResponse, Uuid, NotificationService, UserService } from 'core';
 import { HTTP_STATUS } from 'core';
-import { PersonDialog } from '../../dialogs/person-dialog/person-dialog';
-import { BusinessDialog } from '../../dialogs/business-dialog/business-dialog';
+import { PartnerDialog } from '../../dialogs/partner-dialog/partner-dialog';
+// import { PersonDialog } from '../../dialogs/person-dialog/person-dialog';
+// import { BusinessDialog } from '../../dialogs/business-dialog/business-dialog';
 import { PartnerService } from '../../../services/partner-service';
 
 import { Partner } from '../../../models/partner';
-import { Person } from '../../../models/person';
+// import { Person } from '../../../models/person';
 
 
 
@@ -28,10 +29,12 @@ class PartnerRow {
 }
 
 
-class PersonDialogDataResult {
+class PartnerDialogDataResult {
   constructor(
     readonly tenant_id: string,
-    readonly person_id: string,
+    readonly partner_id: string,
+    readonly business_name: string,
+    readonly description: string,
     readonly first_name: string,
     readonly middle_name: string,
     readonly last_name: string,
@@ -40,14 +43,14 @@ class PersonDialogDataResult {
   ){}
 }
 
-class BusinessDialogDataResult {
-  constructor(
-    readonly tenant_id: string,
-    readonly business_id: string,
-    readonly name: string,
-    readonly description: string,
-  ){}
-}
+// class BusinessDialogDataResult {
+//   constructor(
+//     readonly tenant_id: string,
+//     readonly business_id: string,
+//     readonly name: string,
+//     readonly description: string,
+//   ){}
+// }
 
 
 
@@ -67,7 +70,7 @@ class BusinessDialogDataResult {
 export class Partners {
   model = signal({
     filter: '',
-    people: new Array<PartnerRow>()
+    partners: new Array<PartnerRow>()
   });
 
   component = {
@@ -78,7 +81,7 @@ export class Partners {
   };
 
   active_disabled = computed(() => {
-    return this.model().people.filter((t) => t.selected).length < 1;
+    return this.model().partners.filter((t) => t.selected).length < 1;
   });
   reset_disabled = computed(() => {
     return this.model().filter.length < 1;
@@ -97,7 +100,7 @@ export class Partners {
 
   fetch_partners(): void {
     console.info('fetch_people');
-    console.debug(this.current_tenant().id);
+    // console.debug(this.current_tenant().id);
 
     const model = this.model();
     this.partner_service.fetch_partners(
@@ -105,7 +108,10 @@ export class Partners {
       model.filter
     ).subscribe({
       next: (r: Array<Partner>) => {
-        console.debug(r);
+        this.model.update((m) => ({
+          ...m,
+          partners: r.map((p) => new PartnerRow(p, false))
+        }));
       },
       error: (e: HttpErrorResponse) => {
         this.notification_service.error(e.message);
@@ -139,46 +145,23 @@ export class Partners {
     this.fetch_partners();
   }
 
-  new_person_dialog(event: Event): void {
-    console.info('new_person_dialog');
+  new_partner_dialog(event: Event): void {
+    console.info('new_partner_dialog');
     event.preventDefault();
 
     const tenant_id = this.current_tenant().id;
-    // console.debug(tenant_id);
-
-    let dr = this.md.open(PersonDialog, {
+    const dialog_ref = this.md.open(PartnerDialog, {
       position: {
         top: '20px',
         right: '10px'
       },
       data: {
         tenant_id: tenant_id,
-        person_id: null
+        partner_id: null
       }
     });
-    dr.afterClosed().subscribe({
-      next: (result: PersonDialogDataResult) => {
-        // this.partner_service.person_save(
-        //   new Uuid(result.tenant_id),
-        //   new Person(
-        //     new Uuid(result.person_id),
-        //     result.first_name,
-        //     result.middle_name,
-        //     result.last_name,
-        //     result.prefix,
-        //     result.suffix,
-        //     new Date(),
-        //     true
-        //   )
-        // ).subscribe({
-        //   next: (r: ApiResponse) => {
-        //     console.debug(r);
-        //   },
-        //   error: (e: HttpErrorResponse) => {
-        //     console.error(e);
-        //     this.notification_service.error(e.message);
-        //   },
-        // });
+    dialog_ref.afterClosed().subscribe({
+      next: (result: PartnerDialogDataResult) => {
         console.debug(result);
       },
       error: (e: any) => {
@@ -186,36 +169,84 @@ export class Partners {
         this.notification_service.error(e);
       },
     });
-
   }
 
-  new_business_dialog(event: Event): void {
-    console.info('new_business_dialog');
-    event.preventDefault();
+  // new_person_dialog(event: Event): void {
+  //   console.info('new_person_dialog');
+  //   event.preventDefault();
 
-    const tenant_id = this.current_tenant().id;
+  //   const tenant_id = this.current_tenant().id;
+  //   // console.debug(tenant_id);
 
-    let dr = this.md.open(BusinessDialog, {
-      position: {
-        top: '20px',
-        right: '10px'
-      },
-      data: {
-        tenant_id: tenant_id,
-        business_id: null
-      }
-    });
-    dr.afterClosed().subscribe({
-      next: (result: BusinessDialogDataResult) => {
-        console.debug(result);
-      },
-      error: (e: any) => {
-        console.error(e);
-        this.notification_service.error(e);
-      },
-    });
+  //   let dr = this.md.open(PersonDialog, {
+  //     position: {
+  //       top: '20px',
+  //       right: '10px'
+  //     },
+  //     data: {
+  //       tenant_id: tenant_id,
+  //       person_id: null
+  //     }
+  //   });
+  //   dr.afterClosed().subscribe({
+  //     next: (result: PersonDialogDataResult) => {
+  //       // this.partner_service.person_save(
+  //       //   new Uuid(result.tenant_id),
+  //       //   new Person(
+  //       //     new Uuid(result.person_id),
+  //       //     result.first_name,
+  //       //     result.middle_name,
+  //       //     result.last_name,
+  //       //     result.prefix,
+  //       //     result.suffix,
+  //       //     new Date(),
+  //       //     true
+  //       //   )
+  //       // ).subscribe({
+  //       //   next: (r: ApiResponse) => {
+  //       //     console.debug(r);
+  //       //   },
+  //       //   error: (e: HttpErrorResponse) => {
+  //       //     console.error(e);
+  //       //     this.notification_service.error(e.message);
+  //       //   },
+  //       // });
+  //       console.debug(result);
+  //     },
+  //     error: (e: any) => {
+  //       console.error(e);
+  //       this.notification_service.error(e);
+  //     },
+  //   });
+  // }
 
-  }
+  // new_business_dialog(event: Event): void {
+  //   console.info('new_business_dialog');
+  //   event.preventDefault();
+
+  //   const tenant_id = this.current_tenant().id;
+
+  //   let dr = this.md.open(BusinessDialog, {
+  //     position: {
+  //       top: '20px',
+  //       right: '10px'
+  //     },
+  //     data: {
+  //       tenant_id: tenant_id,
+  //       business_id: null
+  //     }
+  //   });
+  //   dr.afterClosed().subscribe({
+  //     next: (result: BusinessDialogDataResult) => {
+  //       console.debug(result);
+  //     },
+  //     error: (e: any) => {
+  //       console.error(e);
+  //       this.notification_service.error(e);
+  //     },
+  //   });
+
+  // }
 
   on_edit_person(event: Event, i: number): void {
     console.info('on_edit_person');

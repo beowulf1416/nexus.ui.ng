@@ -1,8 +1,9 @@
 export const URLS = {
   base_url: 'http://localhost:8080',
 
-  person_save: '/crm/person/save',
-  business_save: '/crm/business/save',
+  // person_save: '/crm/person/save',
+  // business_save: '/crm/business/save',
 
+  partner_save: '/crm/partner/save',
   partners_fetch: '/crm/partners/fetch'
 };

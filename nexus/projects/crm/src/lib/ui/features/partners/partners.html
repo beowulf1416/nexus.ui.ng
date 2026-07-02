@@ -3,11 +3,8 @@
     <form class="form-partners" method="post" action="">
       <div class="wrapper actions">
         <mat-toolbar>
-          <button type="button" class="btn person" title="New Person" aria-label="New Person" mat-icon-button (click)="new_person_dialog($event)">
+          <button type="button" class="btn partner" title="New Partner" aria-label="New Partner" mat-icon-button (click)="new_partner_dialog($event)">
             <mat-icon>person_add</mat-icon>
-          </button>
-          <button type="button" class="btn business" title="New Business" aria-label="New Business" mat-icon-button (click)="new_business_dialog($event)">
-            <mat-icon>business</mat-icon>
           </button>
           <div class="separator">|</div>
           <button type="button" class="btn set-active" title="Enable" aria-label="Enable" mat-icon-button [disabled]="active_disabled()" (click)="on_set_active($event, true)">
@@ -65,7 +62,7 @@
               </tr>
             </tfoot>
             <tbody>
-              @for (tr of component.form.people; let i = $index; track i) {
+              @for (tr of component.form.partners; let i = $index; track i) {
                 <tr class="tenant-item">
                   <td>
                     <input type="checkbox" class="input check select" title="Select Item" (click)="on_select_item($event)" [formField]="tr.selected" />
@@ -75,7 +72,7 @@
                       check_circle
                     </span>
                   </td>
-                  <td>{{ tr.partner.name().value() }}</td>
+                  <td>{{ tr.partner.business_name().value() }}</td>
                   <td>{{ tr.partner.created().value() }}</td>
                   <td>
                     <button type="button" class="btn edit-tenant" title="Edit Tenant" mat-icon-button (click)="on_edit_person($event, i)">

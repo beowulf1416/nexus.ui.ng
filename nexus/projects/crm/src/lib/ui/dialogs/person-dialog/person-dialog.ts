@@ -89,40 +89,40 @@ export class PersonDialog implements OnInit {
     event.preventDefault();
 
     const model = this.model();
-    submit(this.component.form, async () => {
-      const model = this.model();
+    // submit(this.component.form, async () => {
+    //   const model = this.model();
 
-      // console.debug(model);
-      this.partner_service.person_save(
-        new Uuid(model.tenant_id),
-        new Person(
-          new Uuid(model.person_id),
-          model.first_name,
-          model.middle_name,
-          model.last_name,
-          model.prefix,
-          model.suffix,
-          new Date(),
-          true
-        )
-      ).subscribe({
-        next: (r: ApiResponse) => {
-          console.debug(r);
+    //   // console.debug(model);
+    //   this.partner_service.person_save(
+    //     new Uuid(model.tenant_id),
+    //     new Person(
+    //       new Uuid(model.person_id),
+    //       model.first_name,
+    //       model.middle_name,
+    //       model.last_name,
+    //       model.prefix,
+    //       model.suffix,
+    //       new Date(),
+    //       true
+    //     )
+    //   ).subscribe({
+    //     next: (r: ApiResponse) => {
+    //       console.debug(r);
 
-          if (r.success) {
-            this.dr.close(model);
-          } else {
-            this.component.errors.update((m) => ({
-              ...m,
-              errors: this.component.errors().concat(r.message)
-            }));
-          }
-        },
-        error: (e: HttpErrorResponse) => {
-          console.error(e);
-          this.notification_service.error(e.message);
-        },
-      });
-    });
+    //       if (r.success) {
+    //         this.dr.close(model);
+    //       } else {
+    //         this.component.errors.update((m) => ({
+    //           ...m,
+    //           errors: this.component.errors().concat(r.message)
+    //         }));
+    //       }
+    //     },
+    //     error: (e: HttpErrorResponse) => {
+    //       console.error(e);
+    //       this.notification_service.error(e.message);
+    //     },
+    //   });
+    // });
   }
 }

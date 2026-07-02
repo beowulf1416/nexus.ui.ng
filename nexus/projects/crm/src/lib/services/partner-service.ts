@@ -21,42 +21,44 @@ export class PartnerService {
     // private http: HttpClient
   ) {}
 
-  person_save(
+  partner_save(
     tenant_id: Uuid,
-    person: Person
+    partner: Partner
   ): Observable<ApiResponse> {
-    console.info('person_save');
+    console.info('partner_save');
 
     return this.http.post<ApiResponse>(
-      `${URLS.base_url}${URLS.person_save}`,
+      `${URLS.base_url}${URLS.partner_save}`,
       {
         tenant_id: tenant_id.to_string(),
-        person_id: person.person_id.to_string(),
-        first_name: person.first_name,
-        middle_name: person.middle_name,
-        last_name: person.last_name,
-        prefix: person.prefix,
-        suffix: person.suffix,
+        partner_id: partner.partner_id.to_string(),
+        business_name: partner.business_name,
+        description: partner.description,
+        first_name: partner.first_name,
+        middle_name: partner.middle_name,
+        last_name: partner.last_name,
+        prefix: partner.prefix,
+        suffix: partner.suffix,
         // todo gender
-        gender: 0
+        // gender: 0
       }
     );
   }
 
-  business_save(
-    tenant_id: Uuid,
-    business: Business
-  ): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(
-      `${URLS.base_url}${URLS.business_save}`,
-      {
-        tenant_id: tenant_id.to_string(),
-        business_id: business.business_id.to_string(),
-        name: business.name,
-        description: business.description,
-      }
-    );
-  }
+  // business_save(
+  //   tenant_id: Uuid,
+  //   business: Business
+  // ): Observable<ApiResponse> {
+  //   return this.http.post<ApiResponse>(
+  //     `${URLS.base_url}${URLS.business_save}`,
+  //     {
+  //       tenant_id: tenant_id.to_string(),
+  //       business_id: business.business_id.to_string(),
+  //       name: business.name,
+  //       description: business.description,
+  //     }
+  //   );
+  // }
 
   fetch_partners(
     tenant_id: Uuid,
