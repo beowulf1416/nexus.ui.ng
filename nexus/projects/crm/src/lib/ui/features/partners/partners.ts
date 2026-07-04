@@ -22,7 +22,7 @@ import { Partner } from '../../../models/partner';
 class PartnerRow {
   constructor(
     readonly partner: Partner,
-    readonly selected: boolean = false,
+    public selected: boolean,
   ) {}
 }
 
@@ -71,7 +71,7 @@ export class Partners {
   component = {
     errors: signal(new Array<string>()),
     form: form(this.model, (f) => {
-      required(f.filter, { message: 'Filter is required' });
+      // required(f.filter, { message: 'Filter is required' });
     }),
   };
 
@@ -238,7 +238,7 @@ export class Partners {
 
   // }
 
-  on_edit_person(event: Event, i: number): void {
+  on_edit_partner(event: Event, i: number): void {
     console.info('on_edit_person');
     event.preventDefault();
   }
@@ -253,8 +253,8 @@ export class Partners {
     event.preventDefault();
   }
 
-  on_select_item(event: Event): void {
-    console.info('on_select_item');
-    event.preventDefault();
-  }
+  // on_select_item(event: Event, i: number): void {
+  //   console.info('on_select_item');
+  //   event.preventDefault();
+  // }
 }

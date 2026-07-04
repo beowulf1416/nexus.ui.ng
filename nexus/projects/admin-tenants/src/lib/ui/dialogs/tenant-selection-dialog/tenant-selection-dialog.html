@@ -4,87 +4,116 @@
       <h4 mat-dialog-title>Select Tenant</h4>
       <mat-dialog-content>
         <div class="errors">
-          @if (component.errors().length > 0) {
-            @for (error of component.errors(); track error) {
-              <div>{{ error }}</div>
-            }
-          }
-        </div><!-- .errors -->
+          @if (component.errors().length > 0) { @for (error of component.errors(); track error) {
+          <div>{{ error }}</div>
+          } }
+        </div>
+        <!-- .errors -->
         <div class="actions">
           <mat-toolbar>
             <div class="wrapper filter">
               <mat-form-field appearance="outline">
                 <mat-icon>filter_alt</mat-icon>
-                <input type="search" class="input filter" placeholder="Search..." matInput [formField]="component.form.filter" />
-                <button type="button" class="btn search" title="Search" mat-icon-button matSuffix (click)="on_search($event)">
+                <input
+                  type="search"
+                  class="input filter"
+                  placeholder="Search..."
+                  matInput
+                  [formField]="component.form.filter"
+                />
+                <button
+                  type="button"
+                  class="btn search"
+                  title="Search"
+                  mat-icon-button
+                  matSuffix
+                  (click)="on_search($event)"
+                >
                   <mat-icon>search</mat-icon>
                 </button>
                 <button type="button" class="btn clear" title="Clear" mat-icon-button matSuffix>
                   <mat-icon>clear</mat-icon>
                 </button>
               </mat-form-field>
-            </div><!-- .wrapper -->
+            </div>
+            <!-- .wrapper -->
           </mat-toolbar>
-        </div><!-- .actions -->
+        </div>
+        <!-- .actions -->
       </mat-dialog-content>
-        <div class="wrapper selected">
-          <table class="table selected">
-            <caption>Selected Tenants</caption>
-            <thead>
-              <tr>
-                <th>
-                </th>
-                <th>Name</th>
-              </tr>
-            </thead>
-            <tfoot>
-              <tr>
-              </tr>
-            </tfoot>
-            <tbody>
-              @for (tr of component.form.selected; let i = $index; track i) {
-                <tr>
-                  <td>
-                    <button type="button" class="btn deselect-tenant" title="Deselect tenant" mat-icon-button (click)="on_deselect_tenant($event, i)">
-                      <mat-icon>arrow_downward_alt</mat-icon>
-                    </button>
-                  </td>
-                  <td>
-                    <span>{{ tr.tenant.name().value() }}</span>
-                  </td>
-                </tr>
-              }
-            </tbody>
-          </table>
-        </div><!-- .wrapper -->
-        <div class="wrapper matches">
-          <table class="table matches">
-            <caption>Matches</caption>
-            <thead>
-              <tr>
-                <th>Tenant</th>
-              </tr>
-            </thead>
-            <tfoot>
-              <tr>
-              </tr>
-            </tfoot>
-            <tbody>
-              @for (tr of component.form.matches; let i = $index; track i) {
-                <tr>
-                  <td>
-                    <button type="button" class="btn select-tenant" title="Select tenant" mat-icon-button (click)="on_select_tenant($event, i)">
-                      <mat-icon>arrow_upward_alt</mat-icon>
-                    </button>
-                  </td>
-                  <td>
-                    <span>{{ tr.tenant.name().value() }}</span>
-                  </td>
-                </tr>
-              }
-            </tbody>
-          </table>
-        </div><!-- .wrapper -->
+      <div class="wrapper selected">
+        <table class="table selected">
+          <caption>
+            Selected Tenants
+          </caption>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr></tr>
+          </tfoot>
+          <tbody>
+            @for (tr of component.form.selected; let even = $even; let i = $index; track i) {
+            <tr class="tenant-item" [class]="even ? 'even' : 'odd'">
+              <td>
+                <button
+                  type="button"
+                  class="btn deselect-tenant"
+                  title="Deselect tenant"
+                  mat-icon-button
+                  (click)="on_deselect_tenant($event, i)"
+                >
+                  <mat-icon>arrow_downward_alt</mat-icon>
+                </button>
+              </td>
+              <td>
+                <span>{{ tr.tenant.name().value() }}</span>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <!-- .wrapper -->
+      <div class="wrapper matches">
+        <table class="table matches">
+          <caption>
+            Matches
+          </caption>
+          <thead>
+            <tr>
+              <th>Tenant</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr></tr>
+          </tfoot>
+          <tbody>
+            @for (tr of component.form.matches; let even = $even; let i = $index; track i) {
+            <tr class="tenant-item" [class]="even ? 'even' : 'odd'">
+              <td>
+                <button
+                  type="button"
+                  class="btn select-tenant"
+                  title="Select tenant"
+                  mat-icon-button
+                  (click)="on_select_tenant($event, i)"
+                >
+                  <mat-icon>arrow_upward_alt</mat-icon>
+                </button>
+              </td>
+              <td>
+                <span>{{ tr.tenant.name().value() }}</span>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <!-- .wrapper -->
       <mat-dialog-actions>
         <button type="button" class="btn cancel" matFab extended (click)="on_cancel($event)">
           <mat-icon>cancel</mat-icon>
@@ -96,5 +125,7 @@
         </button>
       </mat-dialog-actions>
     </form>
-  </div><!-- .wrapper -->
-</div><!-- .component -->
+  </div>
+  <!-- .wrapper -->
+</div>
+<!-- .component -->

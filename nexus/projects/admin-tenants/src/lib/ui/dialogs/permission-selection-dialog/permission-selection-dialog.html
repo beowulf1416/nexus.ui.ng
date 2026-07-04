@@ -4,34 +4,65 @@
       <h3 mat-dialog-title>Select Permissions</h3>
       <mat-dialog-content>
         <div class="errors">
-          @if (component.errors().length > 0) {
-            @for (error of component.errors(); track error) {
-              <div>{{ error }}</div>
-            }
-          }
-        </div><!-- .errors -->
+          @if (component.errors().length > 0) { @for (error of component.errors(); track error) {
+          <div>{{ error }}</div>
+          } }
+        </div>
+        <!-- .errors -->
         <div class="actions">
           <mat-toolbar>
             <div class="wrapper filter">
               <mat-form-field appearance="outline">
                 <mat-icon matPrefix>filter_alt</mat-icon>
-                <input type="text" class="input filter" placeholder="Search" matInput [formField]="component.form.filter" />
-                <button type="button" class="btn search" title="Search" mat-icon-button matSuffix [disabled]="!reset_disabled()" (click)="on_filter($event)">
+                <input
+                  type="text"
+                  class="input filter"
+                  placeholder="Search"
+                  matInput
+                  [formField]="component.form.filter"
+                />
+                <button
+                  type="button"
+                  class="btn search"
+                  title="Search"
+                  mat-icon-button
+                  matSuffix
+                  [disabled]="!reset_disabled()"
+                  (click)="on_filter($event)"
+                >
                   <mat-icon>search</mat-icon>
                 </button>
-                <button type="button" class="btn clear" title="Clear" mat-icon-button matSuffix [disabled]="reset_disabled()" (click)="on_clear($event)">
+                <button
+                  type="button"
+                  class="btn clear"
+                  title="Clear"
+                  mat-icon-button
+                  matSuffix
+                  [disabled]="reset_disabled()"
+                  (click)="on_clear($event)"
+                >
                   <mat-icon>clear</mat-icon>
                 </button>
               </mat-form-field>
-              <button type="button" class="btn refresh" title="Refresh" mat-icon-button (click)="on_refresh($event)">
+              <button
+                type="button"
+                class="btn refresh"
+                title="Refresh"
+                mat-icon-button
+                (click)="on_refresh($event)"
+              >
                 <mat-icon>refresh</mat-icon>
               </button>
-            </div><!-- .wrapper -->
+            </div>
+            <!-- .wrapper -->
           </mat-toolbar>
-        </div><!-- .actions -->
+        </div>
+        <!-- .actions -->
         <div class="selected">
           <table class="selected">
-            <caption>Selected</caption>
+            <caption>
+              Selected
+            </caption>
             <thead>
               <tr>
                 <th></th>
@@ -45,23 +76,32 @@
               </tr>
             </tfoot>
             <tbody>
-              @for (r of model().selected; let i = $index; track i) {
-                <tr>
-                  <td>
-                    <button type="button" class="btn deselect-permission" title="Deselect permission" mat-icon-button (click)="on_deselect_permission($event, i)">
-                      <mat-icon>arrow_downward_alt</mat-icon>
-                    </button>
-                  </td>
-                  <td>{{ r.permission.name }}</td>
-                  <td>{{ r.permission.description }}</td>
-                </tr>
+              @for (r of model().selected; let even = $even; let i = $index; track i) {
+              <tr class="permission-item" [class]="even ? 'even' : 'odd'">
+                <td>
+                  <button
+                    type="button"
+                    class="btn deselect-permission"
+                    title="Deselect permission"
+                    mat-icon-button
+                    (click)="on_deselect_permission($event, i)"
+                  >
+                    <mat-icon>arrow_downward_alt</mat-icon>
+                  </button>
+                </td>
+                <td>{{ r.permission.name }}</td>
+                <td>{{ r.permission.description }}</td>
+              </tr>
               }
             </tbody>
           </table>
-        </div><!-- .selected -->
+        </div>
+        <!-- .selected -->
         <div class="matches">
           <table>
-            <caption>Matches</caption>
+            <caption>
+              Matches
+            </caption>
             <thead>
               <tr>
                 <th></th>
@@ -70,31 +110,54 @@
               </tr>
             </thead>
             <tbody>
-              @for (r of model().matches; let i = $index; track i) {
-                <tr>
-                  <td>
-                    <button type="button" class="btn select-permission" title="Select permission" mat-icon-button (click)="on_select_permission($event, i)">
-                      <mat-icon>arrow_upward_alt</mat-icon>
-                    </button>
-                  </td>
-                  <td>{{ r.permission.name }}</td>
-                  <td>{{ r.permission.description }}</td>
-                </tr>
+              @for (r of model().matches; let even = $even; let i = $index; track i) {
+              <tr class="permission-item" [class]="even ? 'even' : 'odd'">
+                <td>
+                  <button
+                    type="button"
+                    class="btn select-permission"
+                    title="Select permission"
+                    mat-icon-button
+                    (click)="on_select_permission($event, i)"
+                  >
+                    <mat-icon>arrow_upward_alt</mat-icon>
+                  </button>
+                </td>
+                <td>{{ r.permission.name }}</td>
+                <td>{{ r.permission.description }}</td>
+              </tr>
               }
             </tbody>
           </table>
-        </div><!-- .matches -->
+        </div>
+        <!-- .matches -->
       </mat-dialog-content>
       <mat-dialog-actions>
-        <button type="button" class="btn cancel" title="Cancel" matFab extended (click)="on_cancel($event)">
+        <button
+          type="button"
+          class="btn cancel"
+          title="Cancel"
+          matFab
+          extended
+          (click)="on_cancel($event)"
+        >
           <mat-icon>cancel</mat-icon>
           <span>Cancel</span>
         </button>
-        <button type="submit" class="btn save" title="Save" matFab extended (click)="on_save($event)">
+        <button
+          type="submit"
+          class="btn save"
+          title="Save"
+          matFab
+          extended
+          (click)="on_save($event)"
+        >
           <mat-icon>save</mat-icon>
           <span>Assign</span>
         </button>
       </mat-dialog-actions>
     </form>
-  </div><!-- .wrapper -->
-</div><!-- .component -->
+  </div>
+  <!-- .wrapper -->
+</div>
+<!-- .component -->

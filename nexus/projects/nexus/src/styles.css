@@ -2,3 +2,7 @@
 mat-form-field.block {
   display: block;
 }
+
+table tr.odd {
+  background-color: lightgray;
+}
