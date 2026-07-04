@@ -77,8 +77,8 @@ export class PartnerService {
   }
 
   partner_set_active(partner_ids: Array<Uuid>, active: boolean): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.partner_set_active}`, {
-      partner_ids: partner_ids.map((id) => id.to_string()),
+    return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.partners_set_active}`, {
+      partner_ids: partner_ids,
       active: active,
     });
   }

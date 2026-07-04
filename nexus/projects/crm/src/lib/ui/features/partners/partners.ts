@@ -246,6 +246,24 @@ export class Partners {
   on_set_active(event: Event, active: boolean): void {
     console.info('on_set_active');
     event.preventDefault();
+
+    const partner_ids = this.model()
+      .partners.filter((t) => t.selected)
+      .map((t) => t.partner.partner_id);
+
+    this.partner_service.partner_set_active(partner_ids, active).subscribe({
+      next: (r: ApiResponse) => {
+        if (r.success) {
+          this.notification_service.info(r.message);
+        } else {
+          this.notification_service.error(r.message);
+        }
+      },
+      error: (e: any) => {
+        console.error(e);
+        this.notification_service.error(e);
+      },
+    });
   }
 
   on_select_all(event: Event): void {
