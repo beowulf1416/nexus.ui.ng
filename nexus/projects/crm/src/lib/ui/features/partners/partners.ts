@@ -19,15 +19,12 @@ import { PartnerService } from '../../../services/partner-service';
 import { Partner } from '../../../models/partner';
 // import { Person } from '../../../models/person';
 
-
-
 class PartnerRow {
   constructor(
     readonly partner: Partner,
-    readonly selected: boolean = false
-  ){}
+    readonly selected: boolean = false,
+  ) {}
 }
-
 
 class PartnerDialogDataResult {
   constructor(
@@ -40,7 +37,7 @@ class PartnerDialogDataResult {
     readonly last_name: string,
     readonly prefix: string,
     readonly suffix: string,
-  ){}
+  ) {}
 }
 
 // class BusinessDialogDataResult {
@@ -52,8 +49,6 @@ class PartnerDialogDataResult {
 //   ){}
 // }
 
-
-
 @Component({
   selector: 'lib-partners',
   imports: [
@@ -62,7 +57,7 @@ class PartnerDialogDataResult {
     MatButtonModule,
     MatInputModule,
     MatToolbarModule,
-    FormField
+    FormField,
   ],
   templateUrl: './partners.html',
   styleUrl: './partners.css',
@@ -70,7 +65,7 @@ class PartnerDialogDataResult {
 export class Partners {
   model = signal({
     filter: '',
-    partners: new Array<PartnerRow>()
+    partners: new Array<PartnerRow>(),
   });
 
   component = {
@@ -94,23 +89,18 @@ export class Partners {
 
   current_tenant = computed(() => this.user_service.current_user().tenant);
 
-  constructor() {
-
-  }
+  constructor() {}
 
   fetch_partners(): void {
     console.info('fetch_people');
     // console.debug(this.current_tenant().id);
 
     const model = this.model();
-    this.partner_service.fetch_partners(
-      this.current_tenant().id,
-      model.filter
-    ).subscribe({
+    this.partner_service.fetch_partners(this.current_tenant().id, model.filter).subscribe({
       next: (r: Array<Partner>) => {
         this.model.update((m) => ({
           ...m,
-          partners: r.map((p) => new PartnerRow(p, false))
+          partners: r.map((p) => new PartnerRow(p, false)),
         }));
       },
       error: (e: HttpErrorResponse) => {
@@ -132,7 +122,7 @@ export class Partners {
 
     this.model.update((m) => ({
       ...m,
-      filter: ''
+      filter: '',
     }));
 
     this.fetch_partners();
@@ -153,12 +143,12 @@ export class Partners {
     const dialog_ref = this.md.open(PartnerDialog, {
       position: {
         top: '20px',
-        right: '10px'
+        right: '10px',
       },
       data: {
         tenant_id: tenant_id,
-        partner_id: null
-      }
+        partner_id: null,
+      },
     });
     dialog_ref.afterClosed().subscribe({
       next: (result: PartnerDialogDataResult) => {
@@ -251,24 +241,20 @@ export class Partners {
   on_edit_person(event: Event, i: number): void {
     console.info('on_edit_person');
     event.preventDefault();
-
   }
 
   on_set_active(event: Event, active: boolean): void {
     console.info('on_set_active');
     event.preventDefault();
-
   }
 
   on_select_all(event: Event): void {
     console.info('on_select_all');
     event.preventDefault();
-
   }
 
   on_select_item(event: Event): void {
     console.info('on_select_item');
     event.preventDefault();
-
   }
 }
