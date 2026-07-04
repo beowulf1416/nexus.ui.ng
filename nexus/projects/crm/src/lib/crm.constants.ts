@@ -5,5 +5,6 @@ export const URLS = {
   // business_save: '/crm/business/save',
 
   partner_save: '/crm/partner/save',
-  partners_fetch: '/crm/partners/fetch'
+  partners_fetch: '/crm/partners/fetch',
+  partners_set_active: '/crm/partner/set/active',
 };
