@@ -1,0 +1,124 @@
+import { Component, signal, inject, computed, OnInit } from '@angular/core';
+import { form, FormField, required, submit } from '@angular/forms/signals';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+
+import { ApiResponse, Uuid, NotificationService, Tenant, Currency, Dimension, Uom } from 'core';
+import { AccountingService } from '../../../services/accounting-service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Invoice } from '../../../models/invoice';
+import { InvoiceType } from '../../../models/invoice-type';
+import { InvoiceItem } from '../../../models/invoice-item';
+
+@Component({
+  selector: 'lib-invoice-dialog',
+  imports: [
+    MatIconModule,
+    MatButtonModule,
+    MatInputModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    FormField,
+  ],
+  templateUrl: './invoice-dialog.html',
+  styleUrl: './invoice-dialog.css',
+})
+export class InvoiceDialog implements OnInit {
+  model = signal({
+    tenant_id: '',
+    invoice_id: '',
+    type_id: 0,
+    from_party_id: '',
+    to_party_id: '',
+    invoice_date: new Date(),
+    due_date: new Date(),
+    description: '',
+    currency_id: 0,
+  });
+
+  component = {
+    errors: signal(new Array<string>()),
+    invoice_types: signal(new Array<InvoiceType>()),
+    form: form(this.model, (f) => {}),
+  };
+
+  readonly data = inject<{
+    tenant_id: string;
+    invoice_id: string | null;
+  } | null>(MAT_DIALOG_DATA);
+
+  dr = inject(MatDialogRef<InvoiceDialog>);
+  notification_service = inject(NotificationService);
+  acctg_service = inject(AccountingService);
+
+  constructor() {}
+
+  ngOnInit(): void {
+    const tenant_id = this.data?.tenant_id || Tenant.default().id.to_string();
+    const invoice_id = this.data?.invoice_id || new Uuid().to_string();
+
+    this.model.update((m) => ({
+      ...m,
+      tenant_id: tenant_id,
+      invoice_id: invoice_id,
+    }));
+
+    const invoice_types = this.acctg_service.fetch_invoice_types().subscribe({
+      next: (types: Array<InvoiceType>) => {
+        this.component.invoice_types.set(types);
+      },
+      error: (e: HttpErrorResponse) => {
+        this.component.errors.update((errors) => [...errors, e.message]);
+      },
+    });
+  }
+
+  on_cancel(event: Event): void {
+    console.info('on_cancel');
+    event.preventDefault();
+
+    this.dr.close();
+  }
+
+  on_submit(event: Event): void {
+    console.info('on_submit');
+    event.preventDefault();
+
+    submit(this.component.form, async () => {
+      const model = this.model();
+
+      const tenant_id = model.tenant_id;
+      const invoice_id = model.invoice_id;
+
+      this.acctg_service
+        .invoice_save(
+          new Invoice(
+            invoice_id,
+            model.type_id,
+            model.due_date,
+            model.description,
+            new Array<InvoiceItem>(),
+          ),
+        )
+        .subscribe({
+          next: (r: ApiResponse) => {
+            console.debug(r);
+
+            if (r.success) {
+              this.dr.close();
+            }
+          },
+          error: (e: HttpErrorResponse) => {
+            console.error(e);
+            this.component.errors.update((errors) => [...errors, e.message]);
+            this.notification_service.error(e.message);
+          },
+        });
+    });
+  }
+}

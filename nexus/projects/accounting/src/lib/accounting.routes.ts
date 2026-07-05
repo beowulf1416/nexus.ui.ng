@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 
 import { authenticatedGuard, authorizedGuard } from 'core';
 
-
 export const routes: Routes = [
   {
     path: '',
@@ -15,9 +14,14 @@ export const routes: Routes = [
         loadComponent: () => import('./ui/features/dashboard/dashboard').then((m) => m.Dashboard),
       },
       {
-        path: '',
+        path: 'accounts',
         title: 'Chart Of Accounts',
         loadComponent: () => import('./ui/features/accounts/accounts').then((m) => m.Accounts),
+      },
+      {
+        path: 'invoices',
+        title: 'Invoices',
+        loadComponent: () => import('./ui/features/invoices/invoices').then((m) => m.Invoices),
       },
     ],
   },

@@ -1,0 +1,78 @@
+<div class="component invoice-dialog">
+  <div class="wrapper form">
+    <form class="invoice dialog" method="post" action="" (submit)="on_submit($event)">
+      <h3 mat-dialog-title>New Invoice</h3>
+      <mat-dialog-content>
+        <div class="errors">
+          @if (component.errors().length > 0) { @for (error of component.errors(); track error) {
+          <div>{{ error }}</div>
+          } }
+        </div>
+        <!-- .errors -->
+        <fieldset>
+          <legend>General</legend>
+          <mat-form-field class="field block">
+            <mat-label>Type</mat-label>
+            <mat-select [formField]="component.form.type_id">
+              @for (it of component.invoice_types(); track it.id) {
+              <mat-option [value]="it.id">{{ it.name }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="field block">
+            <mat-label>Description</mat-label>
+            <textarea
+              class="input description"
+              placeholder="Description"
+              matInput
+              [formField]="component.form.description"
+            ></textarea>
+          </mat-form-field>
+        </fieldset>
+        <fieldset>
+          <mat-form-field class="field">
+            <mat-label>From Party</mat-label>
+            <input
+              type="text"
+              class="input from-party-id"
+              matInput
+              [formField]="component.form.from_party_id"
+            />
+          </mat-form-field>
+          <mat-form-field class="field">
+            <mat-label>To Party</mat-label>
+            <input
+              type="text"
+              class="input to-party-id"
+              matInput
+              [formField]="component.form.to_party_id"
+            />
+          </mat-form-field>
+          <mat-form-field class="field">
+            <mat-label>Due Date</mat-label>
+            <input
+              type="date"
+              class="input due-date"
+              matInput
+              [formField]="component.form.due_date"
+            />
+          </mat-form-field>
+        </fieldset>
+      </mat-dialog-content>
+      <mat-dialog-actions>
+        <button type="button" matFab extended (click)="on_cancel($event)">
+          <mat-icon>cancel</mat-icon>
+          <span>Cancel</span>
+        </button>
+        <button type="submit" matFab extended [disabled]="component.form().invalid()">
+          <mat-icon>save</mat-icon>
+          <span>Save</span>
+        </button>
+      </mat-dialog-actions>
+      <input type="hidden" [formField]="component.form.tenant_id" />
+      <input type="hidden" [formField]="component.form.invoice_id" />
+    </form>
+  </div>
+  <!-- .wrapper -->
+</div>
+<!-- .component -->
