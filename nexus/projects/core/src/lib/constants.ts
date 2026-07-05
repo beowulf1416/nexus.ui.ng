@@ -11,5 +11,11 @@ export const URLS = {
   authenticate: '/session/sign-in',
   fetch_current_user: '/session/user',
   fetch_tenants: '/session/tenants',
-  switch_tenant: '/session/tenant/set'
+  switch_tenant: '/session/tenant/set',
+
+  fetch_currencies: '/currencies',
+  fetch_countries: '/countries',
+  fetch_uoms: '/uoms',
+  fetch_uoms_by_dimension: '/uoms/dimension/',
+  fetch_dimensions: '/dimensions',
 };
