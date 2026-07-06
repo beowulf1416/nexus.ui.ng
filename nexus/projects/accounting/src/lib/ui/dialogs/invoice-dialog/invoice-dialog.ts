@@ -13,6 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Invoice } from '../../../models/invoice';
 import { InvoiceType } from '../../../models/invoice-type';
 import { InvoiceItem } from '../../../models/invoice-item';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lib-invoice-dialog',
@@ -52,9 +53,10 @@ export class InvoiceDialog implements OnInit {
     invoice_id: string | null;
   } | null>(MAT_DIALOG_DATA);
 
-  dr = inject(MatDialogRef<InvoiceDialog>);
-  notification_service = inject(NotificationService);
-  acctg_service = inject(AccountingService);
+  private dr = inject(MatDialogRef<InvoiceDialog>);
+  private notification_service = inject(NotificationService);
+  private acctg_service = inject(AccountingService);
+  private router = inject(Router);
 
   constructor() {}
 
@@ -92,7 +94,7 @@ export class InvoiceDialog implements OnInit {
     submit(this.component.form, async () => {
       const model = this.model();
 
-      const tenant_id = model.tenant_id;
+      // const tenant_id = model.tenant_id;
       const invoice_id = model.invoice_id;
 
       this.acctg_service
@@ -111,6 +113,7 @@ export class InvoiceDialog implements OnInit {
 
             if (r.success) {
               this.dr.close();
+              this.router.navigate(['/accounting/invoices/', invoice_id]);
             }
           },
           error: (e: HttpErrorResponse) => {

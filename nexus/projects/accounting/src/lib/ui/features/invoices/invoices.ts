@@ -9,10 +9,13 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { ApiResponse, Uuid, NotificationService, UserService } from 'core';
 import { InvoiceDialog } from '../../dialogs/invoice-dialog/invoice-dialog';
+import { AccountingService } from '../../../services/accounting-service';
+import { Invoice } from '../../../models/invoice';
+import { RouterLink } from '@angular/router';
 
 class InvoiceRow {
   constructor(
-    readonly name: string,
+    readonly invoice: Invoice,
     public selected: boolean = false,
   ) {}
 }
@@ -26,6 +29,7 @@ class InvoiceRow {
     MatInputModule,
     MatToolbarModule,
     FormField,
+    RouterLink,
   ],
   templateUrl: './invoices.html',
   styleUrl: './invoices.css',
@@ -52,6 +56,7 @@ export class Invoices {
   md = inject(MatDialog);
   user_service = inject(UserService);
   notification_service = inject(NotificationService);
+  acctg_service = inject(AccountingService);
 
   current_tenant = computed(() => this.user_service.current_user().tenant);
 
@@ -60,6 +65,21 @@ export class Invoices {
   on_filter(event: Event): void {
     console.info('on_filter');
     event.preventDefault();
+
+    const filter = this.model().filter;
+    this.acctg_service.invoices_fetch(filter).subscribe({
+      next: (invoices: Array<Invoice>) => {
+        console.debug(invoices);
+        this.model.update((m) => ({
+          ...m,
+          invoices: invoices.map((i) => new InvoiceRow(i)),
+        }));
+      },
+      error: (e) => {
+        this.component.errors.update((errors) => [...errors, e]);
+        this.notification_service.error(e.message);
+      },
+    });
   }
 
   on_reset_filter(event: Event): void {

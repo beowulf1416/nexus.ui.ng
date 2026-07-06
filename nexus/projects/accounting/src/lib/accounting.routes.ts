@@ -23,6 +23,11 @@ export const routes: Routes = [
         title: 'Invoices',
         loadComponent: () => import('./ui/features/invoices/invoices').then((m) => m.Invoices),
       },
+      {
+        path: 'invoice/:invoice_id',
+        title: 'Invoice Details',
+        loadComponent: () => import('./ui/features/invoice/invoice').then((m) => m.Invoice),
+      },
     ],
   },
 ];

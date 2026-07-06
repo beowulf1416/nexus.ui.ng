@@ -1,0 +1,101 @@
+<div class="component invoice">
+  <div class="wrapper form">
+    <form class="invoice" method="post" action="" (submit)="on_submit($event)">
+      <fieldset>
+        <legend>General</legend>
+        <mat-form-field class="field block">
+          <mat-label>Invoice Type</mat-label>
+          <mat-select [formField]="component.form.invoice_type_id">
+            @for (type of component.invoice_types(); track type.id) {
+            <mat-option [value]="type.id">{{ type.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="field block">
+          <mat-label>Due Date</mat-label>
+          <input
+            type="date"
+            class="input due-date"
+            matInput
+            [formField]="component.form.due_date"
+          />
+        </mat-form-field>
+        <mat-form-field class="field block">
+          <mat-label>Description</mat-label>
+          <textarea matInput [formField]="component.form.description"></textarea>
+        </mat-form-field>
+      </fieldset>
+      <fieldset>
+        <legend>Items</legend>
+        <div class="wrapper items">
+          <table class="items">
+            <caption>
+              Invoice Items
+            </caption>
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <td colspan="4"></td>
+              </tr>
+            </tfoot>
+            <tbody>
+              <tr>
+                @for (item of component.form.items; track item.id) {
+                <td>
+                  <input
+                    type="text"
+                    class="input item-description"
+                    [formField]="item.description"
+                  />
+                </td>
+                <td></td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.unit_price }}</td>
+                <td>{{ item.total }}</td>
+                }
+              </tr>
+              <tr>
+                <td>
+                  <mat-form-field>
+                    <mat-label>Item Description</mat-label>
+                    <input
+                      type="text"
+                      title="Description"
+                      class="input item-description"
+                      matInput
+                    />
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field>
+                    <mat-label>Quantity</mat-label>
+                    <input type="number" title="Quantity" class="input item-qty" matInput />
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field>
+                    <mat-select>
+                      @for(uom of component.uoms(); track uom.uom_id) {
+                      <mat-option [value]="uom.uom_id">{{ uom.name }}</mat-option>
+                      }
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- .wrapper -->
+      </fieldset>
+    </form>
+  </div>
+  <!-- .wrapper -->
+</div>
+<!-- .component -->

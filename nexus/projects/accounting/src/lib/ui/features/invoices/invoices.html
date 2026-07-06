@@ -67,10 +67,10 @@
           } }
         </div>
         <!-- .wrapper errors -->
-        <div class="wrapper partners">
-          <table class="partners">
+        <div class="wrapper invoices">
+          <table class="invoices">
             <caption>
-              Partners
+              Invoices
             </caption>
             <thead>
               <tr>
@@ -109,11 +109,11 @@
                   />
                 </td>
                 <td class="state">
-                  <span class="material-symbols-outlined"> check_circle </span>
+                  <span class="material-symbols-outlined">check_circle</span>
                 </td>
-                <td>{{ tr.name().value() }}</td>
+                <td>{{ tr.invoice.description().value() }}</td>
                 <td>
-                  <button
+                  <!--<button
                     type="button"
                     class="btn edit-invoice"
                     title="Edit Invoice"
@@ -121,7 +121,15 @@
                     (click)="on_edit_invoice($event, i)"
                   >
                     <mat-icon>edit</mat-icon>
-                  </button>
+                  </button>-->
+                  <a
+                    title="Edit Invoice"
+                    class="link edit-invoice"
+                    routerLink="/accounting/invoice/{{ tr.invoice.invoice_id().value() }}"
+                    mat-icon-button
+                  >
+                    <mat-icon>edit</mat-icon></a
+                  >
                 </td>
               </tr>
               }
