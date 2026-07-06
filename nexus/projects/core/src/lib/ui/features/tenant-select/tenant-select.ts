@@ -5,7 +5,6 @@ import { ApiResponse } from '../../../models/api-response';
 import { Uuid } from '../../../models/uuid';
 import { UserService } from '../../../services/user-service';
 
-
 @Component({
   selector: 'lib-tenant-select',
   imports: [],
@@ -13,34 +12,34 @@ import { UserService } from '../../../services/user-service';
   styleUrl: './tenant-select.css',
 })
 export class TenantSelect implements OnInit {
-
   private user_service = inject(UserService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-
 
   constructor() {
     const tenant_id = this.route.snapshot.paramMap.get('tenant_id');
     const dest = this.route.snapshot.queryParams['dest'];
 
-    console.debug(this.route.snapshot.queryParams);
+    console.debug(dest);
 
     if (tenant_id) {
-      this.user_service.switch_tenant(
-        new Uuid(tenant_id)
-      ).subscribe({
+      this.user_service.switch_tenant(new Uuid(tenant_id)).subscribe({
         next: (r: ApiResponse) => {
           console.debug(r);
           if (r.success) {
             setTimeout(() => {
-              this.router.navigate([dest])
+              if (dest && dest !== '') {
+                this.router.navigate([dest]);
+              } else {
+                this.router.navigate(['/']);
+              }
             }, 3000);
           }
         },
         error: (e: Error) => {
           console.error(e);
-        }
-      })
+        },
+      });
     }
   }
 

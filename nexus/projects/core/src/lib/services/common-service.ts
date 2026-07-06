@@ -59,7 +59,7 @@ export class CommonService {
     );
   }
 
-  fetch_dimensions(): Observable<Dimension> {
+  fetch_dimensions(): Observable<Array<Dimension>> {
     console.info('fetch_dimensions');
 
     return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.fetch_dimensions}`, {}).pipe(
@@ -81,7 +81,7 @@ export class CommonService {
     );
   }
 
-  fetch_uoms(): Observable<Uom> {
+  fetch_uoms(): Observable<Array<Uom>> {
     console.info('fetch_uoms');
 
     return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.fetch_uoms}`, {}).pipe(
@@ -113,14 +113,15 @@ export class CommonService {
       .pipe(
         map((r: ApiResponse) => {
           if (r.success && r.data) {
-            const uoms = (
+            const uom = (
               r.data as {
-                uoms: Array<Uom>;
+                uom: Uom;
               }
-            ).uoms;
-            return uoms;
+            ).uom;
+            return uom;
           }
-          return new Array<Uom>();
+          // return new Uom(0, '');
+          throw new Error('No data');
         }),
         catchError((e) => {
           console.error(e);
