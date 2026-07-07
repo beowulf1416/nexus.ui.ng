@@ -1,6 +1,13 @@
 <div class="component invoice">
   <div class="wrapper form">
     <form class="invoice" method="post" action="" (submit)="on_submit($event)">
+      <fieldset class="actions">
+        <mat-toolbar>
+          <button type="button" title="Save" class="btn invoice-save" mat-icon-button>
+            <mat-icon>save</mat-icon>
+          </button>
+        </mat-toolbar>
+      </fieldset>
       <fieldset>
         <legend>General</legend>
         <mat-form-field class="field block">
@@ -34,34 +41,74 @@
             </caption>
             <thead>
               <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total</th>
               </tr>
             </thead>
             <tfoot>
               <tr>
-                <td colspan="4"></td>
+                <td>
+                  <mat-form-field>
+                    <mat-label>Description</mat-label>
+                    <input
+                      type="text"
+                      class="input description"
+                      matInput
+                      [formField]="component.form.new_item.description"
+                    />
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field>
+                    <mat-label>Quantity</mat-label>
+                    <input
+                      type="number"
+                      title="Quantity"
+                      class="input item-qty"
+                      matInput
+                      [formField]="component.form.new_item.quantity"
+                    />
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field>
+                    <input
+                      type="number"
+                      title="Unit Price"
+                      class="input unit-price"
+                      matInput
+                      [formField]="component.form.new_item.unit_price"
+                    />
+                  </mat-form-field>
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    title="Total"
+                    class="input unit_price"
+                    readonly
+                    matInput
+                    [value]="new_item_total()"
+                  />
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    title="Add Invoice Item"
+                    class="btn add-invoice-item"
+                    [disabled]="new_item_disabled()"
+                    mat-icon-button
+                  >
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </td>
               </tr>
             </tfoot>
             <tbody>
               <tr>
                 @for (item of component.form.items; track item.id) {
-                <td>
-                  <input
-                    type="text"
-                    class="input item-description"
-                    [formField]="item.description"
-                  />
-                </td>
-                <td></td>
-                <td>{{ item.quantity }}</td>
-                <td>{{ item.unit_price }}</td>
-                <td>{{ item.total }}</td>
-                }
-              </tr>
-              <tr>
                 <td>
                   <mat-form-field>
                     <mat-label>Item Description</mat-label>
@@ -81,13 +128,15 @@
                 </td>
                 <td>
                   <mat-form-field>
-                    <mat-select>
-                      @for(uom of component.uoms(); track uom.uom_id) {
-                      <mat-option [value]="uom.uom_id">{{ uom.name }}</mat-option>
-                      }
-                    </mat-select>
+                    <input type="number" title="Unit Price" class="input unit-price" matInput />
                   </mat-form-field>
                 </td>
+                <td>
+                  <button type="button" title="Remove Invoice Item" class="btn remove-invoice-item">
+                    <mat-icon>remove</mat-icon>
+                  </button>
+                </td>
+                }
               </tr>
             </tbody>
           </table>

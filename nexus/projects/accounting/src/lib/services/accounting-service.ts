@@ -1,7 +1,7 @@
 import { Service } from '@angular/core';
 import { inject } from '@angular/core/primitives/di';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, map } from 'rxjs';
+import { Observable, catchError, map, tap } from 'rxjs';
 
 import { ApiResponse } from 'core';
 import { InvoiceType } from '../models/invoice-type';
@@ -13,6 +13,14 @@ export class AccountingService {
   http = inject(HttpClient);
 
   constructor() {}
+
+  // chart_of_accounts_fetch(): void {
+  //   return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.chart_of_accounts_fetch}`, {}).pipe(
+  //     tap(r: ApiResponse) => {
+  //       console.debug(r);
+  //     }
+  //   );
+  // }
 
   fetch_invoice_types(): Observable<Array<InvoiceType>> {
     return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.fetch_invoice_types}`, {}).pipe(
