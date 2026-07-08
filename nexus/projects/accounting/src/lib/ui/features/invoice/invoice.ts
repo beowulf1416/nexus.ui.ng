@@ -6,6 +6,7 @@ import { AccountingService } from '../../../services/accounting-service';
 import { CommonService, Dimension, Uom } from 'core';
 import { Invoice as InvoiceModel } from '../../../models/invoice';
 import { InvoiceType } from '../../../models/invoice-type';
+import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -17,6 +18,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 @Component({
   selector: 'lib-invoice',
   imports: [
+    CommonModule,
     MatIconModule,
     MatButtonModule,
     MatInputModule,
@@ -45,6 +47,14 @@ export class Invoice implements OnInit {
     // uoms: signal(new Array<Uom>()),
     form: form(this.model, (f) => {}),
   };
+
+  total_per_item = computed(() => {
+    return this.model().items.map((item) => item.quantity * item.unit_price);
+  });
+
+  total = computed(() => {
+    return this.model().items.reduce((acc, item) => acc + item.quantity * item.unit_price, 0);
+  });
 
   new_item_total = computed(() => {
     const item = this.model().new_item;
@@ -119,5 +129,32 @@ export class Invoice implements OnInit {
   on_submit(event: Event): void {
     console.info('on_submit');
     event.preventDefault();
+  }
+
+  on_new_invoice_item(event: Event): void {
+    console.info('on_new_invoice_item');
+    event.preventDefault();
+
+    const new_item = this.model().new_item;
+    this.model.update((m) => ({
+      ...m,
+      items: m.items.concat(
+        new InvoiceItem(
+          new_item.id,
+          new_item.description,
+          new_item.quantity,
+          new_item.unit_price,
+          new_item.currency_id,
+        ),
+      ),
+      new_item: new InvoiceItem('', '', 1, 0, 1),
+    }));
+  }
+
+  on_remove_item(i: number): void {
+    this.model.update((m) => ({
+      ...m,
+      items: m.items.toSpliced(i, 1),
+    }));
   }
 }

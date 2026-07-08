@@ -84,14 +84,15 @@
                   </mat-form-field>
                 </td>
                 <td>
-                  <input
-                    type="number"
-                    title="Total"
-                    class="input unit_price"
-                    readonly
-                    matInput
-                    [value]="new_item_total()"
-                  />
+                  <mat-form-field>
+                    <input
+                      type="number"
+                      title="Total"
+                      class="input total"
+                      matInput
+                      [value]="new_item_total()"
+                    />
+                  </mat-form-field>
                 </td>
                 <td>
                   <button
@@ -100,15 +101,20 @@
                     class="btn add-invoice-item"
                     [disabled]="new_item_disabled()"
                     mat-icon-button
+                    (click)="on_new_invoice_item($event)"
                   >
                     <mat-icon>add</mat-icon>
                   </button>
                 </td>
               </tr>
+              <tr>
+                <td colspan="3">Total</td>
+                <td>{{ total() | currency }}</td>
+              </tr>
             </tfoot>
             <tbody>
+              @for (item of component.form.items; let i = $index; track $index) {
               <tr>
-                @for (item of component.form.items; track item.id) {
                 <td>
                   <mat-form-field>
                     <mat-label>Item Description</mat-label>
@@ -117,27 +123,47 @@
                       title="Description"
                       class="input item-description"
                       matInput
+                      [formField]="item.description"
                     />
                   </mat-form-field>
                 </td>
                 <td>
                   <mat-form-field>
                     <mat-label>Quantity</mat-label>
-                    <input type="number" title="Quantity" class="input item-qty" matInput />
+                    <input
+                      type="number"
+                      title="Quantity"
+                      class="input item-qty"
+                      matInput
+                      [formField]="item.quantity"
+                    />
                   </mat-form-field>
                 </td>
                 <td>
                   <mat-form-field>
-                    <input type="number" title="Unit Price" class="input unit-price" matInput />
+                    <mat-label>Unit Price</mat-label>
+                    <input
+                      type="number"
+                      title="Unit Price"
+                      class="input unit-price"
+                      matInput
+                      [formField]="item.unit_price"
+                    />
                   </mat-form-field>
                 </td>
+                <td>{{ total_per_item()[i] | currency }}</td>
                 <td>
-                  <button type="button" title="Remove Invoice Item" class="btn remove-invoice-item">
+                  <button
+                    type="button"
+                    title="Remove Invoice Item"
+                    class="btn remove-invoice-item"
+                    (click)="on_remove_item(i)"
+                  >
                     <mat-icon>remove</mat-icon>
                   </button>
                 </td>
-                }
               </tr>
+              }
             </tbody>
           </table>
         </div>
