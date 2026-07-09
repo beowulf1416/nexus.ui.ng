@@ -7,6 +7,7 @@ import { ApiResponse } from 'core';
 import { InvoiceType } from '../models/invoice-type';
 import { URLS } from '../accounting.constants';
 import { Invoice } from '../models/invoice';
+import { AccountItem } from '../ui/components/account-item/account-item';
 
 @Service()
 export class AccountingService {
@@ -21,6 +22,26 @@ export class AccountingService {
   //     }
   //   );
   // }
+
+  accounts_fetch(): Observable<Array<AccountItem>> {
+    return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.chart_of_accounts_fetch}`, {}).pipe(
+      map((r: ApiResponse) => {
+        if (r.success && r.data) {
+          const accounts = (
+            r.data as {
+              accounts: Array<AccountItem>;
+            }
+          ).accounts;
+          return accounts;
+        }
+        return new Array<AccountItem>();
+      }),
+      catchError((e: any) => {
+        console.error(e);
+        throw e;
+      }),
+    );
+  }
 
   fetch_invoice_types(): Observable<Array<InvoiceType>> {
     return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.fetch_invoice_types}`, {}).pipe(

@@ -19,9 +19,7 @@
       </tfoot>
       <tbody>
         @for(acct of model().accounts; let i = $index; track $index){
-        <tr>
-          <td></td>
-        </tr>
+        <account-node [account]="acct"></account-node>
         }
       </tbody>
     </table>
