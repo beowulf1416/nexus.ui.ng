@@ -1,1 +1,50 @@
-<p>account-dialog works!</p>
+<div class="component account-dialog">
+  <div class="wrapper form">
+    <form class="account" method="post" action="" (submit)="on_submit($event)">
+      <h3 mat-dialog-title>{{ title() }}</h3>
+      <mat-dialog-content>
+        <div class="errors">
+          @if (component.errors().length > 0) { @for (error of component.errors(); track error) {
+          <div>{{ error }}</div>
+          } }
+        </div>
+        <!-- .errors -->
+        <fieldset>
+          <legend>Information</legend>
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input type="text" class="input name" placeholder="Name" [formField]="component.form.name" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Code</mat-label>
+            <input type="text" class="input code" placeholder="Code" [formField]="component.form.code" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Description</mat-label>
+            <input type="text" class="input description" placeholder="Description" [formField]="component.form.description" />
+          </mat-form-field>
+          <mat-form-field class="field block">
+            <mat-label>Type</mat-label>
+            <mat-select [formField]="component.form.type_id">
+              @for (t of component.account_types(); track t.id) {
+              <mat-option [value]="t.id">{{ t.name }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="field block">
+            <mat-label>Category</mat-label>
+            <mat-select [formField]="component.form.category_id">
+              @for (c of component.account_categories(); track c.id) {
+              <mat-option [value]="c.id">{{ c.name }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </fieldset>
+        <fieldset>
+          <legend>Hierarchy</legend>
+        </fieldset>
+      </mat-dialog-content>
+      <input type="hidden" [formField]="component.form.account_id" />
+    </form>
+  </div><!-- .wrapper -->
+</div><!-- .component -->

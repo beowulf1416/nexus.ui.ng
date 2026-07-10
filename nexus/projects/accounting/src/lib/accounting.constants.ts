@@ -1,7 +1,10 @@
 export const URLS = {
   base_url: 'http://localhost:8080',
 
-  chart_of_accounts_fetch: '/acctg/accounts/chart/fetch',
+  account_types_fetch: '/acctg/accounts/types/fetch',
+  account_categories_fetch: '/acctg/accounts/categories/fetch',
+  accounts_fetch_all: '/acctg/accounts/fetch/all',
+  account_save: 'acctg/accounts/save',
 
   fetch_invoice_types: '/acctg/invoices/types/fetch',
   invoices_fetch: '/acctg/invoices/fetch',

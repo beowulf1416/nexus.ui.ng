@@ -1,6 +1,15 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { AccountItem } from '../../../models/account-item';
 import { AccountNode } from '../../components/account-node/account-node';
+import { AccountType } from '../../../models/account-type';
+import { AccountCategory } from '../../../models/account-category';
+import { AccountingService } from '../../../services/accounting-service';
+import { NotificationService, UserService } from 'core';
+import { AccountDialog } from '../../dialogs/account-dialog/account-dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDialog } from '@angular/material/dialog';
 
 // class Account {
 //   constructor(
@@ -13,16 +22,91 @@ import { AccountNode } from '../../components/account-node/account-node';
 
 @Component({
   selector: 'lib-accounts',
-  imports: [AccountNode],
+  imports: [
+    MatIconModule,
+    MatButtonModule,
+    MatToolbarModule,
+    AccountNode],
   templateUrl: './accounts.html',
   styleUrl: './accounts.css',
 })
 export class Accounts implements OnInit {
   model = signal({
     accounts: new Array<AccountItem>(),
+    account_types: new Array<AccountType>(),
+    account_categories: new Array<AccountCategory>(),
   });
+
+  private acct_service = inject(AccountingService);
+  private notification_service = inject(NotificationService);
+  private user_service = inject(UserService);
+  private md = inject(MatDialog);
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const user = this.user_service.current_user();
+    if (!user) {
+      // todo
+      return;
+    }
+
+    const tenant_id = user.tenant.id;
+
+    // account types
+    this.acct_service.account_types_fetch().subscribe({
+      next: (types: Array<AccountType>) => {
+        this.model.update((m) => ({
+          ...m,
+          account_types: types
+        }));
+      },
+      error: (err: any) => {
+        console.error(err);
+        this.notification_service.error('Failed to fetch account types');
+      }
+    });
+
+    // account categories
+    this.acct_service.account_categories_fetch().subscribe({
+      next: (categories: Array<AccountCategory>) => {
+        this.model.update((m) => ({
+          ...m,
+          account_categories: categories
+        }));
+      },
+      error: (err: any) => {
+        console.error(err);
+        this.notification_service.error('Failed to fetch account categories');
+      }
+    });
+
+    // accounts
+    this.acct_service.accounts_fetch(
+      tenant_id
+    ).subscribe({
+      next: (accounts: Array<AccountItem>) => {
+        this.model.update((m) => ({
+          ...m,
+          accounts: accounts
+        }));
+      },
+      error: (err: any) => {
+        console.error(err);
+        this.notification_service.error('Failed to fetch accounts');
+      }
+    });
+  }
+
+  on_new_account(event: Event): void {
+    console.info('on_new_account');
+
+    const dr = this.md.open(AccountDialog, {
+      position: {
+        top: '20px',
+        right: '10px',
+      },
+      data: {  }
+    });
+  }
 }
