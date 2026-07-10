@@ -14,6 +14,7 @@ import { Invoice } from '../../../models/invoice';
 import { InvoiceType } from '../../../models/invoice-type';
 import { InvoiceItem } from '../../../models/invoice-item';
 import { Router } from '@angular/router';
+import { InvoiceService } from '../../../services/invoice-service';
 
 @Component({
   selector: 'lib-invoice-dialog',
@@ -55,7 +56,7 @@ export class InvoiceDialog implements OnInit {
 
   private dr = inject(MatDialogRef<InvoiceDialog>);
   private notification_service = inject(NotificationService);
-  private acctg_service = inject(AccountingService);
+  private invoice_service = inject(InvoiceService);
   private router = inject(Router);
 
   constructor() {}
@@ -70,7 +71,7 @@ export class InvoiceDialog implements OnInit {
       invoice_id: invoice_id,
     }));
 
-    const invoice_types = this.acctg_service.fetch_invoice_types().subscribe({
+    const invoice_types = this.invoice_service.fetch_invoice_types().subscribe({
       next: (types: Array<InvoiceType>) => {
         this.component.invoice_types.set(types);
       },
@@ -97,7 +98,7 @@ export class InvoiceDialog implements OnInit {
       // const tenant_id = model.tenant_id;
       const invoice_id = model.invoice_id;
 
-      this.acctg_service
+      this.invoice_service
         .invoice_save(
           new Invoice(
             invoice_id,

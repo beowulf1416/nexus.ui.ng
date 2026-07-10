@@ -9,9 +9,10 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { ApiResponse, Uuid, NotificationService, UserService } from 'core';
 import { InvoiceDialog } from '../../dialogs/invoice-dialog/invoice-dialog';
-import { AccountingService } from '../../../services/accounting-service';
+// import { AccountingService } from '../../../services/accounting-service';
 import { Invoice } from '../../../models/invoice';
 import { RouterLink } from '@angular/router';
+import { InvoiceService } from '../../../services/invoice-service';
 
 class InvoiceRow {
   constructor(
@@ -56,7 +57,7 @@ export class Invoices {
   md = inject(MatDialog);
   user_service = inject(UserService);
   notification_service = inject(NotificationService);
-  acctg_service = inject(AccountingService);
+  invoice_service = inject(InvoiceService);
 
   current_tenant = computed(() => this.user_service.current_user().tenant);
 
@@ -67,7 +68,7 @@ export class Invoices {
     event.preventDefault();
 
     const filter = this.model().filter;
-    this.acctg_service.invoices_fetch(filter).subscribe({
+    this.invoice_service.invoices_fetch(filter).subscribe({
       next: (invoices: Array<Invoice>) => {
         console.debug(invoices);
         this.model.update((m) => ({

@@ -14,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { InvoiceItem } from '../../../models/invoice-item';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { InvoiceService } from '../../../services/invoice-service';
 
 @Component({
   selector: 'lib-invoice',
@@ -66,7 +67,7 @@ export class Invoice implements OnInit {
   });
 
   private route = inject(ActivatedRoute);
-  private acctg_service = inject(AccountingService);
+  private invoice_service = inject(InvoiceService);
   private common_service = inject(CommonService);
 
   constructor() {}
@@ -74,7 +75,7 @@ export class Invoice implements OnInit {
   ngOnInit(): void {
     console.debug('ngOnInit');
 
-    this.acctg_service.fetch_invoice_types().subscribe({
+    this.invoice_service.fetch_invoice_types().subscribe({
       next: (r: Array<InvoiceType>) => {
         console.debug(r);
         this.component.invoice_types.set(r);
@@ -106,7 +107,7 @@ export class Invoice implements OnInit {
 
     const invoice_id = this.route.snapshot.paramMap.get('invoice_id');
     if (invoice_id) {
-      this.acctg_service.invoice_fetch(invoice_id).subscribe({
+      this.invoice_service.invoice_fetch(invoice_id).subscribe({
         next: (r: InvoiceModel | null) => {
           console.debug(r);
 
