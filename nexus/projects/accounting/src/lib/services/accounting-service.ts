@@ -79,6 +79,29 @@ export class AccountingService {
     );
   }
 
+  accounts_fetch_filtered(tenant_id: Uuid, filter: string): Observable<Array<AccountItem>> {
+    return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.accounts_fetch_filtered}`, {
+      tenant_id: tenant_id,
+      filter: filter,
+    }).pipe(
+      map((r: ApiResponse) => {
+        if (r.success && r.data) {
+          const accounts = (
+            r.data as {
+              accounts: Array<AccountItem>;
+            }
+          ).accounts;
+          return accounts;
+        }
+        return new Array<AccountItem>();
+      }),
+      catchError((e: any) => {
+        console.error(e);
+        throw e;
+      }),
+    );
+  }
+
   account_save(tenant_id: Uuid, account: AccountItem): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.account_save}`, {
       tenant_id: tenant_id.to_string(),

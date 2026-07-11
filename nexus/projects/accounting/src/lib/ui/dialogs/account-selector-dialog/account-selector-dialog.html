@@ -3,18 +3,39 @@
     <form class="form account-selector-dialog" method="post" action="" (submit)="on_submit($event)">
       <h3 mat-dialog-title>Select an Account</h3>
       <mat-dialog-content>
-        <mat-toolbar>
-          <mat-form-field>
-            <mat-label>Search</mat-label>
-            <input type="search" title="Filter" class="input search" matInput [formField]="component.form.filter" />
-            <button type="submit" title="Search" class="btn search" mat-icon-button matSuffix>
-              <mat-icon>search</mat-icon>
-            </button>
-            <button type="button" title="Clear" class="btn clear" mat-icon-button matSuffix (click)="on_clear($event)">
-              <mat-icon>reset</mat-icon>
-            </button>
-          </mat-form-field>
-        </mat-toolbar>
+        <div class="actions">
+          <mat-toolbar>
+            <mat-form-field>
+              <mat-label>Search</mat-label>
+              <input type="search" title="Filter" class="input search" matInput [formField]="component.form.filter" />
+              <button type="submit" title="Search" class="btn search" mat-icon-button matSuffix>
+                <mat-icon>search</mat-icon>
+              </button>
+              <button type="button" title="Clear" class="btn clear" mat-icon-button matSuffix (click)="on_clear($event)">
+                <mat-icon>reset</mat-icon>
+              </button>
+            </mat-form-field>
+          </mat-toolbar>
+        </div><!-- .actions -->
+        <div class="results">
+          <table class="accounts">
+            <caption>Accounts</caption>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Account</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for(a of component.form.matches(); let i = $index; track $index){
+              <tr>
+                <td>{{ a.name }}</td>
+                <td>{{ a.account }}</td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div><!-- .results -->
       </mat-dialog-content>
       <mat-dialog-actions>
         <button type="button" title="Cancel" class="btn cancel" matFab extended (click)="on_cancel($event)">
