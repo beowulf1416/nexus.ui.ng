@@ -1,1 +1,6 @@
-<p>account-selector works!</p>
+<div class="component account-selector">
+  <button type="button" title="Select an account" class="btn account-selector" matFab extended (click)="show_account_selector_dialog($event)">
+    <mat-icon>wallet</mat-icon>
+    <span>{{ title() }}</span>
+  </button>
+</div><!-- .component -->

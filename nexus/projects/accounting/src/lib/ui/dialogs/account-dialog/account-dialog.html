@@ -11,39 +11,50 @@
         <!-- .errors -->
         <fieldset>
           <legend>Information</legend>
-          <mat-form-field>
+          <mat-form-field class="field block">
             <mat-label>Name</mat-label>
-            <input type="text" class="input name" placeholder="Name" [formField]="component.form.name" />
+            <input type="text" class="input name" placeholder="Name" matInput [formField]="component.form.name" />
           </mat-form-field>
-          <mat-form-field>
+          <mat-form-field class="field block">
             <mat-label>Code</mat-label>
-            <input type="text" class="input code" placeholder="Code" [formField]="component.form.code" />
+            <input type="text" class="input code" placeholder="Code" matInput [formField]="component.form.code" />
           </mat-form-field>
-          <mat-form-field>
+          <mat-form-field class="field block">
             <mat-label>Description</mat-label>
-            <input type="text" class="input description" placeholder="Description" [formField]="component.form.description" />
+            <textarea class="input description" placeholder="Description" matInput [formField]="component.form.description"></textarea>
           </mat-form-field>
           <mat-form-field class="field block">
             <mat-label>Type</mat-label>
-            <mat-select [formField]="component.form.type_id">
-              @for (t of component.account_types(); track t.id) {
-              <mat-option [value]="t.id">{{ t.name }}</mat-option>
+            <mat-select matInput [formField]="component.form.type_id">
+              @for (t of component.account_types(); track t.account_type_id) {
+              <mat-option [value]="t.account_type_id">{{ t.name }}</mat-option>
               }
             </mat-select>
           </mat-form-field>
           <mat-form-field class="field block">
             <mat-label>Category</mat-label>
-            <mat-select [formField]="component.form.category_id">
-              @for (c of component.account_categories(); track c.id) {
-              <mat-option [value]="c.id">{{ c.name }}</mat-option>
+            <mat-select matInput [formField]="component.form.category_id">
+              @for (c of component.account_categories(); track c.account_category_id) {
+              <mat-option [value]="c.account_category_id">{{ c.name }}/{{ c.sub_name }}</mat-option>
               }
             </mat-select>
           </mat-form-field>
         </fieldset>
         <fieldset>
           <legend>Hierarchy</legend>
+          <account-selector></account-selector>
         </fieldset>
       </mat-dialog-content>
+      <mat-dialog-actions>
+        <button type="button" title="Cancel" class="btn cancel" matFab extended (click)="on_cancel($event)">
+          <mat-icon>cancel</mat-icon>
+          <span>Cancel</span>
+        </button>
+        <button type="submit" title="Save" class="btn save" matFab extended [disabled]="component.form().invalid">
+          <mat-icon>save</mat-icon>
+          <span>Save</span>
+        </button>
+      </mat-dialog-actions>
       <input type="hidden" [formField]="component.form.account_id" />
     </form>
   </div><!-- .wrapper -->

@@ -59,7 +59,7 @@ export class AccountingService {
 
   accounts_fetch(tenant_id: Uuid): Observable<Array<AccountItem>> {
     return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.accounts_fetch_all}`, {
-      tenant_id: tenant_id.to_string(),
+      tenant_id: tenant_id,
     }).pipe(
       map((r: ApiResponse) => {
         if (r.success && r.data) {

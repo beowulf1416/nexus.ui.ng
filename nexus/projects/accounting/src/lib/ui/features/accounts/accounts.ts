@@ -52,6 +52,7 @@ export class Accounts implements OnInit {
     }
 
     const tenant_id = user.tenant.id;
+    console.debug(tenant_id);
 
     // account types
     this.acct_service.account_types_fetch().subscribe({
@@ -82,6 +83,25 @@ export class Accounts implements OnInit {
     });
 
     // accounts
+    // this.acct_service.accounts_fetch(
+    //   tenant_id
+    // ).subscribe({
+    //   next: (accounts: Array<AccountItem>) => {
+    //     this.model.update((m) => ({
+    //       ...m,
+    //       accounts: accounts
+    //     }));
+    //   },
+    //   error: (err: any) => {
+    //     console.error(err);
+    //     this.notification_service.error('Failed to fetch accounts');
+    //   }
+    // });
+    this.fetch_accounts();
+  }
+
+  fetch_accounts(): void {
+    const tenant_id = this.user_service.current_user().tenant.id;
     this.acct_service.accounts_fetch(
       tenant_id
     ).subscribe({
@@ -96,6 +116,12 @@ export class Accounts implements OnInit {
         this.notification_service.error('Failed to fetch accounts');
       }
     });
+  }
+
+  on_refresh(event: Event): void {
+    console.info('on_refresh');
+    event.preventDefault();
+    this.fetch_accounts();
   }
 
   on_new_account(event: Event): void {

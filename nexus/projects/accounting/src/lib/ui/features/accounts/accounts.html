@@ -2,8 +2,11 @@
   <div class="wrapper toolbar">
     <mat-toolbar>
       <button type="button" title="New Account" mat-icon-button (click)="on_new_account($event)">
-        <mat-icon>new_account</mat-icon>
+        <mat-icon>account_balance_wallet</mat-icon>
         <span>New Account</span>
+      </button>
+      <button type="button" title="refresh" mat-icon-button (click)="on_refresh($event)">
+        <mat-icon>refresh</mat-icon>
       </button>
     </mat-toolbar>
   </div><!-- .wrapper -->
@@ -28,7 +31,7 @@
       <tbody>
         @for(acct_type of model().account_types; let i = $index; track $index){
         <tr>
-          <td>{{ acct_type.id }}</td>
+          <td>{{ acct_type.account_type_id }}</td>
           <td>{{ acct_type.name }}</td>
           <td></td>
           <td></td>

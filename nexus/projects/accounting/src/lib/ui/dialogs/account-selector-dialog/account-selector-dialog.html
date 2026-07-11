@@ -1,1 +1,31 @@
-<p>account-selector-dialog works!</p>
+<div class="component account-selector-dialog">
+  <div class="wrapper form">
+    <form class="form account-selector-dialog" method="post" action="" (submit)="on_submit($event)">
+      <h3 mat-dialog-title>Select an Account</h3>
+      <mat-dialog-content>
+        <mat-toolbar>
+          <mat-form-field>
+            <mat-label>Search</mat-label>
+            <input type="search" title="Filter" class="input search" matInput [formField]="component.form.filter" />
+            <button type="submit" title="Search" class="btn search" mat-icon-button matSuffix>
+              <mat-icon>search</mat-icon>
+            </button>
+            <button type="button" title="Clear" class="btn clear" mat-icon-button matSuffix (click)="on_clear($event)">
+              <mat-icon>reset</mat-icon>
+            </button>
+          </mat-form-field>
+        </mat-toolbar>
+      </mat-dialog-content>
+      <mat-dialog-actions>
+        <button type="button" title="Cancel" class="btn cancel" matFab extended (click)="on_cancel($event)">
+          <mat-icon>cancel</mat-icon>
+          <span>Cancel</span>
+        </button>
+        <button type="submit" title="Select" class="btn select" matFab extended [disabled]="component.form().invalid">
+          <mat-icon>select</mat-icon>
+          <span>Select</span>
+        </button>
+      </mat-dialog-actions>
+    </form>
+  </div><!-- .wrapper -->
+</div><!-- .component -->
