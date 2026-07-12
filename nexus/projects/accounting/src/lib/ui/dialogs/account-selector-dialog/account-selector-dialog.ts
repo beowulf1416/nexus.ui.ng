@@ -36,7 +36,7 @@ class AccountItemRow {
 export class AccountSelectorDialog {
   model = signal({
     filter: '',
-    selected: '',
+    selected: new Array<AccountItemRow>(),
     matches: new Array<AccountItemRow>()
   });
 
@@ -91,11 +91,46 @@ export class AccountSelectorDialog {
     console.info('on_clear');
     event.preventDefault();
 
+    this.model.update((m) => ({ ...m, filter: '' }));
   }
 
   on_cancel(event: Event): void {
     console.info('on_cancel');
     event.preventDefault();
     this.dr.close();
+  }
+
+  on_select_item(event: Event, i: number): void {
+    console.info('on_select_item');
+    event.preventDefault();
+
+    const model = this.model();
+    const selected_item = model.matches[i];
+
+    const selected_items = model.selected.concat(selected_item);
+    const matched_items = model.matches.toSpliced(i, 1);
+
+    this.model.update((m) => ({ ...m, selected: selected_items, matches: matched_items }));
+  }
+
+  on_remove_item(event: Event, i: number): void {
+    console.info('on_remove_item');
+    event.preventDefault();
+
+    const model = this.model();
+    const selected_item = model.selected[i];
+
+    const selected_items = model.selected.toSpliced(i, 1);
+    const matched_items = model.matches.concat(selected_item);
+
+    this.model.update((m) => ({ ...m, selected: selected_items, matches: matched_items }));
+  }
+
+  on_select(event: Event): void {
+    console.info('on_select');
+    event.preventDefault();
+
+    const selected_items = this.model().selected;
+    this.dr.close(selected_items);
   }
 }

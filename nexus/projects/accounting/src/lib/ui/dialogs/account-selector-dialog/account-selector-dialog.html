@@ -17,32 +17,63 @@
             </mat-form-field>
           </mat-toolbar>
         </div><!-- .actions -->
-        <div class="results">
-          <table class="accounts">
-            <caption>Accounts</caption>
+        <div class="selected">
+          <table class="selected">
+            <caption>Selected</caption>
             <thead>
               <tr>
+                <th></th>
                 <th>Name</th>
                 <th>Account</th>
               </tr>
             </thead>
             <tbody>
-              @for(a of component.form.matches(); let i = $index; track $index){
+              @for(a of component.form.selected; let i = $index; track $index){
               <tr>
+                <td>
+                  <button type="button" title="Remove Item" class="btn remove-item" mat-input-button>
+                    <mat-icon>remove</mat-icon>
+                  </button>
+                </td>
                 <td>{{ a.name }}</td>
                 <td>{{ a.account }}</td>
               </tr>
               }
             </tbody>
           </table>
-        </div><!-- .results -->
+        </div><!-- .selected -->
+        <div class="matches">
+          <table class="matches">
+            <caption>Matches</caption>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Account</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for(a of component.form.matches; let i = $index; track $index){
+              <tr>
+                <td>
+                  <button type="button" title="Select Item" class="btn select-item" mat-input-button>
+                    <mat-icon>select</mat-icon>
+                  </button>
+                </td>
+                <td>{{ a.name }}</td>
+                <td>{{ a.account }}</td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div><!-- .matches -->
       </mat-dialog-content>
       <mat-dialog-actions>
         <button type="button" title="Cancel" class="btn cancel" matFab extended (click)="on_cancel($event)">
           <mat-icon>cancel</mat-icon>
           <span>Cancel</span>
         </button>
-        <button type="submit" title="Select" class="btn select" matFab extended [disabled]="component.form().invalid">
+        <button type="button" title="Select" class="btn select" matFab extended [disabled]="component.form().invalid" (click)="on_select($event)">
           <mat-icon>select</mat-icon>
           <span>Select</span>
         </button>
