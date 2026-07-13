@@ -1,9 +1,13 @@
-import { Component, computed, inject, output, signal } from '@angular/core';
+import { Component, computed, inject, input, output, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { AccountSelectorDialog } from '../../dialogs/account-selector-dialog/account-selector-dialog';
-import { UserService } from 'core';
+import { UserService, Uuid } from 'core';
+import { AccountItem } from '../../../models/account-item';
+import { AccountTypeId } from '../../../accounting.constants';
+
+
 
 @Component({
   selector: 'account-selector',
@@ -28,7 +32,11 @@ export class AccountSelector {
   private user_service = inject(UserService);
   private md = inject(MatDialog);
 
-  account_selected = output();
+  account_type = input<AccountTypeId>();
+  account_selected = output<{
+    account_id: Uuid;
+    name: string;
+  }>();
 
   constructor() { }
 
@@ -41,13 +49,22 @@ export class AccountSelector {
         top: '20px',
         right: '10px',
       },
-      data: {  },
+      data: {
+        account_type: this.account_type(),
+      },
     });
     dr.afterClosed().subscribe({
-      next: (result) => {
+      next: (result: Array<AccountItem>) => {
         if (result) {
-          this.model.set(result);
-          this.account_selected.emit(result);
+          const a = {
+            account_id: result[0].id.to_string(),
+            name: result[0].name
+          };
+          this.model.set(a);
+          this.account_selected.emit({
+            account_id: result[0].id,
+            name: result[0].name
+          });
         }
       },
     });

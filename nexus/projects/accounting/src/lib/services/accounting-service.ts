@@ -5,7 +5,7 @@ import { Observable, catchError, map, tap } from 'rxjs';
 
 import { ApiResponse, Uuid } from 'core';
 import { InvoiceType } from '../models/invoice-type';
-import { URLS } from '../accounting.constants';
+import { ACCOUNT_TYPES, URLS } from '../accounting.constants';
 import { Invoice } from '../models/invoice';
 import { AccountItem } from '../models/account-item';
 import { AccountType } from '../models/account-type';
@@ -60,6 +60,28 @@ export class AccountingService {
   accounts_fetch(tenant_id: Uuid): Observable<Array<AccountItem>> {
     return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.accounts_fetch_all}`, {
       tenant_id: tenant_id,
+    }).pipe(
+      map((r: ApiResponse) => {
+        if (r.success && r.data) {
+          const accounts = (
+            r.data as {
+              accounts: Array<AccountItem>;
+            }
+          ).accounts;
+          return accounts;
+        }
+        return new Array<AccountItem>();
+      }),
+      catchError((e: any) => {
+        console.error(e);
+        throw e;
+      }),
+    );
+  }
+
+  accounts_fetch_by_type(type_id: ACCOUNT_TYPES): Observable<Array<AccountItem>> {
+    return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.accounts_fetch_by_type}`, {
+      type_id: type_id,
     }).pipe(
       map((r: ApiResponse) => {
         if (r.success && r.data) {

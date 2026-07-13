@@ -4,7 +4,7 @@ import { NotificationService, UserService, Uuid } from 'core';
 import { AccountType } from '../../../models/account-type';
 import { AccountCategory } from '../../../models/account-category';
 import { AccountingService } from '../../../services/accounting-service';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -13,6 +13,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { AccountItem } from '../../../models/account-item';
 import { AccountSelector } from '../../components/account-selector/account-selector';
+import { AccountTypeId } from '../../../accounting.constants';
 
 @Component({
   selector: 'lib-account-dialog',

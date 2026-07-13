@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialog } from '@angular/material/dialog';
+import { ACCOUNT_TYPES } from '../../../accounting.constants';
 
 // class Account {
 //   constructor(
@@ -35,6 +36,12 @@ export class Accounts implements OnInit {
     accounts: new Array<AccountItem>(),
     account_types: new Array<AccountType>(),
     account_categories: new Array<AccountCategory>(),
+
+    assets: new Array<AccountItem>(),
+    liabilities: new Array<AccountItem>(),
+    equity: new Array<AccountItem>(),
+    expenses: new Array<AccountItem>(),
+    income: new Array<AccountItem>(),
   });
 
   private acct_service = inject(AccountingService);
@@ -102,13 +109,26 @@ export class Accounts implements OnInit {
 
   fetch_accounts(): void {
     const tenant_id = this.user_service.current_user().tenant.id;
-    this.acct_service.accounts_fetch(
-      tenant_id
-    ).subscribe({
-      next: (accounts: Array<AccountItem>) => {
+    // this.acct_service.accounts_fetch(
+    //   tenant_id
+    // ).subscribe({
+    //   next: (accounts: Array<AccountItem>) => {
+    //     this.model.update((m) => ({
+    //       ...m,
+    //       accounts: accounts
+    //     }));
+    //   },
+    //   error: (err: any) => {
+    //     console.error(err);
+    //     this.notification_service.error('Failed to fetch accounts');
+    //   }
+    // });
+
+    this.acct_service.accounts_fetch_by_type(ACCOUNT_TYPES.ASSET).subscribe({
+      next: (assets: Array<AccountItem>) => {
         this.model.update((m) => ({
           ...m,
-          accounts: accounts
+          assets: assets
         }));
       },
       error: (err: any) => {

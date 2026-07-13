@@ -5,11 +5,12 @@ import { form, FormField, required, submit } from '@angular/forms/signals';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { AccountItem } from '../../../models/account-item';
 import { AccountingService } from '../../../services/accounting-service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotificationService, UserService } from 'core';
+import { AccountTypeId } from '../../../accounting.constants';
 
 
 class AccountItemRow {
@@ -47,6 +48,9 @@ export class AccountSelectorDialog {
     })
   };
 
+  readonly data = inject<{
+    account_type: AccountTypeId;
+  } | null>(MAT_DIALOG_DATA);
 
   private dr = inject(MatDialogRef<AccountSelectorDialog>);
   private acctg_service = inject(AccountingService);
