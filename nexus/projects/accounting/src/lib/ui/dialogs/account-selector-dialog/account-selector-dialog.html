@@ -12,7 +12,7 @@
                 <mat-icon>search</mat-icon>
               </button>
               <button type="button" title="Clear" class="btn clear" mat-icon-button matSuffix (click)="on_clear($event)">
-                <mat-icon>reset</mat-icon>
+                <mat-icon>close_small</mat-icon>
               </button>
             </mat-form-field>
           </mat-toolbar>
@@ -25,18 +25,20 @@
                 <th></th>
                 <th>Name</th>
                 <th>Account</th>
+                <th>Description</th>
               </tr>
             </thead>
             <tbody>
               @for(a of component.form.selected; let i = $index; track $index){
               <tr>
                 <td>
-                  <button type="button" title="Remove Item" class="btn remove-item" mat-input-button>
-                    <mat-icon>remove</mat-icon>
+                  <button type="button" title="Remove Item" class="btn remove-item" mat-icon-button (click)="on_remove_item($event, i)">
+                    <mat-icon>arrow_circle_down</mat-icon>
                   </button>
                 </td>
-                <td>{{ a.name }}</td>
-                <td>{{ a.account }}</td>
+                <td>{{ a.account.name().value() }}</td>
+                <td>{{ a.account.code().value() }}</td>
+                <td>{{ a.account.description().value() }}</td>
               </tr>
               }
             </tbody>
@@ -50,18 +52,20 @@
                 <th></th>
                 <th>Name</th>
                 <th>Account</th>
+                <th>Description</th>
               </tr>
             </thead>
             <tbody>
               @for(a of component.form.matches; let i = $index; track $index){
               <tr>
                 <td>
-                  <button type="button" title="Select Item" class="btn select-item" mat-input-button>
-                    <mat-icon>select</mat-icon>
+                  <button type="button" title="Select Item" class="btn select-item" mat-icon-button (click)="on_select_item($event, i)">
+                    <mat-icon>arrow_circle_up</mat-icon>
                   </button>
                 </td>
-                <td>{{ a.name }}</td>
-                <td>{{ a.account }}</td>
+                <td>{{ a.account.name().value() }}</td>
+                <td>{{ a.account.code().value() }}</td>
+                <td>{{ a.account.description().value() }}</td>
               </tr>
               }
             </tbody>
@@ -73,8 +77,8 @@
           <mat-icon>cancel</mat-icon>
           <span>Cancel</span>
         </button>
-        <button type="button" title="Select" class="btn select" matFab extended [disabled]="component.form().invalid" (click)="on_select($event)">
-          <mat-icon>select</mat-icon>
+        <button type="button" title="Select" class="btn select" matFab extended [disabled]="select_button_disabled()" (click)="on_select($event)">
+          <mat-icon>check_circle</mat-icon>
           <span>Select</span>
         </button>
       </mat-dialog-actions>

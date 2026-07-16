@@ -1,4 +1,4 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, signal, inject, computed } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { form, FormField, required, submit } from '@angular/forms/signals';
@@ -44,13 +44,17 @@ export class AccountSelectorDialog {
   component = {
     errors: signal(new Array<string>()),
     form: form(this.model, (f) => {
-      required(f.filter, { message: 'Filter is required' })
+      // required(f.filter, { message: 'Filter is required' })
     })
   };
 
   readonly data = inject<{
     account_type: AccountTypeId;
   } | null>(MAT_DIALOG_DATA);
+
+  select_button_disabled = computed(() => {
+    return this.model().selected.length == 0;
+  })
 
   private dr = inject(MatDialogRef<AccountSelectorDialog>);
   private acctg_service = inject(AccountingService);
@@ -70,7 +74,7 @@ export class AccountSelectorDialog {
       const filter = model.filter;
       const tenant_id = this.user_service.current_user().tenant.id;
 
-      this.acctg_service.accounts_fetch_filtered(tenant_id, filter).subscribe({
+      this.acctg_service.accounts_fetch_filtered(tenant_id, this.data?.account_type ?? 1,filter).subscribe({
         next: (r: Array<AccountItem>) => {
           this.model.update((m) => ({
             ...m,
