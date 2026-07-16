@@ -18,7 +18,7 @@ export class CommonService {
   fetch_currencies(): Observable<Currency> {
     console.info('fetch_currencies');
 
-    return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.fetch_currencies}`, {}).pipe(
+    return this.http.post<ApiResponse>(URLS.fetch_currencies, {}).pipe(
       map((r: ApiResponse) => {
         if (r.success && r.data) {
           const currencies = (
@@ -40,7 +40,7 @@ export class CommonService {
   fetch_countries(): Observable<Country> {
     console.info('fetch_countries');
 
-    return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.fetch_countries}`, {}).pipe(
+    return this.http.post<ApiResponse>(URLS.fetch_countries, {}).pipe(
       map((r: ApiResponse) => {
         if (r.success && r.data) {
           const countries = (
@@ -62,7 +62,7 @@ export class CommonService {
   fetch_dimensions(): Observable<Array<Dimension>> {
     console.info('fetch_dimensions');
 
-    return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.fetch_dimensions}`, {}).pipe(
+    return this.http.post<ApiResponse>(URLS.fetch_dimensions, {}).pipe(
       map((r: ApiResponse) => {
         if (r.success && r.data) {
           const dimensions = (
@@ -84,7 +84,7 @@ export class CommonService {
   fetch_uoms(): Observable<Array<Uom>> {
     console.info('fetch_uoms');
 
-    return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.fetch_uoms}`, {}).pipe(
+    return this.http.post<ApiResponse>(URLS.fetch_uoms, {}).pipe(
       map((r: ApiResponse) => {
         if (r.success && r.data) {
           const uoms = (
@@ -107,7 +107,7 @@ export class CommonService {
     console.info('fetch_uoms_by_dimension');
 
     return this.http
-      .post<ApiResponse>(`${URLS.base_url}${URLS.fetch_uoms_by_dimension}`, {
+      .post<ApiResponse>(URLS.fetch_uoms_by_dimension, {
         dimension_id: dimension_id,
       })
       .pipe(

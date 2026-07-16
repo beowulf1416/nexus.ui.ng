@@ -37,7 +37,7 @@ export class UserService {
 
   sign_in(email: string, password: string): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(
-        URLS.base_url + URLS.authenticate,
+        URLS.authenticate,
         {
           email: email,
           pw: password,
@@ -77,12 +77,12 @@ export class UserService {
 
   fetch_current_user(): Observable<ApiResponse> {
     let o_user = this.http.post<ApiResponse>(
-      URLS.base_url + URLS.fetch_current_user,
+      URLS.fetch_current_user,
       {}
     );
 
     let o_tenants = this.http.post<ApiResponse>(
-      URLS.base_url + URLS.fetch_tenants,
+      URLS.fetch_tenants,
       {}
     );
 
@@ -126,7 +126,7 @@ export class UserService {
 
   switch_tenant(tenant_id: Uuid): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(
-      `${URLS.base_url}${URLS.switch_tenant}`,
+      URLS.switch_tenant,
       {
         tenant_id: tenant_id.to_string()
       },

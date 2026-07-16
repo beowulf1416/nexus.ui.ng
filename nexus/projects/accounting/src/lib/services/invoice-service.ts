@@ -15,7 +15,7 @@ export class InvoiceService {
   constructor() {}
 
   fetch_invoice_types(): Observable<Array<InvoiceType>> {
-    return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.fetch_invoice_types}`, {}).pipe(
+    return this.http.post<ApiResponse>(URLS.fetch_invoice_types, {}).pipe(
       map((r: ApiResponse) => {
         if (r.success && r.data) {
           const invoice_types = (
@@ -38,7 +38,7 @@ export class InvoiceService {
     console.info('invoices_fetch');
 
     return this.http
-      .post<ApiResponse>(`${URLS.base_url}${URLS.invoices_fetch}`, {
+      .post<ApiResponse>(URLS.invoices_fetch, {
         filter: filter,
       })
       .pipe(
@@ -64,7 +64,7 @@ export class InvoiceService {
     console.info('invoice_fetch');
 
     return this.http
-      .post<ApiResponse>(`${URLS.base_url}${URLS.invoice_fetch}`, {
+      .post<ApiResponse>(URLS.invoice_fetch, {
         invoice_id: invoice_id,
       })
       .pipe(
@@ -89,7 +89,7 @@ export class InvoiceService {
   invoice_save(invoice: Invoice): Observable<ApiResponse> {
     console.info('invoice_save');
 
-    return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.invoice_save}`, {
+    return this.http.post<ApiResponse>(URLS.invoice_save, {
       invoice_id: invoice.invoice_id,
       invoice_type_id: invoice.invoice_type_id,
       due_date: invoice.due_date,

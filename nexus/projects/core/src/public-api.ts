@@ -18,3 +18,4 @@ export * from './lib/services/notification-service';
 export * from './lib/services/user-service';
 export * from './lib/services/common-service';
 export * from './lib/ui/components/app-header/app-header';
+export * from './lib/ui/components/country-selector/country-selector';

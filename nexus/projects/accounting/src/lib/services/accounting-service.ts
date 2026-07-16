@@ -18,7 +18,7 @@ export class AccountingService {
   constructor() {}
 
   account_types_fetch(): Observable<Array<AccountType>> {
-    return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.account_types_fetch}`, {}).pipe(
+    return this.http.post<ApiResponse>(URLS.account_types_fetch, {}).pipe(
       map((r: ApiResponse) => {
         if (r.success && r.data) {
           const types = (
@@ -38,7 +38,7 @@ export class AccountingService {
   }
 
   account_categories_fetch(): Observable<Array<AccountCategory>> {
-    return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.account_categories_fetch}`, {}).pipe(
+    return this.http.post<ApiResponse>(URLS.account_categories_fetch, {}).pipe(
       map((r: ApiResponse) => {
         if (r.success && r.data) {
           const categories = (
@@ -58,7 +58,8 @@ export class AccountingService {
   }
 
   accounts_fetch(tenant_id: Uuid): Observable<Array<AccountItem>> {
-    return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.accounts_fetch_all}`, {
+    console.info('accounts_fetch');
+    return this.http.post<ApiResponse>(URLS.accounts_fetch_all, {
       tenant_id: tenant_id,
     }).pipe(
       map((r: ApiResponse) => {
@@ -80,7 +81,8 @@ export class AccountingService {
   }
 
   accounts_fetch_by_type(type_id: ACCOUNT_TYPES): Observable<Array<AccountItem>> {
-    return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.accounts_fetch_by_type}`, {
+    console.info('accounts_fetch_by_type');
+    return this.http.post<ApiResponse>(URLS.accounts_fetch_by_type, {
       type_id: type_id,
     }).pipe(
       map((r: ApiResponse) => {
@@ -101,9 +103,11 @@ export class AccountingService {
     );
   }
 
-  accounts_fetch_filtered(tenant_id: Uuid, filter: string): Observable<Array<AccountItem>> {
-    return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.accounts_fetch_filtered}`, {
+  accounts_fetch_filtered(tenant_id: Uuid, account_type_id: number, filter: string): Observable<Array<AccountItem>> {
+    console.info('accounts_fetch_filtered');
+    return this.http.post<ApiResponse>(URLS.accounts_fetch_filtered, {
       tenant_id: tenant_id,
+      account_type_id: account_type_id,
       filter: filter,
     }).pipe(
       map((r: ApiResponse) => {
@@ -125,7 +129,8 @@ export class AccountingService {
   }
 
   account_save(tenant_id: Uuid, account: AccountItem): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.account_save}`, {
+    console.info('account_save');
+    return this.http.post<ApiResponse>(URLS.account_save, {
       tenant_id: tenant_id.to_string(),
       account: account,
     });
