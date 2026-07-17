@@ -39,9 +39,9 @@ export class Accounts implements OnInit {
 
     assets: new Array<AccountItem>(),
     liabilities: new Array<AccountItem>(),
-    equity: new Array<AccountItem>(),
+    equities: new Array<AccountItem>(),
     expenses: new Array<AccountItem>(),
-    income: new Array<AccountItem>(),
+    incomes: new Array<AccountItem>(),
   });
 
   private acct_service = inject(AccountingService);
@@ -129,6 +129,58 @@ export class Accounts implements OnInit {
         this.model.update((m) => ({
           ...m,
           assets: assets
+        }));
+      },
+      error: (err: any) => {
+        console.error(err);
+        this.notification_service.error('Failed to fetch accounts');
+      }
+    });
+
+    this.acct_service.accounts_fetch_by_type(ACCOUNT_TYPES.EQUITY).subscribe({
+      next: (equities: Array<AccountItem>) => {
+        this.model.update((m) => ({
+          ...m,
+          equities: equities
+        }));
+      },
+      error: (err: any) => {
+        console.error(err);
+        this.notification_service.error('Failed to fetch accounts');
+      }
+    });
+
+    this.acct_service.accounts_fetch_by_type(ACCOUNT_TYPES.LIABILITY).subscribe({
+      next: (liabilities: Array<AccountItem>) => {
+        this.model.update((m) => ({
+          ...m,
+          liabilities: liabilities
+        }));
+      },
+      error: (err: any) => {
+        console.error(err);
+        this.notification_service.error('Failed to fetch accounts');
+      }
+    });
+
+    this.acct_service.accounts_fetch_by_type(ACCOUNT_TYPES.INCOME).subscribe({
+      next: (incomes: Array<AccountItem>) => {
+        this.model.update((m) => ({
+          ...m,
+          incomes: incomes
+        }));
+      },
+      error: (err: any) => {
+        console.error(err);
+        this.notification_service.error('Failed to fetch accounts');
+      }
+    });
+
+    this.acct_service.accounts_fetch_by_type(ACCOUNT_TYPES.EXPENSE).subscribe({
+      next: (expenses: Array<AccountItem>) => {
+        this.model.update((m) => ({
+          ...m,
+          expenses: expenses
         }));
       },
       error: (err: any) => {

@@ -29,19 +29,6 @@
         </tr>
       </tfoot>
       <tbody>
-        @for(acct_type of model().account_types; let i = $index; track $index){
-        <tr>
-          <td>{{ acct_type.account_type_id }}</td>
-          <td>{{ acct_type.name }}</td>
-          <td></td>
-          <td></td>
-        </tr>
-        }
-        <tr>
-          <td>Asset</td>
-          <td></td>
-          <td></td>
-        </tr>
         <tr>
           <td colspan="3">
             <div class="wrapper table">
@@ -49,6 +36,78 @@
                 <thead></thead>
                 <tbody>
                   @for(a of model().assets; let i = $index; track $index){
+                  <tr>
+                    <td>{{ a.name }}</td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  }
+                </tbody>
+              </table>
+            </div><!-- .wrapper -->
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <div class="wrapper table">
+              <table>
+                <thead></thead>
+                <tbody>
+                  @for(a of model().liabilities; let i = $index; track $index){
+                  <tr>
+                    <td>{{ a.name }}</td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  }
+                </tbody>
+              </table>
+            </div><!-- .wrapper -->
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <div class="wrapper table">
+              <table>
+                <thead></thead>
+                <tbody>
+                  @for(a of model().equities; let i = $index; track $index){
+                  <tr>
+                    <td>{{ a.name }}</td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  }
+                </tbody>
+              </table>
+            </div><!-- .wrapper -->
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <div class="wrapper table">
+              <table>
+                <thead></thead>
+                <tbody>
+                  @for(a of model().incomes; let i = $index; track $index){
+                  <tr>
+                    <td>{{ a.name }}</td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  }
+                </tbody>
+              </table>
+            </div><!-- .wrapper -->
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <div class="wrapper table">
+              <table>
+                <thead></thead>
+                <tbody>
+                  @for(a of model().expenses; let i = $index; track $index){
                   <tr>
                     <td>{{ a.name }}</td>
                     <td></td>
