@@ -1,12 +1,14 @@
-export const URLS = {
-  base_url: 'http://localhost:8080',
+// export const BASE_URL = 'http://localhost:8080/api/v1';
 
-  tenant_save: '/admin/tenants/save',
-  fetch_tenant: '/admin/tenants/fetch/id',
-  fetch_tenants: '/admin/tenants/fetch',
+// export const URLS = {
+//   // base_url: 'http://localhost:8080',
 
-  role_save: '/admin/tenants/role/save',
-  fetch_roles: '/admin/tenants/roles/fetch',
+//   tenant_save: `${BASE_URL}/admin/tenants/save`,
+//   fetch_tenant: `${BASE_URL}/admin/tenants/fetch/id`,
+//   fetch_tenants: `${BASE_URL}/admin/tenants/fetch`,
 
-  fetch_users: '/admin/tenants/fetch/users'
-}
+//   role_save: `${BASE_URL}/admin/tenants/role/save`,
+//   fetch_roles: `${BASE_URL}/admin/tenants/roles/fetch`,
+
+//   fetch_users: `${BASE_URL}/admin/tenants/fetch/users`
+// }

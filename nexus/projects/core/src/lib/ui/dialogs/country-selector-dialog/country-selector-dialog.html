@@ -1,1 +1,77 @@
-<p>country-selector-dialog works!</p>
+<div class="component country-selector-dialog">
+  <div class="wrapper form">
+    <form class="country-selector" method="post" action="" (submit)="on_submit($event)">
+      <h3 mat-dialog-title>Select a country</h3>
+      <mat-dialog-content>
+        <fieldset>
+          <mat-toolbar>
+            <mat-form-field>
+              <mat-label>Filter</mat-label>
+              <input type="search" class="input filter" placeholder="Search" matInput />
+              <button type="button" class="btn filter" title="Filter" mat-icon-button matSuffix>
+                <mat-icon>search</mat-icon>
+              </button>
+              <button type="button" class="btn reset" title="Clear" mat-icon-button matSuffix>
+                <mat-icon>close_small</mat-icon>
+              </button>
+            </mat-form-field>
+          </mat-toolbar>
+        </fieldset>
+        <fieldset>
+          <legend>Selected</legend>
+          <div class="wrapper table">
+            <table class="selected">
+              <caption>Selected</caption>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Name</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div><!-- .wrapper -->
+        </fieldset>
+        <fieldset>
+          <legend>Matches</legend>
+          <div class="wrapper table">
+            <table class="matches">
+              <caption>Matches</caption>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Name</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div><!-- .wrapper -->
+        </fieldset>
+      </mat-dialog-content>
+      <mat-dialog-actions>
+        <button type="button" class="btn cancel"title="Cancel" matFab extended>
+          <mat-icon>cancel</mat-icon>
+          <span>Cancel</span>
+        </button>
+        <button type="submit" class="btn select" matFab extended>
+          <mat-icon>check_circle</mat-icon>
+          <span>Select</span>
+        </button>
+      </mat-dialog-actions>
+    </form>
+  </div><!-- .wrapper -->
+</div><!-- .component -->
