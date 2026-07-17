@@ -128,6 +128,27 @@ export class AccountingService {
     );
   }
 
+  account_fetch(account_id: Uuid): Observable<AccountItem | null> {
+    console.info('account_fetch');
+    return this.http.post<ApiResponse>(URLS.account_fetch, {
+      account_id: account_id.to_string(),
+    }).pipe(
+      map((r: ApiResponse) => {
+        if (r.success && r.data) {
+          const account = (r.data as {
+            account: AccountItem
+          }).account;
+          return account;
+        }
+        return null;
+      }),
+      catchError((e: any) => {
+        console.error(e);
+        throw e;
+      }),
+    );
+  }
+
   account_save(tenant_id: Uuid, account: AccountItem): Observable<ApiResponse> {
     console.info('account_save');
     return this.http.post<ApiResponse>(URLS.account_save, {

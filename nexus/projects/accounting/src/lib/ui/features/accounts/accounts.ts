@@ -1,16 +1,17 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { AccountItem } from '../../../models/account-item';
-import { AccountNode } from '../../components/account-node/account-node';
-import { AccountType } from '../../../models/account-type';
-import { AccountCategory } from '../../../models/account-category';
-import { AccountingService } from '../../../services/accounting-service';
-import { NotificationService, UserService } from 'core';
 import { AccountDialog } from '../../dialogs/account-dialog/account-dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialog } from '@angular/material/dialog';
+
+import { NotificationService, UserService } from 'core';
 import { ACCOUNT_TYPES } from '../../../accounting.constants';
+import { AccountItem } from '../../../models/account-item';
+import { AccountType } from '../../../models/account-type';
+import { AccountCategory } from '../../../models/account-category';
+import { AccountingService } from '../../../services/accounting-service';
+import { AccountNodeName } from '../../components/account-node-name/account-node-name';
 
 // class Account {
 //   constructor(
@@ -27,7 +28,8 @@ import { ACCOUNT_TYPES } from '../../../accounting.constants';
     MatIconModule,
     MatButtonModule,
     MatToolbarModule,
-    AccountNode],
+    AccountNodeName,
+  ],
   templateUrl: './accounts.html',
   styleUrl: './accounts.css',
 })

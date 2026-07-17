@@ -9,6 +9,7 @@ export const URLS = {
   accounts_fetch_by_type: `${BASE_URL}/acctg/accounts/fetch/by/type`,
   accounts_fetch_filtered: `${BASE_URL}/acctg/accounts/fetch`,
   account_save: `${BASE_URL}/acctg/accounts/account/save`,
+  account_fetch: `${BASE_URL}/acctg/accounts/account/fetch`,
 
   fetch_invoice_types: `${BASE_URL}/acctg/invoices/types/fetch`,
   invoices_fetch: `${BASE_URL}/acctg/invoices/fetch`,
