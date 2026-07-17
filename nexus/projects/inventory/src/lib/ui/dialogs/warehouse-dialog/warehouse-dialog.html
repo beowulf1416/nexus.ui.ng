@@ -1,1 +1,26 @@
-<p>warehouse-dialog works!</p>
+<div class="component warehouse-dialog">
+  <div class="wrapper form">
+    <form class="warehouse" method="post" action="" (submit)="on_submit($event)">
+      <h3 mat-dialog-title>{{ title() }}</h3>
+      <mat-dialog-content>
+        <fieldset>
+          <legend>Information</legend>
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input type="text" class="input name" placeholder="Name" matInput/>
+          </mat-form-field>
+        </fieldset>
+        <fieldset>
+          <legend>Address</legend>
+          <mat-form-field>
+            <mat-label>Country</mat-label>
+            <input type="text" class="input country" placeholder="Country" matInput/>
+          </mat-form-field>
+        </fieldset>
+      </mat-dialog-content>
+      <mat-dialog-actions>
+
+      </mat-dialog-actions>
+    </form>
+  </div><!-- .wrapper -->
+</div><!-- .component -->
