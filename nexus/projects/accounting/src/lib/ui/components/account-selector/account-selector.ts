@@ -9,6 +9,11 @@ import { AccountTypeId } from '../../../accounting.constants';
 
 
 
+interface AccountSelected {
+  account_id: string;
+  name: string;
+}
+
 @Component({
   selector: 'account-selector',
   imports: [
@@ -34,7 +39,7 @@ export class AccountSelector {
 
   account_type = input<AccountTypeId>();
   account_selected = output<{
-    account_id: Uuid;
+    account_id: string;
     name: string;
   }>();
 
@@ -54,15 +59,15 @@ export class AccountSelector {
       },
     });
     dr.afterClosed().subscribe({
-      next: (result: Array<AccountItem>) => {
+      next: (result: Array<AccountSelected>) => {
         if (result) {
           const a = {
-            account_id: result[0].id.to_string(),
+            account_id: result[0].account_id,
             name: result[0].name
           };
           this.model.set(a);
           this.account_selected.emit({
-            account_id: result[0].id,
+            account_id: result[0].account_id,
             name: result[0].name
           });
         }

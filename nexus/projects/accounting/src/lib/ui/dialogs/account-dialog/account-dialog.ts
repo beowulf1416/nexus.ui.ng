@@ -108,7 +108,7 @@ export class AccountDialog implements OnInit {
       const tenant_id = this.user_service.current_user().tenant.id;
       const model = this.model();
 
-      const account = new AccountItem(new Uuid(model.account_id), model.name, model.code, model.description, model.type_id, model.category_id, 0, new Array<AccountItem>());
+      const account = new AccountItem(new Uuid(model.account_id), true, model.name, model.code, model.description, model.type_id, model.category_id, 0, new Array<AccountItem>());
 
       this.accounts_service.account_save(tenant_id, account).subscribe({
         next: (r: any) => {

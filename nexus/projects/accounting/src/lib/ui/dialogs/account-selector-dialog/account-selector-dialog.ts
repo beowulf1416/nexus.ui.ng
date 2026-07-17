@@ -138,7 +138,7 @@ export class AccountSelectorDialog {
     console.info('on_select');
     event.preventDefault();
 
-    const selected_items = this.model().selected;
+    const selected_items = this.model().selected.map((item) => ({ account_id: item.account.account_id, name: item.account.name }));
     this.dr.close(selected_items);
   }
 }

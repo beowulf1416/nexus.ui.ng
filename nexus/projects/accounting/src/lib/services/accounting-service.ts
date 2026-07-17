@@ -131,8 +131,16 @@ export class AccountingService {
   account_save(tenant_id: Uuid, account: AccountItem): Observable<ApiResponse> {
     console.info('account_save');
     return this.http.post<ApiResponse>(URLS.account_save, {
-      tenant_id: tenant_id.to_string(),
-      account: account,
+      // tenant_id: tenant_id,
+      account: {
+        account_id: account.account_id.to_string(),
+        active: account.active,
+        account_type_id: account.account_type_id,
+        account_category_id: account.account_category_id,
+        name: account.name,
+        code: account.code,
+        description: account.description
+      },
     });
   }
 }
