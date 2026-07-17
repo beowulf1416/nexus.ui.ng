@@ -1,8 +1,9 @@
-import { Component, input, inject } from '@angular/core';
+import { Component, input, inject, output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 import { Partner } from '../../../models/partner';
+import { MatDialog } from '@angular/material/dialog';
 
 
 
