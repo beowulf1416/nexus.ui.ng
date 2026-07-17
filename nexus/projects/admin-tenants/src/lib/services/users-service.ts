@@ -23,7 +23,7 @@ export class UsersService {
     filter: string
   ): Observable<Array<UserItem>> {
     return this.http.post<ApiResponse>(
-      `${URLS.base_url}${URLS.fetch_users}`,
+      URLS.fetch_users,
       {
         tenant_id: tenant_id.to_string(),
         filter: filter

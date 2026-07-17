@@ -22,7 +22,7 @@ export class PermissionService {
     console.info('fetch_permissions');
 
     return this.http.post<ApiResponse>(
-      `${URLS.base_url}${URLS.fetch_permissions}`,
+      URLS.fetch_permissions,
       {
         filter: filter
       }

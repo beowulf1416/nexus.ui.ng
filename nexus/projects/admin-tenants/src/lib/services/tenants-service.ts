@@ -20,7 +20,7 @@ export class TenantsService {
 
   fetch_tenants(filter: string): Observable<Array<TenantItem>> {
     return this.http.post<ApiResponse>(
-      `${URLS.base_url}${URLS.fetch_tenants}`,
+      URLS.fetch_tenants,
       {
         filter: filter
       }).pipe(
@@ -40,7 +40,7 @@ export class TenantsService {
 
   fetch_tenant(tenant_id: Uuid): Observable<TenantItem> {
     return this.http.post<ApiResponse>(
-      `${URLS.base_url}${URLS.fetch_tenant}`,
+      URLS.fetch_tenant,
       {
         tenant_id: tenant_id.to_string(),
       }).pipe(
@@ -65,7 +65,7 @@ export class TenantsService {
   ): Observable<ApiResponse> {
     console.info('save_tenant');
     return this.http.post<ApiResponse>(
-      `${URLS.base_url}${URLS.save_tenant}`,
+      URLS.save_tenant,
       {
         tenant_id: tenant_id.to_string(),
         name: name,
@@ -79,7 +79,7 @@ export class TenantsService {
     active: boolean,
   ): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(
-      `${URLS.base_url}${URLS.set_active}`,
+      URLS.set_active,
       {
         tenant_ids: tenant_ids.map((id) => id.to_string()),
         active: active,

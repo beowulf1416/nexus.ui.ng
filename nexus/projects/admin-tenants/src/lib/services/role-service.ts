@@ -18,7 +18,7 @@ export class RoleService {
 
   fetch_roles(tenant_id: Uuid, filter: string): Observable<Array<RoleItem>> {
     return this.http.post<ApiResponse>(
-      `${URLS.base_url}${URLS.fetch_roles}`,
+      URLS.fetch_roles,
       {
         tenant_id: tenant_id.to_string(),
         filter: filter
@@ -43,7 +43,7 @@ export class RoleService {
 
   fetch_role(role_id: Uuid): Observable<RoleItem> {
     return this.http.post<ApiResponse>(
-      `${URLS.base_url}${URLS.fetch_role}`,
+      URLS.fetch_role,
       {
         role_id: role_id.to_string(),
       }
@@ -74,7 +74,7 @@ export class RoleService {
     console.info('save_role');
 
     return this.http.post<ApiResponse>(
-      `${URLS.base_url}${URLS.save_role}`,
+      URLS.save_role,
       {
         tenant_id: tenant_id.to_string(),
         role_id: role_id.to_string(),
@@ -89,7 +89,7 @@ export class RoleService {
     active: boolean,
   ): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(
-      `${URLS.base_url}${URLS.role_set_active}`,
+      URLS.role_set_active,
       {
         role_ids: role_ids,
         active: active,
@@ -102,7 +102,7 @@ export class RoleService {
     permission_ids: Array<number>,
   ): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(
-      `${URLS.base_url}${URLS.assign_permissions}`,
+      URLS.assign_permissions,
       {
         role_ids: role_ids.map((r) => r.to_string()),
         permission_ids: permission_ids,
@@ -115,7 +115,7 @@ export class RoleService {
     permission_ids: Array<number>,
   ): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(
-      `${URLS.base_url}${URLS.assign_permissions}`,
+      URLS.assign_permissions,
       {
         role_ids: role_ids,
         permission_ids: permission_ids,
