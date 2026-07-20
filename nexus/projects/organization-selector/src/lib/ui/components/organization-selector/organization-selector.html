@@ -1,0 +1,8 @@
+<div class="component organization-selector">
+  <button type="button" [title]="title()" class="btn organization-selector" matFab extended (click)="on_select($event)">
+    <mat-icon>
+      <span class="material-symbols-outlined">network_node</span>
+    </mat-icon>
+    <span>{{ title() }}</span>
+  </button>
+</div><!-- .component -->

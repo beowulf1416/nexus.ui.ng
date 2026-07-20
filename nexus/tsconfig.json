@@ -16,6 +16,7 @@
       "hr": ["./dist/hr"],
       "inventory": ["./dist/inventory"],
       "manufacturing": ["./dist/manufacturing"],
+      "organization-selector": ["./dist/organization-selector"],
       "payables": ["./dist/payables"],
       "pos": ["./dist/pos"],
       "projects": ["./dist/projects"],
@@ -159,6 +160,12 @@
     },
     {
       "path": "./projects/tenant-admin/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/organization-selector/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/organization-selector/tsconfig.spec.json"
     }
   ]
 }

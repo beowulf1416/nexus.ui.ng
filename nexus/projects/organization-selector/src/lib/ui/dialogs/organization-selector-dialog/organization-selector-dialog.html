@@ -1,0 +1,77 @@
+<div class="component organization-selector-dialog">
+  <div class="wrapper form">
+    <form class="organization-selector-dialog" method="post" action="" (submit)="on_select($event)">
+      <h3 mat-dialog-title>Select Organization</h3>
+      <mat-dialog-content>
+        <fieldset class="fieldset-no-border">
+          <mat-toolbar>
+            <mat-form-field appearance="outline">
+              <mat-label>Search</mat-label>
+              <input type="search" class="btn search" title="Search" matInput />
+              <button type="button" title="Search" class="btn search" mat-icon-button matSuffix>
+                <mat-icon>search</mat-icon>
+              </button>
+              <button type="button" title="reset" class="btn reset" mat-icon-button matSuffix>
+                <mat-icon>close_small</mat-icon>
+              </button>
+            </mat-form-field>
+          </mat-toolbar>
+        </fieldset>
+        <fieldset>
+          <legend>Selected</legend>
+          <div class="wrapper table">
+            <table class="selected">
+              <caption>Selected</caption>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Name</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div><!-- .wrapper -->
+        </fieldset>
+        <fieldset>
+          <legend>Matches</legend>
+          <div class="wrapper table">
+            <table class="matches">
+              <caption>Matches</caption>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Name</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </fieldset>
+      </mat-dialog-content>
+      <mat-dialog-actions>
+        <button type="button" title="Cancel" class="btn cancel" matFab extended (click)="on_cancel($event)">
+          <mat-icon>cancel</mat-icon>
+          <span>Cancel</span>
+        </button>
+        <button type="submit" title="Select" class="btn select" matFab extended>
+          <mat-icon>ok</mat-icon>
+          <span>Select</span>
+        </button>
+      </mat-dialog-actions>
+    </form>
+  </div><!-- .wrapper -->
+</div><!-- .component -->
