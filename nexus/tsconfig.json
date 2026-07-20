@@ -20,9 +20,10 @@
       "pos": ["./dist/pos"],
       "projects": ["./dist/projects"],
       "receivables": ["./dist/receivables"],
+      "tenant-admin": ["./dist/tenant-admin"],
       "testing": ["./dist/testing"],
       "user-profile": ["./dist/user-profile"],
-      "user-registration": ["./dist/user-registration"],
+      "user-registration": ["./dist/user-registration"]
     },
     "strict": true,
     "noImplicitOverride": true,
@@ -35,123 +36,129 @@
     "importHelpers": true,
     "target": "ES2023",
     "module": "preserve",
-    "lib": ["DOM", "ES2023"],
+    "lib": ["DOM", "ES2023"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true,
+    "strictTemplates": true
   },
   "files": [],
   "references": [
     {
-      "path": "./projects/nexus/tsconfig.app.json",
+      "path": "./projects/nexus/tsconfig.app.json"
     },
     {
-      "path": "./projects/nexus/tsconfig.spec.json",
+      "path": "./projects/nexus/tsconfig.spec.json"
     },
     {
-      "path": "./projects/user-registration/tsconfig.lib.json",
+      "path": "./projects/user-registration/tsconfig.lib.json"
     },
     {
-      "path": "./projects/user-registration/tsconfig.spec.json",
+      "path": "./projects/user-registration/tsconfig.spec.json"
     },
     {
-      "path": "./projects/user-profile/tsconfig.lib.json",
+      "path": "./projects/user-profile/tsconfig.lib.json"
     },
     {
-      "path": "./projects/user-profile/tsconfig.spec.json",
+      "path": "./projects/user-profile/tsconfig.spec.json"
     },
     {
-      "path": "./projects/admin-users/tsconfig.lib.json",
+      "path": "./projects/admin-users/tsconfig.lib.json"
     },
     {
-      "path": "./projects/admin-users/tsconfig.spec.json",
+      "path": "./projects/admin-users/tsconfig.spec.json"
     },
     {
-      "path": "./projects/core/tsconfig.lib.json",
+      "path": "./projects/core/tsconfig.lib.json"
     },
     {
-      "path": "./projects/core/tsconfig.spec.json",
+      "path": "./projects/core/tsconfig.spec.json"
     },
     {
-      "path": "./projects/admin-tenants/tsconfig.lib.json",
+      "path": "./projects/admin-tenants/tsconfig.lib.json"
     },
     {
-      "path": "./projects/admin-tenants/tsconfig.spec.json",
+      "path": "./projects/admin-tenants/tsconfig.spec.json"
     },
     {
-      "path": "./projects/documents/tsconfig.lib.json",
+      "path": "./projects/documents/tsconfig.lib.json"
     },
     {
-      "path": "./projects/documents/tsconfig.spec.json",
+      "path": "./projects/documents/tsconfig.spec.json"
     },
     {
-      "path": "./projects/inventory/tsconfig.lib.json",
+      "path": "./projects/inventory/tsconfig.lib.json"
     },
     {
-      "path": "./projects/inventory/tsconfig.spec.json",
+      "path": "./projects/inventory/tsconfig.spec.json"
     },
     {
-      "path": "./projects/projects/tsconfig.lib.json",
+      "path": "./projects/projects/tsconfig.lib.json"
     },
     {
-      "path": "./projects/projects/tsconfig.spec.json",
+      "path": "./projects/projects/tsconfig.spec.json"
     },
     {
-      "path": "./projects/manufacturing/tsconfig.lib.json",
+      "path": "./projects/manufacturing/tsconfig.lib.json"
     },
     {
-      "path": "./projects/manufacturing/tsconfig.spec.json",
+      "path": "./projects/manufacturing/tsconfig.spec.json"
     },
     {
-      "path": "./projects/hr/tsconfig.lib.json",
+      "path": "./projects/hr/tsconfig.lib.json"
     },
     {
-      "path": "./projects/hr/tsconfig.spec.json",
+      "path": "./projects/hr/tsconfig.spec.json"
     },
     {
-      "path": "./projects/crm/tsconfig.lib.json",
+      "path": "./projects/crm/tsconfig.lib.json"
     },
     {
-      "path": "./projects/crm/tsconfig.spec.json",
+      "path": "./projects/crm/tsconfig.spec.json"
     },
     {
-      "path": "./projects/pos/tsconfig.lib.json",
+      "path": "./projects/pos/tsconfig.lib.json"
     },
     {
-      "path": "./projects/pos/tsconfig.spec.json",
+      "path": "./projects/pos/tsconfig.spec.json"
     },
     {
-      "path": "./projects/accounting/tsconfig.lib.json",
+      "path": "./projects/accounting/tsconfig.lib.json"
     },
     {
-      "path": "./projects/accounting/tsconfig.spec.json",
+      "path": "./projects/accounting/tsconfig.spec.json"
     },
     {
-      "path": "./projects/payables/tsconfig.lib.json",
+      "path": "./projects/payables/tsconfig.lib.json"
     },
     {
-      "path": "./projects/payables/tsconfig.spec.json",
+      "path": "./projects/payables/tsconfig.spec.json"
     },
     {
-      "path": "./projects/receivables/tsconfig.lib.json",
+      "path": "./projects/receivables/tsconfig.lib.json"
     },
     {
-      "path": "./projects/receivables/tsconfig.spec.json",
+      "path": "./projects/receivables/tsconfig.spec.json"
     },
     {
-      "path": "./projects/testing/tsconfig.lib.json",
+      "path": "./projects/testing/tsconfig.lib.json"
     },
     {
-      "path": "./projects/testing/tsconfig.spec.json",
+      "path": "./projects/testing/tsconfig.spec.json"
     },
     {
-      "path": "./projects/cms/tsconfig.lib.json",
+      "path": "./projects/cms/tsconfig.lib.json"
     },
     {
-      "path": "./projects/cms/tsconfig.spec.json",
+      "path": "./projects/cms/tsconfig.spec.json"
     },
-  ],
+    {
+      "path": "./projects/tenant-admin/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/tenant-admin/tsconfig.spec.json"
+    }
+  ]
 }
