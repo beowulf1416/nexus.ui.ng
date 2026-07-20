@@ -42,7 +42,7 @@
         </fieldset>
         <fieldset>
           <legend>Hierarchy</legend>
-          <account-selector [account_type]="component.form.type_id().value()"></account-selector>
+          <account-selector [account_type]="component.form.type_id().value()" (account_selected)="on_account_selected($event)"></account-selector>
         </fieldset>
       </mat-dialog-content>
       <mat-dialog-actions>

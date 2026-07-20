@@ -173,8 +173,8 @@ export class AccountingService {
     );
   }
 
-  account_save(tenant_id: Uuid, account: AccountItem): Observable<ApiResponse> {
-    console.info('account_save');
+  account_save(account: AccountItem, parent_account_id: Uuid | null): Observable<ApiResponse> {
+    console.debug('account_save', parent_account_id);
     return this.http.post<ApiResponse>(URLS.account_save, {
       // tenant_id: tenant_id,
       account: {
@@ -186,6 +186,7 @@ export class AccountingService {
         code: account.code,
         description: account.description
       },
+      parent_account_id: parent_account_id?.to_string()
     });
   }
 }

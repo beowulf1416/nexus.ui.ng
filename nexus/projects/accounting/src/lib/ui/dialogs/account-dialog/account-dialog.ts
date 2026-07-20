@@ -37,7 +37,8 @@ export class AccountDialog implements OnInit {
     name: '',
     description: '',
     type_id: 0,
-    category_id: 0
+    category_id: 0,
+    parent_account_id: ''
   });
 
   component = {
@@ -105,12 +106,14 @@ export class AccountDialog implements OnInit {
     event.preventDefault();
 
     submit(this.component.form, async () => {
-      const tenant_id = this.user_service.current_user().tenant.id;
+      // const tenant_id = this.user_service.current_user().tenant.id;
       const model = this.model();
 
       const account = new AccountItem(new Uuid(model.account_id), true, model.name, model.code, model.description, model.type_id, model.category_id, 0, new Array<AccountItem>());
+      const parent_account_id = model.parent_account_id ? new Uuid(model.parent_account_id) : null;
+      console.debug(parent_account_id);
 
-      this.accounts_service.account_save(tenant_id, account).subscribe({
+      this.accounts_service.account_save(account, parent_account_id).subscribe({
         next: (r: any) => {
           this.notification_service.info('Account saved successfully');
           this.dr.close();
@@ -122,4 +125,13 @@ export class AccountDialog implements OnInit {
       });
     });
   }
+
+  on_account_selected(result: {
+    account_id: string;
+    name: string;
+  }): void {
+    let parent_account_id = result.account_id;
+    this.model.update((m) => ({ ...m, parent_account_id: parent_account_id }));
+  }
+
 }
