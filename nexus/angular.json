@@ -487,6 +487,32 @@
           }
         }
       }
+    },
+    "tenant-admin": {
+      "projectType": "library",
+      "root": "projects/tenant-admin",
+      "sourceRoot": "projects/tenant-admin/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/tenant-admin/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/tenant-admin/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/tenant-admin/tsconfig.spec.json"
+          }
+        }
+      }
     }
   }
 }
