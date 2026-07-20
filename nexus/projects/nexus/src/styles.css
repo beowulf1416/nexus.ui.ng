@@ -6,3 +6,7 @@ mat-form-field.block {
 table tr.odd {
   background-color: lightgray;
 }
+
+.fieldset-no-border {
+  border: none;
+}
