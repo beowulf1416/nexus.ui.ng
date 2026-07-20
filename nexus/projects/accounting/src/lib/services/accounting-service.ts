@@ -10,6 +10,7 @@ import { Invoice } from '../models/invoice';
 import { AccountItem } from '../models/account-item';
 import { AccountType } from '../models/account-type';
 import { AccountCategory } from '../models/account-category';
+import { AccountNode } from '../models/account-node';
 
 @Service()
 export class AccountingService {
@@ -80,6 +81,29 @@ export class AccountingService {
     );
   }
 
+
+  accounts_fetch_tree(): Observable<Array<AccountNode>> {
+    console.info('accounts_fetch_tree');
+    return this.http.post<ApiResponse>(URLS.accounts_fetch_tree, {
+    }).pipe(
+      map((r: ApiResponse) => {
+        if (r.success && r.data) {
+          const accounts = (
+            r.data as {
+              accounts: Array<AccountNode>;
+            }
+          ).accounts;
+          return accounts;
+        }
+        return new Array<AccountNode>();
+      }),
+      catchError((e: any) => {
+        console.error(e);
+        throw e;
+      }),
+    );
+  }
+
   accounts_fetch_by_type(type_id: ACCOUNT_TYPES): Observable<Array<AccountItem>> {
     console.info('accounts_fetch_by_type');
     return this.http.post<ApiResponse>(URLS.accounts_fetch_by_type, {
@@ -128,7 +152,7 @@ export class AccountingService {
     );
   }
 
-  account_fetch(account_id: Uuid): Observable<AccountItem | null> {
+  account_fetch(account_id: Uuid): Observable<AccountNode | null> {
     console.info('account_fetch');
     return this.http.post<ApiResponse>(URLS.account_fetch, {
       account_id: account_id.to_string(),
@@ -136,7 +160,7 @@ export class AccountingService {
       map((r: ApiResponse) => {
         if (r.success && r.data) {
           const account = (r.data as {
-            account: AccountItem
+            account: AccountNode
           }).account;
           return account;
         }

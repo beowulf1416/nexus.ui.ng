@@ -11,20 +11,35 @@
     </mat-toolbar>
   </div><!-- .wrapper -->
   <div class="wrapper accounts">
-    <div class="names column">
-      @for(a of model().assets; let i = $index; track $index){
-      <account-node-name [account_id]="a.account_id"></account-node-name>
-      }
-    </div><!-- .names -->
-    <div class="codes column">
-      @for(a of model().assets; let i = $index; track $index){
-      <div class="name">{{ a.name }}</div>
-      }
-
-    </div><!-- .codes -->
-    <div class="balances">
-
-    </div><!-- .balances -->
+    <table class="accounts">
+      <caption>Accounts</caption>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Code</th>
+          <th>Balance</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td></td>
+          <td>Name</td>
+          <td>Code</td>
+          <td>Balance</td>
+        </tr>
+      </tfoot>
+      <tbody>
+        @for(row of model().rows; track $index){
+          <tr [class]="'level-' + row.level" [style.--level]="row.level">
+            <td></td>
+            <td class="name">{{ row.name }}</td>
+            <td>{{ row.code }}</td>
+            <td>{{ row.balance }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
   </div><!-- .wrapper -->
 </div>
 <!-- .component -->

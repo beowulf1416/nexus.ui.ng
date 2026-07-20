@@ -6,6 +6,7 @@ export const URLS = {
   account_types_fetch: `${BASE_URL}/acctg/accounts/types/fetch`,
   account_categories_fetch: `${BASE_URL}/acctg/accounts/categories/fetch`,
   accounts_fetch_all: `${BASE_URL}/acctg/accounts/fetch/all`,
+  accounts_fetch_tree: `${BASE_URL}/acctg/accounts/fetch/tree`,
   accounts_fetch_by_type: `${BASE_URL}/acctg/accounts/fetch/by/type`,
   accounts_fetch_filtered: `${BASE_URL}/acctg/accounts/fetch`,
   account_save: `${BASE_URL}/acctg/accounts/account/save`,

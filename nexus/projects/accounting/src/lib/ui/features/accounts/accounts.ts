@@ -5,22 +5,25 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialog } from '@angular/material/dialog';
 
-import { NotificationService, UserService } from 'core';
+import { NotificationService, UserService, Uuid } from 'core';
 import { ACCOUNT_TYPES } from '../../../accounting.constants';
-import { AccountItem } from '../../../models/account-item';
+// import { AccountItem } from '../../../models/account-item';
 import { AccountType } from '../../../models/account-type';
 import { AccountCategory } from '../../../models/account-category';
 import { AccountingService } from '../../../services/accounting-service';
-import { AccountNodeName } from '../../components/account-node-name/account-node-name';
+import { AccountNode } from '../../../models/account-node';
 
-// class Account {
-//   constructor(
-//     readonly account_id: string,
-//     readonly code: string,
-//     readonly balance: string,
-//     readonly accounts: Array<Account>,
-//   ) {}
-// }
+
+
+class AccountRow {
+  constructor(
+    readonly id: string,
+    readonly name: string,
+    readonly code: string,
+    readonly balance: number,
+    readonly level: number,
+  ) {}
+}
 
 @Component({
   selector: 'lib-accounts',
@@ -28,22 +31,22 @@ import { AccountNodeName } from '../../components/account-node-name/account-node
     MatIconModule,
     MatButtonModule,
     MatToolbarModule,
-    AccountNodeName,
   ],
   templateUrl: './accounts.html',
   styleUrl: './accounts.css',
 })
 export class Accounts implements OnInit {
   model = signal({
-    accounts: new Array<AccountItem>(),
+    accounts: new Array<AccountNode>(),
+    rows: new Array<AccountRow>(),
     account_types: new Array<AccountType>(),
     account_categories: new Array<AccountCategory>(),
 
-    assets: new Array<AccountItem>(),
-    liabilities: new Array<AccountItem>(),
-    equities: new Array<AccountItem>(),
-    expenses: new Array<AccountItem>(),
-    incomes: new Array<AccountItem>(),
+    // assets: new Array<AccountItem>(),
+    // liabilities: new Array<AccountItem>(),
+    // equities: new Array<AccountItem>(),
+    // expenses: new Array<AccountItem>(),
+    // incomes: new Array<AccountItem>(),
   });
 
   private acct_service = inject(AccountingService);
@@ -91,46 +94,21 @@ export class Accounts implements OnInit {
       }
     });
 
-    // accounts
-    // this.acct_service.accounts_fetch(
-    //   tenant_id
-    // ).subscribe({
-    //   next: (accounts: Array<AccountItem>) => {
-    //     this.model.update((m) => ({
-    //       ...m,
-    //       accounts: accounts
-    //     }));
-    //   },
-    //   error: (err: any) => {
-    //     console.error(err);
-    //     this.notification_service.error('Failed to fetch accounts');
-    //   }
-    // });
     this.fetch_accounts();
   }
 
   fetch_accounts(): void {
     const tenant_id = this.user_service.current_user().tenant.id;
-    // this.acct_service.accounts_fetch(
-    //   tenant_id
-    // ).subscribe({
-    //   next: (accounts: Array<AccountItem>) => {
-    //     this.model.update((m) => ({
-    //       ...m,
-    //       accounts: accounts
-    //     }));
-    //   },
-    //   error: (err: any) => {
-    //     console.error(err);
-    //     this.notification_service.error('Failed to fetch accounts');
-    //   }
-    // });
 
-    this.acct_service.accounts_fetch_by_type(ACCOUNT_TYPES.ASSET).subscribe({
-      next: (assets: Array<AccountItem>) => {
+    this.acct_service.accounts_fetch_tree().subscribe({
+      next: (accounts: Array<AccountNode>) => {
+
+        const rows = this.flatten_nodes(accounts);
+
         this.model.update((m) => ({
           ...m,
-          assets: assets
+          accounts: accounts,
+          rows: rows,
         }));
       },
       error: (err: any) => {
@@ -138,58 +116,26 @@ export class Accounts implements OnInit {
         this.notification_service.error('Failed to fetch accounts');
       }
     });
+  }
 
-    this.acct_service.accounts_fetch_by_type(ACCOUNT_TYPES.EQUITY).subscribe({
-      next: (equities: Array<AccountItem>) => {
-        this.model.update((m) => ({
-          ...m,
-          equities: equities
-        }));
-      },
-      error: (err: any) => {
-        console.error(err);
-        this.notification_service.error('Failed to fetch accounts');
-      }
-    });
+  flatten_nodes(nodes: AccountNode[]): AccountRow[] {
+    let rows: AccountRow[] = [];
 
-    this.acct_service.accounts_fetch_by_type(ACCOUNT_TYPES.LIABILITY).subscribe({
-      next: (liabilities: Array<AccountItem>) => {
-        this.model.update((m) => ({
-          ...m,
-          liabilities: liabilities
-        }));
-      },
-      error: (err: any) => {
-        console.error(err);
-        this.notification_service.error('Failed to fetch accounts');
-      }
-    });
+    function visit_node(node: AccountNode, level: number): void {
+      const account_id = node.account_id instanceof Uuid ? node.account_id.to_string() : node.account_id;
+      rows.push(new AccountRow(
+        account_id,
+        node.name,
+        node.code,
+        node.balance,
+        level,
+      ));
 
-    this.acct_service.accounts_fetch_by_type(ACCOUNT_TYPES.INCOME).subscribe({
-      next: (incomes: Array<AccountItem>) => {
-        this.model.update((m) => ({
-          ...m,
-          incomes: incomes
-        }));
-      },
-      error: (err: any) => {
-        console.error(err);
-        this.notification_service.error('Failed to fetch accounts');
-      }
-    });
+      node.children.forEach(child => visit_node(child, level + 1));
+    }
 
-    this.acct_service.accounts_fetch_by_type(ACCOUNT_TYPES.EXPENSE).subscribe({
-      next: (expenses: Array<AccountItem>) => {
-        this.model.update((m) => ({
-          ...m,
-          expenses: expenses
-        }));
-      },
-      error: (err: any) => {
-        console.error(err);
-        this.notification_service.error('Failed to fetch accounts');
-      }
-    });
+    nodes.forEach(node => visit_node(node, 0));
+    return rows;
   }
 
   on_refresh(event: Event): void {
