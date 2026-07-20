@@ -1,0 +1,34 @@
+<div class="component organization-dialog">
+  <div class="wrapper form">
+    <form class="organization" method="post" action="" (submit)="save($event)">
+      <h3 mat-dialog-title>{{ title() }}</h3>
+      <mat-dialog-content>
+        <fieldset>
+          <legend>Information</legend>
+          <mat-form-field class="field block">
+            <mat-label>Name</mat-label>
+            <input type="text" title="Name" class="input name" matInput />
+          </mat-form-field>
+          <mat-form-field class="field block">
+            <mat-label>Description</mat-label>
+            <textarea title="Description" class="input description" matInput></textarea>
+          </mat-form-field>
+        </fieldset>
+        <fieldset>
+          <legend>Hierarchy</legend>
+          <organization-selector></organization-selector>
+        </fieldset>
+      </mat-dialog-content>
+      <mat-dialog-actions>
+        <button type="button" title="Cancel" class="btn cancel" matFab extended (click)="on_cancel($event)">
+          <mat-icon>cancel</mat-icon>
+          <span>Cancel</span>
+        </button>
+        <button type="submit" title="Save" class="btn save" matFab extended>
+          <mat-icon>save</mat-icon>
+          <span>Save</span>
+        </button>
+      </mat-dialog-actions>
+    </form>
+  </div><!-- .wrapper -->
+</div><!-- .component -->
