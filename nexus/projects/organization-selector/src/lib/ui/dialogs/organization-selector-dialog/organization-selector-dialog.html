@@ -1,14 +1,19 @@
 <div class="component organization-selector-dialog">
   <div class="wrapper form">
     <form class="organization-selector-dialog" method="post" action="" (submit)="on_select($event)">
-      <h3 mat-dialog-title>Select Organization</h3>
+      <h3 mat-dialog-title>
+        <span class="material-symbols-outlined icon">
+        network_node
+        </span>
+        <span>Select Organization</span>
+      </h3>
       <mat-dialog-content>
         <fieldset class="fieldset-no-border">
           <mat-toolbar>
             <mat-form-field appearance="outline">
               <mat-label>Search</mat-label>
               <input type="search" class="btn search" title="Search" matInput />
-              <button type="button" title="Search" class="btn search" mat-icon-button matSuffix>
+              <button type="button" title="Search" class="btn search" mat-icon-button matSuffix (click)="on_filter($event)">
                 <mat-icon>search</mat-icon>
               </button>
               <button type="button" title="reset" class="btn reset" mat-icon-button matSuffix>
@@ -30,11 +35,17 @@
                 </tr>
               </thead>
               <tbody>
+                @for(r of model().selected; let i = $index; track $index){
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td>
+                    <button type="button" title="Select item" mat-icon-button (click)="on_deselect_item($event, i)">
+                      <mat-icon>arrow_circle_down</mat-icon>
+                    </button>
+                  </td>
+                  <td>{{ r.name }}</td>
+                  <td>{{ r.description }}</td>
                 </tr>
+                }
               </tbody>
             </table>
           </div><!-- .wrapper -->
@@ -52,11 +63,17 @@
                 </tr>
               </thead>
               <tbody>
+                @for(r of model().matches; let i = $index; track $index){
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td>
+                    <button type="button" title="Select item" mat-icon-button (click)="on_select_item($event, i)">
+                      <mat-icon>arrow_circle_up</mat-icon>
+                    </button>
+                  </td>
+                  <td>{{ r.name }}</td>
+                  <td>{{ r.description }}</td>
                 </tr>
+                }
               </tbody>
             </table>
           </div>
@@ -68,7 +85,7 @@
           <span>Cancel</span>
         </button>
         <button type="submit" title="Select" class="btn select" matFab extended>
-          <mat-icon>ok</mat-icon>
+          <mat-icon>check_circle</mat-icon>
           <span>Select</span>
         </button>
       </mat-dialog-actions>
