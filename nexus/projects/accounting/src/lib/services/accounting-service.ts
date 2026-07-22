@@ -1,7 +1,7 @@
 import { Service } from '@angular/core';
 import { inject } from '@angular/core/primitives/di';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, map, tap } from 'rxjs';
+import { Observable, catchError, map } from 'rxjs';
 
 import { ApiResponse, Uuid } from 'core';
 import { InvoiceType } from '../models/invoice-type';

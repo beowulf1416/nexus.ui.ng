@@ -111,7 +111,7 @@ export class AccountDialog implements OnInit {
 
       const account = new AccountItem(new Uuid(model.account_id), true, model.name, model.code, model.description, model.type_id, model.category_id, 0, new Array<AccountItem>());
       const parent_account_id = model.parent_account_id ? new Uuid(model.parent_account_id) : null;
-      console.debug(parent_account_id);
+      // console.debug(parent_account_id);
 
       this.accounts_service.account_save(account, parent_account_id).subscribe({
         next: (r: any) => {
