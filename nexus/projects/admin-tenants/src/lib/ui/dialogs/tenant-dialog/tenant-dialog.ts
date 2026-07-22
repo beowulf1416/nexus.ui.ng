@@ -10,6 +10,7 @@ import { Uuid, ApiResponse } from 'core';
 import { TenantItem } from '../../../models/tenant-item';
 import { TenantsService } from '../../../services/tenants-service';
 import { TenantDialogData } from './tenant-dialog-data';
+import { TenantData } from '../../../models/tenant-data';
 
 
 @Component({
@@ -30,7 +31,8 @@ export class TenantDialog implements OnInit {
   model = signal({
     id: '',
     name: '',
-    domain: ''
+    domain: '',
+    version: 0
   });
 
   tenant_name = computed(() => {
@@ -58,11 +60,12 @@ export class TenantDialog implements OnInit {
   ngOnInit(): void {
     if (this.data) {
       this.tenant_service.fetch_tenant(this.data.id).subscribe({
-        next: (tenant: TenantItem) => {
+        next: (tenant: TenantData) => {
           this.model.set({
             id: tenant.id.toString(),
             name: tenant.name,
-            domain: '' // TODO: need to implement tenant domain
+            domain: '', // TODO: need to implement tenant domain
+            version: tenant.version
           });
         },
         error: (e: any) => {
@@ -89,7 +92,8 @@ export class TenantDialog implements OnInit {
       this.tenant_service.save_tenant(
         tenant_id,
         model.name,
-        model.domain
+        model.domain,
+        model.version
       ).subscribe({
         next: (r: ApiResponse) => {
           console.log(r)

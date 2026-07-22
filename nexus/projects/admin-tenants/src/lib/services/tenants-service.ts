@@ -5,6 +5,7 @@ import { Observable, pipe, map, catchError } from 'rxjs';
 import { ApiResponse, Uuid } from 'core';
 import { URLS } from '../constants';
 import { TenantItem } from '../models/tenant-item';
+import { TenantData } from '../models/tenant-data';
 
 
 @Injectable({
@@ -18,7 +19,7 @@ export class TenantsService {
 
   }
 
-  fetch_tenants(filter: string): Observable<Array<TenantItem>> {
+  fetch_tenants(filter: string): Observable<Array<TenantData>> {
     return this.http.post<ApiResponse>(
       URLS.fetch_tenants,
       {
@@ -26,7 +27,7 @@ export class TenantsService {
       }).pipe(
         map((r: ApiResponse) => {
           const tenants = (r.data as {
-            tenants: Array<TenantItem>
+            tenants: Array<TenantData>
           })
           return tenants.tenants;
         }),
@@ -38,7 +39,7 @@ export class TenantsService {
       );
   }
 
-  fetch_tenant(tenant_id: Uuid): Observable<TenantItem> {
+  fetch_tenant(tenant_id: Uuid): Observable<TenantData> {
     return this.http.post<ApiResponse>(
       URLS.fetch_tenant,
       {
@@ -46,7 +47,7 @@ export class TenantsService {
       }).pipe(
         map((r: ApiResponse) => {
           const tenant = (r.data as {
-            tenant: TenantItem
+            tenant: TenantData
           }).tenant;
           return tenant;
         }),
@@ -61,7 +62,8 @@ export class TenantsService {
   save_tenant(
     tenant_id: Uuid,
     name: string,
-    description: string
+    description: string,
+    version: number | null
   ): Observable<ApiResponse> {
     console.info('save_tenant');
     return this.http.post<ApiResponse>(
@@ -69,7 +71,8 @@ export class TenantsService {
       {
         tenant_id: tenant_id.to_string(),
         name: name,
-        description: description
+        description: description,
+        version: version == null ? 0 : version
       }
     );
   }
