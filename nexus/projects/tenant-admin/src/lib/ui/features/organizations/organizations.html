@@ -17,4 +17,32 @@
       </button>
     </mat-toolbar>
   </div><!-- .wrapper -->
+  <div class="wrapper table">
+    <table class="organizations">
+      <caption>Organizations</caption>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td></td>
+          <td>Name</td>
+          <td>Description</td>
+        </tr>
+      </tfoot>
+      <tbody>
+        @for(o of model().organizations; let i = $index; track $index){
+        <tr [style.--level]="o.level">
+          <td></td>
+          <td class="name">{{ o.name }}</td>
+          <td>{{ o.description }}</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div><!-- .wrapper -->
 </div><!-- .component -->

@@ -1,0 +1,3 @@
+table.organizations tr td.name {
+  padding-left: calc(var(--level) * 1em);
+}

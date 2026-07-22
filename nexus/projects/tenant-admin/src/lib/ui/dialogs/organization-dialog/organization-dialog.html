@@ -29,7 +29,7 @@
           <mat-icon>cancel</mat-icon>
           <span>Cancel</span>
         </button>
-        <button type="submit" title="Save" class="btn save" matFab extended>
+        <button type="submit" title="Save" class="btn save" matFab extended [disabled]="component.form().invalid()">
           <mat-icon>save</mat-icon>
           <span>Save</span>
         </button>

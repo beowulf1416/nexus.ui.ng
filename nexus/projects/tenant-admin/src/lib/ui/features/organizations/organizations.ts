@@ -4,8 +4,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialog } from '@angular/material/dialog';
 
-import { Organization } from '../../../models/organization';
 import { OrganizationDialog } from '../../dialogs/organization-dialog/organization-dialog';
+import { OrganizationsService } from '../../../services/organizations-service';
+import { OrganizationNodeData } from '../../../models/organization-node-data';
 
 
 
@@ -21,10 +22,11 @@ import { OrganizationDialog } from '../../dialogs/organization-dialog/organizati
 })
 export class Organizations {
   model = signal({
-    organizations: new Array<Organization>()
+    organizations: new Array<OrganizationNodeData>()
   });
 
   private md = inject(MatDialog);
+  private org_service = inject(OrganizationsService);
 
   constructor() { }
 
@@ -48,5 +50,13 @@ export class Organizations {
 
   refresh(): void {
     console.info('//todo refresh');
+
+    this.org_service.organizations_fetch_tree().subscribe({
+      next: (r: OrganizationNodeData[]) => {
+        this.model.update((m) => ({
+          ...m,
+          organizations: r
+        }));
+    }});
   }
 }
