@@ -1,22 +1,27 @@
 <div class="component organization-dialog">
   <div class="wrapper form">
     <form class="organization" method="post" action="" (submit)="save($event)">
-      <h3 mat-dialog-title>{{ title() }}</h3>
+      <h3 mat-dialog-title>
+        <span class="material-symbols-outlined icon">
+        network_node
+        </span>
+        <span>{{ title() }}</span>
+      </h3>
       <mat-dialog-content>
         <fieldset>
           <legend>Information</legend>
           <mat-form-field class="field block">
             <mat-label>Name</mat-label>
-            <input type="text" title="Name" class="input name" matInput />
+            <input type="text" title="Name" class="input name" matInput [formField]="component.form.name"/>
           </mat-form-field>
           <mat-form-field class="field block">
             <mat-label>Description</mat-label>
-            <textarea title="Description" class="input description" matInput></textarea>
+            <textarea title="Description" class="input description" matInput [formField]="component.form.description"></textarea>
           </mat-form-field>
         </fieldset>
         <fieldset>
           <legend>Hierarchy</legend>
-          <organization-selector></organization-selector>
+          <organization-selector (organization_selected)="on_selected($event)"></organization-selector>
         </fieldset>
       </mat-dialog-content>
       <mat-dialog-actions>
@@ -29,6 +34,7 @@
           <span>Save</span>
         </button>
       </mat-dialog-actions>
+      <input type="hidden" [formField]="component.form.org_id" />
     </form>
   </div><!-- .wrapper -->
 </div><!-- .component -->

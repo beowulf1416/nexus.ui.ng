@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
-import { OrganizationSelector } from 'organization-selector';
+import { OrganizationSelector, OrganizationData } from 'organization-selector';
 
 @Component({
   selector: 'lib-organization-dialog',
@@ -26,7 +26,8 @@ export class OrganizationDialog {
   model = signal({
     org_id: '',
     name: '',
-    description: ''
+    description: '',
+    parent_org_id: ''
   });
 
   component = {
@@ -46,10 +47,20 @@ export class OrganizationDialog {
 
   save(event: Event): void {
     event.preventDefault();
+
+    const model = this.model();
+    console.debug(model);
   }
 
   on_cancel(event: Event): void {
     event.preventDefault();
     this.dr.close();
+  }
+
+  on_selected(org: OrganizationData): void {
+    this.model.update((m) => ({
+      ...m,
+      parent_org_id: org.org_id
+    }));
   }
 }
