@@ -1,1 +1,98 @@
-<p>partner-selector-dialog works!</p>
+<div class="component partner-selector-dialog">
+  <div class="wrapper form">
+    <form class="partner-selector-dialog" method="post" action="" (submit)="on_select($event)">
+      <h3 mat-dialog-title>
+        <span class="material-symbols-outlined icon">
+        network_node
+        </span>
+        <span>Select Organization</span>
+      </h3>
+      <mat-dialog-content>
+        <fieldset class="fieldset-no-border">
+          <mat-toolbar>
+            <mat-form-field appearance="outline">
+              <mat-label>Search</mat-label>
+              <input type="search" class="btn search" title="Search" matInput />
+              <button type="button" title="Search" class="btn search" mat-icon-button matSuffix (click)="on_filter($event)">
+                <mat-icon>search</mat-icon>
+              </button>
+              <button type="button" title="reset" class="btn reset" mat-icon-button matSuffix>
+                <mat-icon>close_small</mat-icon>
+              </button>
+            </mat-form-field>
+          </mat-toolbar>
+        </fieldset>
+        <fieldset>
+          <legend>Selected</legend>
+          <div class="wrapper table">
+            <table class="selected">
+              <caption>Selected</caption>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Business Name</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for(r of model().selected; let i = $index; track $index){
+                <tr>
+                  <td>
+                    <button type="button" title="Select item" mat-icon-button (click)="on_deselect_item($event, i)">
+                      <mat-icon>arrow_circle_down</mat-icon>
+                    </button>
+                  </td>
+                  <td>{{ r.business_name }}</td>
+                  <td>{{ r.first_name }} {{ r.last_name }}</td>
+                  <td>{{ r.description }}</td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div><!-- .wrapper -->
+        </fieldset>
+        <fieldset>
+          <legend>Matches</legend>
+          <div class="wrapper table">
+            <table class="matches">
+              <caption>Matches</caption>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Business Name</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for(r of model().matches; let i = $index; track $index){
+                <tr>
+                  <td>
+                    <button type="button" title="Select item" mat-icon-button (click)="on_select_item($event, i)">
+                      <mat-icon>arrow_circle_up</mat-icon>
+                    </button>
+                  </td>
+                  <td>{{ r.business_name }}</td>
+                  <td>{{ r.first_name }} {{ r.last_name }}</td>
+                  <td>{{ r.description }}</td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </fieldset>
+      </mat-dialog-content>
+      <mat-dialog-actions>
+        <button type="button" title="Cancel" class="btn cancel" matFab extended (click)="on_cancel($event)">
+          <mat-icon>cancel</mat-icon>
+          <span>Cancel</span>
+        </button>
+        <button type="submit" title="Select" class="btn select" matFab extended>
+          <mat-icon>check_circle</mat-icon>
+          <span>Select</span>
+        </button>
+      </mat-dialog-actions>
+    </form>
+  </div><!-- .wrapper -->
+</div><!-- .component -->

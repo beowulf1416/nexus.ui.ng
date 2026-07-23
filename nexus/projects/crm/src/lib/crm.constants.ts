@@ -1,10 +1,11 @@
+import { BASE_URL } from "core";
+
 export const URLS = {
-  base_url: 'http://localhost:8080',
 
   // person_save: '/crm/person/save',
   // business_save: '/crm/business/save',
 
-  partner_save: '/crm/partner/save',
-  partners_fetch: '/crm/partners/fetch',
-  partners_set_active: '/crm/partners/set/active',
+  partner_save: `${BASE_URL}/crm/partner/save`,
+  partners_fetch: `${BASE_URL}/crm/partners/fetch`,
+  partners_set_active: `${BASE_URL}/crm/partners/set/active`,
 };

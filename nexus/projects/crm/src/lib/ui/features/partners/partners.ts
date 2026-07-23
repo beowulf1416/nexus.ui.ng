@@ -17,11 +17,12 @@ import { PartnerDialog } from '../../dialogs/partner-dialog/partner-dialog';
 import { PartnerService } from '../../../services/partner-service';
 
 import { Partner } from '../../../models/partner';
+import { PartnerData } from '../../../models/partner-data';
 // import { Person } from '../../../models/person';
 
 class PartnerRow {
   constructor(
-    readonly partner: Partner,
+    readonly partner: PartnerData,
     public selected: boolean,
   ) {}
 }
@@ -96,8 +97,8 @@ export class Partners {
     // console.debug(this.current_tenant().id);
 
     const model = this.model();
-    this.partner_service.fetch_partners(this.current_tenant().id, model.filter).subscribe({
-      next: (r: Array<Partner>) => {
+    this.partner_service.fetch_partners(model.filter).subscribe({
+      next: (r: Array<PartnerData>) => {
         this.model.update((m) => ({
           ...m,
           partners: r.map((p) => new PartnerRow(p, false)),
@@ -249,7 +250,7 @@ export class Partners {
 
     const partner_ids = this.model()
       .partners.filter((t) => t.selected)
-      .map((t) => t.partner.partner_id);
+      .map((t) => new Uuid(t.partner.partner_id));
 
     this.partner_service.partner_set_active(partner_ids, active).subscribe({
       next: (r: ApiResponse) => {

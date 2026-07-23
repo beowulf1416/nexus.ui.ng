@@ -8,6 +8,7 @@ import { URLS } from '../crm.constants';
 // import { Person } from '../models/person';
 // import { Business } from '../models/business';
 import { Partner } from '../models/partner';
+import { PartnerData } from '../models/partner-data';
 
 @Service()
 export class PartnerService {
@@ -20,7 +21,7 @@ export class PartnerService {
   partner_save(tenant_id: Uuid, partner: Partner): Observable<ApiResponse> {
     console.info('partner_save');
 
-    return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.partner_save}`, {
+    return this.http.post<ApiResponse>(URLS.partner_save, {
       tenant_id: tenant_id.to_string(),
       partner_id: partner.partner_id.to_string(),
       business_name: partner.business_name,
@@ -50,10 +51,9 @@ export class PartnerService {
   //   );
   // }
 
-  fetch_partners(tenant_id: Uuid, filter: string): Observable<Array<Partner>> {
+  fetch_partners(filter: string): Observable<Array<PartnerData>> {
     return this.http
-      .post<ApiResponse>(`${URLS.base_url}${URLS.partners_fetch}`, {
-        tenant_id: tenant_id,
+      .post<ApiResponse>(URLS.partners_fetch, {
         filter: filter,
       })
       .pipe(
@@ -61,12 +61,12 @@ export class PartnerService {
           if (r.success && r.data) {
             const partners = (
               r.data as {
-                partners: Array<Partner>;
+                partners: Array<PartnerData>;
               }
             ).partners;
             return partners;
           }
-          return new Array<Partner>();
+          return new Array<PartnerData>();
         }),
         catchError((e: any) => {
           console.error(e);
@@ -77,7 +77,7 @@ export class PartnerService {
   }
 
   partner_set_active(partner_ids: Array<Uuid>, active: boolean): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(`${URLS.base_url}${URLS.partners_set_active}`, {
+    return this.http.post<ApiResponse>(URLS.partners_set_active, {
       partner_ids: partner_ids,
       active: active,
     });
