@@ -7,6 +7,7 @@ import { ApiResponse } from 'core';
 import { InvoiceType } from '../models/invoice-type';
 import { URLS } from '../accounting.constants';
 import { Invoice } from '../models/invoice';
+import { InvoiceData } from '../models/invoice-data';
 
 @Service()
 export class InvoiceService {
@@ -34,7 +35,7 @@ export class InvoiceService {
     );
   }
 
-  invoices_fetch(filter: string): Observable<Array<Invoice>> {
+  invoices_fetch(filter: string): Observable<Array<InvoiceData>> {
     console.info('invoices_fetch');
 
     return this.http
@@ -46,12 +47,12 @@ export class InvoiceService {
           if (r.success && r.data) {
             const invoices = (
               r.data as {
-                invoices: Array<Invoice>;
+                invoices: Array<InvoiceData>;
               }
             ).invoices;
             return invoices;
           }
-          return new Array<Invoice>();
+          return new Array<InvoiceData>();
         }),
         catchError((e: any) => {
           console.error(e);
@@ -60,7 +61,7 @@ export class InvoiceService {
       );
   }
 
-  invoice_fetch(invoice_id: string): Observable<Invoice | null> {
+  invoice_fetch(invoice_id: string): Observable<InvoiceData | null> {
     console.info('invoice_fetch');
 
     return this.http
@@ -72,7 +73,7 @@ export class InvoiceService {
           if (r.success && r.data) {
             const invoice = (
               r.data as {
-                invoice: Invoice;
+                invoice: InvoiceData;
               }
             ).invoice;
             return invoice;
@@ -94,7 +95,7 @@ export class InvoiceService {
       invoice_type_id: invoice.invoice_type_id,
       due_date: invoice.due_date,
       description: invoice.description,
-      // currency_id: invoice.currency_id,
+      version: invoice.version,
       items: invoice.items,
     });
   }

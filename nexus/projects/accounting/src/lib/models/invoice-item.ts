@@ -1,6 +1,6 @@
 export class InvoiceItem {
   constructor(
-    readonly id: string,
+    readonly item_id: string,
     readonly description: string,
     readonly quantity: number,
     // readonly dimension_id: number,
@@ -9,7 +9,7 @@ export class InvoiceItem {
     readonly currency_id: number,
   ) {}
 
-  public get total() {
+  public get total(): number {
     return this.unit_price * this.quantity;
   }
 }

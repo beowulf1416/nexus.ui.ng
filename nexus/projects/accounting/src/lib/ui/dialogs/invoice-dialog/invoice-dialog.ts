@@ -1,5 +1,5 @@
 import { Component, signal, inject, computed, OnInit } from '@angular/core';
-import { form, FormField, required, submit } from '@angular/forms/signals';
+import { form, FormField, required, submit, validate } from '@angular/forms/signals';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,6 +15,10 @@ import { InvoiceType } from '../../../models/invoice-type';
 import { InvoiceItem } from '../../../models/invoice-item';
 import { Router } from '@angular/router';
 import { InvoiceService } from '../../../services/invoice-service';
+import { AccountSelector } from '../../components/account-selector/account-selector';
+import { OrganizationData, OrganizationSelector } from 'organization-selector';
+import { PartnerSelector, PartnerData } from 'crm';
+import { AccountData } from '../../../models/account-data';
 
 @Component({
   selector: 'lib-invoice-dialog',
@@ -26,6 +30,9 @@ import { InvoiceService } from '../../../services/invoice-service';
     MatFormFieldModule,
     MatSelectModule,
     FormField,
+    AccountSelector,
+    OrganizationSelector,
+    PartnerSelector
   ],
   templateUrl: './invoice-dialog.html',
   styleUrl: './invoice-dialog.css',
@@ -41,12 +48,45 @@ export class InvoiceDialog implements OnInit {
     due_date: new Date(),
     description: '',
     currency_id: 0,
+    org_id: '',
+    partner_id: '',
+    acct_id: '',
+    version: 0
   });
 
   component = {
     errors: signal(new Array<string>()),
     invoice_types: signal(new Array<InvoiceType>()),
-    form: form(this.model, (f) => {}),
+    form: form(this.model, (f) => {
+      required(f.type_id, { message: "Please select Invoice Type" });
+      validate(f.org_id, ({ value }) => {
+        if (value() == '') {
+          return {
+            kind: 'org_id',
+            message: 'Please select organization'
+          }
+        }
+        return null;
+      });
+      validate(f.partner_id, ({ value }) => {
+        if (value() == '') {
+          return {
+            kind: 'partner_id',
+            message: 'Please select partner'
+          }
+        }
+        return null;
+      });
+      validate(f.acct_id, ({ value }) => {
+        if (value() == '') {
+          return {
+            kind: 'acct_id',
+            message: 'Please select Account'
+          }
+        }
+        return null;
+      });
+    }),
   };
 
   readonly data = inject<{
@@ -103,9 +143,12 @@ export class InvoiceDialog implements OnInit {
           new Invoice(
             invoice_id,
             model.type_id,
+            model.version,
+            new Date(),
+            new Date(),
             model.due_date,
             model.description,
-            new Array<InvoiceItem>(),
+            new Array<InvoiceItem>()
           ),
         )
         .subscribe({
@@ -124,5 +167,26 @@ export class InvoiceDialog implements OnInit {
           },
         });
     });
+  }
+
+  on_org_selected(org: OrganizationData): void {
+    this.model.update((m) => ({
+      ...m,
+      org_id: org.org_id
+    }));
+  }
+
+  on_partner_selected(partner: PartnerData): void {
+    this.model.update((m) => ({
+      ...m,
+      partner_id: partner.partner_id
+    }));
+  }
+
+  on_account_selected(account: AccountData): void {
+    this.model.update((m) => ({
+      ...m,
+      acct_id: account.account_id
+    }));
   }
 }

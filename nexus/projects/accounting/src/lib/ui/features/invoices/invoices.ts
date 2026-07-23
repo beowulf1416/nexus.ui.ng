@@ -13,10 +13,11 @@ import { InvoiceDialog } from '../../dialogs/invoice-dialog/invoice-dialog';
 import { Invoice } from '../../../models/invoice';
 import { RouterLink } from '@angular/router';
 import { InvoiceService } from '../../../services/invoice-service';
+import { InvoiceData } from '../../../models/invoice-data';
 
 class InvoiceRow {
   constructor(
-    readonly invoice: Invoice,
+    readonly invoice: InvoiceData,
     public selected: boolean = false,
   ) {}
 }
@@ -69,7 +70,7 @@ export class Invoices {
 
     const filter = this.model().filter;
     this.invoice_service.invoices_fetch(filter).subscribe({
-      next: (invoices: Array<Invoice>) => {
+      next: (invoices: Array<InvoiceData>) => {
         console.debug(invoices);
         this.model.update((m) => ({
           ...m,

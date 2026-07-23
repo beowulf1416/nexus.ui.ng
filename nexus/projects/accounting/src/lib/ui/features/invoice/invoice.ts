@@ -1,9 +1,9 @@
 import { Component, OnInit, signal, inject, computed } from '@angular/core';
-import { form, FormField, required } from '@angular/forms/signals';
+import { form, FormField, required, submit } from '@angular/forms/signals';
 import { ActivatedRoute } from '@angular/router';
 import { AccountingService } from '../../../services/accounting-service';
 
-import { CommonService, Dimension, Uom } from 'core';
+import { ApiResponse, CommonService, Dimension, Uom } from 'core';
 import { Invoice as InvoiceModel } from '../../../models/invoice';
 import { InvoiceType } from '../../../models/invoice-type';
 import { CommonModule } from '@angular/common';
@@ -15,6 +15,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { InvoiceItem } from '../../../models/invoice-item';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { InvoiceService } from '../../../services/invoice-service';
+import { InvoiceData } from '../../../models/invoice-data';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'lib-invoice',
@@ -35,6 +37,9 @@ export class Invoice implements OnInit {
   model = signal({
     invoice_id: '',
     invoice_type_id: 0,
+    version: 0,
+    created: new Date(),
+    updated: new Date(),
     due_date: new Date(),
     description: '',
     items: new Array<InvoiceItem>(),
@@ -85,30 +90,10 @@ export class Invoice implements OnInit {
       },
     });
 
-    // this.common_service.fetch_dimensions().subscribe({
-    //   next: (r: Array<Dimension>) => {
-    //     // console.debug(r);
-    //     this.component.dimensions.set(r);
-    //   },
-    //   error: (e) => {
-    //     console.error(e);
-    //   },
-    // });
-
-    // this.common_service.fetch_uoms().subscribe({
-    //   next: (r: Array<Uom>) => {
-    //     // console.debug(r);
-    //     this.component.uoms.set(r);
-    //   },
-    //   error: (e) => {
-    //     console.error(e);
-    //   },
-    // });
-
     const invoice_id = this.route.snapshot.paramMap.get('invoice_id');
     if (invoice_id) {
       this.invoice_service.invoice_fetch(invoice_id).subscribe({
-        next: (r: InvoiceModel | null) => {
+        next: (r: InvoiceData | null) => {
           console.debug(r);
 
           this.model.update((m) => ({
@@ -130,6 +115,28 @@ export class Invoice implements OnInit {
   on_submit(event: Event): void {
     console.info('on_submit');
     event.preventDefault();
+
+    submit(this.component.form, async () => {
+      const model = this.model();
+
+      this.invoice_service.invoice_save(new InvoiceModel(
+        model.invoice_id,
+        model.invoice_type_id,
+        model.version,
+        model.created,
+        model.updated,
+        model.due_date,
+        model.description,
+        model.items
+      )).subscribe({
+        next: (r: ApiResponse) => {
+          console.debug(r);
+        },
+        error: (e: HttpErrorResponse) => {
+          console.error(e);
+        }
+      })
+    });
   }
 
   on_new_invoice_item(event: Event): void {
@@ -141,7 +148,7 @@ export class Invoice implements OnInit {
       ...m,
       items: m.items.concat(
         new InvoiceItem(
-          new_item.id,
+          new_item.item_id,
           new_item.description,
           new_item.quantity,
           new_item.unit_price,

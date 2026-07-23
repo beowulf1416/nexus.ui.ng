@@ -6,6 +6,7 @@ import { AccountSelectorDialog } from '../../dialogs/account-selector-dialog/acc
 import { UserService, Uuid } from 'core';
 import { AccountItem } from '../../../models/account-item';
 import { AccountTypeId } from '../../../accounting.constants';
+import { AccountData } from '../../../models/account-data';
 
 
 
@@ -38,10 +39,7 @@ export class AccountSelector {
   private md = inject(MatDialog);
 
   account_type = input<AccountTypeId>();
-  account_selected = output<{
-    account_id: string;
-    name: string;
-  }>();
+  account_selected = output<AccountData>();
 
   constructor() { }
 
@@ -66,10 +64,7 @@ export class AccountSelector {
             name: result[0].name
           };
           this.model.set(a);
-          this.account_selected.emit({
-            account_id: result[0].account_id,
-            name: result[0].name
-          });
+          this.account_selected.emit(a);
         }
       },
     });
