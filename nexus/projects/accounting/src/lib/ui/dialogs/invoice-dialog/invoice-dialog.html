@@ -54,12 +54,9 @@
           <partner-selector [formField]="component.form.partner_id" ></partner-selector>
           <mat-form-field class="field">
             <mat-label>Due Date</mat-label>
-            <input
-              type="date"
-              class="input due-date"
-              matInput
-              [formField]="component.form.due_date"
-            />
+            <input matInput [matDatepicker]="due_date_picker" />
+            <mat-datepicker-toggle matIconSuffix [for]="due_date_picker"></mat-datepicker-toggle>
+            <mat-datepicker #due_date_picker></mat-datepicker>
           </mat-form-field>
         </fieldset>
         <fieldset>

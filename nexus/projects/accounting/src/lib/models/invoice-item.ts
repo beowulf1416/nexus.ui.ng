@@ -7,6 +7,7 @@ export class InvoiceItem {
     readonly unit_price: number,
     // readonly total: number,
     readonly currency_id: number,
+    readonly version: number
   ) {}
 
   public get total(): number {

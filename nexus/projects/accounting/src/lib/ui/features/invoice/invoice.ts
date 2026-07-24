@@ -1,19 +1,22 @@
 import { Component, OnInit, signal, inject, computed } from '@angular/core';
 import { form, FormField, required, submit } from '@angular/forms/signals';
 import { ActivatedRoute } from '@angular/router';
-import { AccountingService } from '../../../services/accounting-service';
-
-import { ApiResponse, CommonService, Dimension, Uom } from 'core';
-import { Invoice as InvoiceModel } from '../../../models/invoice';
-import { InvoiceType } from '../../../models/invoice-type';
-import { CommonModule } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { InvoiceItem } from '../../../models/invoice-item';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { provideNativeDateAdapter } from '@angular/material/core';
+
+import { AccountingService } from '../../../services/accounting-service';
+
+import { ApiResponse, CommonService, Dimension, Uom, Uuid } from 'core';
+import { Invoice as InvoiceModel } from '../../../models/invoice';
+import { InvoiceType } from '../../../models/invoice-type';
+import { InvoiceItem } from '../../../models/invoice-item';
 import { InvoiceService } from '../../../services/invoice-service';
 import { InvoiceData } from '../../../models/invoice-data';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -25,6 +28,7 @@ import { AccountSelector } from '../../components/account-selector/account-selec
 
 @Component({
   selector: 'lib-invoice',
+  providers: [provideNativeDateAdapter()],
   imports: [
     CommonModule,
     MatIconModule,
@@ -33,6 +37,7 @@ import { AccountSelector } from '../../components/account-selector/account-selec
     MatFormFieldModule,
     MatSelectModule,
     MatToolbarModule,
+    MatDatepickerModule,
     FormField,
     OrganizationSelector,
     PartnerSelector,
@@ -51,7 +56,7 @@ export class Invoice implements OnInit {
     due_date: new Date(),
     description: '',
     items: new Array<InvoiceItem>(),
-    new_item: new InvoiceItem('', '', 1, 0, 1),
+    new_item: new InvoiceItem('', '', 1, 0, 1, 0),
     account_id: '',
     org_id: '',
     partner_id: ''
@@ -105,7 +110,9 @@ export class Invoice implements OnInit {
     if (invoice_id) {
       this.invoice_service.invoice_fetch(invoice_id).subscribe({
         next: (r: InvoiceData | null) => {
-          console.debug(r);
+          const due_date = r?.due_date ?? new Date();
+          const due_date_yyyyMMdd = new Date(due_date).setHours(0,0,0,0);
+          console.debug(due_date_yyyyMMdd, typeof due_date_yyyyMMdd);
 
           this.model.update((m) => ({
             ...m,
@@ -114,7 +121,7 @@ export class Invoice implements OnInit {
             account_id: r?.account_id ?? '',
             org_id: r?.org_id ?? '',
             partner_id: r?.partner_id ?? '',
-            due_date: r?.due_date ?? new Date(),
+            due_date: due_date,
             description: r?.description ?? '',
             items: r?.items ?? new Array<InvoiceItem>(),
           }));
@@ -161,18 +168,20 @@ export class Invoice implements OnInit {
     event.preventDefault();
 
     const new_item = this.model().new_item;
+
     this.model.update((m) => ({
       ...m,
       items: m.items.concat(
         new InvoiceItem(
-          new_item.item_id,
+          new Uuid().to_string(),
           new_item.description,
           new_item.quantity,
           new_item.unit_price,
           new_item.currency_id,
+          new_item.version
         ),
       ),
-      new_item: new InvoiceItem('', '', 1, 0, 1),
+      new_item: new InvoiceItem('', '', 1, 0, 1, 0),
     }));
   }
 
