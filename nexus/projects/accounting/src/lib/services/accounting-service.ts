@@ -19,6 +19,7 @@ export class AccountingService {
   constructor() {}
 
   account_types_fetch(): Observable<Array<AccountType>> {
+    console.info('account_types_fetch');
     return this.http.post<ApiResponse>(URLS.account_types_fetch, {}).pipe(
       map((r: ApiResponse) => {
         if (r.success && r.data) {
@@ -39,6 +40,7 @@ export class AccountingService {
   }
 
   account_categories_fetch(): Observable<Array<AccountCategory>> {
+    console.info('account_categories_fetch');
     return this.http.post<ApiResponse>(URLS.account_categories_fetch, {}).pipe(
       map((r: ApiResponse) => {
         if (r.success && r.data) {

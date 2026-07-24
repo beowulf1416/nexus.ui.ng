@@ -15,6 +15,18 @@
               <mat-error>{{ error.message }}</mat-error>
             }
           }
+
+          @if(component.form.org_id().touched() && component.form.org_id().invalid()) {
+            @for(error of component.form.org_id().errors(); track error) {
+              <mat-error>{{ error.message }}</mat-error>
+            }
+          }
+
+          @if(component.form.partner_id().touched() && component.form.partner_id().invalid()) {
+            @for(error of component.form.partner_id().errors(); track error) {
+              <mat-error>{{ error.message }}</mat-error>
+            }
+          }
         </div><!-- .errors -->
         <fieldset>
           <legend>General</legend>
@@ -38,8 +50,8 @@
         </fieldset>
         <fieldset>
           <legend>Parties</legend>
-          <organization-selector [formField]="component.form.org_id" (organization_selected)="on_org_selected($event)"></organization-selector>
-          <partner-selector [formField]="component.form.partner_id" (partners_selected)="on_partner_selected($event)"></partner-selector>
+          <organization-selector [formField]="component.form.org_id" ></organization-selector>
+          <partner-selector [formField]="component.form.partner_id" ></partner-selector>
           <mat-form-field class="field">
             <mat-label>Due Date</mat-label>
             <input
@@ -52,7 +64,7 @@
         </fieldset>
         <fieldset>
           <legend>Billing</legend>
-          <account-selector [formField]="component.form.account_id" (account_selected)="on_account_selected($event)"></account-selector>
+          <account-selector [formField]="component.form.account_id" ></account-selector>
         </fieldset>
       </mat-dialog-content>
       <mat-dialog-actions>

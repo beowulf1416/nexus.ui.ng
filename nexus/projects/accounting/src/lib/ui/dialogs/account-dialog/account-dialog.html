@@ -4,9 +4,17 @@
       <h3 mat-dialog-title>{{ title() }}</h3>
       <mat-dialog-content>
         <div class="errors">
-          @if (component.errors().length > 0) { @for (error of component.errors(); track error) {
-          <div>{{ error }}</div>
-          } }
+          @if (component.errors().length > 0) {
+            @for (error of component.errors(); track error) {
+              <mat-error>{{ error }}</mat-error>
+            }
+          }
+
+          @if(component.form.account_id().touched() && component.form.account_id().invalid()) {
+            @for(error of component.form.account_id().errors(); track error) {
+              <mat-error>{{ error.message }}</mat-error>
+            }
+          }
         </div>
         <!-- .errors -->
         <fieldset>
@@ -42,7 +50,7 @@
         </fieldset>
         <fieldset>
           <legend>Hierarchy</legend>
-          <account-selector [account_type]="component.form.type_id().value()" (account_selected)="on_account_selected($event)"></account-selector>
+          <account-selector [account_type]="component.form.type_id().value()" [formField]="component.form.account_id"></account-selector>
         </fieldset>
       </mat-dialog-content>
       <mat-dialog-actions>

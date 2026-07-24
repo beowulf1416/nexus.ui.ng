@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, model, output, signal } from '@angular/core';
+import { Component, computed, effect, inject, input, linkedSignal, model, output, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -29,7 +29,29 @@ interface AccountSelected {
   styleUrl: './account-selector.css',
 })
 export class AccountSelector implements FormValueControl<string> {
-  value = model<string>('');
+  value = model<string>("");
+  // display_value = linkedSignal(() => {
+  //   const value = this.value();
+
+  //   console.debug(value);
+
+  //   this.acctg_service.account_fetch(new Uuid(value)).subscribe({
+  //     next: (r: AccountNode | null) => {
+  //       if (r) {
+  //         this.model.set({
+  //           account_id: r.account_id.to_string(),
+  //           name: r.name
+  //         })
+  //         return r.name;
+  //       }
+  //       return '';
+  //     },
+  //     error: (e: HttpErrorResponse) => {
+  //       console.error(e.message);
+  //       return '';
+  //     }
+  //   });
+  // });
 
   model = signal({
     account_id: '',
@@ -45,13 +67,36 @@ export class AccountSelector implements FormValueControl<string> {
   private acctg_service = inject(AccountingService);
 
   account_type = input<AccountTypeId>();
-  account_selected = output<AccountData>();
+  // account_selected = output<AccountData>();
 
-  constructor() { }
+  constructor() {
+    effect(() => {
+      const value = this.value();
+
+      if (value) {
+        this.acctg_service.account_fetch(new Uuid(value)).subscribe({
+          next: (r: AccountNode | null) => {
+            if (r) {
+              this.model.set({
+                account_id: r.account_id instanceof Uuid ? r.account_id.to_string() : r.account_id,
+                name: r.name
+              })
+            }
+          },
+          error: (e: HttpErrorResponse) => {
+            console.error(e.message);
+          }
+        });
+      }
+    });
+  }
 
   onInput(event: Event): void {
+    console.debug('onInput', event);
     const input = event.target as HTMLInputElement;
     const value = input.value;
+
+    console.debug(value);
 
     this.value.set(input.value);
 
@@ -68,7 +113,7 @@ export class AccountSelector implements FormValueControl<string> {
         error: (e: HttpErrorResponse) => {
           console.error(e.message);
         }
-      })
+      });
     }
   }
 
@@ -94,7 +139,7 @@ export class AccountSelector implements FormValueControl<string> {
           };
           this.value.set(a.account_id);
           this.model.set(a);
-          this.account_selected.emit(a);
+          // this.account_selected.emit(a);
         }
       },
     });

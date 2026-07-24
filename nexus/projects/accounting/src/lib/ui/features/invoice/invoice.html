@@ -36,11 +36,11 @@
         <legend>Business Partners</legend>
         <div class="field">
           <span>Organization</span>
-          <organization-selector></organization-selector>
+          <organization-selector [formField]="component.form.org_id"></organization-selector>
         </div>
         <div class="field">
           <span>Customer</span>
-          <partner-selector></partner-selector>
+          <partner-selector [formField]="component.form.partner_id"></partner-selector>
         </div>
         <div class="field">
           <account-selector [formField]="component.form.account_id"></account-selector>

@@ -48,6 +48,8 @@ export class AccountDialog implements OnInit {
     form: form(this.model, (f) => {
       required(f.name, { message: 'Name is required' });
       required(f.code, { message: 'Code is required' });
+      required(f.account_id, { message: "Please select an account" });
+
       validate(f.type_id, (ctx: FieldContext<number>) => {
         return ctx.value() > 0 ? null : { kind: 'AccountTypeError', message: 'Type is required' };
       });
