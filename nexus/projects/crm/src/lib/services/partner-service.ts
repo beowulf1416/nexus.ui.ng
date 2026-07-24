@@ -76,6 +76,26 @@ export class PartnerService {
       );
   }
 
+  fetch_partner(partner_id: Uuid): Observable<PartnerData | null> {
+    return this.http.post<ApiResponse>(URLS.partner_fetch, {
+      partner_id: partner_id
+    }).pipe(
+      map((r: ApiResponse) => {
+        if (r.success && r.data) {
+          const pd = (r.data as {
+            partner: PartnerData
+          }).partner;
+          return pd;
+        }
+        return null;
+      }),
+      catchError((e: any) => {
+        console.error(e);
+        throw e;
+      })
+    );
+  }
+
   partner_set_active(partner_ids: Array<Uuid>, active: boolean): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(URLS.partners_set_active, {
       partner_ids: partner_ids,

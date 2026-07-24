@@ -1,12 +1,15 @@
-import { Component, input, inject, output, computed, signal } from '@angular/core';
+import { Component, input, inject, output, computed, signal, model } from '@angular/core';
+import { FormValueControl } from '@angular/forms/signals';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
-import { Partner } from '../../../models/partner';
+// import { Partner } from '../../../models/partner';
 import { MatDialog } from '@angular/material/dialog';
 import { PartnerData } from '../../../models/partner-data';
 import { PartnerSelectorDialog } from '../../dialogs/partner-selector-dialog/partner-selector-dialog';
-import { NotificationService } from 'core';
+import { NotificationService, Uuid } from 'core';
+import { PartnerService } from '../../../services/partner-service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 
@@ -19,7 +22,9 @@ import { NotificationService } from 'core';
   templateUrl: './partner-selector.html',
   styleUrl: './partner-selector.css',
 })
-export class PartnerSelector {
+export class PartnerSelector implements FormValueControl<string> {
+  value = model<string>('');
+
   model = signal({
     partner_id: '',
     name: ''
@@ -35,8 +40,34 @@ export class PartnerSelector {
 
   private md = inject(MatDialog);
   private notification_service = inject(NotificationService);
+  private partner_service = inject(PartnerService);
 
-  constructor() {}
+  constructor() { }
+
+
+
+  onInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const value = input.value;
+
+    this.value.set(input.value);
+
+    if (value) {
+      this.partner_service.fetch_partner(new Uuid(value)).subscribe({
+        next: (r: PartnerData | null) => {
+          if (r) {
+            this.model.set({
+              partner_id: r.partner_id,
+              name: r.business_name == '' ? `${r.first_name} ${r.last_name}` : r.business_name
+            })
+          }
+        },
+        error: (e: HttpErrorResponse) => {
+          console.error(e.message);
+        }
+      })
+    }
+  }
 
   on_select_partner(event: Event): void {
     event.preventDefault();
@@ -56,6 +87,7 @@ export class PartnerSelector {
             partner_id: data.partner_id,
             name: name
           };
+          this.value.set(a.partner_id);
           this.model.set(a);
           this.partners_selected.emit(data);
         }
