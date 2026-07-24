@@ -37,7 +37,7 @@ export class OrganizationsService {
 
   fetch_organization(org_id: Uuid): Observable<OrganizationData | null> {
     return this.http.post<ApiResponse>(URLS.fetch_organization, {
-      org_id: org_id
+      org_id: org_id.to_string()
     }).pipe(
       map((r: ApiResponse) => {
         if (r.success && r.data) {

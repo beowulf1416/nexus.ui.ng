@@ -1,4 +1,4 @@
-import { Component, computed, inject, model, output, signal } from '@angular/core';
+import { Component, computed, effect, inject, model, output, signal } from '@angular/core';
 import { FormValueControl } from '@angular/forms/signals';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -32,34 +32,59 @@ export class OrganizationSelector implements FormValueControl<string> {
     return this.model().name == '' ? 'Select Organization' : this.model().name;
   });
 
-  organization_selected = output<OrganizationData>();
+  // organization_selected = output<OrganizationData>();
 
   private md = inject(MatDialog);
   private notification_service = inject(NotificationService);
   private org_service = inject(OrganizationsService);
 
-  constructor() { }
+  constructor() {
+    effect(() => {
+      const value = this.value();
+
+      if (value) {
+        this.org_service.fetch_organization(new Uuid(value)).subscribe({
+          next: (r: OrganizationData | null) => {
+            if (r) {
+              this.model.set({
+                org_id: r.org_id,
+                name: r.name
+              });
+            }
+          },
+          error: (e: HttpErrorResponse) => {
+            console.error(e);
+            throw e;
+          }
+        })
+      }
+    });
+  }
 
   onInput(event: Event): void {
+    console.info('onInput');
+
     const input = event.target as HTMLInputElement;
     const value = input.value;
 
-    if (value) {
-      this.org_service.fetch_organization(new Uuid(value)).subscribe({
-        next: (r: OrganizationData | null) => {
-          if (r) {
-            this.model.set({
-              org_id: r.org_id,
-              name: r.name
-            });
-          }
-        },
-        error: (e: HttpErrorResponse) => {
-          console.error(e);
-          throw e;
-        }
-      })
-    }
+    console.info('value', value);
+
+    // if (value) {
+    //   this.org_service.fetch_organization(new Uuid(value)).subscribe({
+    //     next: (r: OrganizationData | null) => {
+    //       if (r) {
+    //         this.model.set({
+    //           org_id: r.org_id,
+    //           name: r.name
+    //         });
+    //       }
+    //     },
+    //     error: (e: HttpErrorResponse) => {
+    //       console.error(e);
+    //       throw e;
+    //     }
+    //   })
+    // }
   }
 
   on_select(event: Event): void {
@@ -81,7 +106,7 @@ export class OrganizationSelector implements FormValueControl<string> {
           };
           this.value.set(a.org_id);
           this.model.set(a);
-          this.organization_selected.emit(data);
+          // this.organization_selected.emit(data);
         }
       },
       error: (e: any) => {
