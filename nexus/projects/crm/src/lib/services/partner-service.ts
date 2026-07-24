@@ -78,7 +78,7 @@ export class PartnerService {
 
   fetch_partner(partner_id: Uuid): Observable<PartnerData | null> {
     return this.http.post<ApiResponse>(URLS.partner_fetch, {
-      partner_id: partner_id
+      partner_id: partner_id.to_string()
     }).pipe(
       map((r: ApiResponse) => {
         if (r.success && r.data) {

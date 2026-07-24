@@ -1,4 +1,4 @@
-import { Component, input, inject, output, computed, signal, model } from '@angular/core';
+import { Component, input, inject, output, computed, signal, model, effect } from '@angular/core';
 import { FormValueControl } from '@angular/forms/signals';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -31,7 +31,7 @@ export class PartnerSelector implements FormValueControl<string> {
   });
 
   multiple = input<boolean>(false);
-  partners_selected = output<PartnerData>()
+  // partners_selected = output<PartnerData>()
 
 
   title = computed(() => {
@@ -42,7 +42,27 @@ export class PartnerSelector implements FormValueControl<string> {
   private notification_service = inject(NotificationService);
   private partner_service = inject(PartnerService);
 
-  constructor() { }
+  constructor() {
+    effect(() => {
+      const value = this.value();
+
+      if (value) {
+        this.partner_service.fetch_partner(new Uuid(value)).subscribe({
+          next: (r: PartnerData | null) => {
+            if (r) {
+              this.model.set({
+                partner_id: r.partner_id,
+                name: r.business_name == '' ? `${r.first_name} ${r.last_name}` : r.business_name
+              })
+            }
+          },
+          error: (e: HttpErrorResponse) => {
+            console.error(e.message);
+          }
+        })
+      }
+    });
+  }
 
 
 
@@ -51,22 +71,6 @@ export class PartnerSelector implements FormValueControl<string> {
     const value = input.value;
 
     this.value.set(input.value);
-
-    if (value) {
-      this.partner_service.fetch_partner(new Uuid(value)).subscribe({
-        next: (r: PartnerData | null) => {
-          if (r) {
-            this.model.set({
-              partner_id: r.partner_id,
-              name: r.business_name == '' ? `${r.first_name} ${r.last_name}` : r.business_name
-            })
-          }
-        },
-        error: (e: HttpErrorResponse) => {
-          console.error(e.message);
-        }
-      })
-    }
   }
 
   on_select_partner(event: Event): void {
@@ -89,7 +93,7 @@ export class PartnerSelector implements FormValueControl<string> {
           };
           this.value.set(a.partner_id);
           this.model.set(a);
-          this.partners_selected.emit(data);
+          // this.partners_selected.emit(data);
         }
       },
       error: (e: any) => {
