@@ -4,11 +4,18 @@
       <h3 mat-dialog-title>New Invoice</h3>
       <mat-dialog-content>
         <div class="errors">
-          @if (component.errors().length > 0) { @for (error of component.errors(); track error) {
-          <div>{{ error }}</div>
-          } }
-        </div>
-        <!-- .errors -->
+          @if (component.errors().length > 0) {
+            @for (error of component.errors(); track error) {
+              <mat-error>{{ error }}</mat-error>
+            }
+          }
+
+          @if(component.form.account_id().touched() && component.form.account_id().invalid()) {
+            @for(error of component.form.account_id().errors(); track error) {
+              <mat-error>{{ error.message }}</mat-error>
+            }
+          }
+        </div><!-- .errors -->
         <fieldset>
           <legend>General</legend>
           <mat-form-field class="field block">
@@ -31,26 +38,8 @@
         </fieldset>
         <fieldset>
           <legend>Parties</legend>
-          <organization-selector (organization_selected)="on_org_selected($event)"></organization-selector>
-          <partner-selector (partners_selected)="on_partner_selected($event)"></partner-selector>
-          <mat-form-field class="field">
-            <mat-label>From Party</mat-label>
-            <input
-              type="text"
-              class="input from-party-id"
-              matInput
-              [formField]="component.form.from_party_id"
-            />
-          </mat-form-field>
-          <mat-form-field class="field">
-            <mat-label>To Party</mat-label>
-            <input
-              type="text"
-              class="input to-party-id"
-              matInput
-              [formField]="component.form.to_party_id"
-            />
-          </mat-form-field>
+          <organization-selector [formField]="component.form.org_id" (organization_selected)="on_org_selected($event)"></organization-selector>
+          <partner-selector [formField]="component.form.partner_id" (partners_selected)="on_partner_selected($event)"></partner-selector>
           <mat-form-field class="field">
             <mat-label>Due Date</mat-label>
             <input
@@ -63,7 +52,7 @@
         </fieldset>
         <fieldset>
           <legend>Billing</legend>
-          <account-selector (account_selected)="on_account_selected($event)"></account-selector>
+          <account-selector [formField]="component.form.account_id" (account_selected)="on_account_selected($event)"></account-selector>
         </fieldset>
       </mat-dialog-content>
       <mat-dialog-actions>

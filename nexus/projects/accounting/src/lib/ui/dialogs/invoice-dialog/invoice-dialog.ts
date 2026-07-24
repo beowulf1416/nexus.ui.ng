@@ -50,7 +50,7 @@ export class InvoiceDialog implements OnInit {
     currency_id: 0,
     org_id: '',
     partner_id: '',
-    acct_id: '',
+    account_id: '',
     version: 0
   });
 
@@ -59,6 +59,8 @@ export class InvoiceDialog implements OnInit {
     invoice_types: signal(new Array<InvoiceType>()),
     form: form(this.model, (f) => {
       required(f.type_id, { message: "Please select Invoice Type" });
+
+      required(f.org_id, { message: "Please select an organization" });
       validate(f.org_id, ({ value }) => {
         if (value() == '') {
           return {
@@ -68,6 +70,8 @@ export class InvoiceDialog implements OnInit {
         }
         return null;
       });
+
+      required(f.partner_id, { message: "Please select a partner" });
       validate(f.partner_id, ({ value }) => {
         if (value() == '') {
           return {
@@ -77,7 +81,9 @@ export class InvoiceDialog implements OnInit {
         }
         return null;
       });
-      validate(f.acct_id, ({ value }) => {
+
+      required(f.account_id, { message: "Please select an account" });
+      validate(f.account_id, ({ value }) => {
         if (value() == '') {
           return {
             kind: 'acct_id',
@@ -146,6 +152,9 @@ export class InvoiceDialog implements OnInit {
             model.version,
             new Date(),
             new Date(),
+            model.account_id,
+            model.org_id,
+            model.partner_id,
             model.due_date,
             model.description,
             new Array<InvoiceItem>()
@@ -157,7 +166,7 @@ export class InvoiceDialog implements OnInit {
 
             if (r.success) {
               this.dr.close();
-              this.router.navigate(['/accounting/invoices/', invoice_id]);
+              // this.router.navigate(['/accounting/invoices/', invoice_id]);
             }
           },
           error: (e: HttpErrorResponse) => {

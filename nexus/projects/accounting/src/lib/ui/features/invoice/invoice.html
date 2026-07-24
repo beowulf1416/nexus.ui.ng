@@ -32,6 +32,20 @@
           <textarea matInput [formField]="component.form.description"></textarea>
         </mat-form-field>
       </fieldset>
+      <fieldset class="">
+        <legend>Business Partners</legend>
+        <div class="field">
+          <span>Organization</span>
+          <organization-selector></organization-selector>
+        </div>
+        <div class="field">
+          <span>Customer</span>
+          <partner-selector></partner-selector>
+        </div>
+        <div class="field">
+          <account-selector [formField]="component.form.account_id"></account-selector>
+        </div>
+      </fieldset>
       <fieldset>
         <legend>Items</legend>
         <div class="wrapper items">

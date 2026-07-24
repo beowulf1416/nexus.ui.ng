@@ -17,6 +17,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { InvoiceService } from '../../../services/invoice-service';
 import { InvoiceData } from '../../../models/invoice-data';
 import { HttpErrorResponse } from '@angular/common/http';
+import { OrganizationSelector } from 'organization-selector';
+import { PartnerSelector } from 'crm';
+import { AccountSelector } from '../../components/account-selector/account-selector';
+
+
 
 @Component({
   selector: 'lib-invoice',
@@ -29,6 +34,9 @@ import { HttpErrorResponse } from '@angular/common/http';
     MatSelectModule,
     MatToolbarModule,
     FormField,
+    OrganizationSelector,
+    PartnerSelector,
+    AccountSelector
   ],
   templateUrl: './invoice.html',
   styleUrl: './invoice.css',
@@ -44,6 +52,9 @@ export class Invoice implements OnInit {
     description: '',
     items: new Array<InvoiceItem>(),
     new_item: new InvoiceItem('', '', 1, 0, 1),
+    account_id: '',
+    org_id: '',
+    partner_id: ''
   });
 
   component = {
@@ -125,6 +136,9 @@ export class Invoice implements OnInit {
         model.version,
         model.created,
         model.updated,
+        model.account_id,
+        model.org_id,
+        model.partner_id,
         model.due_date,
         model.description,
         model.items

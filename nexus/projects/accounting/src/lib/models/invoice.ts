@@ -10,6 +10,10 @@ export class Invoice {
     readonly created: Date,
     readonly updated: Date,
 
+    readonly account_id: string,
+    readonly org_id: string,
+    readonly partner_id: string,
+
     readonly due_date: Date | null,
     readonly description: string,
     readonly items: Array<InvoiceItemData>,
