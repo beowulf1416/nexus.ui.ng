@@ -1,6 +1,6 @@
 <div class="component invoice">
   <div class="wrapper form">
-    <form class="invoice" method="post" action="" (submit)="on_submit($event)">
+    <form class="invoice" method="post" action="" (submit)="on_submit($event)" novalidate>
       <fieldset class="actions">
         <mat-toolbar>
           <button type="submit" title="Save" class="btn invoice-save" mat-icon-button>
@@ -10,7 +10,7 @@
       </fieldset>
       <fieldset>
         <legend>General</legend>
-        <mat-form-field class="field block">
+        <mat-form-field class="field block" appearance="outline">
           <mat-label>Invoice Type</mat-label>
           <mat-select [formField]="component.form.invoice_type_id">
             @for (type of component.invoice_types(); track type.id) {
@@ -18,28 +18,29 @@
             }
           </mat-select>
         </mat-form-field>
-        <mat-form-field class="field block">
+        <mat-form-field class="field block" appearance="outline">
           <mat-label>Due Date</mat-label>
           <input matInput [matDatepicker]="due_date_picker" [formField]="component.form.due_date" />
           <mat-datepicker-toggle matIconSuffix [for]="due_date_picker"></mat-datepicker-toggle>
           <mat-datepicker #due_date_picker></mat-datepicker>
         </mat-form-field>
-        <mat-form-field class="field block">
+        <mat-form-field class="field block" appearance="outline">
           <mat-label>Description</mat-label>
           <textarea matInput [formField]="component.form.description"></textarea>
         </mat-form-field>
       </fieldset>
       <fieldset class="">
         <legend>Business Partners</legend>
-        <div class="field">
-          <span>Organization</span>
+        <div class="field block">
+          <span class="label">Organization</span>
           <organization-selector [formField]="component.form.org_id"></organization-selector>
         </div>
-        <div class="field">
-          <span>Customer</span>
+        <div class="field block">
+          <span class="label">Customer</span>
           <partner-selector [formField]="component.form.partner_id"></partner-selector>
         </div>
-        <div class="field">
+        <div class="field block">
+          <span class="label">Account</span>
           <account-selector [formField]="component.form.account_id"></account-selector>
         </div>
       </fieldset>
@@ -61,7 +62,7 @@
             <tfoot>
               <tr>
                 <td>
-                  <mat-form-field>
+                  <mat-form-field appearance="outline">
                     <mat-label>Description</mat-label>
                     <input
                       type="text"
@@ -72,19 +73,21 @@
                   </mat-form-field>
                 </td>
                 <td>
-                  <mat-form-field>
+                  <mat-form-field appearance="outline">
                     <mat-label>Quantity</mat-label>
                     <input
                       type="number"
                       title="Quantity"
                       class="input item-qty"
+                      step="any"
+                      inputmode="decimal"
                       matInput
                       [formField]="component.form.new_item.quantity"
                     />
                   </mat-form-field>
                 </td>
                 <td>
-                  <mat-form-field>
+                  <mat-form-field appearance="outline">
                     <input
                       type="number"
                       title="Unit Price"
@@ -95,7 +98,7 @@
                   </mat-form-field>
                 </td>
                 <td>
-                  <mat-form-field>
+                  <mat-form-field appearance="outline">
                     <input
                       type="number"
                       title="Total"
@@ -127,7 +130,7 @@
               @for (item of component.form.items; let i = $index; track $index) {
               <tr>
                 <td>
-                  <mat-form-field>
+                  <mat-form-field appearance="outline">
                     <mat-label>Item Description</mat-label>
                     <input
                       type="text"
@@ -139,7 +142,7 @@
                   </mat-form-field>
                 </td>
                 <td>
-                  <mat-form-field>
+                  <mat-form-field appearance="outline">
                     <mat-label>Quantity</mat-label>
                     <input
                       type="number"
@@ -151,7 +154,7 @@
                   </mat-form-field>
                 </td>
                 <td>
-                  <mat-form-field>
+                  <mat-form-field appearance="outline">
                     <mat-label>Unit Price</mat-label>
                     <input
                       type="number"

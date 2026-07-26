@@ -1,6 +1,6 @@
 export class InvoiceItem {
   constructor(
-    readonly item_id: string,
+    readonly invoice_item_id: string,
     readonly description: string,
     readonly quantity: number,
     // readonly dimension_id: number,
