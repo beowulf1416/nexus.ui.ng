@@ -21,6 +21,11 @@ export const routes: Routes = [
         title: 'Locations',
         loadComponent: () => import('./ui/features/locations/locations').then((m) => m.Locations),
       },
+      {
+        path: 'items',
+        title: 'Items',
+        loadComponent: () => import('./ui/features/items/items').then((m) => m.Items),
+      },
     ],
   },
 ];

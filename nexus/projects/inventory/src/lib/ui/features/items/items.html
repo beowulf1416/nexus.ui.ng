@@ -1,1 +1,41 @@
-<p>items works!</p>
+<div class="component items">
+  <div class="wrapper form">
+    <form class="items" method="post" action="" novalidate>
+      <div class="wrapper toolbar">
+        <mat-toolbar>
+          <button type="button" title="New Item" class="btn item" mat-icon-button (click)="on_new_item($event)">
+            <mat-icon>box_add</mat-icon>
+          </button>
+          <div class="wrapper filter">
+            <mat-form-field appearance="outline">
+              <input type="search" placeholder="Search" matInput />
+              <button type="button" title="Search" class="btn search" mat-icon-button (click)="on_search($event)" matSuffix>
+                <mat-icon>search</mat-icon>
+              </button>
+              <button type="button" title="Clear" class="btn clear" mat-icon-button (click)="on_clear($event)" matSuffix>
+                <mat-icon>close_small</mat-icon>
+              </button>
+            </mat-form-field>
+          </div><!-- .wrapper -->
+          <button type="button" title="Refresh" class="btn refresh" mat-icon-button (click)="on_refresh($event)">
+            <mat-icon>refresh</mat-icon>
+          </button>
+        </mat-toolbar>
+      </div><!-- .wrapper -->
+      <div class="wrapper table">
+        <table class="items">
+          <caption>Items</caption>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tfoot></tfoot>
+          <tbody></tbody>
+        </table>
+      </div><!-- .wrapper -->
+    </form>
+  </div><!-- .wrapper -->
+</div><!-- .component -->
