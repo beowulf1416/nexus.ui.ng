@@ -3,23 +3,81 @@
     <form class="warehouse" method="post" action="" (submit)="on_submit($event)">
       <h3 mat-dialog-title>{{ title() }}</h3>
       <mat-dialog-content>
+        <div class="errors">
+          @if (component.errors().length > 0) {
+            @for (error of component.errors(); track error) {
+              <mat-error>{{ error }}</mat-error>
+            }
+          }
+          @if(component.form.name().touched() && component.form.name().invalid()) {
+            @for(error of component.form.name().errors(); track error) {
+              <mat-error>{{ error.message }}</mat-error>
+            }
+          }
+          <!--@if(component.form.address.country_id().touched() && component.form.address.country_id().invalid()) {
+            @for(error of component.form.address.country_id().errors(); track error) {
+              <mat-error>{{ error.message }}</mat-error>
+            }
+          }-->
+          @if(component.form.address.city().touched() && component.form.address.city().invalid()) {
+            @for(error of component.form.address.city().errors(); track error) {
+              <mat-error>{{ error.message }}</mat-error>
+            }
+          }
+          @if(component.form.address.city().touched() && component.form.address.city().invalid()) {
+            @for(error of component.form.address.city().errors(); track error) {
+              <mat-error>{{ error.message }}</mat-error>
+            }
+          }
+          @if(component.form.address.street().touched() && component.form.address.street().invalid()) {
+            @for(error of component.form.address.street().errors(); track error) {
+              <mat-error>{{ error.message }}</mat-error>
+            }
+          }
+        </div><!-- .errors -->
         <fieldset>
           <legend>Information</legend>
-          <mat-form-field>
+          <mat-form-field appearance="outline" class="field block">
             <mat-label>Name</mat-label>
-            <input type="text" class="input name" placeholder="Name" matInput/>
+            <input type="text" class="input name" placeholder="Name" matInput [formField]="component.form.name"/>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="field block">
+            <mat-label>Description</mat-label>
+            <textarea class="input description" placeholder="Description" matInput [formField]="component.form.description"></textarea>
           </mat-form-field>
         </fieldset>
         <fieldset>
           <legend>Address</legend>
-          <mat-form-field>
-            <mat-label>Country</mat-label>
-            <input type="text" class="input country" placeholder="Country" matInput/>
+          <div class="wrapper country-selector field block">
+            <country-selector [formField]="component.form.address.country_id"></country-selector>
+          </div><!-- .wrapper -->
+          <mat-form-field class="field block" appearance="outline">
+            <mat-label>State</mat-label>
+            <input type="text" class="input state" placeholder="State" matInput [formField]="component.form.address.state"/>
+          </mat-form-field>
+          <mat-form-field class="field block" appearance="outline">
+            <mat-label>City</mat-label>
+            <input type="text" class="input city" placeholder="City" matInput [formField]="component.form.address.city"/>
+          </mat-form-field>
+          <mat-form-field class="field block" appearance="outline">
+            <mat-label>Street</mat-label>
+            <input type="text" class="input street" placeholder="Street" matInput [formField]="component.form.address.street"/>
+          </mat-form-field>
+          <mat-form-field class="field block" appearance="outline">
+            <mat-label>Zip Code</mat-label>
+            <input type="number" class="input zip-code" placeholder="Zip Code" matInput [formField]="component.form.address.zip"/>
           </mat-form-field>
         </fieldset>
       </mat-dialog-content>
       <mat-dialog-actions>
-
+        <button type="button" title="Cancel" class="btn cancel" (click)="on_cancel($event)" matFab extended>
+          <mat-icon>cancel</mat-icon>
+          <span>Cancel</span>
+        </button>
+        <button type="submit" title="Save" class="btn save" matFab extended color="primary" [disabled]="component.form().invalid()">
+          <mat-icon>save</mat-icon>
+          <span>Save</span>
+        </button>
       </mat-dialog-actions>
     </form>
   </div><!-- .wrapper -->

@@ -1,5 +1,6 @@
 import { BASE_URL } from "core";
 
 export const URLS = {
-  warehouses_fetch: `${BASE_URL}/inventory/warehouses/fetch`
+  warehouses_fetch: `${BASE_URL}/inv/warehouses/fetch`,
+    warehouse_save: `${BASE_URL}/inv/warehouses/save`
 };

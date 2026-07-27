@@ -6,4 +6,11 @@ export interface WarehouseData {
   readonly version: number;
   readonly name: string;
   readonly description: string;
+  readonly address: {
+    readonly street: string;
+    readonly city: string;
+    readonly state: string;
+    readonly zip: string;
+    readonly country_id: string;
+  }
 }
