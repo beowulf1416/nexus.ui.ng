@@ -30,28 +30,6 @@ interface AccountSelected {
 })
 export class AccountSelector implements FormValueControl<string> {
   value = model<string>("");
-  // display_value = linkedSignal(() => {
-  //   const value = this.value();
-
-  //   console.debug(value);
-
-  //   this.acctg_service.account_fetch(new Uuid(value)).subscribe({
-  //     next: (r: AccountNode | null) => {
-  //       if (r) {
-  //         this.model.set({
-  //           account_id: r.account_id.to_string(),
-  //           name: r.name
-  //         })
-  //         return r.name;
-  //       }
-  //       return '';
-  //     },
-  //     error: (e: HttpErrorResponse) => {
-  //       console.error(e.message);
-  //       return '';
-  //     }
-  //   });
-  // });
 
   model = signal({
     account_id: '',
