@@ -1,60 +1,70 @@
-import { Component, computed, output, signal } from '@angular/core';
-import { inject } from '@angular/core/primitives/di';
+import { Component, computed, model, output, signal, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CountrySelectorDialog } from '../../dialogs/country-selector-dialog/country-selector-dialog';
 import { NotificationService } from '../../../services/notification-service';
+import { FormField, FormValueControl } from '@angular/forms/signals';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { CommonService } from '../../../services/common-service';
+import { Country } from '../../../models/country';
 
 
-interface Country {
-  id: string;
-  name: string;
-}
+// interface Country {
+//   id: string;
+//   name: string;
+// }
 
 @Component({
   selector: 'country-selector',
-  imports: [],
+  imports: [
+    MatIconModule,
+    MatButtonModule,
+    MatSelectModule,
+    FormField
+  ],
   templateUrl: './country-selector.html',
   styleUrl: './country-selector.css',
 })
-export class CountrySelector {
+export class CountrySelector implements FormValueControl<number>, OnInit {
+  value = model<number>(0);
 
   model = signal({
-    country_id: '',
-    name: '',
+    selected: {
+      country_id: 0,
+      // name: '',
+    },
+    countries: new Array<Country>(),
   });
 
-  title = computed(() => {
-    return this.model().name == '' ? 'Select Country' : this.model().name;
-  });
+  // title = computed(() => {
+  //   let name = this.model().selected.name;
+  //   return name == '' ? 'Select Country' : name;
+  // });
 
   private md = inject(MatDialog);
   private notification_service = inject(NotificationService);
+  private cs = inject(CommonService);
 
-  country = output<Country>();
+  // country = output<Country>();
 
   constructor() { }
 
-  on_click(event: Event): void {
-    console.info('on_click');
-    event.preventDefault();
-
-    let dr = this.md.open(CountrySelectorDialog, {
-      position: { top: '10px', right: '10px' },
-      data: {
-        country_id: this.model().country_id,
-        name: this.model().name,
-      }
-    });
-    dr.afterClosed().subscribe({
-      next: (result) => {
-        if (result) {
-          this.model.set(result);
-          this.country.emit(result);
+  ngOnInit(): void {
+    this.cs.fetch_countries().subscribe({
+      next: (r: Country[]) => {
+        if (r) {
+          this.model.update((m) => ({
+            ...m,
+            countries: r
+          }));
         }
       },
-      error: (e: any) => {
+      error: (e: HttpErrorResponse) => {
         console.error(e);
-        this.notification_service.error(e);
+        this.notification_service.error(e.message);
       }
     });
   }

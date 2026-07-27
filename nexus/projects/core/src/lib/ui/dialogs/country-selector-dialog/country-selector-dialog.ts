@@ -1,8 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { form, FormField } from '@angular/forms/signals';
@@ -38,6 +38,8 @@ export class CountrySelectorDialog {
     errors: signal(new Array<string>()),
     form: form(this.model, (f) => {})
   };
+
+  private dr = inject(MatDialogRef<CountrySelectorDialog>);
 
   constructor() { }
 

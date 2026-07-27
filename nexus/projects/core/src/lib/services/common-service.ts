@@ -37,7 +37,7 @@ export class CommonService {
     );
   }
 
-  fetch_countries(): Observable<Country> {
+  fetch_countries(): Observable<Array<Country>> {
     console.info('fetch_countries');
 
     return this.http.post<ApiResponse>(URLS.fetch_countries, {}).pipe(

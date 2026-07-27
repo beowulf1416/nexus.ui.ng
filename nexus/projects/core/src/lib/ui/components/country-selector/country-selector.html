@@ -1,5 +1,10 @@
 <div class="component country-selector">
-  <button type="button" [title]="title()" (click)="on_click($event)">
-    <span>{{ title() }}</span>
-  </button>
+  <mat-form-field appearance="outline">
+    <mat-label>Country</mat-label>
+    <mat-select [(value)]="value">
+      @for(c of model().countries; track c.country_id) {
+        <mat-option [value]="c.country_id">{{ c.name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
 </div><!-- .component -->

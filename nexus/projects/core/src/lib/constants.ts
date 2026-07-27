@@ -16,7 +16,7 @@ export const URLS = {
   switch_tenant: `${BASE_URL}/session/tenant/set`,
 
   fetch_currencies: `${BASE_URL}/currencies`,
-  fetch_countries: `${BASE_URL}/countries`,
+  fetch_countries: `${BASE_URL}/common/countries`,
   fetch_uoms: `${BASE_URL}/uoms`,
   fetch_uoms_by_dimension: `${BASE_URL}/uoms/dimension/`,
   fetch_dimensions: `${BASE_URL}/dimensions`,
