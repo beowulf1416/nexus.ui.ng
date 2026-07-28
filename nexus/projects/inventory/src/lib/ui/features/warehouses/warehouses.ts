@@ -9,6 +9,15 @@ import { WarehouseData } from '../../../models/warehouse-data';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { WarehouseDialog } from '../../dialogs/warehouse-dialog/warehouse-dialog';
 import { NotificationService } from 'core';
+import { WarehouseService } from '../../../services/warehouse-service';
+
+
+class WarehouseDataItem {
+  constructor(
+    readonly warehouse: WarehouseData,
+    readonly selected: boolean = false
+  ) { }
+}
 
 @Component({
   selector: 'lib-warehouses',
@@ -17,7 +26,8 @@ import { NotificationService } from 'core';
     MatInputModule,
     MatButtonModule,
     MatToolbarModule,
-    MatDialogModule
+    MatDialogModule,
+    FormField
   ],
   templateUrl: './warehouses.html',
   styleUrl: './warehouses.css',
@@ -26,7 +36,7 @@ export class Warehouses {
 
   model = signal({
     filter: '',
-    warehouses: new Array<WarehouseData>()
+    warehouses: new Array<WarehouseDataItem>()
   });
 
   component = {
@@ -38,8 +48,28 @@ export class Warehouses {
 
   private md = inject(MatDialog);
   private notification = inject(NotificationService);
+  private ws = inject(WarehouseService);
 
   constructor() { }
+
+  warehouses_fetch(): void {
+    console.info('warehouses_fetch');
+
+    const model = this.model();
+    this.ws.warehouses_fetch(model.filter).subscribe({
+      next: (warehouses) => {
+        const w = warehouses.map((w) => new WarehouseDataItem(w, false));
+        this.model.update((m) => ({
+          ...m,
+          warehouses: w
+        }));
+      },
+      error: (e: any) => {
+        console.error(e);
+        this.notification.error(e);
+      }
+    });
+  }
 
   on_new_warehouse(event: Event): void {
     event.preventDefault();
@@ -65,16 +95,19 @@ export class Warehouses {
 
   on_search(event: Event): void {
     event.preventDefault();
-
+    this.warehouses_fetch();
   }
 
   on_clear(event: Event): void {
     event.preventDefault();
-
+    this.model.update((m) => ({
+      ...m,
+      filter: ''
+    }));
   }
 
   on_refresh(event: Event): void {
     event.preventDefault();
-
+    this.warehouses_fetch();
   }
 }

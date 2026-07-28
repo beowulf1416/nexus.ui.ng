@@ -28,7 +28,7 @@ export class WarehouseDialog {
     name: '',
     description: '',
     address: {
-      country_id: '',
+      country_id: 0,
       state: '',
       city: '',
       street: '',

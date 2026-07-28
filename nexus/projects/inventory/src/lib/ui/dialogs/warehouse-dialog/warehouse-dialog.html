@@ -14,11 +14,11 @@
               <mat-error>{{ error.message }}</mat-error>
             }
           }
-          <!--@if(component.form.address.country_id().touched() && component.form.address.country_id().invalid()) {
+          @if(component.form.address.country_id().touched() && component.form.address.country_id().invalid()) {
             @for(error of component.form.address.country_id().errors(); track error) {
               <mat-error>{{ error.message }}</mat-error>
             }
-          }-->
+          }
           @if(component.form.address.city().touched() && component.form.address.city().invalid()) {
             @for(error of component.form.address.city().errors(); track error) {
               <mat-error>{{ error.message }}</mat-error>

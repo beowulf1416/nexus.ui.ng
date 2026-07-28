@@ -8,7 +8,7 @@
           </button>
           <div class="wrapper filter">
             <mat-form-field appearance="outline">
-              <input type="search" placeholder="Search" matInput />
+              <input type="search" placeholder="Search" matInput [formField]="component.form.filter" />
               <button type="button" title="Search" class="btn search" mat-icon-button (click)="on_search($event)" matSuffix>
                 <mat-icon>search</mat-icon>
               </button>
@@ -33,7 +33,17 @@
             </tr>
           </thead>
           <tfoot></tfoot>
-          <tbody></tbody>
+          <tbody>
+            @for(w of component.form.warehouses; let even = $even; let i = $index; track i) {
+              <tr class="warehouse-item" [class]="even ? 'even' : 'odd'">
+                <td>
+                  <input type="checkbox" title="Select Item" class="input select-item" [formField]="w.selected" />
+                </td>
+                <td>{{ w.warehouse.name().value() }}</td>
+                <td>{{ w.warehouse.description().value() }}</td>
+              </tr>
+            }
+          </tbody>
         </table>
       </div><!-- .wrapper -->
     </form>

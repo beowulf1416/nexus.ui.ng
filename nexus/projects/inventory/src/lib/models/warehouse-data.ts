@@ -11,6 +11,6 @@ export interface WarehouseData {
     readonly city: string;
     readonly state: string;
     readonly zip: string;
-    readonly country_id: string;
+    readonly country_id: number;
   }
 }

@@ -1,5 +1,5 @@
 import { inject, Service } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable } from 'rxjs';
 
 import { ApiResponse, Uuid } from 'core';
 import { WarehouseData } from '../models/warehouse-data';
@@ -12,8 +12,19 @@ export class WarehouseService {
   private http = inject(HttpClient);
 
   warehouses_fetch(filter: string): Observable<WarehouseData[]> {
-    console.info('//todo warehouses_fetch');
-    return new Observable<WarehouseData[]>();
+    return this.http.post<ApiResponse>(URLS.warehouses_fetch, { filter }).pipe(
+      map((r: ApiResponse) => {
+        if (r.success && r.data) {
+          const warehouses = (r.data as { warehouses: WarehouseData[] }).warehouses;
+          return warehouses;
+        }
+        return new Array<WarehouseData>();
+      }),
+      catchError((e: any) => {
+        console.error(e);
+        throw e;
+      })
+    );
   }
 
   warehouse_fetch(warehouse_id: Uuid): Observable<WarehouseData> {
