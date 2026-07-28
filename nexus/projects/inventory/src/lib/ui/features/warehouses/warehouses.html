@@ -6,6 +6,9 @@
           <button type="button" title="New Warehouse" class="btn warehouse" mat-icon-button (click)="on_new_warehouse($event)">
             <mat-icon>warehouse</mat-icon>
           </button>
+          <button type="button" title="New Location" class="btn location" mat-icon-button (click)="on_new_location($event)">
+            <mat-icon>location_on</mat-icon>
+          </button>
           <div class="wrapper filter">
             <mat-form-field appearance="outline">
               <input type="search" placeholder="Search" matInput [formField]="component.form.filter" />

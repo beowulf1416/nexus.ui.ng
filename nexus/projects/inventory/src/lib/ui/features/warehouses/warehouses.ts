@@ -10,6 +10,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { WarehouseDialog } from '../../dialogs/warehouse-dialog/warehouse-dialog';
 import { NotificationService } from 'core';
 import { WarehouseService } from '../../../services/warehouse-service';
+import { LocationDialog } from '../../dialogs/location-dialog/location-dialog';
 
 
 class WarehouseDataItem {
@@ -91,6 +92,27 @@ export class Warehouses {
         this.notification.error(e);
       }
     })
+  }
+
+  on_new_location(event: Event): void {
+    event.preventDefault();
+    let dr = this.md.open(LocationDialog, {
+      position: {
+        top: '1em',
+        right: '1em'
+      }
+    });
+    dr.afterClosed().subscribe({
+      next: (result) => {
+        if (result) {
+          console.debug(result);
+        }
+      },
+      error: (e: any) => {
+        console.error(e);
+        this.notification.error(e);
+      }
+    });
   }
 
   on_search(event: Event): void {

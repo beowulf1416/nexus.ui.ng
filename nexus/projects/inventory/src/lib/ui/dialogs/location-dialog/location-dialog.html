@@ -1,1 +1,85 @@
-<p>location-dialog works!</p>
+<div class="component location-dialog">
+  <div class="wrapper form">
+    <form class="location-dialog" method="post" action="" (submit)="on_submit($event)">
+      <h3 mat-dialog-title>{{ title() }}</h3>
+      <mat-dialog-content>
+        <div class="errors">
+          @if (component.errors().length > 0) {
+            @for (error of component.errors(); track error) {
+              <mat-error>{{ error }}</mat-error>
+            }
+          }
+          @if(component.form.name().touched() && component.form.name().invalid()) {
+            @for(error of component.form.name().errors(); track error) {
+              <mat-error>{{ error.message }}</mat-error>
+            }
+          }
+          @if(component.form.warehouse_id().touched() && component.form.warehouse_id().invalid()) {
+            @for(error of component.form.warehouse_id().errors(); track error) {
+              <mat-error>{{ error.message }}</mat-error>
+            }
+          }
+        </div><!-- .errors -->
+        <fieldset>
+          <legend>Information</legend>
+          <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input type="text" title="Name" class="input name" matInput [formField]="component.form.name" />
+          </mat-form-field>
+        </fieldset>
+        <fieldset>
+          <legend>Locator</legend>
+          <div class="wrapper warehouse-selector field block">
+            <warehouse-selector [formField]="component.form.warehouse_id"></warehouse-selector>
+          </div><!-- .wrapper -->
+          <mat-form-field appearance="outline" class="field block">
+            <mat-label>Floor</mat-label>
+            <input type="text" title="Floor" class="input floor" matInput [formField]="component.form.floor" />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="field block">
+            <mat-label>Level</mat-label>
+            <input type="text" title="Level" class="input level" matInput [formField]="component.form.level" />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="field block">
+            <mat-label>Section</mat-label>
+            <input type="text" title="Section" class="input section" matInput [formField]="component.form.section" />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="field block">
+            <mat-label>Aisle</mat-label>
+            <input type="text" title="Aisle" class="input aisle" matInput [formField]="component.form.aisle" />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="field block">
+            <mat-label>Row</mat-label>
+            <input type="text" title="Row" class="input row" matInput [formField]="component.form.row" />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="field block">
+            <mat-label>Rack</mat-label>
+            <input type="text" title="Rack" class="input rack" matInput [formField]="component.form.rack" />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="field block">
+            <mat-label>Shelf</mat-label>
+            <input type="text" title="Shelf" class="input shelf" matInput [formField]="component.form.shelf" />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="field block">
+            <mat-label>Bin</mat-label>
+            <input type="text" title="Bin" class="input bin" matInput [formField]="component.form.bin" />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="field block">
+            <mat-label>Pallet</mat-label>
+            <input type="text" title="Pallet" class="input pallet" matInput [formField]="component.form.pallet" />
+          </mat-form-field>
+        </fieldset>
+      </mat-dialog-content>
+      <mat-dialog-actions>
+        <button type="button" title="Cancel" class="btn cancel" matFab extended (click)="on_cancel($event)">
+          <mat-icon>cancel</mat-icon>
+          <span>Cancel</span>
+        </button>
+        <button type="submit" title="Save" class="btn save" matFab extended>
+          <mat-icon>save</mat-icon>
+          <span>Save</span>
+        </button>
+      </mat-dialog-actions>
+    </form>
+  </div><!-- .wrapper -->
+</div><!-- .component -->

@@ -40,7 +40,7 @@ export class WarehouseDialog {
     errors: signal(new Array<string>()),
     form: form(this.model, (f) => {
       required(f.name, { message: 'Name is required' });
-      // required(f.address.country_id, { message: 'Country is required' });
+      required(f.address.country_id, { message: 'Country is required' });
       required(f.address.state, { message: 'State is required' });
       required(f.address.city, { message: 'City is required' });
       required(f.address.street, { message: 'Street is required' });

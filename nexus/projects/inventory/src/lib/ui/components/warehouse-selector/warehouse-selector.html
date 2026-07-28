@@ -1,1 +1,12 @@
-<p>warehouse-selector works!</p>
+<div class="component warehouse-selector">
+  <mat-form-field appearance="outline">
+    <mat-label>Warehouse</mat-label>
+    <mat-select [(value)]="value">
+      @for(w of model().warehouses; track w.warehouse_id) {
+      <mat-option [value]="w.warehouse_id">
+          {{ w.name }}
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</div><!-- .component -->
