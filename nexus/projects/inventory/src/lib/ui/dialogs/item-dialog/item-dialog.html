@@ -1,0 +1,41 @@
+<div class="component item-dialog">
+  <div class="wrapper item-dialog">
+    <form class="item-dialog" method="post" action="" (submit)="on_submit($event)">
+      <h3 mat-dialog-title>{{ title() }}</h3>
+      <mat-dialog-content>
+        <fieldset>
+          <legend>Information</legend>
+          <mat-form-field appearance="outline" class="field block">
+            <mat-label>Name</mat-label>
+            <input type="text" title="Name" class="input name" matInput [formField]="component.form.name" />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="field block">
+            <mat-label>Description</mat-label>
+            <textarea title="Description" class="input description" matInput [formField]="component.form.description"></textarea>
+          </mat-form-field>
+        </fieldset>
+        <fieldset>
+          <legend>Identifier</legend>
+          <mat-form-field appearance="outline" class="field block">
+            <mat-label>SKU</mat-label>
+            <input type="text" title="SKU" class="input sku" matInput [formField]="component.form.sku" />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="field block">
+            <mat-label>UPC</mat-label>
+            <input type="text" title="UPC" class="input upc" matInput [formField]="component.form.upc" />
+          </mat-form-field>
+        </fieldset>
+      </mat-dialog-content>
+      <mat-dialog-actions>
+        <button type="button" title="Cancel" class="btn cancel" matFab extended (click)="on_cancel($event)">
+          <mat-icon>cancel</mat-icon>
+          <span>Cancel</span>
+        </button>
+        <button type="submit" title="Save" class="btn save" matFab extended>
+          <mat-icon>save</mat-icon>
+          <span>Save</span>
+        </button>
+      </mat-dialog-actions>
+    </form><!-- .item-dialog -->
+  </div><!-- .wrapper -->
+</div><!-- .component -->

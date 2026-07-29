@@ -4,7 +4,15 @@
       <div class="wrapper toolbar">
         <mat-toolbar>
           <button type="button" title="New Item" class="btn item" mat-icon-button (click)="on_new_item($event)">
-            <mat-icon>box_add</mat-icon>
+            <mat-icon><span class="material-symbols-outlined">
+            box_add
+            </span></mat-icon>
+          </button>
+          <button type="button" title="New Warehouse" class="btn warehouse" mat-icon-button (click)="on_new_warehouse($event)">
+            <mat-icon>warehouse</mat-icon>
+          </button>
+          <button type="button" title="New Location" class="btn location" mat-icon-button (click)="on_new_location($event)">
+            <mat-icon>location_on</mat-icon>
           </button>
           <div class="wrapper filter">
             <mat-form-field appearance="outline">
