@@ -25,6 +25,25 @@
             <input type="text" title="UPC" class="input upc" matInput [formField]="component.form.upc" />
           </mat-form-field>
         </fieldset>
+        <fieldset>
+          <legend>Flags</legend>
+          <div class="wrapper check">
+            <input type="checkbox" title="Perishable" id="perishable" class="input perishable" [formField]="component.form.perishable" />
+            <label for="perishable">Perishable</label>
+          </div><!-- .wrapper -->
+          <div class="wrapper check">
+            <input type="checkbox" title="Flammable" id="flammable" class="input flammable" [formField]="component.form.flammable" />
+            <label for="flammable">Flammable</label>
+          </div><!-- .wrapper -->
+          <div class="wrapper check">
+            <input type="checkbox" title="Hazardous" id="hazardous" class="input hazardous" [formField]="component.form.hazardous" />
+            <label for="hazardous">Hazardous</label>
+          </div><!-- .wrapper -->
+          <div class="wrapper check">
+            <input type="checkbox" title="ESD Sensitive" id="esd_sensitive" class="input esd_sensitive" [formField]="component.form.esd_sensitive" />
+            <label for="esd_sensitive">ESD Sensitive</label>
+          </div><!-- .wrapper -->
+        </fieldset>
       </mat-dialog-content>
       <mat-dialog-actions>
         <button type="button" title="Cancel" class="btn cancel" matFab extended (click)="on_cancel($event)">

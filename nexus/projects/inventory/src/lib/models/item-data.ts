@@ -9,4 +9,9 @@ export interface ItemData {
 
   readonly sku: string;
   readonly upc: string;
+
+  readonly perishable: boolean;
+  readonly flammable: boolean;
+  readonly hazardous: boolean;
+  readonly esd_sensitive: boolean;
 }

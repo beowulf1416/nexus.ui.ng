@@ -16,7 +16,7 @@ import { LocationDialog } from '../../dialogs/location-dialog/location-dialog';
 class WarehouseDataItem {
   constructor(
     readonly warehouse: WarehouseData,
-    readonly selected: boolean = false
+    public selected: boolean = false
   ) { }
 }
 

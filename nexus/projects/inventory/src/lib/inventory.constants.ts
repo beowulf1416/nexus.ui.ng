@@ -6,5 +6,6 @@ export const URLS = {
 
   location_save: `${BASE_URL}/inv/locations/save`,
 
-  item_save: `${BASE_URL}/inv/items/save`
+  item_save: `${BASE_URL}/inv/items/save`,
+  items_fetch: `${BASE_URL}/inv/items/fetch`,
 };

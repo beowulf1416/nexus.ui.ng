@@ -10,7 +10,18 @@ import { MatDialog } from '@angular/material/dialog';
 import { WarehouseDialog } from '../../dialogs/warehouse-dialog/warehouse-dialog';
 import { LocationDialog } from '../../dialogs/location-dialog/location-dialog';
 import { ItemDialog } from '../../dialogs/item-dialog/item-dialog';
+import { ItemService } from '../../../services/item-service';
+import { NotificationService } from 'core';
+import { RouterLink } from '@angular/router';
 
+
+
+class ItemRow {
+  constructor(
+    readonly item: ItemData,
+    public selected: boolean = false
+  ) { }
+}
 
 @Component({
   selector: 'lib-items',
@@ -18,7 +29,9 @@ import { ItemDialog } from '../../dialogs/item-dialog/item-dialog';
     MatIconModule,
     MatInputModule,
     MatButtonModule,
-    MatToolbarModule,],
+    MatToolbarModule,
+    RouterLink,
+  ],
   templateUrl: './items.html',
   styleUrl: './items.css',
 })
@@ -26,7 +39,7 @@ export class Items {
 
   model = signal({
     filter: '',
-    warehouses: new Array<ItemData>()
+    items: new Array<ItemRow>()
   });
 
   component = {
@@ -37,6 +50,8 @@ export class Items {
   };
 
   private md = inject(MatDialog);
+  private is = inject(ItemService);
+  private ns = inject(NotificationService);
 
   constructor() { }
 
@@ -109,6 +124,7 @@ export class Items {
 
   on_refresh(event: Event): void {
     event.preventDefault();
+    this.items_fetch();
   }
 
   on_clear(event: Event): void {
@@ -121,5 +137,23 @@ export class Items {
 
   items_fetch(): void {
     console.info('items_fetch');
+
+    const filter = this.model().filter;
+    this.is.items_fetch(filter).subscribe({
+      next: (items) => {
+        this.model.update((m) => ({
+          ...m,
+          items: items.map((item) => new ItemRow(item))
+        }));
+      },
+      error: (e: any) => {
+        console.error(e);
+        this.ns.error(e);
+      }
+    });
+  }
+
+  on_select_all(event: Event): void {
+    event.preventDefault();
   }
 }

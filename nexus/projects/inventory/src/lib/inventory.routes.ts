@@ -26,6 +26,11 @@ export const routes: Routes = [
         title: 'Items',
         loadComponent: () => import('./ui/features/items/items').then((m) => m.Items),
       },
+      {
+        path: 'items/:item_id',
+        title: 'Item',
+        loadComponent: () => import('./ui/features/item/item').then((m) => m.Item),
+      },
     ],
   },
 ];

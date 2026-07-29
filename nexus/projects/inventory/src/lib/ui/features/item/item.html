@@ -1,0 +1,136 @@
+<div class="component item">
+  <div class="wrapper">
+    <div class="wrapper tabs">
+      <mat-tab-group>
+        <mat-tab label="General Information">
+          <form class="form item general" method="post" action="" (submit)="on_general_submit($event)">
+            <div class="actions">
+              <mat-toolbar>
+                <button type="submit" title="Save" class="btn save" mat-icon-button>
+                  <mat-icon>save</mat-icon>
+                </button>
+              </mat-toolbar>
+            </div><!-- .actions -->
+            <fieldset>
+              <legend>General Information</legend>
+              <mat-form-field appearance="outline" class="field block">
+                <mat-label>Name</mat-label>
+                <input type="text" title="Name" class="input name" matInput [formField]="component.general.name" />
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="field block">
+                <mat-label>Description</mat-label>
+                <textarea title="Description" class="input description" matInput [formField]="component.general.description"></textarea>
+              </mat-form-field>
+            </fieldset>
+            <fieldset>
+              <legend>Identifier</legend>
+              <mat-form-field appearance="outline">
+                <mat-label>SKU</mat-label>
+                <input type="text" title="SKU" class="input sku" matInput [formField]="component.general.identifier.sku" />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>UPC</mat-label>
+                <input type="text" title="UPC" class="input upc" matInput [formField]="component.general.identifier.upc" />
+              </mat-form-field>
+            </fieldset>
+            <fieldset>
+              <legend>Flags</legend>
+              <div class="wrapper check">
+                <input type="checkbox" id="perishable" class="input perishable" [formField]="component.general.flags.perishable" />
+                <label for="perishable">Perishable</label>
+              </div><!-- .wrapper -->
+              <div class="wrapper check">
+                <input type="checkbox" id="flammable" class="input flammable" [formField]="component.general.flags.flammable" />
+                <label for="flammable">Flammable</label>
+              </div><!-- .wrapper -->
+              <div class="wrapper check">
+                <input type="checkbox" id="hazardous" class="input hazardous" [formField]="component.general.flags.hazardous" />
+                <label for="hazardous">Hazardous</label>
+              </div><!-- .wrapper -->
+              <div class="wrapper check">
+                <input type="checkbox" id="esd_sensitive" class="input esd_sensitive" [formField]="component.general.flags.esd_sensitive" />
+                <label for="esd_sensitive">ESD sensitive</label>
+              </div><!-- .wrapper -->
+            </fieldset>
+          </form>
+        </mat-tab>
+        <mat-tab label="Locations">
+          <ng-template matTabContent>
+            <div class="wrapper locations">
+              <form class="form item general" method="post" action="" (submit)="on_locations_submit($event)">
+                <div class="actions">
+                  <mat-toolbar>
+                    <button type="submit" title="Save" class="btn save" mat-icon-button>
+                      <mat-icon>save</mat-icon>
+                    </button>
+                  </mat-toolbar>
+                </div><!-- .actions -->
+                <fieldset>
+                  <legend>Locations</legend>
+                  <div class="wrapper table">
+                    <table class="locations">
+                      <caption>Locations</caption>
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>Name</th>
+                          <th>Location</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tfoot></tfoot>
+                      <tbody>
+                        @for (l of component.locations.locations; let even = $even; track l.location.location_id) {
+                          <tr>
+                            <td>
+                              <input type="checkbox" title="Select Item" class="input select-item" />
+                            </td>
+                            <td>{{ l.location.name().value() }}</td>
+                            <td>{{ l.location.description().value() }}</td>
+                            <td></td>
+                          </tr>
+                        }
+                      </tbody>
+                    </table>
+                  </div><!-- .wrapper -->
+                </fieldset>
+              </form>
+            </div><!-- .wrapper -->
+          </ng-template>
+        </mat-tab>
+        <mat-tab label="Substitutes">
+          <ng-template matTabContent>
+            <div class="wrapper substitutes">
+              <form class="form substitutes" method="post" action="" (submit)="on_substitutes_submit($event)">
+                <div class="actions">
+                  <mat-toolbar>
+                    <button type="submit" title="Save" class="btn save" mat-icon-button>
+                      <mat-icon>save</mat-icon>
+                    </button>
+                  </mat-toolbar>
+                </div><!-- .actions -->
+                <fieldset>
+                  <legend>Substitutes</legend>
+                  <div class="wrapper table">
+                    <table class="substitutes">
+                      <caption>Substitutes</caption>
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>Name</th>
+                          <th>Description</th>
+                        </tr>
+                      </thead>
+                      <tfoot></tfoot>
+                      <tbody></tbody>
+                    </table>
+                  </div><!-- .wrapper -->
+                </fieldset>
+              </form>
+            </div><!-- .wrapper -->
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+    </div><!-- .wrapper -->
+  </div><!-- .wrapper -->
+</div><!-- .component -->

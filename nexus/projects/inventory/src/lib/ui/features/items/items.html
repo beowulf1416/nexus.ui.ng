@@ -35,13 +35,29 @@
           <caption>Items</caption>
           <thead>
             <tr>
-              <th></th>
+              <th>
+                <input type="checkbox" title="Select All" class="input select-all" (change)="on_select_all($event)" />
+              </th>
               <th>Name</th>
               <th>Description</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tfoot></tfoot>
-          <tbody></tbody>
+          <tbody>
+            @for(item of component.form.items; let even = $even; track item.item.item_id) {
+              <tr class="item" [class]="even ? 'even' : 'odd'">
+                <td>
+                  <input type="checkbox" title="Select Item" class="input select-item" />
+                </td>
+                <td>{{ item.item.name().value() }}</td>
+                <td>{{ item.item.description().value() }}</td>
+                <td>
+                  <a title="Edit" class="action edit" [routerLink]="[item.item.item_id().value()]">edit</a>
+                </td>
+              </tr>
+            }
+          </tbody>
         </table>
       </div><!-- .wrapper -->
     </form>

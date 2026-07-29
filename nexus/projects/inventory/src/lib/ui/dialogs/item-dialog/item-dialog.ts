@@ -25,7 +25,11 @@ export class ItemDialog {
     name: '',
     description: '',
     sku: '',
-    upc: ''
+    upc: '',
+    perishable: false,
+    flammable: false,
+    hazardous: false,
+    esd_sensitive: false,
   });
 
   component = {
@@ -65,7 +69,11 @@ export class ItemDialog {
         name: model.name,
         description: model.description,
         sku: model.sku,
-        upc: model.upc
+        upc: model.upc,
+        perishable: model.perishable,
+        flammable: model.flammable,
+        hazardous: model.hazardous,
+        esd_sensitive: model.esd_sensitive,
       };
 
       this.is.item_save(item).subscribe({
