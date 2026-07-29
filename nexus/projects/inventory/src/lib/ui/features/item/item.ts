@@ -12,6 +12,7 @@ import { NotificationService } from 'core';
 import { LocationData } from '../../../models/location-data';
 import { ItemData } from '../../../models/item-data';
 import { ActivatedRoute } from '@angular/router';
+import { LocationSelector } from '../../components/location-selector/location-selector';
 
 
 class LocationRow {
@@ -31,7 +32,8 @@ class LocationRow {
     MatToolbarModule,
     MatTabsModule,
     MatFormFieldModule,
-    FormField
+    FormField,
+    LocationSelector
   ],
   templateUrl: './item.html',
   styleUrl: './item.css',
@@ -55,6 +57,10 @@ export class Item implements OnInit {
   locations = signal({
     filter: '',
     locations: new Array<LocationRow>(),
+    new_location: {
+      location_id: '',
+      quantity: 0
+    }
   });
   substitutes = signal({
     filter: '',

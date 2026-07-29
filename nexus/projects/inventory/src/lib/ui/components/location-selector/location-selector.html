@@ -1,1 +1,10 @@
-<p>location-selector works!</p>
+<div class="component location-selector">
+  <button type="button" [title]="title()" class="btn location-selector" [(value)]="value" (click)="on_click($event)" matFab extended>
+    <mat-icon>
+      <span class="material-symbols-outlined">
+      location_on
+      </span>
+    </mat-icon>
+    <span>{{ title() }}</span>
+  </button>
+</div><!-- .component -->

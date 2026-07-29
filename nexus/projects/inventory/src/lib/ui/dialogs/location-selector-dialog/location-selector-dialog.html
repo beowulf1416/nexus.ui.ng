@@ -1,0 +1,98 @@
+<div class="component location-selector-dialog">
+  <div class="wrapper form">
+    <form class="location-selector-dialog" method="post" action="" (submit)="on_submit($event)">
+      <h3 mat-dialog-title>Select Location</h3>
+      <mat-dialog-content>
+        <div class="errors">
+          @if(component.form.warehouse_id().touched() && component.form.warehouse_id().invalid()) {
+            @for(error of component.form.warehouse_id().errors(); track error) {
+              <mat-error>{{ error.message }}</mat-error>
+            }
+          }
+          @if(component.form.selected().touched() && component.form.selected().invalid()) {
+            @for(error of component.form.selected().errors(); track error) {
+              <mat-error>{{ error.message }}</mat-error>
+            }
+          }
+        </div><!-- .errors -->
+        <div class="wrapper actions">
+          <mat-toolbar>
+            <mat-toolbar-row>
+              <warehouse-selector [formField]="component.form.warehouse_id"></warehouse-selector>
+            </mat-toolbar-row>
+            <mat-toolbar-row>
+              <mat-form-field appearance="outline">
+                <mat-label>Search</mat-label>
+                <input type="search" title="Search" class="input search" matInput [formField]="component.form.filter" />
+                <button type="button" title="Search" class="btn search" mat-icon-button matSuffix (click)="on_search($event)">
+                  <mat-icon>search</mat-icon>
+                </button>
+                <button type="button" title="clear" class="btn clear" mat-icon-button matSuffix (click)="on_clear($event)">
+                  <mat-icon>close_small</mat-icon>
+                </button>
+              </mat-form-field>
+            </mat-toolbar-row>
+          </mat-toolbar>
+        </div><!-- .wrapper -->
+        <div class="wrapper matches">
+          <table class="matches">
+            <caption>Matches</caption>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tfoot></tfoot>
+            <tbody>
+              @for(m of component.form.matches; let even = $even; track m.location.location_id){
+              <tr>
+                <td>
+                  <input type="checkbox" title="Select Item" class="input select-item" [formField]="m.selected" />
+                </td>
+                <td>{{ m.location.name }}</td>
+                <td></td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div><!-- .wrapper -->
+        <div class="wrapper selected">
+          <table class="selected">
+            <caption>Selected</caption>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tfoot></tfoot>
+            <tbody>
+              @for(s of component.form.selected; let even = $even; track s.location.location_id){
+              <tr>
+                <td>
+                  <input type="checkbox" title="Select Item" class="input select-item" [formField]="s.selected" />
+                </td>
+                <td>{{ s.location.name }}</td>
+                <td></td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div><!-- .wrapper -->
+      </mat-dialog-content>
+      <mat-dialog-actions>
+        <button type="button" title="Cancel" class="btn cancel" matFab extended (click)="on_cancel($event)">
+          <mat-icon>cancel</mat-icon>
+          <span>Cancel</span>
+        </button>
+        <button type="submit" title="Select" class="btn select" matFab extended [disabled]="component.form().invalid()">
+          <mat-icon>select</mat-icon>
+          <span>Select</span>
+        </button>
+      </mat-dialog-actions>
+    </form>
+  </div><!-- .wrapper -->
+</div><!-- .component -->

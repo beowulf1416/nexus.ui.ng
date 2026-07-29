@@ -78,7 +78,18 @@
                           <th>Actions</th>
                         </tr>
                       </thead>
-                      <tfoot></tfoot>
+                      <tfoot>
+                        <tr>
+                          <td></td>
+                          <td><location-selector></location-selector></td>
+                          <td>
+                            <mat-form-field appearance="outline">
+                              <mat-label>Quantity</mat-label>
+                              <input type="number" title="Quantity" class="input quantity" matInput [formField]="component.locations.new_location.quantity" />
+                            </mat-form-field>
+                          </td>
+                        </tr>
+                      </tfoot>
                       <tbody>
                         @for (l of component.locations.locations; let even = $even; track l.location.location_id) {
                           <tr>
@@ -118,10 +129,11 @@
                         <tr>
                           <th></th>
                           <th>Name</th>
-                          <th>Description</th>
+                          <th>Quantity</th>
                         </tr>
                       </thead>
-                      <tfoot></tfoot>
+                      <tfoot>
+                      </tfoot>
                       <tbody></tbody>
                     </table>
                   </div><!-- .wrapper -->
