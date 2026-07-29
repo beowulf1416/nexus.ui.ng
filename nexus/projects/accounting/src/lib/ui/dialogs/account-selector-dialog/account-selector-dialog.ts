@@ -74,7 +74,7 @@ export class AccountSelectorDialog {
       const filter = model.filter;
       const tenant_id = this.user_service.current_user().tenant.id;
 
-      this.acctg_service.accounts_fetch_filtered(tenant_id, this.data?.account_type ?? 1,filter).subscribe({
+      this.acctg_service.accounts_fetch_filtered(tenant_id, this.data?.account_type ?? 1, filter).subscribe({
         next: (r: Array<AccountItem>) => {
           this.model.update((m) => ({
             ...m,
