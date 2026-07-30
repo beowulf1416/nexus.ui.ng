@@ -4,6 +4,8 @@ import { LocationSelectorDialog } from '../../dialogs/location-selector-dialog/l
 import { FormValueControl } from '@angular/forms/signals';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { LocationData } from '../../../models/location-data';
+import { Uuid } from 'core';
 
 @Component({
   selector: 'location-selector',
@@ -42,9 +44,13 @@ export class LocationSelector implements FormValueControl<string>, OnInit {
       position: { top: '1em', right: '1em' }
     });
     dr.afterClosed().subscribe({
-      next: (result) => {
+      next: (result: LocationData) => {
         if (result) {
-          this.model.set(result);
+          const model = {
+            location_id: result.location_id instanceof Uuid ? result.location_id.to_string() : result.location_id,
+            name: result.name
+          };
+          this.model.set(model);
         }
       },
       error: (e) => {

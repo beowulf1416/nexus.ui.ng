@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { LocationData } from '../../../models/location-data';
 import { form, FormField, required, submit, validate } from '@angular/forms/signals';
 import { MatIconModule } from '@angular/material/icon';
@@ -45,16 +45,20 @@ export class LocationSelectorDialog {
   component = {
     form: form(this.model, (f) => {
       required(f.warehouse_id, { message: 'Warehouse is required'});
-      validate(f.selected, ({value}) => {
-        console.debug(value());
+      // validate(f.selected, ({value}) => {
+      //   console.debug(value());
 
-        return {
-          kind: 'location-selector',
-          message: 'Please select a location',
-        };
-      })
+      //   return {
+      //     kind: 'location-selector',
+      //     message: 'Please select a location',
+      //   };
+      // })
     })
   };
+
+  select_button_disabled = computed(() => {
+    return this.model().selected.length == 0;
+  })
 
   private dr = inject(MatDialogRef<LocationSelectorDialog>);
   private ls = inject(LocationsService);
@@ -64,7 +68,7 @@ export class LocationSelectorDialog {
   on_submit(event: Event): void {
     event.preventDefault();
 
-    console.info('on_submit');
+    this.dr.close(this.model().selected[0].location);
   }
 
   on_search(event: Event): void {
@@ -85,7 +89,7 @@ export class LocationSelectorDialog {
 
   filter(): void {
     console.info('filter');
-    submit(this.component.form, async () => {
+    // submit(this.component.form, async () => {
       const model = this.model();
       const filter = model.filter;
       const warehouse_id = model.warehouse_id;
@@ -99,6 +103,36 @@ export class LocationSelectorDialog {
           console.error(e);
         },
       });
-    });
+    // });
+  }
+
+  on_select_item(event: Event, i: number): void {
+    event.preventDefault();
+
+    const model = this.model();
+    const selected = model.matches[i];
+    const selected_items = model.selected.concat(selected);
+    const matched_items = model.matches.toSpliced(i, 1);
+
+    this.model.update((m) => ({
+      ...m,
+      selected: selected_items,
+      matches: matched_items,
+    }));
+  }
+
+  on_deselect_item(event: Event, i: number): void {
+    event.preventDefault();
+
+    const model = this.model();
+    const selected = model.selected[i];
+    const selected_items = model.selected.toSpliced(i, 1);
+    const matched_items = model.matches.concat(selected);
+
+    this.model.update((m) => ({
+      ...m,
+      selected: selected_items,
+      matches: matched_items,
+    }));
   }
 }

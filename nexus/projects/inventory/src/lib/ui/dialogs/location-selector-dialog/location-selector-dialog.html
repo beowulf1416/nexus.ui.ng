@@ -34,30 +34,6 @@
             </mat-toolbar-row>
           </mat-toolbar>
         </div><!-- .wrapper -->
-        <div class="wrapper matches">
-          <table class="matches">
-            <caption>Matches</caption>
-            <thead>
-              <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tfoot></tfoot>
-            <tbody>
-              @for(m of component.form.matches; let even = $even; track m.location.location_id){
-              <tr>
-                <td>
-                  <input type="checkbox" title="Select Item" class="input select-item" [formField]="m.selected" />
-                </td>
-                <td>{{ m.location.name }}</td>
-                <td></td>
-              </tr>
-              }
-            </tbody>
-          </table>
-        </div><!-- .wrapper -->
         <div class="wrapper selected">
           <table class="selected">
             <caption>Selected</caption>
@@ -70,13 +46,45 @@
             </thead>
             <tfoot></tfoot>
             <tbody>
-              @for(s of component.form.selected; let even = $even; track s.location.location_id){
+              @for(s of component.form.selected; let even = $even; let i = $index;track s.location.location_id){
               <tr>
                 <td>
-                  <input type="checkbox" title="Select Item" class="input select-item" [formField]="s.selected" />
+                  <button type="button" title="Remove Item" class="input remove-item" mat-icon-button (click)="on_deselect_item($event, i)">
+                    <mat-icon>
+                      <span class="material-symbols-outlined">select</span>
+                    </mat-icon>
+                  </button>
                 </td>
-                <td>{{ s.location.name }}</td>
-                <td></td>
+                <td>{{ s.location.name().value() }}</td>
+                <td>{{ s.location.description().value() }}</td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div><!-- .wrapper -->
+        <div class="wrapper matches">
+          <table class="matches">
+            <caption>Matches</caption>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tfoot></tfoot>
+            <tbody>
+              @for(m of component.form.matches; let even = $even; let i = $index;track m.location.location_id){
+              <tr>
+                <td>
+                  <button type="button" title="Select Item" class="input select-item" mat-icon-button (click)="on_select_item($event, i)">
+                    <mat-icon>
+                      <span class="material-symbols-outlined">select</span>
+                    </mat-icon>
+                  </button>
+                </td>
+                <td>{{ m.location.name().value() }}</td>
+                <td>{{ m.location.description().value() }}</td>
               </tr>
               }
             </tbody>
@@ -88,8 +96,8 @@
           <mat-icon>cancel</mat-icon>
           <span>Cancel</span>
         </button>
-        <button type="submit" title="Select" class="btn select" matFab extended [disabled]="component.form().invalid()">
-          <mat-icon>select</mat-icon>
+        <button type="submit" title="Select" class="btn select" matFab extended [disabled]="select_button_disabled()">
+          <mat-icon>check_circle</mat-icon>
           <span>Select</span>
         </button>
       </mat-dialog-actions>

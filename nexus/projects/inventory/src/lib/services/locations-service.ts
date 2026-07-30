@@ -21,6 +21,7 @@ export class LocationsService {
   }
 
   locations_fetch(warehouse_id: Uuid, filter: string): Observable<LocationData[]> {
+    console.info('locations_fetch');
     return this.http.post<ApiResponse>(
       URLS.locations_fetch,
       {
