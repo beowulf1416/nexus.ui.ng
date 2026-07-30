@@ -104,4 +104,9 @@ export class Item implements OnInit {
     event.preventDefault();
     console.info('on_locations_submit');
   }
+
+  on_new_location(event: Event): void {
+    event.preventDefault();
+    console.info('on_new_location');
+  }
 }

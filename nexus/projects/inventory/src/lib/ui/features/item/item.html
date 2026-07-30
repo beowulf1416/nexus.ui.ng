@@ -85,8 +85,15 @@
                           <td>
                             <mat-form-field appearance="outline">
                               <mat-label>Quantity</mat-label>
-                              <input type="number" title="Quantity" class="input quantity" matInput [formField]="component.locations.new_location.quantity" />
+                              <input type="number" title="Quantity" class="input quantity"
+                                step="any"
+                                inputmode="decimal" matInput [formField]="component.locations.new_location.quantity" />
                             </mat-form-field>
+                          </td>
+                          <td>
+                            <button type="button" title="Add" class="btn add" mat-icon-button (click)="on_new_location($event)">
+                              <mat-icon>add</mat-icon>
+                            </button>
                           </td>
                         </tr>
                       </tfoot>

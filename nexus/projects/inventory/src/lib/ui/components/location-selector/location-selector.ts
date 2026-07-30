@@ -46,11 +46,13 @@ export class LocationSelector implements FormValueControl<string>, OnInit {
     dr.afterClosed().subscribe({
       next: (result: LocationData) => {
         if (result) {
+          const location_id = result.location_id instanceof Uuid ? result.location_id.to_string() : result.location_id;
           const model = {
-            location_id: result.location_id instanceof Uuid ? result.location_id.to_string() : result.location_id,
+            location_id: location_id,
             name: result.name
           };
           this.model.set(model);
+          this.value.set(location_id);
         }
       },
       error: (e) => {

@@ -1,0 +1,29 @@
+<div class="component transactions">
+  <div class="wrapper form">
+    <form class="transactions" method="post" action="">
+      <mat-toolbar>
+        <mat-menu #mnu_transactions="matMenu">
+          <a title="Purchase Order" class="purchase-order" [routerLink]="['po']" mat-menu-item>
+            <mat-icon>add</mat-icon>
+            <span>Purchase Order</span>
+          </a>
+          <a title="Receiving" class="receiving" [routerLink]="['receiving']" mat-menu-item>
+            <mat-icon>receiving</mat-icon>
+            <span>Receiving</span>
+          </a>
+        </mat-menu>
+        <button type="button" [matMenuTriggerFor]="mnu_transactions" class="btn menu" mat-icon-button>
+          <mat-icon>menu</mat-icon>
+        </button>
+      </mat-toolbar>
+      <div class="wrapper">
+        <table class="transactions">
+          <caption>Transactions</caption>
+          <thead>
+
+          </thead>
+        </table>
+      </div><!-- .wrapper -->
+    </form>
+  </div><!-- .wrapper -->
+</div><!-- .component -->

@@ -5,12 +5,14 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { AppHeader } from 'core';
 import { SidebarLeft } from '../../components/sidebar-left/sidebar-left';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'lib-home',
   imports: [
     RouterOutlet,
     MatIconModule,
+    MatButtonModule,
     AppHeader,
     SidebarLeft,
     MatSidenavModule

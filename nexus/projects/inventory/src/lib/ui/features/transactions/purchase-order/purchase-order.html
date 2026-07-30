@@ -1,0 +1,53 @@
+<div class="component purchase-order">
+  <div class="wrapper form">
+    <form class="purchase-order" method="post" action="" (submit)="on_submit($event)">
+      <fieldset>
+        <legend>General Information</legend>
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea title="Description" class="input description" matInput [formField]="component.form.description"></textarea>
+        </mat-form-field>
+      </fieldset>
+      <fieldset>
+        <legend>Items</legend>
+        <div class="wrapper table">
+          <table>
+            <caption>Items</caption>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Dimension</th>
+                <th>UOM</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <td></td>
+                <td>
+                  <item-selector [formField]="component.form.new_item.item_id"></item-selector>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Quantity</mat-label>
+                    <input type="number" title="Ordered" inputmode="decimal" increment="0.01" class="input ordered" matInput [formField]="component.form.new_item.quantity"/>
+                  </mat-form-field>
+                </td>
+                <td>
+                  <uom-selector [formField]="component.form.new_item.uom_id"></uom-selector>
+                </td>
+                <td>
+                  <button type="button" title="Add" class="btn add" mat-icon-button [disabled]="new_item_invalid()"><mat-icon>add</mat-icon></button>
+                </td>
+              </tr>
+            </tfoot>
+            <tbody>
+
+            </tbody>
+          </table>
+        </div><!-- .wrapper table -->
+      </fieldset>
+    </form>
+  </div><!-- .wrapper -->
+</div><!-- .component -->

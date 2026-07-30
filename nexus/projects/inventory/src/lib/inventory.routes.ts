@@ -31,6 +31,16 @@ export const routes: Routes = [
         title: 'Item',
         loadComponent: () => import('./ui/features/item/item').then((m) => m.Item),
       },
+      {
+        path: 'transactions',
+        title: 'Transactions',
+        loadComponent: () => import('./ui/features/transactions/transactions').then((m) => m.Transactions),
+      },
+      {
+        path: 'transactions/po',
+        title: 'Purchase Orders',
+        loadComponent: () => import('./ui/features/transactions/purchase-order/purchase-order').then((m) => m.PurchaseOrder),
+      },
     ],
   },
 ];
