@@ -17,7 +17,7 @@ export const URLS = {
 
   fetch_currencies: `${BASE_URL}/currencies`,
   fetch_countries: `${BASE_URL}/common/countries`,
-  fetch_uoms: `${BASE_URL}/uoms`,
-  fetch_uoms_by_dimension: `${BASE_URL}/uoms/dimension/`,
-  fetch_dimensions: `${BASE_URL}/dimensions`,
+  fetch_uoms: `${BASE_URL}/common/uoms`,
+  fetch_uoms_by_dimension: `${BASE_URL}/common/uoms/dimension`,
+  fetch_dimensions: `${BASE_URL}/common/dimensions`,
 };

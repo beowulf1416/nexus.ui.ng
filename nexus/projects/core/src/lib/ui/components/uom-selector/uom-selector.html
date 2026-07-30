@@ -1,0 +1,18 @@
+<div class="component uom-selector">
+  <mat-form-field appearance="outline">
+    <mat-label>Dimension</mat-label>
+    <mat-select required [disabled]="dimensions_loading()" (selectionChange)="on_selection_change($event)">
+      @for(d of dimensions(); track d.dimension_id) {
+        <mat-option [value]="d.dimension_id">{{ d.name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>UOM</mat-label>
+    <mat-select [(value)]="value" [disabled]="uoms_loading()">
+      @for(u of uoms(); track u.uom_id) {
+        <mat-option [value]="u.uom_id">{{ u.name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</div>

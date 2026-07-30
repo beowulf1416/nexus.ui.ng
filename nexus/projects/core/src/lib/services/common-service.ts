@@ -103,7 +103,7 @@ export class CommonService {
     );
   }
 
-  fetch_uoms_by_dimension(dimension_id: string): Observable<Uom> {
+  fetch_uoms_by_dimension(dimension_id: number): Observable<Uom[]> {
     console.info('fetch_uoms_by_dimension');
 
     return this.http
@@ -115,9 +115,9 @@ export class CommonService {
           if (r.success && r.data) {
             const uom = (
               r.data as {
-                uom: Uom;
+                uoms: Array<Uom>;
               }
-            ).uom;
+            ).uoms;
             return uom;
           }
           // return new Uom(0, '');
