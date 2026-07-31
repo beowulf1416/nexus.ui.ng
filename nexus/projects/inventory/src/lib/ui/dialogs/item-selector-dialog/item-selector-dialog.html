@@ -1,0 +1,85 @@
+<div class="component item-selector-dialog">
+  <div class="wrapper form">
+    <form class="item-selector-dialog" method="post" action="" (submit)="on_submit($event)">
+      <h3 mat-dialog-title>Select Item</h3>
+      <mat-dialog-content>
+        <div class="wrapper filter">
+          <mat-form-field appearance="outline">
+            <mat-label>Filter</mat-label>
+            <input type="search" title="Search" class="input search" matInput [formField]="component.form.filter" />
+            <button type="button" title="Search" class="btn search" mat-icon-button matSuffix (click)="on_search($event)">
+              <mat-icon>search</mat-icon>
+            </button>
+            <button type="button" title="Clear" class="btn clear" mat-icon-button matSuffix (click)="on_clear($event)">
+              <mat-icon>close_small</mat-icon>
+            </button>
+          </mat-form-field>
+        </div><!-- .wrapper -->
+        <div class="wrapper table">
+          <table class="selected">
+            <caption>Selected Items</caption>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tfoot></tfoot>
+            <tbody>
+              @for(s of component.form.selected; let even = $even; let i = $index; track s.item.item_id){
+              <tr>
+                <td>
+                  <button type="button" title="Remove Item" class="btn remove-item" (click)="on_remove_item($event, i)" mat-icon-button>
+                    <mat-icon>
+                      <span class="material-symbols-outlined">remove_selection</span>
+                    </mat-icon>
+                  </button>
+                </td>
+                <td>{{ s.item.name().value() }}</td>
+                <td>{{ s.item.description().value() }}</td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div><!-- .wrapper -->
+        <div class="wrapper table">
+          <table class="selected">
+            <caption>Matched Items</caption>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tfoot></tfoot>
+            <tbody>
+              @for(m of component.form.matches; let even = $even; let i = $index; track m.item.item_id){
+              <tr>
+                <td>
+                  <button type="button" title="Select Item" class="btn select-item" (click)="on_select_item($event, i)" mat-icon-button>
+                    <mat-icon>
+                      <span class="material-symbols-outlined">select</span>
+                    </mat-icon>
+                  </button>
+                </td>
+                <td>{{ m.item.name().value() }}</td>
+                <td>{{ m.item.description().value() }}</td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div><!-- .wrapper -->
+      </mat-dialog-content>
+      <mat-dialog-actions>
+        <button type="button" title="Cancel" class="btn cancel" matFab extended (click)="on_cancel($event)">
+          <mat-icon>cancel</mat-icon>
+          <span>Cancel</span>
+        </button>
+        <button type="submit" title="Select" class="btn select" matFab extended [disabled]="component.form().invalid()">
+          <mat-icon>check_circle</mat-icon>
+          <span>Select</span>
+        </button>
+      </mat-dialog-actions>
+    </form>
+  </div><!-- .wrapper -->
+</div><!-- .component -->

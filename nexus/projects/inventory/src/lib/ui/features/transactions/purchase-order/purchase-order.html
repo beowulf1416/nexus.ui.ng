@@ -16,18 +16,31 @@
             <thead>
               <tr>
                 <th></th>
+                <th>Name</th>
                 <th>Description</th>
                 <th>Quantity</th>
-                <th>Dimension</th>
                 <th>UOM</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tfoot>
               <tr>
-                <td></td>
-                <td>
-                  <item-selector [formField]="component.form.new_item.item_id"></item-selector>
+                <td colspan="2">
+                  <item-selector (items_selected)="on_items_selected($event)"></item-selector>
                 </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tfoot>
+            <tbody>
+              @for(item of component.form.items; let even = $even; let i = $index; track item.item.item_id){
+              <tr>
+                <td></td>
+                <td>{{ item.item.name().value() }}</td>
+                <td>{{ item.item.description().value() }}</td>
                 <td>
                   <mat-form-field appearance="outline">
                     <mat-label>Quantity</mat-label>
@@ -38,12 +51,12 @@
                   <uom-selector [formField]="component.form.new_item.uom_id"></uom-selector>
                 </td>
                 <td>
-                  <button type="button" title="Add" class="btn add" mat-icon-button [disabled]="new_item_invalid()"><mat-icon>add</mat-icon></button>
+                  <button type="button" title="Remove Item" class="btn remove-item" mat-icon-button>
+                    <mat-icon>remove</mat-icon>
+                  </button>
                 </td>
               </tr>
-            </tfoot>
-            <tbody>
-
+              }
             </tbody>
           </table>
         </div><!-- .wrapper table -->
