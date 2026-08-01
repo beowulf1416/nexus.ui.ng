@@ -8,6 +8,7 @@ import { UomSelector } from 'core';
 import { form, FormField, required } from '@angular/forms/signals';
 import { ItemSelector } from '../../../components/item-selector/item-selector';
 import { ItemData } from '../../../../models/item-data';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 
 class ItemOrderRow {
@@ -26,6 +27,7 @@ class ItemOrderRow {
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
+    MatToolbarModule,
     FormField,
     // LocationSelector,
     UomSelector,

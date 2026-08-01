@@ -1,6 +1,13 @@
 <div class="component purchase-order">
   <div class="wrapper form">
     <form class="purchase-order" method="post" action="" (submit)="on_submit($event)">
+      <div class="wrapper actions">
+        <mat-toolbar>
+          <button type="submit" title="Save" class="btn save" mat-icon-button>
+            <mat-icon>save</mat-icon>
+          </button>
+        </mat-toolbar>
+      </div><!-- .wrapper -->
       <fieldset>
         <legend>General Information</legend>
         <mat-form-field appearance="outline">
@@ -25,7 +32,7 @@
             </thead>
             <tfoot>
               <tr>
-                <td colspan="2">
+                <td colspan="3">
                   <item-selector (items_selected)="on_items_selected($event)"></item-selector>
                 </td>
                 <td></td>
