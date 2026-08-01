@@ -90,7 +90,10 @@ export class ItemSelectorDialog {
 
   on_select_item(event: Event, i: number): void {
     event.preventDefault();
+
     const matched_item = this.model().matches[i];
+    console.debug(matched_item);
+
     const selected = this.model().selected.concat(matched_item);
     const matches = this.model().matches.toSpliced(i, 1);
     this.model.update((m) => ({

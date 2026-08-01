@@ -26,7 +26,7 @@
             </thead>
             <tfoot></tfoot>
             <tbody>
-              @for(s of component.form.selected; let even = $even; let i = $index; track s.item.item_id){
+              @for(s of component.form.selected; let even = $even; let i = $index; track $index){
               <tr>
                 <td>
                   <button type="button" title="Remove Item" class="btn remove-item" (click)="on_remove_item($event, i)" mat-icon-button>
@@ -53,7 +53,7 @@
             </thead>
             <tfoot></tfoot>
             <tbody>
-              @for(m of component.form.matches; let even = $even; let i = $index; track m.item.item_id){
+              @for(m of component.form.matches; let even = $even; let i = $index; track $index){
               <tr>
                 <td>
                   <button type="button" title="Select Item" class="btn select-item" (click)="on_select_item($event, i)" mat-icon-button>

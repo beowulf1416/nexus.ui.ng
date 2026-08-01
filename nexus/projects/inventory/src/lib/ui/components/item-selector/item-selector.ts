@@ -49,8 +49,10 @@ export class ItemSelector implements OnInit {
     });
     dr.afterClosed().subscribe({
       next: (result: Array<ItemData>) => {
-        console.debug(result);
-        this.items_selected.emit(result);
+        if (result) {
+          console.debug(result);
+          this.items_selected.emit(result);
+        }
       },
       error: (e: any) => {
         console.error(e);
