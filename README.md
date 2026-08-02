@@ -18,29 +18,18 @@ The Nexus ERP platform consists of several independent projects:
 
 ## Features
 
-- Angular 19
-- Standalone components
-- Angular Signal Forms
-- Responsive user interface
-- Modular feature architecture
-- Authentication support
-- REST API integration
-- Enterprise-ready component library
-- Tree and hierarchical data components
-- SVG icon support
-- Type-safe TypeScript codebase
+- Accounting
+- Inventory Management
+- Manufacturing
+- Work Management
 
 ---
 
 ## Technology Stack
 
-- Angular 19
-- TypeScript
-- RxJS
-- Angular Signals
-- Angular Signal Forms
-- SCSS
-- REST API
+- Angular Framework
+- Rust-based backend
+- PostgreSQL database
 
 ---
 
