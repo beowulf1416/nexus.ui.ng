@@ -16,6 +16,14 @@
         </mat-form-field>
       </fieldset>
       <fieldset>
+        <div class="wrapper field block">
+          <organization-selector [formField]="component.form.org_id"></organization-selector>
+        </div><!-- .wrapper -->
+        <div class="wrapper field block">
+          <partner-selector [formField]="component.form.partner_id"></partner-selector>
+        </div><!-- .wrapper -->
+      </fieldset>
+      <fieldset>
         <legend>Items</legend>
         <div class="wrapper table">
           <table>
@@ -51,11 +59,13 @@
                 <td>
                   <mat-form-field appearance="outline">
                     <mat-label>Quantity</mat-label>
-                    <input type="number" title="Ordered" inputmode="decimal" increment="0.01" class="input ordered" matInput [formField]="component.form.new_item.quantity"/>
+                    <input type="number" title="Ordered"
+                      step="any"
+                      inputmode="decimal" class="input ordered" matInput [formField]="item.quantity"/>
                   </mat-form-field>
                 </td>
                 <td>
-                  <uom-selector [formField]="component.form.new_item.uom_id"></uom-selector>
+                  <uom-selector [formField]="item.uom_id"></uom-selector>
                 </td>
                 <td>
                   <button type="button" title="Remove Item" class="btn remove-item" mat-icon-button>

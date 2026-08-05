@@ -1,22 +1,26 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-// import { LocationSelector } from '../../../components/location-selector/location-selector';
 import { MatInputModule } from '@angular/material/input';
-import { UomSelector } from 'core';
-import { form, FormField, required } from '@angular/forms/signals';
+import { form, FormField, required, submit } from '@angular/forms/signals';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { ApiResponse, UomSelector, Uuid } from 'core';
 import { ItemSelector } from '../../../components/item-selector/item-selector';
 import { ItemData } from '../../../../models/item-data';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { OrganizationSelector } from 'organization-selector';
+import { PartnerSelector } from 'crm';
+import { PurchaseOrderService } from '../../../../services/purchase-order-service';
 
 
 class ItemOrderRow {
   constructor(
     readonly item: ItemData,
     public quantity: number,
-    public dimension_id: number,
-    public uom_id: number
+    // public dimension_id: string,
+    public uom_id: string
   ) { }
 }
 
@@ -31,20 +35,22 @@ class ItemOrderRow {
     FormField,
     // LocationSelector,
     UomSelector,
-    ItemSelector
+    ItemSelector,
+    OrganizationSelector,
+    PartnerSelector,
   ],
   templateUrl: './purchase-order.html',
   styleUrl: './purchase-order.css',
 })
-export class PurchaseOrder {
+export class PurchaseOrder implements OnInit {
   model = signal({
+    po_id: '',
+    po_date: new Date(),
+    version: 0,
     description: '',
+    org_id: '',
+    partner_id: '',
     items: new Array<ItemOrderRow>(),
-    new_item: {
-      item_id: '',
-      quantity: 0,
-      uom_id: '',
-    },
   });
 
   component = {
@@ -53,20 +59,64 @@ export class PurchaseOrder {
     })
   };
 
-  new_item_invalid = computed(() => {
-    const new_item = this.model().new_item;
-    return new_item.item_id == '' || new_item.quantity == 0 || new_item.uom_id == '';
-  });
+  private pos = inject(PurchaseOrderService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   constructor() { }
+
+  ngOnInit(): void {
+    const po_id = this.route.snapshot.paramMap.get('po_id');
+    if (po_id) {
+      console.info('//todo');
+    } else {
+      this.model.update((m) => {
+        return {
+          ...m,
+          po_id: new Uuid().to_string(),
+        };
+      })
+    }
+  }
 
   on_submit(event: Event): void {
     event.preventDefault();
 
+    submit(this.component.form, async () => {
+      const model = this.model();
+
+
+      const po = {
+        po_id: model.po_id,
+        po_date: model.po_date,
+        active: true,
+        version: model.version,
+        description: model.description,
+        org_id: model.org_id,
+        partner_id: model.partner_id,
+        items: model.items.map((i) => ({
+          item_id: i.item.item_id instanceof Uuid ? i.item.item_id.to_string() : i.item.item_id,
+          quantity: i.quantity,
+          uom_id: Number.parseInt(i.uom_id),
+        })),
+      };
+
+      this.pos.save(po).subscribe({
+        next: (r: ApiResponse) => {
+          if (r.success) {
+            this.router.navigate(['transactions']);
+          }
+        },
+        error: (e) => {
+          console.error(e);
+        }
+      });
+
+    });
   }
 
   on_items_selected(items: Array<ItemData>): void {
-    const new_items = this.model().items.concat(items.map((r) => new ItemOrderRow(r, 0, 0, 0)));
+    const new_items = this.model().items.concat(items.map((r) => new ItemOrderRow(r, 0, '')));
     this.model.update((m) => ({
       ...m,
       items: new_items

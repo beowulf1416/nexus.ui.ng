@@ -9,4 +9,6 @@ export const URLS = {
 
   item_save: `${BASE_URL}/inv/items/save`,
   items_fetch: `${BASE_URL}/inv/items/fetch`,
+
+  purchase_order_save: `${BASE_URL}/inv/transactions/po/save`,
 };
