@@ -30,9 +30,7 @@
               <tr>
                 <td>
                   <button type="button" title="Remove Item" class="btn remove-item" (click)="on_remove_item($event, i)" mat-icon-button>
-                    <mat-icon>
-                      <span class="material-symbols-outlined">remove_selection</span>
-                    </mat-icon>
+                    <mat-icon>arrow_circle_down</mat-icon>
                   </button>
                 </td>
                 <td>{{ s.item.name().value() }}</td>
@@ -57,9 +55,7 @@
               <tr>
                 <td>
                   <button type="button" title="Select Item" class="btn select-item" (click)="on_select_item($event, i)" mat-icon-button>
-                    <mat-icon>
-                      <span class="material-symbols-outlined">select</span>
-                    </mat-icon>
+                    <mat-icon>arrow_circle_up</mat-icon>
                   </button>
                 </td>
                 <td>{{ m.item.name().value() }}</td>
